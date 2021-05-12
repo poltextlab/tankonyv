@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="index.html"/>
-
+<link rel="next" href="alapfogalmak.html"/>
 <script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -53,6 +53,11 @@
 
 <link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
+<script src="libs/str_view-binding-1.4.0/str_view.js"></script>
 
 
 <style type="text/css">
@@ -157,7 +162,6 @@ div.csl-indent {
 
 <ul class="summary">
 <li><a href="./">Szövegbányászat R-ben</a></li>
-
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Üdvözöljük!</a></li>
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Bevezetés</a>
@@ -167,8 +171,109 @@ div.csl-indent {
 <li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#a-hunminer-használata"><i class="fa fa-check"></i><b>1.3</b> A HunMineR használata</a></li>
 <li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#köszönetnyilvánítás"><i class="fa fa-check"></i><b>1.4</b> Köszönetnyilvánítás</a></li>
 </ul></li>
-<li class="divider"></li>
-<li><a href="https://github.com/poltextlab/text_mining_with_r" target="blank">Forráskód a könyvhöz</a></li>
+<li class="chapter" data-level="2" data-path="alapfogalmak.html"><a href="alapfogalmak.html"><i class="fa fa-check"></i><b>2</b> Alapfogalmak</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="alapfogalmak.html"><a href="alapfogalmak.html#elméleti-alapok"><i class="fa fa-check"></i><b>2.1</b> Elméleti alapok</a></li>
+<li class="chapter" data-level="2.2" data-path="alapfogalmak.html"><a href="alapfogalmak.html#fogalmi-alapok"><i class="fa fa-check"></i><b>2.2</b> Fogalmi alapok</a></li>
+<li class="chapter" data-level="2.3" data-path="alapfogalmak.html"><a href="alapfogalmak.html#a-szövegbányászat-alapelvei"><i class="fa fa-check"></i><b>2.3</b> A szövegbányászat alapelvei</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="adatkezeles.html"><a href="adatkezeles.html"><i class="fa fa-check"></i><b>3</b> Az adatkezelés R-ben</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="adatkezeles.html"><a href="adatkezeles.html#adatok-importálása"><i class="fa fa-check"></i><b>3.1</b> Adatok importálása</a></li>
+<li class="chapter" data-level="3.2" data-path="adatkezeles.html"><a href="adatkezeles.html#adatok-exportálása"><i class="fa fa-check"></i><b>3.2</b> Adatok exportálása</a></li>
+<li class="chapter" data-level="3.3" data-path="adatkezeles.html"><a href="adatkezeles.html#a-pipe-operátor"><i class="fa fa-check"></i><b>3.3</b> A pipe operátor</a></li>
+<li class="chapter" data-level="3.4" data-path="adatkezeles.html"><a href="adatkezeles.html#műveletek-adattáblákkal"><i class="fa fa-check"></i><b>3.4</b> Műveletek adattáblákkal</a></li>
+<li class="chapter" data-level="3.5" data-path="adatkezeles.html"><a href="adatkezeles.html#munka-karakter-vektorokkaladatkezel-4"><i class="fa fa-check"></i><b>3.5</b> Munka karakter vektorokkal</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="corpus-ch.html"><a href="corpus-ch.html"><i class="fa fa-check"></i><b>4</b> Korpuszépítés és szövegelőkészítés</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="corpus-ch.html"><a href="corpus-ch.html#szövegbeszerzés"><i class="fa fa-check"></i><b>4.1</b> Szövegbeszerzés</a></li>
+<li class="chapter" data-level="4.2" data-path="corpus-ch.html"><a href="corpus-ch.html#szövegelőkészítés"><i class="fa fa-check"></i><b>4.2</b> Szövegelőkészítés</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="corpus-ch.html"><a href="corpus-ch.html#tokenizálás-szótövezés-kisbetűsítés-és-a-tiltólistás-szavak-eltávolítása"><i class="fa fa-check"></i><b>4.2.1</b> Tokenizálás, szótövezés, kisbetűsítés és a tiltólistás szavak eltávolítása</a></li>
+<li class="chapter" data-level="4.2.2" data-path="corpus-ch.html"><a href="corpus-ch.html#dokumentum-kifejezés-mátrix-dtm"><i class="fa fa-check"></i><b>4.2.2</b> Dokumentum kifejezés mátrix (DTM)</a></li>
+<li class="chapter" data-level="4.2.3" data-path="corpus-ch.html"><a href="corpus-ch.html#súlyozás"><i class="fa fa-check"></i><b>4.2.3</b> Súlyozás</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="leiro-stat.html"><a href="leiro-stat.html"><i class="fa fa-check"></i><b>5</b> Leíró statisztika</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="leiro-stat.html"><a href="leiro-stat.html#a-szövegek-a-vektortérben"><i class="fa fa-check"></i><b>5.1</b> A szövegek a vektortérben</a></li>
+<li class="chapter" data-level="5.2" data-path="leiro-stat.html"><a href="leiro-stat.html#leíró-statisztika"><i class="fa fa-check"></i><b>5.2</b> Leíró statisztika</a></li>
+<li class="chapter" data-level="5.3" data-path="leiro-stat.html"><a href="leiro-stat.html#a-szövegek-lexikai-diverzitása"><i class="fa fa-check"></i><b>5.3</b> A szövegek lexikai diverzitása</a></li>
+<li class="chapter" data-level="5.4" data-path="leiro-stat.html"><a href="leiro-stat.html#összehasonlításleiro-5"><i class="fa fa-check"></i><b>5.4</b> Összehasonlítás</a></li>
+<li class="chapter" data-level="5.5" data-path="leiro-stat.html"><a href="leiro-stat.html#kulcsszavak-kontextusa"><i class="fa fa-check"></i><b>5.5</b> Kulcsszavak kontextusa</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="sentiment.html"><a href="sentiment.html"><i class="fa fa-check"></i><b>6</b> Szótárak és érzelemelemzés</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="sentiment.html"><a href="sentiment.html#szótárak-az-r-ben"><i class="fa fa-check"></i><b>6.1</b> Szótárak az R-ben</a></li>
+<li class="chapter" data-level="6.2" data-path="sentiment.html"><a href="sentiment.html#magyar-nemzet-elemzése"><i class="fa fa-check"></i><b>6.2</b> <em>Magyar Nemzet</em> elemzése</a></li>
+<li class="chapter" data-level="6.3" data-path="sentiment.html"><a href="sentiment.html#mnb-sajtóközlemények"><i class="fa fa-check"></i><b>6.3</b> MNB sajtóközlemények</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="lda-ch.html"><a href="lda-ch.html"><i class="fa fa-check"></i><b>7</b> Felügyelet nélküli tanulás</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="lda-ch.html"><a href="lda-ch.html#k-közép-klaszterezés"><i class="fa fa-check"></i><b>7.1</b> K-közép klaszterezés</a></li>
+<li class="chapter" data-level="7.2" data-path="lda-ch.html"><a href="lda-ch.html#lda-topik-modelleklda1"><i class="fa fa-check"></i><b>7.2</b> LDA topik modellek</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="lda-ch.html"><a href="lda-ch.html#a-vem-módszer-alkalmazása-a-magyar-törvények-korpuszán"><i class="fa fa-check"></i><b>7.2.1</b> A VEM módszer alkalmazása a magyar törvények korpuszán</a></li>
+<li class="chapter" data-level="7.2.2" data-path="lda-ch.html"><a href="lda-ch.html#az-lda-gibbs-módszer-alkalmazása-a-magyar-törvények-korpuszán"><i class="fa fa-check"></i><b>7.2.2</b> Az LDA Gibbs módszer alkalmazása a magyar törvények korpuszán</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="lda-ch.html"><a href="lda-ch.html#strukturális-topik-modellek"><i class="fa fa-check"></i><b>7.3</b> Strukturális topik modellek</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="embedding.html"><a href="embedding.html"><i class="fa fa-check"></i><b>8</b> Szóbeágyazások</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="embedding.html"><a href="embedding.html#a-szóbeágyazás-célja"><i class="fa fa-check"></i><b>8.1</b> A szóbeágyazás célja</a></li>
+<li class="chapter" data-level="8.2" data-path="embedding.html"><a href="embedding.html#word2vec-és-glove"><i class="fa fa-check"></i><b>8.2</b> Word2Vec és GloVe</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="embedding.html"><a href="embedding.html#glove-használata-magyar-média-korpuszon"><i class="fa fa-check"></i><b>8.2.1</b> GloVe használata magyar média korpuszon</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="scaling.html"><a href="scaling.html"><i class="fa fa-check"></i><b>9</b> Szövegskálázás</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="scaling.html"><a href="scaling.html#áttekintés"><i class="fa fa-check"></i><b>9.1</b> Áttekintés</a></li>
+<li class="chapter" data-level="9.2" data-path="scaling.html"><a href="scaling.html#wordfish"><i class="fa fa-check"></i><b>9.2</b> Wordfish</a></li>
+<li class="chapter" data-level="9.3" data-path="scaling.html"><a href="scaling.html#wordscores"><i class="fa fa-check"></i><b>9.3</b> Wordscores</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="similarity.html"><a href="similarity.html"><i class="fa fa-check"></i><b>10</b> Szövegösszehasonlítás</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="similarity.html"><a href="similarity.html#a-szövegösszehasonlítás-különböző-megközelítései"><i class="fa fa-check"></i><b>10.1</b> A szövegösszehasonlítás különböző megközelítései</a></li>
+<li class="chapter" data-level="10.2" data-path="similarity.html"><a href="similarity.html#lexikális-hasonlóság"><i class="fa fa-check"></i><b>10.2</b> Lexikális hasonlóság</a></li>
+<li class="chapter" data-level="10.3" data-path="similarity.html"><a href="similarity.html#szemantikai-hasonlóság"><i class="fa fa-check"></i><b>10.3</b> Szemantikai hasonlóság</a></li>
+<li class="chapter" data-level="10.4" data-path="similarity.html"><a href="similarity.html#hasonlóságszámítás"><i class="fa fa-check"></i><b>10.4</b> Hasonlóságszámítás</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="similarity.html"><a href="similarity.html#adatbázis-importálás-és-előkészítés"><i class="fa fa-check"></i><b>10.4.1</b> Adatbázis-importálás és előkészítés</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="similarity.html"><a href="similarity.html#szövegtisztítás"><i class="fa fa-check"></i><b>10.5</b> Szövegtisztítás</a></li>
+<li class="chapter" data-level="10.6" data-path="similarity.html"><a href="similarity.html#a-jaccard-hasonlóság-számítása"><i class="fa fa-check"></i><b>10.6</b> A Jaccard-hasonlóság számítása</a></li>
+<li class="chapter" data-level="10.7" data-path="similarity.html"><a href="similarity.html#a-koszinusz-hasonlóság-számítása"><i class="fa fa-check"></i><b>10.7</b> A koszinusz-hasonlóság számítása</a></li>
+<li class="chapter" data-level="10.8" data-path="similarity.html"><a href="similarity.html#az-eredmények-vizualizációja"><i class="fa fa-check"></i><b>10.8</b> Az eredmények vizualizációja</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="nlp-ch.html"><a href="nlp-ch.html"><i class="fa fa-check"></i><b>11</b> NLP és névelemfelismerés</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="nlp-ch.html"><a href="nlp-ch.html#a-magyarlanc"><i class="fa fa-check"></i><b>11.1</b> A <code>magyarlanc</code></a></li>
+<li class="chapter" data-level="11.2" data-path="nlp-ch.html"><a href="nlp-ch.html#a-szeged-ner"><i class="fa fa-check"></i><b>11.2</b> A <code>szeged ner</code></a></li>
+<li class="chapter" data-level="11.3" data-path="nlp-ch.html"><a href="nlp-ch.html#angol-nyelvű-szövegek-névelemfelismerése"><i class="fa fa-check"></i><b>11.3</b> Angol nyelvű szövegek névelemfelismerése</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="osztályozás-és-felügyelt-tanulás.html"><a href="osztályozás-és-felügyelt-tanulás.html"><i class="fa fa-check"></i><b>12</b> Osztályozás és felügyelt tanulás</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="osztályozás-és-felügyelt-tanulás.html"><a href="osztályozás-és-felügyelt-tanulás.html#fogalmi-alapok-1"><i class="fa fa-check"></i><b>12.1</b> Fogalmi alapok</a></li>
+<li class="chapter" data-level="12.2" data-path="osztályozás-és-felügyelt-tanulás.html"><a href="osztályozás-és-felügyelt-tanulás.html#osztályozás-felügyelt-tanulással"><i class="fa fa-check"></i><b>12.2</b> Osztályozás felügyelt tanulással</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="függelék.html"><a href="függelék.html"><i class="fa fa-check"></i><b>13</b> Függelék</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="függelék.html"><a href="függelék.html#az-r-és-az-rstudio-használata"><i class="fa fa-check"></i><b>13.1</b> Az R és az RStudio használata</a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="függelék.html"><a href="függelék.html#az-rstudio-kezdőfelülete"><i class="fa fa-check"></i><b>13.1.1</b> Az RStudio kezdőfelülete</a></li>
+<li class="chapter" data-level="13.1.2" data-path="függelék.html"><a href="függelék.html#projektmunka"><i class="fa fa-check"></i><b>13.1.2</b> Projekt alapú munka</a></li>
+<li class="chapter" data-level="13.1.3" data-path="függelék.html"><a href="függelék.html#scriptek-szerkesztése-függvények-használata"><i class="fa fa-check"></i><b>13.1.3</b> Scriptek szerkesztése, függvények használata</a></li>
+<li class="chapter" data-level="13.1.4" data-path="függelék.html"><a href="függelék.html#packages"><i class="fa fa-check"></i><b>13.1.4</b> R csomagok</a></li>
+<li class="chapter" data-level="13.1.5" data-path="függelék.html"><a href="függelék.html#objektumok-tárolása-értékadás"><i class="fa fa-check"></i><b>13.1.5</b> Objektumok tárolása, értékadás</a></li>
+<li class="chapter" data-level="13.1.6" data-path="függelék.html"><a href="függelék.html#vektorok"><i class="fa fa-check"></i><b>13.1.6</b> Vektorok</a></li>
+<li class="chapter" data-level="13.1.7" data-path="függelék.html"><a href="függelék.html#faktorok"><i class="fa fa-check"></i><b>13.1.7</b> Faktorok</a></li>
+<li class="chapter" data-level="13.1.8" data-path="függelék.html"><a href="függelék.html#data-frame"><i class="fa fa-check"></i><b>13.1.8</b> Data frame</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="függelék.html"><a href="függelék.html#vizualizáció"><i class="fa fa-check"></i><b>13.2</b> Vizualizáció</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="irodalomjegyzék.html"><a href="irodalomjegyzék.html"><i class="fa fa-check"></i>Irodalomjegyzék</a></li>
 </ul>
 
       </nav>
@@ -191,7 +296,7 @@ div.csl-indent {
 <div id="a-kötet-témái" class="section level2" number="1.1">
 <h2><span class="header-section-number">1.1</span> A kötet témái</h2>
 <p>A szövegek adatként való értelmezése (<em>text as data</em>) és kvantitatív elemzése (<em>quantitative text analysis</em>), avagy a szövegbányászat (<em>text mining</em>) a nemzetközi társadalomtudományi kutatások egyik leggyorsabban fejlődő irányzata. A szövegek és más kvalitatív adatok (filmek, képek) elemzése annyiban különbözik a mennyiségi (kvantitatív) adatokétól, hogy nyers formájukban még nem alkalmasak statisztikai, illetve ökonometriai elemzésre. Ezért van szükség az ezzel összefüggő módszertani problémák speciális tárgyalására.</p>
-<p>Jelen kötet bevezeti az érdeklődőket a szövegbányászat és a mesterséges intelligencia társadalomtudományi alkalmazásának ilyen speciális problémáiba, valamint ezek gyakorlati megoldásába. Közvetlen előzménynek tekinthető a témában a Sebők Miklós által szerkesztett <a href="https://poltextlab.tk.hu/uploads/files/Kvantitativ_szovegelemzes_keszpdf.pdf"><em>Kvantitatív szövegelemzés és szövegbányászat a politikatudományban</em></a> címmel megjelent könyv, amely a magyar tudományos diskurzusban kevésbé bevett alapfogalmakat és eljárásokat mutatta be <span class="citation">(<a href="intro.html#ref-sebokKvantitativSzovegelemzesEs2016" role="doc-biblioref">Sebők 2016</a>)</span>. A hangsúly az elméleten volt, bár számos fejezet foglalkozott konkrét kódrészletek elemzésével. Míg az előző kötet az egyes kódolási eljárásokat, illetve ezek kutatásmódszertani előnyeit és hátrányait ismertette, ezúttal a társadalomtudományi elemzések során használható kvantitatív szövegelemzés legfontosabb gyakorlati feladatait vesszük sorra.</p>
+<p>Jelen kötet bevezeti az érdeklődőket a szövegbányászat és a mesterséges intelligencia társadalomtudományi alkalmazásának ilyen speciális problémáiba, valamint ezek gyakorlati megoldásába. Közvetlen előzménynek tekinthető a témában a Sebők Miklós által szerkesztett <a href="https://poltextlab.tk.hu/uploads/files/Kvantitativ_szovegelemzes_keszpdf.pdf"><em>Kvantitatív szövegelemzés és szövegbányászat a politikatudományban</em></a> címmel megjelent könyv, amely a magyar tudományos diskurzusban kevésbé bevett alapfogalmakat és eljárásokat mutatta be <span class="citation">(<a href="irodalomjegyzék.html#ref-sebokKvantitativSzovegelemzesEs2016" role="doc-biblioref">Sebők 2016</a>)</span>. A hangsúly az elméleten volt, bár számos fejezet foglalkozott konkrét kódrészletek elemzésével. Míg az előző kötet az egyes kódolási eljárásokat, illetve ezek kutatásmódszertani előnyeit és hátrányait ismertette, ezúttal a társadalomtudományi elemzések során használható kvantitatív szövegelemzés legfontosabb gyakorlati feladatait vesszük sorra.</p>
 <p>Könyvünk a magyar tankönyvpiacon elsőként ismerteti lépésről-lépésre a nemzetközi társadalomtudományban használatos kvantitatív szövegelemzési eljárásokat. A módszereink bemutatására szolgáló elemzéseket az R programnyelv segítségével végeztük el, mely a nemzetközi társadalomtudományi vizsgálatok során egyik leggyakrabban használt környezet a Python mellett. Mivel a szövegbányászat nyelve az angol, bár igyekeztünk, ahol lehetséges volt igyekeztünk magyar szakkifejezéseket használni, de ilyenkor is minden esetben megadtuk azok angol megfelelőjét. Kivételt képeznek azok az esetek, ahol nincs használatban megfelelő magyar terminológia, ezeknél megtartottuk az angol kifejezéseket, de magyarázattal láttuk el azokat.</p>
 <p>Az Olvasó a két kötet együttes használatával olyan ismeretek birtokába jut, melyek révén képes lesz alkalmazni a kvantitatív szövegelemzés és szövegbányászat legalapvetőbb eljárásait saját kutatásaiban. Deduktív vagy induktív felfedező logikája szerint dönthet az adatelemzés módjáról, és a felkínált menüből kiválaszthatja a kutatási tervéhez legjobban illeszkedő megoldásokat. A bemutatott konkrét példák segítségével pedig akár reprodukálhatja is ezen eljárásokat saját kutatásában. Mindezt a kötet fejezeteiben bőséggel tárgyalt <em>R-scriptek</em> (kódok) részletes leírása is segíti. Ennek alapján a kötet két fő célcsoportja a társadalomtudományi kutatói és felsőoktatási hallgatói-oktatói közösség. Az oktatási alkalmazást segítheti a fontosabb fogalmak magyar és angol nyelvű szószedete, valamint több helyen a további olvasásra ajánlott szakirodalom felsorolása. A kötet honlapján (<a href="www.hunminer.hu">www.hunminer.hu</a>) közvetlenül is elérhetőek a felhasznált adatbázisok és kódok.</p>
 <p>Kötetünk négy logikai egységből épül fel. Az első négy fejezet bemutatja azokat a fogalmakat és eljárásokat, amelyek elengedhetetlenek egy szövegbányászati kutatás során, valamint itt kerül sor a szöveges adatforrásokkal való munkafolyamat ismertetésére, a szövegelőkészítés és a korpuszépítés technikáinak bemutatására. A második blokkban az egyszerűbb elemzési módszereket tárgyaljuk, így a leíró statisztikák készítését, a szótár alapú elemzést, valamint érzelemelemzést. A kötet harmadik blokkját a mesterséges intelligencia alapú megközelítéseknek szenteljük, melynek során az olvasó a felügyelt és felügyelet nélküli tanulás fogalmával ismerkedhet meg. A felügyelet nélküli módszerek közül a topic modellezést, szóbeágyazást és a szövegskálázást mutatjuk be, a felügyelt elemzések közül pedig az osztályozással foglalkozunk részletesebben. Végezetül kötetünket egy függelék zárja, melyben a kezdő RStudió felhasználóknak adunk gyakorlati iránymutatást a programfelülettel való megismerkedéshez, használatának elsajátításához.</p>
@@ -206,6 +311,261 @@ div.csl-indent {
 <p>A könyvhöz tartozik egy <code>HunMineR</code> R csomag is, amely tartalmazza az egyes fejezetekben használt összes adatbázist, így az adatbeviteli problémákat elkerülve lehet gyakorolni a szövegbányászatot. A könyv megjelenésekor a csomag még nem került be a központi R CRAN csomag repozitóriumába, hanem a poltextLAB GitHub repozitóriumából tölthető le.</p>
 <p>A könyvben szereplő ábrák nagy része a <code>ggplot2</code> csomaggal készült a <code>theme_set(theme_light())</code> opció beállításával a háttérben. Ez azt jelenti, hogy az ábrákat előállító kódok a <code>theme_light()</code> sort nem tartalmazzák, de a tényleges ábrán már megjelennek a tematikus elemek.</p>
 <p>Az egyes fejezetekben használt R csomagok listája és verziószáma a lenti táblázatban található. Fontos tudni, hogy a használt R csomagokat folyamatosan fejlesztik, ezért elképzelhető hogy eltérő verziószámú változatok esetén változhat a kód szintaxis.</p>
+<!-- html table generated in R 4.0.5 by xtable 1.8-4 package -->
+<!-- Wed May 12 16:33:11 2021 -->
+<table border="1">
+<caption align="bottom">
+A könyvben használt R csomagok
+</caption>
+<tr>
+<th>
+Csomagnév
+</th>
+<th>
+Verziószám
+</th>
+</tr>
+<tr>
+<td>
+dplyr
+</td>
+<td align="right">
+1.0.5
+</td>
+</tr>
+<tr>
+<td>
+e1071
+</td>
+<td align="right">
+1.7.6
+</td>
+</tr>
+<tr>
+<td>
+factoextra
+</td>
+<td align="right">
+1.0.7
+</td>
+</tr>
+<tr>
+<td>
+gapminder
+</td>
+<td align="right">
+0.3.0
+</td>
+</tr>
+<tr>
+<td>
+GGally
+</td>
+<td align="right">
+2.1.1
+</td>
+</tr>
+<tr>
+<td>
+ggdendro
+</td>
+<td align="right">
+0.1.22
+</td>
+</tr>
+<tr>
+<td>
+ggplot2
+</td>
+<td align="right">
+3.3.3
+</td>
+</tr>
+<tr>
+<td>
+ggrepel
+</td>
+<td align="right">
+0.9.1
+</td>
+</tr>
+<tr>
+<td>
+HunMineR
+</td>
+<td align="right">
+0.0.0.9000
+</td>
+</tr>
+<tr>
+<td>
+igraph
+</td>
+<td align="right">
+1.2.6
+</td>
+</tr>
+<tr>
+<td>
+kableExtra
+</td>
+<td align="right">
+1.3.4
+</td>
+</tr>
+<tr>
+<td>
+knitr
+</td>
+<td align="right">
+1.33
+</td>
+</tr>
+<tr>
+<td>
+lubridate
+</td>
+<td align="right">
+1.7.10
+</td>
+</tr>
+<tr>
+<td>
+purrr
+</td>
+<td align="right">
+0.3.4
+</td>
+</tr>
+<tr>
+<td>
+quanteda
+</td>
+<td align="right">
+3.0.0
+</td>
+</tr>
+<tr>
+<td>
+quanteda.textmodels
+</td>
+<td align="right">
+0.9.4
+</td>
+</tr>
+<tr>
+<td>
+quanteda.textplots
+</td>
+<td align="right">
+0.94
+</td>
+</tr>
+<tr>
+<td>
+quanteda.textstats
+</td>
+<td align="right">
+0.94
+</td>
+</tr>
+<tr>
+<td>
+readr
+</td>
+<td align="right">
+1.4.0
+</td>
+</tr>
+<tr>
+<td>
+readtext
+</td>
+<td align="right">
+0.80
+</td>
+</tr>
+<tr>
+<td>
+readxl
+</td>
+<td align="right">
+1.3.1
+</td>
+</tr>
+<tr>
+<td>
+rvest
+</td>
+<td align="right">
+1.0.0
+</td>
+</tr>
+<tr>
+<td>
+spacyr
+</td>
+<td align="right">
+1.2.1
+</td>
+</tr>
+<tr>
+<td>
+stm
+</td>
+<td align="right">
+1.3.6
+</td>
+</tr>
+<tr>
+<td>
+stringr
+</td>
+<td align="right">
+1.4.0
+</td>
+</tr>
+<tr>
+<td>
+text2vec
+</td>
+<td align="right">
+0.6
+</td>
+</tr>
+<tr>
+<td>
+tibble
+</td>
+<td align="right">
+3.1.1
+</td>
+</tr>
+<tr>
+<td>
+tidyr
+</td>
+<td align="right">
+1.1.3
+</td>
+</tr>
+<tr>
+<td>
+tidytext
+</td>
+<td align="right">
+0.3.1
+</td>
+</tr>
+<tr>
+<td>
+topicmodels
+</td>
+<td align="right">
+0.2.12
+</td>
+</tr>
+</table>
 </div>
 <div id="a-hunminer-használata" class="section level2" number="1.3">
 <h2><span class="header-section-number">1.3</span> A HunMineR használata</h2>
@@ -234,20 +594,8 @@ div.csl-indent {
 <p>Köszönjük a szakmai lektor hasznos megjegyzéseit, Fedinec Csilla nyelvi lektor alapos munkáját, valamint a Typotex Kiadó rugalmasságát és színvonalas közreműködését a könyv kiadásában! Végül, de nem utolsósorban hálásak vagyunk a kötet megvalósulásához támogatást nyújtó szervezeteknek és ösztöndíjaknak: az MTA Könyvkiadási Alapjának, a Társadalomtudományi Kutatóközpont Könyvtámogatási Alapjának, a Nemzeti Kutatási, Fejlesztési és Innovációs Hivatalnak (NKFIH FK 123907, NKFIH FK 129018), az MTA Bolyai János Kutatási Ösztöndíjának.</p>
 <p>A kötet alapjául szolgáló kutatást, amelyet a Társadalomtudományi Kutatóközpont valósított meg, az Innovációs és Technológiai Minisztérium és a Nemzeti Kutatási, Fejlesztési és Innovációs Hivatal támogatta a Mesterséges Intelligencia Nemzeti Laboratórium keretében.</p>
 
-<div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-sebokKvantitativSzovegelemzesEs2016" class="csl-entry">
-Sebők, Miklós. 2016. <em>Kvantitatív Szövegelemzés és Szövegbányászat a Politikatudományban</em>. L’Harmattan Kiadó.
 </div>
 </div>
-</div>
-</div>
-
-
-
-
-
-
-
 <div class="footnotes">
 <hr />
 <ol start="1">
@@ -260,8 +608,8 @@ Sebők, Miklós. 2016. <em>Kvantitatív Szövegelemzés és Szövegbányászat a
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="alapfogalmak.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -312,6 +660,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>
