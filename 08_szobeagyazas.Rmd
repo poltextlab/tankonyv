@@ -12,7 +12,7 @@ Az eddigi fejezetekben elsősorban a szózsák (*bag of words*) alapú módszere
 
 A hagyományos topikmodellezés esetén a modell a szavak dokumentumokon belüli együttes megjelenési statisztikái alapján becsül dokumentum-topik, illetve topik-szó eloszlásokat, azzal a céllal, hogy koherens téma-csoportokat képezzen. Ezzel szemben a szóbeágyazás legújabb iskolája már neurális halókon alapul. A neurális háló a tanítási folyamata során az egyes szavak vektorreprezentációját állítja elő. A vektorok jellemzően 100–300 dimenzióból állnak, a távolságuk alapján pedig megállapítható, hogy az egyes kifejezések milyen szemantikai kapcsolatban állnak egymással.
 
-A szóbeágyazás célja tehát a szemantikai relációk feltárása. A szavak vektorizálásának köszönhetően bármely (a korpuszunkban szereplő) tetszőleges számú szóról eldönthetjük, hogy azok milyen szemantikai kapcsolatban állnak egymással, azaz szinonimaként vagy ellentétes fogalompárként szerepelnek. A szóvektorokon dimenziócsökkentő eljárást alkalmazva, s a multidimenzionális (100–300 dimenziós) teret 2 dimenziósra szűkítve könnyen vizualizálhatjuk is a korpuszunk kifejezései között fennálló szemantikai távolságot, és ahogy a lenti ábrákon láthatjuk, azt, hogy az egyes kifejezések milyen relációban állnak egymással – a szemantikailag hasonló tartalmú kifejezések egymáshoz közel, míg a távolabbi jelentéstartalmú kifejezések egymástól távolabb foglalnak helyet. A klasszikus példa, amivel jól lehet szemléltetni a szóvektorok közötti összefüggést:  `king - man + woman = queen`
+A szóbeágyazás célja tehát a szemantikai relációk feltárása. A szavak vektorizálásának köszönhetően bármely (a korpuszunkban szereplő) tetszőleges számú szóról eldönthetjük, hogy azok milyen szemantikai kapcsolatban állnak egymással, azaz szinonimaként vagy ellentétes fogalompárként szerepelnek. A szóvektorokon dimenziócsökkentő eljárást alkalmazva, s a multidimenzionális (100–300 dimenziós) teret 2 dimenziósra szűkítve könnyen vizualizálhatjuk is a korpuszunk kifejezései között fennálló szemantikai távolságot, és ahogy a lenti ábrákon láthatjuk, azt, hogy az egyes kifejezések milyen relációban állnak egymással – a szemantikailag hasonló tartalmú kifejezések egymáshoz közel, míg a távolabbi jelentéstartalmú kifejezések egymástól távolabb foglalnak helyet. A klasszikus példa, amivel jól lehet szemléltetni a szóvektorok közötti összefüggést:  `king - man + woman = queen`.
 
 ## Word2Vec és GloVe
 
@@ -26,7 +26,7 @@ A fejezetben a gyakorlati példa során a GloVe algoritmust használjuk majd, mi
 
 ### GloVe használata magyar média korpuszon
 
-Az elemzéshez a `text2vec` csomagot használjuk, ami a GloVe implementációt tartalmazza. A lenti kód a csomag dokumentáción alapul és a Társadalomtudományi Kutatóközpont által a *Hungarian Comparative Agendas Project (CAP)* adatbázisában tárolt *Magyar Nemzet* korpuszt használja.[^cap-link]
+Az elemzéshez a `text2vec` csomagot használjuk, ami a GloVe implementációt tartalmazza. A lenti kód a csomag dokumentáción alapul és a Társadalomtudományi Kutatóközpont által a Hungarian Comparative Agendas Project (CAP) adatbázisában tárolt *Magyar Nemzet* korpuszt használja.[^cap-link]
 
 [^cap-link]: A Magyar CAP Project által kezelt adatbázisok regisztrációt követően elérhetőek az elábbi linken: [https://cap.tk.hu/adatbazisok](https://cap.tk.hu/adatbazisok).
 
@@ -146,7 +146,7 @@ Ugyanez működik magyar vezetőkkel is.
 show_vector(mn_word_vectors, "orbán", 10)
 ```
 
-A szakirodalomban klasszikus vektorműveletes példákat is reprokuálni tudjuk a *Magyar Nemzet* korpuszon készített szóbeágyazásainkkal. A `budapest - magyarország + német + németország` eredményét úgy kapjuk meg, hogy az egyes szavakhoz tartozó vektorokat kivonjuk egymásból, illetve hozzáadjuk őket, ezután pedig a kapott mátrixon a `quanteda` csomag `textstat_simil` függvényével kiszámítjuk az új hasonlósági értékeket.
+A szakirodalomban klasszikus vektorműveletes példákat is reprokuálni tudjuk a *Magyar Nemzet* korpuszon készített szóbeágyazásainkkal. A `budapest - magyarország + német + németország` eredményét úgy kapjuk meg, hogy az egyes szavakhoz tartozó vektorokat kivonjuk egymásból, illetve hozzáadjuk őket, ezután pedig a kapott mátrixon a `quanteda` csomag `textstat_simil()` függvényével kiszámítjuk az új hasonlósági értékeket.
 
 ```{r}
 budapest <- mn_word_vectors["budapest", , drop = FALSE] - mn_word_vectors["magyarország", , drop = FALSE] + mn_word_vectors["német", , drop = FALSE] +
@@ -157,7 +157,7 @@ cos_sim <- textstat_simil(x = as.dfm(mn_word_vectors), y = as.dfm(budapest), met
 head(sort(cos_sim[, 1], decreasing = TRUE), 5)
 ```
 
-A szavak egymástól való távolságát vizuálisan is tudjuk ábrázolni. Az egyik ezzel kapcsolatban felmerülő probléma, hogy egy 2 dimenziós ábrán akarunk egy 3–500 dimenziós mátrixot ábrázolni. Több lehetséges megoldás is van, mi ezek közül a lehető legegyszerűbbet mutatjuk be.[^dim] Első lépésben egy data frame-et készítünk a szóbeágyazás eredményeként kapott mátrixból, megtartva a szavakat az első oszlopban a `tibble` csomag `rownames_to_column` függvényével. Mivel csak 2 dimenziót tudunk ábrázolni egy tradícionális statikus ábrán, ezért a `V1` és `V2` oszlopokat tartjuk csak meg, amik az első és második dimenziót reprezentálják.
+A szavak egymástól való távolságát vizuálisan is tudjuk ábrázolni. Az egyik ezzel kapcsolatban felmerülő probléma, hogy egy 2 dimenziós ábrán akarunk egy 3–500 dimenziós mátrixot ábrázolni. Több lehetséges megoldás is van, mi ezek közül a lehető legegyszerűbbet mutatjuk be.[^dim] Első lépésben egy data frame-et készítünk a szóbeágyazás eredményeként kapott mátrixból, megtartva a szavakat az első oszlopban a `tibble` csomag `rownames_to_column()` függvényével. Mivel csak 2 dimenziót tudunk ábrázolni egy tradícionális statikus ábrán, ezért a `V1` és `V2` oszlopokat tartjuk csak meg, amik az első és második dimenziót reprezentálják.
 
 [^dim]: Az egyik legelterjedtebb dimenzionalitás csökkentő eljárás a szakirodalomban a főkomponens-analízis (*principal component analysis*), illetve szintén gyakran használt az irodalomban az úgynevezett t-SNE (*t-distributed stochastic neighbor embedding*).
 
@@ -166,7 +166,7 @@ mn_embedding_df <- as.data.frame(mn_word_vectors[, c(1:2)]) %>%
   tibble::rownames_to_column(var = "words")
 ```
 
-Ezután pedig a `ggplot` függvényt felhasználva definiálunk egy új, `embedding_plot` nevű, függvényt, ami az elkészült data frame alapján bármilyen kulcsszó kombinációt képes ábrázolni.
+Ezután pedig a `ggplot()` függvényt felhasználva definiálunk egy új, `embedding_plot()` nevű, függvényt, ami az elkészült data frame alapján bármilyen kulcsszó kombinációt képes ábrázolni.
 
 ```{r}
 embedding_plot <- function(data, keywords) {
@@ -183,7 +183,8 @@ embedding_plot <- function(data, keywords) {
 }
 ```
 
-Példaként néhány településnevet megvizsgálva, azt látjuk, hogy a külföldi fővárosok közel helyezkednek el egymáshoz, míg a magyar települések kissé távolabb. Ennek az lehet az oka, hogy a külföldi fővárosok inkább a külpolitikai cikkekben szerepelnek, míg a magyarok sokkal több kontextusban előkerülhetnek.
+Példaként néhány településnevet megvizsgálva, azt látjuk, hogy a magyar városok közel helyezkednek el egymáshoz, ám "washington" és "moszkva" távolsága nagyobb. Ennek az oka az lehet hogy a két magyar nagyváros gyakrabban szerepel hasonló kontextusban a belföldi hírekben, míg a két külföldi főváros valószínűleg eltérő külpolitikai környezetben jelenik meg.
+
 
 ```{r}
 words_selected <- c("moszkva", "debrecen", "budapest", "washington")

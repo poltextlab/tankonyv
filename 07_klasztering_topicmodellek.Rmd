@@ -1,10 +1,16 @@
-# Felügyelet nélküli tanulás {#lda_ch}
+# Felügyelet nélküli tanulás - Topik-modellezés {#lda_ch}
 
 ```{r include=FALSE}
 
 source("_common.R")
 
 ```
+
+## Fogalmi alapok
+
+
+A felügyelet nélküli tanulási során az alkalmazott algoritmus a dokumentum tulajdonságait és a modell becsléseit felhasználva végez csoportosítást, azaz hoz létre különböző kategóriákat, melyekhez később hozzárendeli a szöveget. Jelen fejezetben a felügyelet nélküli módszerek közül a topikmodellezést tár- gyaljuk részletesen, majd a következőkben bemutatjuk a szintén ide sorolható szóbeágyazást és a szövegskálázás wordfish módszerét is.
+
 
 ## K-közép klaszterezés
 
@@ -14,7 +20,7 @@ A hierarchikus klaszterezés egymásba ágyazott klaszterek egy fába rendezett 
 
 A prototípus-alapú klaszter olyan objektumokat tartalmazó halmaz, amelynek mindegyik objektuma jobban hasonlít a klasztert definiáló objektumhoz, mint bármelyik másik klasztert definiáló objektumhoz. A prototípus-alapú klaszterek közül a K-közép klaszter az egyik leggyakrabban alkalmazott. A K-közép klaszterezési módszer első lépése *k* darab kezdő középpont kijelölése, ahol *k* a klaszterek kívánt számával egyenlő. Ezután minden adatpontot a hozzá legközelebb eső középponthoz rendelünk. Az így képzett csoportok lesznek a kiinduló klaszterek. Ezután újra meghatározzuk mindegyik klaszter középpontját a klaszterhez rendelt pontok alapján. A hozzárendelési és frissítési lépéseket felváltva folytatjuk addig, amíg egyetlen pont sem vált klasztert, vagy ameddig a középpontok ugyanazok nem maradnak [@tanBevezetesAzAdatbanyaszatba2011].
 
-A K-közép klaszterezés tehát a dokumentumokat alkotó szavak alapján keresi meg a felhasználó által megadott számú (*k*) klasztert, amelyeket a középpontjaik képviselnek, és így rendezi a dokumentumokat csoportokba. A klaszterezés vagy csoportosítás egy induktív kategorizálás, ami akkor hasznos, amikor nem állnak a kutató rendelkezésére előzetesen ismert csoportok, amelyek szerint a vizsgált dokumentumokat rendezni tudná. Hiszen ebben az esetben a korpusz elemeinek rendezéséhez nem határozunk meg előzetesen csoportokat, hanem az eljárás során olyan különálló csoportokat hozunk létre a dokumentumokból, amelynek tagjai valamilyen szempontból hasonlítanak egymásra. A csoportosítás legfőbb célja az, hogy az egy csoportba kerülő szövegek minél inkább hasonlítsanak egymásra, miközben a különböző csoportba kerülők minél inkább eltérjenek egymástól. Azaz klaszterezésnél nem egy-egy szöveg jellemzőire vagyunk kíváncsiak, hanem arra, hogy a szövegek egy-egy csoportja milyen hasonlóságokkal bír [@tikkSzovegbanyaszat2007; @burtejinCsoportositasKlaszterezes2016]. A gépi kódolással végzett klaszterezés egy felügyelet nélküli tanulás, mely a szöveg tulajdonságaiból tanul, anélkül, hogy előre meghatározott csoportokat ismerne. Alkalmazása során a dokumentum tulajdonságait és a modell becsléseit felhasználva jönnek létre a különböző kategóriák, melyekhez később hozzárendeli a szöveget [@grimmer2013text]. Az osztályozással ellentétben a csoportosítás esetén tehát nincs ismert „címkékkel" ellátott kategóriarendszer vagy olyan minta, mint az osztályozás esetében a tanítókörnyezet, amiből tanulva a modellt fel lehet építeni [@tikkSzovegbanyaszat2007]. A gépi kódolással végzett csoportosítás (klaszterezés) esetén a kutató feladata a megfelelő csoportosító mechanizmus kiválasztása, mely alapján egy program végzi el a szövegek különböző kategóriákba sorolását. Ezt követi a hasonló szövegeket tömörítő csoportok elnevezésének lépése. A több dokumentumból álló korpuszok esetében a gépi klaszterelemzés különösen eredményes és költséghatékony lehet, mivel egy nagy korpusz vizsgálata sok erőforrást igényel [@grimmer2013text, pp. 1.].
+A K-közép klaszterezés tehát a dokumentumokat alkotó szavak alapján keresi meg a felhasználó által megadott számú *k* klasztert, amelyeket a középpontjaik képviselnek, és így rendezi a dokumentumokat csoportokba. A klaszterezés vagy csoportosítás egy induktív kategorizálás, ami akkor hasznos, amikor nem állnak a kutató rendelkezésére előzetesen ismert csoportok, amelyek szerint a vizsgált dokumentumokat rendezni tudná. Hiszen ebben az esetben a korpusz elemeinek rendezéséhez nem határozunk meg előzetesen csoportokat, hanem az eljárás során olyan különálló csoportokat hozunk létre a dokumentumokból, amelynek tagjai valamilyen szempontból hasonlítanak egymásra. A csoportosítás legfőbb célja az, hogy az egy csoportba kerülő szövegek minél inkább hasonlítsanak egymásra, miközben a különböző csoportba kerülők minél inkább eltérjenek egymástól. Azaz klaszterezésnél nem egy-egy szöveg jellemzőire vagyunk kíváncsiak, hanem arra, hogy a szövegek egy-egy csoportja milyen hasonlóságokkal bír [@tikkSzovegbanyaszat2007; @burtejinCsoportositasKlaszterezes2016]. A gépi kódolással végzett klaszterezés egy felügyelet nélküli tanulás, mely a szöveg tulajdonságaiból tanul, anélkül, hogy előre meghatározott csoportokat ismerne. Alkalmazása során a dokumentum tulajdonságait és a modell becsléseit felhasználva jönnek létre a különböző kategóriák, melyekhez később hozzárendeli a szöveget [@grimmer2013text]. Az osztályozással ellentétben a csoportosítás esetén tehát nincs ismert „címkékkel" ellátott kategóriarendszer vagy olyan minta, mint az osztályozás esetében a tanítókörnyezet, amiből tanulva a modellt fel lehet építeni [@tikkSzovegbanyaszat2007]. A gépi kódolással végzett csoportosítás (klaszterezés) esetén a kutató feladata a megfelelő csoportosító mechanizmus kiválasztása, mely alapján egy program végzi el a szövegek különböző kategóriákba sorolását. Ezt követi a hasonló szövegeket tömörítő csoportok elnevezésének lépése. A több dokumentumból álló korpuszok esetében a gépi klaszterelemzés különösen eredményes és költséghatékony lehet, mivel egy nagy korpusz vizsgálata sok erőforrást igényel [@grimmer2013text, pp. 1.].
 
 A klaszterezés bemutatásához a rendszerváltás utáni magyar miniszterelnökök egy-egy véletlenszerűen kiválasztott beszédét használjuk.
 
@@ -47,7 +53,7 @@ beszedek_dfm <- beszedek_corpus %>%
   dfm()
 ```
 
-A beszédek klaszterekbe rendezését az R egyik alapfüggvénye, a `kmeans` végzi. Első lépésben 3 klasztert készítünk. A `table()` függvénnyel megnézhetjük, hogy egy-egy csoportba hány dokumentum került.
+A beszédek klaszterekbe rendezését az R egyik alapfüggvénye, a `kmeans()` végzi. Első lépésben 2 klasztert készítünk. A `table()` függvénnyel megnézhetjük, hogy egy-egy csoportba hány dokumentum került.
 
 ```{r}
 beszedek_klaszter <- kmeans(beszedek_dfm, centers = 2)
@@ -55,9 +61,9 @@ beszedek_klaszter <- kmeans(beszedek_dfm, centers = 2)
 table(beszedek_klaszter$cluster)
 ```
 
-A felügyelet nélküli klasszifikáció nagy kérdése, hány klasztert alakítsunk ki, hogy megközelítsük a valóságot, és ne csak mesterségesen kreáljunk csoportokat. Ez ugyanis azzal a kockázattal jár, hogy ténylegesen nem létező csoportok is létrejönnek. A klaszterek optimális számának meghatározására kvalitatív és kvantitatív lehetőségeink is vannak. A következőkben az utóbbira mutatunk példát, amihez a `factoextra` csomagot használjuk A lenti ábra azt mutatja, hogy a klasztereken belüli négyzetösszegek hogyan változnak a *k* paraméter változásának függvényében. Minél kisebb a klasztereken belüli négyzetösszegek értéke, annál közelebbi pontok tartoznak össze, így a kisebb értékekkel definiált klasztereket kapunk. Az ábra alapján tehát az ideális *k* 4 vagy 2, attól fuggően, hogy milyen feltevésekkel élünk a kutatásunk során. A 2-es érték azért lehet jó, mert a $k > 2$ értékek esetén a négyzetösszegek értéke nem csökken drasztikusan és a korpuszunk alapján a két („jobb-bal") klaszter kvalitativ alapon is jól definiálható. A $k = 4$ pedig azért lehet jó, mert utánna gyakorlatilag nem változik a kapott négyzetösszeg, ami azt jelzi, hogy a további klaszterek hozzáadásával nem lesz pontosabb a csoportosítás.
+A felügyelet nélküli klasszifikáció nagy kérdése, hány klasztert alakítsunk ki, hogy megközelítsük a valóságot, és ne csak mesterségesen kreáljunk csoportokat. Ez ugyanis azzal a kockázattal jár, hogy ténylegesen nem létező csoportok is létrejönnek. A klaszterek optimális számának meghatározására kvalitatív és kvantitatív lehetőségeink is vannak. A következőkben az utóbbira mutatunk példát, amihez a `factoextra` csomagot használjuk. A 7.1-es ábra azt mutatja, hogy a klasztereken belüli négyzetösszegek hogyan változnak a *k* paraméter változásának függvényében. Minél kisebb a klasztereken belüli négyzetösszegek értéke, annál közelebbi pontok tartoznak össze, így a kisebb értékekkel definiált klasztereket kapunk. Az ábra alapján tehát az ideális *k* 4 vagy 2, attól fuggően, hogy milyen feltevésekkel élünk a kutatásunk során. A 2-es érték azért lehet jó, mert a $k > 2$ értékek esetén a négyzetösszegek értéke nem csökken drasztikusan és a korpuszunk alapján a két („jobb-bal") klaszter kvalitativ alapon is jól definiálható. A $k = 4$ pedig azért lehet jó, mert utánna gyakorlatilag nem változik a kapott négyzetösszeg, ami azt jelzi, hogy a további klaszterek hozzáadásával nem lesz pontosabb a csoportosítás.
 
-```{r, fig.cap="Optimális klaszterek száma"}
+```{r, fig.cap="A klaszterek optimális száma"}
 factoextra::fviz_nbclust(as.matrix(beszedek_dfm), kmeans, method = "wss", k.max = 5, linecolor = "black") +
 labs(
   title = NULL,
@@ -65,7 +71,7 @@ labs(
   y = "Klasztereken belüli négyzetösszeg")
 ```
 
-A kialakított csoportokat vizuálisan is megjeleníthetjük.
+A kialakított csoportokat vizuálisan is megjeleníthetjük (ld. 7.2. ábra).
 
 ```{r, fig.cap="A miniszterelnöki beszédek klaszterei"}
 factoextra::fviz_cluster(
@@ -85,7 +91,7 @@ factoextra::fviz_cluster(
 
 ## LDA topik modellek[^lda1]
 
-[^lda1]: A kód részben az alábbiakon alapul: tidytextmining.com/topicmodeling.html. Az általunk is használt `topicmodels` csomag interfészt biztosít az LDA modellek és a korrelált témamodellek (CTM) C kódjához, valamint az LDA modellek illesztéséhez szükséges C ++ kódhoz.
+[^lda1]: A kód részben az alábbiakon alapul: [tidytextmining.com/topicmodeling.html](tidytextmining.com/topicmodeling.html). Az általunk is használt `topicmodels` csomag interfészt biztosít az LDA modellek és a korrelált témamodellek (CTM) C kódjához, valamint az LDA modellek illesztéséhez szükséges C ++ kódhoz.
 
 A topik modellezés a dokumentumok téma klasztereinek meghatározására szolgáló valószínűség alapú eljárás, amely szógyakoriságot állapít meg minden témához, és minden dokumentumhoz hozzárendeli az adott témák valószínűségét. A topik modellezés egy felügyelet nélküli tanulási módszer, amely során az alkalmazott algoritmus a dokumentum tulajdonságait és a modell becsléseit felhasználva hoz létre különböző kategóriákat, melyekhez később hozzárendeli a szöveget [@tikkSzovegbanyaszat2007; @grimmer2013text; @burtejinCsoportositasKlaszterezes2016]. Az egyik leggyakrabban alkalmazott topik modellezési eljárás, a Látens Dirichlet Allokáció (LDA) alapja az a feltételezés, hogy minden korpusz topikok/témák keverékéből áll, ezen témák pedig statisztikailag a korpusz szókészlete valószínűségi függvényeinek (eloszlásának) tekinthetőek [@bleiLatentDirichletAllocation2003]. Az LDA a korpusz dokumentumainak csoportosítása során az egyes dokumentumokhoz topik szavakat rendel, a topikok megbecsléséhez pedig a szavak együttes megjelenését vizsgálja a dokumentum egészében. Az LDA algoritmusnak előzetesen meg kell adni a keresett klaszterek (azaz a keresett topikok) számát, ezt követően a dokumentumhalmazban szereplő szavak eloszlása alapján az algoritmus azonosítja a kulcsszavakat, amelyek eloszlása kirajzolja a topikokat [@bleiLatentDirichletAllocation2003; @burtejinCsoportositasKlaszterezes2016; @jacobiQuantitativeAnalysisLarge2016].
 
@@ -93,9 +99,9 @@ A topik modellezés a dokumentumok téma klasztereinek meghatározására szolg�
 knitr::include_graphics("figures/08-01_topik_modell.png")
 ```
 
-A következőkben a magyar törvények korpuszán szemléltetjük a topik modellezés módszerét, hogy a mesterséges intelligencia segítségével feltárjuk a korpuszon belüli rejtett összefüggéseket. A korábban leírtak szerint tehát nincsenek előre meghatározott kategóriáink, dokumentumainkat a klaszterezés segítségével szeretnénk csoportosítani. Egy-egy dokumentumban keveredhetnek a témák és az azokat reprezentáló szavak. Mivel ugyanaz a szó több topikhoz is kapcsolódhat, így az eljárás komplex elemzési lehetőséget nyújt, az egy szövegen belüli témák és akár azok dokumentumon belüli súlyának azonosítására. Példánkban csak a korpusz egy részén szemléltetjük a topik modellezést, a teljes korpusz és az annak elemzéséhez szükséges kód elérhető az alábbi GitHub linken: <https://github.com/poltextlab>.
+A következőkben a magyar törvények korpuszán szemléltetjük a topik modellezés módszerét, hogy a mesterséges intelligencia segítségével feltárjuk a korpuszon belüli rejtett összefüggéseket. A korábban leírtak szerint tehát nincsenek előre meghatározott kategóriáink, dokumentumainkat a klaszterezés segítségével szeretnénk csoportosítani. Egy-egy dokumentumban keveredhetnek a témák és az azokat reprezentáló szavak. Mivel ugyanaz a szó több topikhoz is kapcsolódhat, így az eljárás komplex elemzési lehetőséget nyújt, az egy szövegen belüli témák és akár azok dokumentumon belüli súlyának azonosítására.
 
-Az alábbiakban a 1998--2002-es és a 2002--2006-os parlamenti ciklus 1032 törvényszövegének topik modellezését és a szükséges előkészítő, korpusztisztító lépéseket mutatjuk be. A fájlokat töltsük be az R által használt munkakönyvtárba.[^lda2]
+Az alábbiakban a 1998--2002-es és a 2002--2006-os parlamenti ciklus 1032 törvényszövegének topik modellezését és a szükséges előkészítő, korpusztisztító lépéseket mutatjuk be. A HunMineR csomag segítségével beolvassuk az elemezni kívánt fájlokat.[^lda2]
 
 [^lda2]: A törvényeket és a metaadatokat tartalmazó adatbázisokat regisztációt követően a Hungarian Comparative Agendas Projekt honlapjáról <https://cap.tk.hu/> lehet letölteni.
 
@@ -131,7 +137,7 @@ torvenyek_tiszta <- torvenyek %>%
   )
 ```
 
-A dokumentum változókat egy külön fájlból adjuk hozzá, ami a törvények keletkezési évét tartalmazza, illetve azt, hogy melyik kormányzati ciklusban születtek. Mindkét adatbázisban egy közös egyedi azonosító jelöli az egyes törvényeket, így ki tudjuk használni a `dplyr` `left_join()` függvényét, ami hatékonyan és gyorsan kapcsol össze adatbázisokat közös egyedi azonosító mentén. Jelen esetben ez az egyedi azonosító a `txt_filename` oszlopból fog elkészülni, amely a törvények neveit tartalmazza. Első lépésben betöltjük a metaadatokat tartalmazó adattáblát, majd a `.txt` rész előtti törvényneveket tartjuk csak meg a létrehozott `doc_id`- oszlopban. A `[^\\.]*` regular expression itt a string elejétől indulva kijelöl mindent az elso `.` karakterig. A `str_extract()` pedig ezt a kijelölt string szakaszt (ami a törvények neve) menti át az új változónkba.
+A dokumentum változókat egy külön fájlból töltjük be, ami a törvények keletkezési évét tartalmazza, illetve azt, hogy melyik kormányzati ciklusban születtek. Mindkét adatbázisban egy közös egyedi azonosító jelöli az egyes törvényeket, így ki tudjuk használni a `dplyr` `left_join()` függvényét, ami hatékonyan és gyorsan kapcsol össze adatbázisokat közös egyedi azonosító mentén. Jelen esetben ez az egyedi azonosító a `txt_filename` oszlopból fog elkészülni, amely a törvények neveit tartalmazza. Első lépésben betöltjük a metaadatokat tartalmazó adattáblát, majd a `.txt` rész előtti törvényneveket tartjuk csak meg a létrehozott `doc_id`- oszlopban. A `[^\\.]*` regular expression itt a string elejétől indulva kijelöl mindent az elso `.` karakterig. A `str_extract()` pedig ezt a kijelölt string szakaszt (ami a törvények neve) menti át az új változónkba.
 
 ```{r}
 torveny_meta <- HunMineR::data_lawtext_meta
@@ -157,7 +163,7 @@ torvenyek_corpus <- corpus(torveny_final)
 head(summary(torvenyek_corpus), 5)
 ```
 
-Az RStudio environments fülén láthatjuk, hogy egy `r length(torvenyek_corpus)` elemből álló korpusz jött létre, amelynek tartalmát a `summary()` paranccsal kiíratva, a console ablakban megjelenik a dokumentumok listája és a főbb leíró statisztikai adatok (egyedi szavak -- *types*; szószám -- *tokens*; mondatok -- *sentences*). Az előbbi fejezettől eltérően most a tokenizálás során is végzünk még egy kis tisztítást: a felesleges stop szavakat kitöröljük a `tokens_remove()` és `stopwords()` kombinálásával. A `quanteda` tartalmaz egy beépített magyar stopszó szótárat. A második lépésben szótövesítjük a tokeneket a `tokens_words()` használatával, ami szintén képes a magyar nyelvű szövegeket kezelni.
+Az RStudio *environments* fülén láthatjuk, hogy egy `r length(torvenyek_corpus)` elemből álló korpusz jött létre, amelynek tartalmát a `summary()` paranccsal kiíratva, a *console* ablakban megjelenik a dokumentumok listája és a főbb leíró statisztikai adatok (egyedi szavak -- *types*; szószám -- *tokens*; mondatok -- *sentences*). Az előbbi fejezettől eltérően most a tokenizálás során is végzünk még egy kis tisztítást: a felesleges stop szavakat kitöröljük a `tokens_remove()` és `stopwords()` kombinálásával. A `quanteda` tartalmaz egy beépített magyar stopszó szótárat. A második lépésben szótövesítjük a tokeneket a `tokens_words()` használatával, ami szintén képes a magyar nyelvű szövegeket kezelni.
 
 Szükség esetén a beépített magyar nyelvű stopszó szótárat saját stopszavakkal is kiegészíthetjük. Példaként a `HunMineR` csomagban lévő kiegészítő stopszó data frame-t töltsük be.
 
@@ -171,7 +177,7 @@ Mivel a korpusz ellenőrzése során találunk még olyan kifejezéseket, amelye
 custom_stopwords_egyeb <- c("lábjegyzet", "országgyűlés", "ülésnap")
 ```
 
-Aztán pedig a korábban már megismert *pipe operáror* használatával elkészítjük a token objektumunkat. A szótövesített tokeneket egy külön objektumban tároljuk, mert gyakran előfordul, hogy később vissza kell térnünk az eredeti token objektumhoz, hogy egyéb műveleteket végezzünk el, például további stopszavakat távolítsunk el.
+Aztán pedig a korábban már megismert *pipe operátor* használatával elkészítjük a token objektumunkat. A szótövesített tokeneket egy külön objektumban tároljuk, mert gyakran előfordul, hogy később vissza kell térnünk az eredeti token objektumhoz, hogy egyéb műveleteket végezzünk el, például további stopszavakat távolítsunk el.
 
 ```{r}
 torvenyek_tokens <- tokens(torvenyek_corpus) %>%
@@ -188,7 +194,7 @@ torvenyek_dfm <- dfm(torvenyek_tokens) %>%
   quanteda::dfm_trim(min_termfreq = 0.001, termfreq_type = "prop")
 ```
 
-A szövegtisztító lépesek eredményét úgy ellenőrizhetjük, hogy a 2. fejezetben bemutatottak szerint szógyakorisági listát készítünk a korpuszban maradt kifejezésekről. Itt kihasználhatjuk a korpuszunkban lévő metaadatokat és megnézhetjük ciklus szerinti bontásban a szófrekvencia ábrát. Az ábránál figyeljünk arra, hogy a tidytext `reorder_within` függvényét használjuk, ami egy nagyon hasznos megoldás a csoportosított sorrendbe rendezésre a `ggplot2` ábránál.
+A szövegtisztító lépesek eredményét úgy ellenőrizhetjük, hogy szógyakorisági listát készítünk a korpuszban maradt kifejezésekről. Itt kihasználhatjuk a korpuszunkban lévő metaadatokat és megnézhetjük ciklus szerinti bontásban a szófrekvencia ábrát. Az ábránál figyeljünk arra, hogy a tidytext `reorder_within()` függvényét használjuk, ami egy nagyon hasznos megoldás a csoportosított sorrendbe rendezésre a `ggplot2` ábránál (ld. 7.3. ábra).
 
 ```{r tidy = TRUE, tidy.opts=list(width.cutoff=80), fig.cap="A 15 leggyakoribb token a korpuszban"}
 top_tokens <- textstat_frequency(
@@ -209,7 +215,8 @@ ggplot(top_tokens, aes(reorder_within(feature, frequency, group), frequency)) +
   theme(legend.position = "none")
 ```
 
-A szövegtisztító lépéseket később újabbakkal is kiegészíthetjük, ha észrevesszük, hogy az elemzést zavaró tisztítási lépés maradt ki. Ilyen esetben tovább tisztíthatjuk a korpuszt, majd újra lefuttathatjuk az elemzést. Például, ha szükséges, további stopszavak eltávolítását is elvégezhetjük egy újabb stopszólista hozzáadásával. Ilyenkor ugyanúgy járunk el, mint az előző stopszólista esetén, vagyis beolvassuk a munkakönyvtárban elhelyezett  `.csv` fájlt, a beolvasott stopszólistából karaktervektort, majd objektumot hozunk létre, végezetül pedig ezeket a szavakat is eltávolítjuk a kopuszból.
+A szövegtisztító lépéseket később újabbakkal is kiegészíthetjük, ha észrevesszük, hogy az elemzést zavaró tisztítási lépés maradt ki. Ilyen esetben tovább tisztíthatjuk a korpuszt, majd újra lefuttathatjuk az elemzést. Például, ha szükséges, további stopszavak eltávolítását is elvégezhetjük egy újabb stopszólista hozzáadásával. Ilyenkor ugyanúgy járunk el, mint az előző stopszólista esetén.
+
 
 ```{r}
 custom_stopwords2 <- HunMineR::data_legal_stopwords2
@@ -230,7 +237,7 @@ top_tokens_final <- textstat_frequency(torvenyek_dfm_final,
                                        )
 ```
 
-Ezt egy ábrán is megjelenítjük.
+Ezt egy ábrán is megjelenítjük (ld. 7.4. ábra).
 
 ```{r fig.cap="A 15 leggyakoribb token a korpuszban, a bővített stop szó listával"}
 ggplot(top_tokens_final, aes(reorder_within(feature, frequency, group), frequency)) +
@@ -247,7 +254,7 @@ ggplot(top_tokens_final, aes(reorder_within(feature, frequency, group), frequenc
 
 A szövegtisztító és a korpusz előkészítő műveletek után következhet az LDA illesztése. Az alábbiakban az LDA illesztés két módszerét, a `VEM`-et és a `Gibbs`-et mutatjuk be. A modell mindkét módszer esetén ugyanaz, a különbség a következtetés módjában van. A `VEM` módszer variációs következtetés, míg a `Gibbs` mintavételen alapuló következtetés. [@bleiLatentDirichletAllocation2003; @griffithsFindingScientificTopics2004; @phanLearningClassifyShort2008].
 
-A két modell illesztése nagyon hasonló, meg kell adnunk az elemezni kívánt `dfm` nevét, majd a *„k"* értékét, ami egyenlő az általunk létrehozni kívánt topikok számával, ezt követően meg kell jelölnünk, hogy a `VEM` vagy a `Gibbs` módszert alkalmazzuk. A `set.seed()` funkció az R véletlen szám generátor magjának beállítására szolgál, ami ahhoz kell, hogy a kapott eredmények, ábrák stb. pontosan reprodukálhatóak legyenek. A `set.seed()` bármilyen tetszőleges egész szám lehet. Mivel az elemzésünk célja a két ciklus jogalkotásának összehasonlítása, a korpuszunkat két alkorpuszra bontjuk, ehhez a dokumentumok kormányzati ciklus azonosítóját használjuk fel. A dokumentum változók alapján a `dfm_subset()` parancs segítségével választjuk szét a már elkészült és a tisztított mátrixunkat.
+A két modell illesztése nagyon hasonló, meg kell adnunk az elemezni kívánt `dfm` nevét, majd a *k* értékét, ami egyenlő az általunk létrehozni kívánt topikok számával, ezt követően meg kell jelölnünk, hogy a `VEM` vagy a `Gibbs` módszert alkalmazzuk. A `set.seed()` funkció az R véletlen szám generátor magjának beállítására szolgál, ami ahhoz kell, hogy a kapott eredmények, ábrák stb. pontosan reprodukálhatóak legyenek. A `set.seed()` bármilyen tetszőleges egész szám lehet. Mivel az elemzésünk célja a két ciklus jogalkotásának összehasonlítása, a korpuszunkat két alkorpuszra bontjuk, ehhez a dokumentumok kormányzati ciklus azonosítóját használjuk fel. A dokumentum változók alapján a `dfm_subset()` parancs segítségével választjuk szét a már elkészült és a tisztított mátrixunkat.
 
 ```{r}
 dfm_98_02 <- dfm_subset(torvenyek_dfm_final, electoral_cycle == "1998-2002")
@@ -301,11 +308,12 @@ ggplot(perp_df, aes(k, perplexity)) +
   )
 ```
 
-A zavarossági mutató alapján a 20 topikos modell szerepel a legjobban, de a megfelelő *k* kiválasztása a kutató kvalitatív döntésén múlik. A zavarossági pontszám ehhez ad kvantitatív szempontokat.[^lda4]
 
-[^lda4]: A `ldatuning` csomagban további indikátor implementációja található, ami a perplexityhez hasonlóan minimalizásra alapoz [@arun2010finding; @cao2009density], illetve maximalizálásra alapoz [@deveaud2014accurate; @griffithsFindingScientificTopics2004]
+A zavarossági mutató alapján a 20 topikos modell szerepel a legjobban, de a megfelelő *k* kiválasztása a kutató kvalitatív döntésén múlik.  Természetesen könnyen elképzelhető az is, hogy egy 40 topikos modellnél jelentősen kisebb zavarossági értéket kapjunk. Egy ilyen esetben mérlegelni kell, hogy a kapott csoportosítás kvalitatívan értelmezhető-e, illetve hogy tisztább-e annyival a kapott modell, mint amennyivel több idő és számítási energia a becslése.  A zavarossági pontszám ehhez a kvalitatív döntéshez ad kvantitatív szempontokat, de érdemes általános sorvezetőként tekinteni rá, nem pedig mint egy áthághatatlan szabályra (ld. 7.5. ábra).[^lda4]
 
-A reprodukálhatóság és futási sebesség érdekében a fejezet további részeiben a *k* paraméternek 10-es értéket adunk. Ezzel lefuttatunk egy-egy modellt a két ciklusra.
+[^lda4]: A `ldatuning` csomagban további indikátor implementációja található, ami a perplexityhez hasonlóan minimalizálásra [@arun2010finding; @cao2009density], illetve maximalizálásra alapoz [@deveaud2014accurate; @griffithsFindingScientificTopics2004]
+
+A reprodukálhatóság és a futási sebesség érdekében a fejezet további részeiben a *k* paraméternek 10-es értéket adunk. Ezzel lefuttatunk egy-egy modellt a két ciklusra.
 
 ```{r double_vem, eval=FALSE}
 vem_98_02 <- LDA(dfm_98_02, k = 10, method = "VEM", control = list(seed = 1234))
@@ -322,7 +330,7 @@ vem_98_02 <- readRDS("data/temp/vem_98.RDS")
 vem_02_06 <- readRDS("data/temp/vem_02.RDS")
 ```
 
-Ezt követően a modell által létrehozott topic-okat tidy formátumba tesszük és egyesítjük egy adattáblában.[^lda5]
+Ezt követően a modell által létrehozott topikokat tidy formátumba tesszük és egyesítjük egy adattáblában.[^lda5]
 
 [^lda5]: A tidy formátumról bővebben: <https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html>
 
@@ -347,9 +355,9 @@ top_terms <- lda_vem %>%
   arrange(topic, -beta)
 ```
 
-Végül a `ggplot2` csomag segítségével ábrán is megjeleníthetjük az egyes topikok 10 legfontosabb kifejezését.
+Végül a `ggplot2` csomag segítségével ábrán is megjeleníthetjük az egyes topikok 10 legfontosabb kifejezését (ld. 7.6. és 7.7. ábra).
 
-```{r fig.cap="1998–2002-es ciklus topikok és kifejezések (VEM mintavételezéssel)"}
+```{r fig.cap="1998–2002-es ciklus: topikok és kifejezések (VEM mintavételezéssel)"}
 top_terms %>%
   filter(electoral_cycle == "1998-2002") %>%
   ggplot(aes(reorder_within(term, beta, topic), beta)) +
@@ -419,7 +427,7 @@ top_terms_gibbs <- lda_gibbs %>%
   arrange(topic, -beta)
 ```
 
-Ezután a `ggplot2` csomag segítségével ábrán is megjeleníthetjük.
+Ezután a `ggplot2` csomag segítségével ábrán is megjeleníthetjük (ld. 7.8. és 7.9. ábra).
 
 ```{r fig.cap="1998–2002-es ciklus topikok és kifejezések (Gibbs mintavétellel)"}
 top_terms_gibbs %>%
@@ -452,7 +460,7 @@ top_terms_gibbs %>%
 
 ## Strukturális topik modellek
 
-A kvantitatív szövegelemzés elterjedésével együtt megjelentek a módszertani innovációk is. @roberts2014structural kiváló cikkben mutatták be a strukturális topic modelleket (*structural topic models -- stm*), amelyek fő újítása, hogy a dokumentumok metaadatai kovariánsként[^lda6] tudják befolyásolni, hogy egy-egy kifejezés mekkora valószínűséggel lesz egy-egy téma része. A kovariánsok egyrészről megmagyarázhatják, hogy egy-egy dokumentum mennyire függ össze egy-egy témával (*topical prevalence*), illetve hogy egy-egy szó mennyire függ össze egy-egy témán belül (*topical content*).
+A kvantitatív szövegelemzés elterjedésével együtt megjelentek a módszertani innovációk is. @roberts2014structural kiváló cikkben mutatták be a strukturális topik modelleket (*structural topic models -- stm*), amelyek fő újítása, hogy a dokumentumok metaadatai kovariánsként[^lda6] tudják befolyásolni, hogy egy-egy kifejezés mekkora valószínűséggel lesz egy-egy téma része. A kovariánsok egyrészről megmagyarázhatják, hogy egy-egy dokumentum mennyire függ össze egy-egy témával (*topical prevalence*), illetve hogy egy-egy szó mennyire függ össze egy-egy témán belül (*topical content*).
 
 [^lda6]: A kovariancia megadja két egymástól különböző változó együttmozgását. Kis értékei gyenge, nagy értékei erős lineáris összefüggésre utalnak.
 
@@ -462,7 +470,7 @@ Az stm modelleket az R-ben az `stm` csomaggal tudjuk kivitelezni. A csomag fejle
 
 A lenti lépésekben a csomag dokumentációjában szereplő ajánlásokat követjük, habár a könyv írásakor a `stm` már képes volt a `quanteda`-ban létrehozott dfm-ek kezelésére is. A kiinduló adatbázisunk a `törvény_final`, amit a fejezet elején hoztunk létre a dokumentumokból és a metaadatokból. A javasolt munkafolyamat a `textProcessor()` függvény használatával indul, ami szintén tartalmazza az alap szöveg előkészítési lépéseket. Az egyszerűség és a futási sebesség érdekében itt most ezek többségétől eltekintünk, mivel a fejezet korábbi részeiben részletesen tárgyaltuk őket.
 
-Az előkészítés utolsó szakaszában az out objektumban tároljuk el a dokumentumokat, az egyedi szavakat, illetve a metaadatokat (kovariánsokat).
+Az előkészítés utolsó szakaszában az `out` objektumban tároljuk el a dokumentumokat, az egyedi szavakat, illetve a metaadatokat (kovariánsokat).
 
 ```{r stm_preprocess, eval=FALSE}
 data_stm <- torveny_final
@@ -489,7 +497,7 @@ out <- stm::prepDocuments(processed_stm$documents, processed_stm$vocab, processe
 out <- readRDS("data/temp/stm_out.RDS")
 ```
 
-A strukturális topic modellünket az `stm` függvénnyel becsüljük és a kovariánsokat a `prevalence` opciónál tudjuk formulaként megadni. A lenti példában a Hungarian Comparative Agendas Project[^lda7] kategóriáit (például gazdaság, egészségügy stb.) és a kormányciklusokat használjuk. A futási idő kicsit hosszabb mint az LDA modellek esetében.
+A strukturális topik-modellünket az `stm` függvénnyel becsüljük és a kovariánsokat a `prevalence` opciónál tudjuk formulaként megadni. A lenti példában a Hungarian Comparative Agendas Project[^lda7] kategóriáit (például gazdaság, egészségügy stb.) és a kormányciklusokat használjuk. A futási idő kicsit hosszabb mint az LDA modellek esetében.
 
 [^lda7]: A kódkönyv elérhető az alábbi linken: [Comparative Agendas Project](https://cap.tk.hu/kozpolitikai-magyar).
 
@@ -523,7 +531,7 @@ cov_estimate <- stm::estimateEffect(1:10 ~ majortopic + electoral_cycle, stm_fit
 summary(cov_estimate, topics = 1)
 ```
 
-Az LDA modelleknél már bemutatott munkafolyamat az stm modellünk esetében is alkalmazható, hogy vizuálisan is megjelenítsük az eredményeinket. A `tidy()` függvény data frammé alakítja az stm objektumot, amit aztán a már ismerős `dplyr` csomagban lévő függvényekkel tudunk átalakítani és végül vizualizálni a `ggplot2` csomaggal. A lenti ábrán az egyes témákhoz tartozó 5 legvalószínűbb szót mutatjuk be.
+Az LDA modelleknél már bemutatott munkafolyamat az stm modellünk esetében is alkalmazható, hogy vizuálisan is megjelenítsük az eredményeinket. A `tidy()` függvény data frammé alakítja az stm objektumot, amit aztán a már ismerős `dplyr` csomagban lévő függvényekkel tudunk átalakítani és végül vizualizálni a `ggplot2` csomaggal. A 7.10-es ábrán az egyes témákhoz tartozó 5 legvalószínűbb szót mutatjuk be.
 
 ```{r}
 tidy_stm <- tidytext::tidy(stm_fit)
@@ -569,7 +577,7 @@ stm::plot.STM(stm_fit,
          )
 ```
 
-Végezetül a témák közötti korrelációt a `topicCorr` függvénnyel becsülhetjük és az `igraph` csomagot betöltve a `plot()` paranccsal tudjuk vizualizálni. Az eredmény egy hálózat lesz, amit gráfként ábrázolunk. A gráfok élei a témák közötti összefüggést (korrelációt) jelölik.
+Végezetül a témák közötti korrelációt a `topicCorr()` függvénnyel becsülhetjük és az `igraph` csomagot betöltve a `plot()` paranccsal tudjuk vizualizálni. Az eredmény egy hálózat lesz, amit gráfként ábrázolunk. A gráfok élei a témák közötti összefüggést (korrelációt) jelölik. A 7.12-es ábrán a 10 topikos modellünket látjuk, azonban ilyen kis *k* esetén nem látunk jelentős korrelációs kapcsolatot, csak a 4-es és 1-es témák között. A korrelációs gráfok jellemzően hasznosabbak, hogyha a nagy témaszám miatt (több száz, vagy akár több ezer) egy magasabb absztrakciós szinten szeretnénk vizsgálni az eredményeinket.
 
 ```{r fig.cap="Témák közötti korreláció hálózat"}
 plot(stm::topicCorr(stm_fit))

@@ -15,6 +15,7 @@ A lexikális hasonlóság a gépi szövegfeldolgozás egy egyszerűbb megközel�
 
 *1. „A boszorkány megsüti Jancsit és Juliskát.”* 
 
+
 *2. „Jancsi és Juliska megsüti a boszorkányt.”*
 
 Két dokumentum közötti lexikális hasonlóságot a szöveg számos szintjén mérhetjük: karakterláncok (stringek), szóalakok (tokenek), n-gramok (n egységből álló karakterláncok), szózsákok (bag of words) között, de akár a dokumentum nagyobb egységei, így szövegrészletek és dokumentumok között is. Bevett megközelítés továbbá a szókészlet összehasonlítása, melyet lexikális és szemantikai hasonlóság feltárására egyaránt használhatunk.
@@ -134,7 +135,7 @@ colnames(parok)
 dim(parok)
 ```
 
-A beimportált adatbázisok megfigyeléseinek száma egységesen 600. Ez a több mint háromezer megfigyelést tartalmazó eredeti korpusz egy részhalmaza, mely gyorsabb és egyszerűbb elemzést tesz lehetővé. Az oszlopnevek lekérésével láthatjuk, hogy a törvénykorpuszban van néhány metaadat, amelyet az elemzés során felhasználhatunk: ezek a kormányzati ciklusra, a törvény elfogadásának évére, valamint a benyújtó kormánypárti vagy ellenzéki pártállására vonatkoznak. Ezenkívül rendelkezésre állnak a törvényeket és a törvényjavaslatokat azonosító kódok (`tv_id és tvjav_id`), melyek segítségével majd tudjuk párosítani az összetartozó törvényjavaslatok és törvények szövegeit. Ezt a `left_join()` függvénnyel tesszük meg. Elsőként a törvényeket tartalmazó adatbázishoz kapcsoljuk hozzá a törvény–törvényjavaslat párokat tartalmazó adatbázist a törvények azonosítója (`tv_id`) alapján. A `colnames()` függvény használatával ellenőrizhetjük, hogy sikeres volt-e a művelet, és az új táblában szerepelnek-e a kívánt oszlopok.
+Az importált adatbázisok megfigyeléseinek száma egységesen 600. Ez a több mint háromezer megfigyelést tartalmazó eredeti korpusz egy részhalmaza, mely gyorsabb és egyszerűbb elemzést tesz lehetővé. Az oszlopnevek lekérésével láthatjuk, hogy a törvénykorpuszban van néhány metaadat, amelyet az elemzés során felhasználhatunk: ezek a kormányzati ciklusra, a törvény elfogadásának évére, valamint a benyújtó kormánypárti vagy ellenzéki pártállására vonatkoznak. Ezenkívül rendelkezésre állnak a törvényeket és a törvényjavaslatokat azonosító kódok (`tv_id és tvjav_id`), melyek segítségével majd tudjuk párosítani az összetartozó törvényjavaslatok és törvények szövegeit. Ezt a `left_join()` függvénnyel tesszük meg. Elsőként a törvényeket tartalmazó adatbázishoz kapcsoljuk hozzá a törvény–törvényjavaslat párokat tartalmazó adatbázist a törvények azonosítója (`tv_id`) alapján. A `colnames()` függvény használatával ellenőrizhetjük, hogy sikeres volt-e a művelet, és az új táblában szerepelnek-e a kívánt oszlopok.
 
 
 ```{r include = TRUE}
@@ -210,7 +211,7 @@ szovegek <- c("torveny_szoveg", "tvjav_szoveg")
 tv_tvjav_minta[, szovegek] <- mapply(tv_tvjav_minta[, szovegek], FUN = szovegtisztitas)
 ```
 
-A szövegtisztítás következő lépése a stopszavak meghatározása és kiszűrése a szövegből. Itt a `quanteda` csomagban elérhető magyar nyelvű stopszavakat, valamint a [7. fejezetben](#lda_ch) meghatározott speciális jogi stopszavak listáját használjuk.
+A szövegtisztítás következő lépése a tiltólistás szavak meghatározása és kiszűrése a szövegből. Itt a `quanteda` csomagban elérhető magyar nyelvű stopszavakat, valamint a [7. fejezetben](#lda_ch) meghatározott speciális jogi stopszavak listáját használjuk.
 
 
 ```{r include = TRUE}
@@ -239,7 +240,7 @@ tv_javaslatok_tokens <- tokens(tv_javaslatok_corpus) %>%
   tokens_wordstem(language = "hun")
 ```
 
-A szövegek tokenizálásával és a stopszavak eltávolításával a szövegtisztítás végére értünk, így megkezdhetjük az elemzést.
+A szövegek tokenizálásával és a tiltólistás szavak eltávolításával a szövegtisztítás végére értünk, így megkezdhetjük az elemzést.
 
 ## A Jaccard-hasonlóság számítása
 
@@ -290,7 +291,7 @@ Mivel az eredménymátrixunk meglehetősen terjedelmes, nem érdemes az egészet
 jaccard_hasonlosag[1:5, 1:5]
 ```
 
-A mátrix fődiagonáljában jelennek meg az összetartozó törvényekre és törvényszövegekre vonatkozó értékek, minden más érték nem összetartozó törvény- és törvényjavaslat-szövegek hasonlóságára vonatkozik, vagyis a vizsgálatunk szempontjából irreleváns. A mátrix diagonálját a `diag()` függvény segítségével nyerhetjük ki. Ha jól dolgoztunk, a létrehozott jaccard_diag első öt eleme `(jaccard_diag[1:5])` megegyezik a fent megjelenített 5 × 5-ös mátrix fődiagonáljában elhelyezkedő értékekkel, hossza pedig `(length())` a mátrix bármelyik dimenziójával.
+A mátrix főátlójában jelennek meg az összetartozó törvényekre és törvényszövegekre vonatkozó értékek, minden más érték nem összetartozó törvény- és törvényjavaslat-szövegek hasonlóságára vonatkozik, vagyis a vizsgálatunk szempontjából irreleváns. A mátrix főátlóját a `diag()` függvény segítségével nyerhetjük ki. Ha jól dolgoztunk, a létrehozott jaccard_diag első öt eleme `(jaccard_diag[1:5])` megegyezik a fent megjelenített 5 × 5-ös mátrix főátlójában elhelyezkedő értékekkel, hossza pedig `(length())` a mátrix bármelyik dimenziójával.
 
 ```{r include = TRUE}
 jaccard_diag <- diag(as.matrix(jaccard_hasonlosag))
@@ -298,7 +299,7 @@ jaccard_diag <- diag(as.matrix(jaccard_hasonlosag))
 jaccard_diag[1:5]
 ```
 
-Miután sikerült kinyerni az egyes törvény–törvényjavaslat párokra vonatkozó Jaccard-értéket, érdemes a számításainkat hozzárendelni az eredeti adattáblánkhoz, hogy a meglévő metaadatok fényében tudjuk kiértékelni az egyes dokumentumok közötti hasonlóságot. A hozzárendeléshez egyszerűen definiálunk egy új oszlopot a meglévő adatbázisban `tv_tvjav_minta$jaccard_index`, melyhez hozzárendeljük a diagonálból kinyert értékeket.
+Miután sikerült kinyerni az egyes törvény–törvényjavaslat párokra vonatkozó Jaccard-értéket, érdemes a számításainkat hozzárendelni az eredeti adattáblánkhoz, hogy a meglévő metaadatok fényében tudjuk kiértékelni az egyes dokumentumok közötti hasonlóságot. A hozzárendeléshez egyszerűen definiálunk egy új oszlopot a meglévő adatbázisban `tv_tvjav_minta$jaccard_index`, melyhez hozzárendeljük a kinyert értékeket.
 
 ```{r include = TRUE}
 tv_tvjav_minta$jaccard_index <- jaccard_diag
@@ -337,7 +338,7 @@ koszinusz_hasonlosag <- textstat_simil(x = torvenyek_dfm, y = tv_javaslatok_dfm,
 koszinusz_hasonlosag[0:5, 0:5]
 ```
 
-Ebben az esetben is csak a mátrix diagonáljára van szükségünk, melyet a fent ismertetett módon nyerünk ki a mátrixból.
+Ebben az esetben is csak a mátrix átlójára van szükségünk, melyet a fent ismertetett módon nyerünk ki a mátrixból.
 
 ```{r}
 koszinusz_diag <- diag(as.matrix(koszinusz_hasonlosag))
@@ -345,7 +346,7 @@ koszinusz_diag <- diag(as.matrix(koszinusz_hasonlosag))
 koszinusz_diag[1:5]
 ```
 
-Végezetül pedig a diagonálból kinyert koszinusz értékeket is hozzárendeljük az adatbázisunkhoz.
+Végezetül pedig az átlóból kinyert koszinusz értékeket is hozzárendeljük az adatbázisunkhoz.
 
 ```{r}
 tv_tvjav_minta$koszinusz <- koszinusz_diag
@@ -375,7 +376,7 @@ koszinusz_df <- as.matrix(koszinusz_hasonlosag[501:600, 501:600]) %>%
 glimpse(koszinusz_df)
 ```
 
-Ezt követően pedig a `ggplot` függvényt használva a `geom_tile` segítségével tudjuk elkészíteni a hőtérképet, ami a hasonlósági mátrixot ábrázolja.
+Ezt követően pedig a `ggplot` függvényt használva a `geom_tile` segítségével tudjuk elkészíteni a hőtérképet, ami a hasonlósági mátrixot ábrázolja (ld. 10.1. ábra).
 
 
 ```{r 10_2_koszinusz}
@@ -395,7 +396,7 @@ ggplot(koszinusz_df, aes(docs1, docs2, fill = similarity)) +
 )
 ```
 
-A Jaccard-hasonlósági hőtérképet ugyanezzel a módszerrel tudjuk elkészíteni.
+A Jaccard-hasonlósági hőtérképet ugyanezzel a módszerrel tudjuk elkészíteni (ld. 10.2. ábra).
 
 ```{r 10_3_jaccard}
 # adatok átalakítása
@@ -425,9 +426,9 @@ ggplot(jaccard_df, aes(docs1, docs2, fill = similarity)) +
 )
 ```
 
-A két plot összehasonlításánál láthatjuk, hogy a koszinusz-hasonlóság általában magasabb hasonlósági értékeket mutat. A mátrix főátlójában kiugró világos csík azt mutatja meg, hogy a legnagyobb hasonlóság az összetartozó törvény- és törvényjavaslat-szövegek között mutatkozik meg, eddig tehát az adataink az elvárásaink szerinti képet mutatják. Amennyiben a világos csíkot nem látnánk, az egyértelmű visszajelzés volna arról, hogy elrontottunk valamit a szövegelőkészítés eddigi lépései során, vagy a várakozásásaink voltak teljesen rosszak.
+A két ábra összehasonlításánál láthatjuk, hogy a koszinusz-hasonlóság általában magasabb hasonlósági értékeket mutat. A mátrix főátlójában kiugró világos csík azt mutatja meg, hogy a legnagyobb hasonlóság az összetartozó törvény- és törvényjavaslat-szövegek között mutatkozik meg, eddig tehát az adataink az elvárásaink szerinti képet mutatják. Amennyiben a világos csíkot nem látnánk, az egyértelmű visszajelzés volna arról, hogy elrontottunk valamit a szövegelőkészítés eddigi lépései során, vagy a várakozásásaink voltak teljesen rosszak.
 
-A koszinusz- és a Jaccard-hasonlóság értékét ábrázolhatjuk közös pont-diagramon a `geom_jitter()` segítségével. Ehhez először egy kicsit átalakítjuk a data frame-et a `tidyr` csomag `pivot_longer()` függvényével, hogy a két hasonlósági érték egy oszlopban legyen. Ez azért szükséges, hogy a `ggplot` ábránkat könnyebben tudjuk létrehozni.
+A koszinusz- és a Jaccard-hasonlóság értékét ábrázolhatjuk közös pont-diagramon a `geom_jitter()` segítségével (ld. 10.3. ábra). Ehhez először egy kicsit átalakítjuk a data frame-et a `tidyr` csomag `pivot_longer()` függvényével, hogy a két hasonlósági érték egy oszlopban legyen. Ez azért szükséges, hogy a `ggplot` ábránkat könnyebben tudjuk létrehozni.
 
 ```{r}
 tv_tvjav_tidy <- tv_tvjav_minta %>%
@@ -467,7 +468,7 @@ evenkenti_atlag <- tv_tvjav_tidy %>%
 head(evenkenti_atlag)
 ```
 
-Az évenkénti átlagot tartalmazó adattáblánkra ezt követően vonal diagramot illesztünk. Az ábrán az látható, hogy a Jaccard- és koszinsz-hasonlóság értéke nagyjából együtt mozog, leszámítva a 2002-es, 2003-as éveket, mival azonban itt csak néhány adatpont áll rendelkezésre, ettől az inkonzisztenciától eltekinthetünk. 
+Az évenkénti átlagot tartalmazó adattáblánkra ezt követően vonal diagramot illesztünk. A 10.4-es ábrán az látható, hogy a Jaccard- és koszinsz-hasonlóság értéke nagyjából együtt mozog, leszámítva a 2002-es, 2003-as éveket, mival azonban itt csak néhány adatpont áll rendelkezésre, ettől az inkonzisztenciától eltekinthetünk. 
 
 ```{r 10_5_lineplot}
 ggplot(evenkenti_atlag, aes(ev, atl_hasonlosag)) +
@@ -482,7 +483,7 @@ ggplot(evenkenti_atlag, aes(ev, atl_hasonlosag)) +
     )
 ```
 
-Ahhoz, hogy valamivel pontosabb képet kapjunk a Jaccard-index értékének alakulásáról, az eredményeinket érdemes vizualizálni a `ggplot2` segítségével. Elsőként évenkénti bontásban, boxplotokkal ábrázoljuk a Jaccard-index értékének alakulását.
+Ahhoz, hogy valamivel pontosabb képet kapjunk a Jaccard-index értékének alakulásáról, az eredményeinket érdemes vizualizálni a `ggplot2` segítségével. Elsőként évenkénti bontásban, boxplotokkal ábrázoljuk a Jaccard-index értékének alakulását (ld. 10.5. ábra).
 
 ```{r 10_6_boxplot}
 ggplot(tv_tvjav_minta, aes(as.factor(ev), jaccard_index)) +
@@ -535,7 +536,7 @@ tv_tvjav_minta <- tv_tvjav_minta %>%
 ```
 
 
-Miután létrehoztuk az új oszlopot, létrehozhatjuk a vizualizációt is annak alapján. Itt egy speciális pontdiagramot fogunk használni: `geom_jitter()`. Ez annyiban különbözik a pontdiagramtól, hogy kicsit szórtabban ábrázolja a diszkrét értékekre (évekre) eső pontokat, hogy az egy helyen sűrűsödő értékek ne takarják ki egymást. A `facet_wrap` segítségével tudjuk kategóriánként ábrázolni az évenkénti hasonlóságot.
+Miután létrehoztuk az új oszlopot, létrehozhatjuk a vizualizációt is annak alapján. Itt egy speciális pontdiagramot fogunk használni: `geom_jitter()`. Ez annyiban különbözik a pontdiagramtól, hogy kicsit szórtabban ábrázolja a diszkrét értékekre (évekre) eső pontokat, hogy az egy helyen sűrűsödő értékek ne takarják ki egymást. A `facet_wrap` segítségével tudjuk kategóriánként ábrázolni az évenkénti hasonlóságot (ld. 10.6. ábra).
 
 ```{r 10_7_jitter}
 ggplot(tv_tvjav_minta, aes(ev, jaccard_index)) +

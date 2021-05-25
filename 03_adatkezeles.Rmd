@@ -1,6 +1,8 @@
-# Az adatkezelés R-ben {#adatkezeles}
+# Adatkezelés R-ben {#adatkezeles}
 
-## Adatok importálása
+## Az adatok importálása
+
+Az adatok importálására az R alapfüggvénye mellett több csomag is megoldást kínál. Ezek közül a könyv írásakor a legnépszerűbbek a `readr` és a `rio` csomagok. A szövegek különböző karakterkódolásának problémáját tapasztalataink szerint a legjobban a `readr` csomag `read_csv()` függvénye kezeli, ezért legtöbbször ezt fogjuk használni a `.csv` állományok beolvasására. Amennyiben kihasználjuk az RStudio projekt opcióját (lásd a [Függelékben](#projektmunka)) akkor elegendő csak az elérni kívánt adatok relatív elérési útját megadni (*relative path*). Ideális esetben az adataink egy csv fájlban vannak, ahol az egyes értékeket vesszők (vagy egyéb speciális karakterek) választják el. Ez esetben a `read_delim()` függvényt is használhatjuk. A beolvasásnál egyből el is tároljuk az adatokat egy objektumban. A `sep =` opcióval tudjuk a szeparátor karaktert beállítani, mert előfordulhat, hogy vessző helyett pontosvessző tagolja az adatainkat.
 
 ```{r, include=FALSE}
 
@@ -16,8 +18,6 @@ library(stringr)
 library(readtext)
 ```
 
-Az adatok importálására az R alapfüggvénye mellett több csomag is megoldást kínál. Ezek közül a könyv írásakor a legnépszerűbbek a `readr` és a `rio` csomagok. A szövegek különböző karakterkódolásának problémáját tapasztalataink szerint a legjobban a `readr` csomag `read_csv()` függvénye kezeli, ezért legtöbbször ezt fogjuk használni a `.csv` állományok beolvasására. Amennyiben kihasználjuk az RStudio projekt opcióját (lásd a [Függelékben](#projektmunka)) akkor elegendő csak az elérni kívánt adatok relatív elérési útját megadni (*relative path*). Ideális esetben az adataink egy csv fájlban vannak (*comma separated values*), ahol az egyes értékeket vesszők (vagy egyéb speciális karakterek) választják el. Ez esetben a `read_delim()` függvényt használjuk. A beolvasásnál egyből el is tároljuk az adatokat egy objektumban. A `sep =` opcióval tudjuk a szeparátor karaktert beállítani, mert előfordulhat, hogy vessző helyett pontosvessző tagolja az adatainkat.
-
 ```{r, eval=FALSE}
 df <- readr::read_csv("data/adatfile.csv")
 ```
@@ -28,9 +28,9 @@ Az R képes linkről letölteni fájlokat, elég megadnunk egy működő eléré
 df_online <- read_csv("https://www.qta.tk.mta.hu/adatok/adatfile.csv")
 ```
 
-Az R csomag ökoszisztémája kellően változatos ahhoz, hogy gyakorlatilag bármilyen inputtal meg tudjon birkózni. Az Excel fájlokat a readxl csomagot használva tudjuk betölteni a `read_excel()` függvény használatával.[lásd ehhez a *Függeléket*](#packages) A leggyakoribb statisztikai programok formátumait pedig a `haven` csomag tudja kezelni (például Stata, Spss, SAS). A szintaxis itt is hasonló: `read_stata`, `read_spss`, `read_sas`.
+Az R csomag ökoszisztémája kellően változatos ahhoz, hogy gyakorlatilag bármilyen inputtal meg tudjon birkózni. Az Excel fájlokat a readxl csomagot használva tudjuk betölteni a `read_excel()` függvény használatával.[lásd ehhez a *Függeléket*](#packages) A leggyakoribb statisztikai programok formátumait pedig a `haven` csomag tudja kezelni (például Stata, Spss, SAS). A szintaxis itt is hasonló: `read_stata()`, `read_spss()`, `read_sas()`.
 
-A nagy mennyiségű szöveges dokumentum (a legyakrabban előforduló kiterjesztések: `.txt`, `.doc`, `.pdf`, `.json`, `.csv`, `.xml`, `.rtf`, `.odt`) betöltésére a legalkalmasabb a `readtext` csomag. Az alábbi példa azt mutatja be, hogyan tudjuk beolvasni egy adott mappából az összes `.txt` kiterjesztésű fájlt anélkül, hogy egyenként kellene megadnunk a fájlok neveit. A kódsorban szereplő `*` karakter ebben a környezetben azt jelenti, hogy bármilyen fájl, ami `.txt`-re végződik. Amennyiben a fájlok nevei tartalmaznak valamilyen metaadatot, akkor ezt is be tudjuk olvasni a betöltés során. Ilyen metaadat lehet például egy parlamenti felszólalásnál a felszólaló neve, a beszéd ideje, a felszólaló párttagsága (például: `kovacsjanos_1994_fkgp.txt`).
+A nagy mennyiségű szöveges dokumentum (a legyakrabban előforduló kiterjesztések: `.txt`, `.doc`, `.pdf`, `.json`, `.csv`, `.xml`, `.rtf`, `.odt`) betöltésére a legalkalmasabb a `readtext` csomag. Az alábbi példa azt mutatja be, hogyan tudjuk beolvasni egy adott mappából az összes `.txt` kiterjesztésű fájlt anélkül, hogy egyenként kellene megadnunk a fájlok neveit. A kódsorban szereplő `*` karakter ebben a környezetben azt jelenti, hogy bármilyen fájl az adott mappában, ami `.txt`-re végződik. Amennyiben a fájlok nevei tartalmaznak valamilyen metaadatot, akkor ezt is be tudjuk olvasni a betöltés során. Ilyen metaadat lehet például egy parlamenti felszólalásnál a felszólaló neve, a beszéd ideje, a felszólaló párttagsága (például: `kovacsjanos_1994_fkgp.txt`).
 
 ```{r, eval=FALSE}
 df_text <- readtext::readtext(
@@ -41,7 +41,7 @@ df_text <- readtext::readtext(
 )
 ```
 
-## Adatok exportálása
+## Az adatok exportálása
 
 Az adatainkat R-ből a `write.csv()`-vel exportálhatjuk a kívánt helyre, `.csv` formátumba. Az `openxlsx` csomaggal `.xls` és `.xlsx` Excel formátumokba is tudunk exportálni. Az R rendelkezik saját, `.Rds` és `.Rda` kiterjesztésű, tömörített fájlformátummal. Mivel ezeket csak az R-ben nyithatjuk meg, érdemes a köztes, hosszadalmas számítást igénylő lépések elmentésére használni, a `saveRDS()` és a `save()` parancsokkal.
 
@@ -94,7 +94,7 @@ gapminder %>%
   dplyr::select(dplyr::contains("ea"), dplyr::starts_with("co"), pop)
 ```
 
-Az így kiválogatott változókból létrehozhatunk és objektumként eltárolhatunk egy új adattáblát, amivek azután tovább dolgozhatunk, vagy kiírathatjuk például `.csv` fájlba, vagy elmenthetjük a `saveRDS` segítségével.
+Az így kiválogatott változókból létrehozhatunk és objektumként eltárolhatunk egy új adattáblát, amivel azután tovább dolgozhatunk, vagy kiírathatjuk például `.csv` fájlba, vagy elmenthetjük a `saveRDS` segítségével.
 
 ```{r warning=FALSE, message=FALSE}
 gapminder_select <- gapminder %>%
@@ -123,7 +123,7 @@ gapminder %>%
   dplyr::mutate(gdp = (gdpPercap * pop) / 10^9)
 ```
 
-Az adataink részletesebb és alaposabb megismerésében segítenek a különböző szintű leíró statisztikai adatok. A szintek megadására a `group_by()` használható, a csoportokon belüli számításokhoz pedig a `summarize()`. A lenti példa azt illusztrálja, hogy ha kontinensenként csoportosítjuk a `gapminder` adattáblát, akkor a `summarise()` használatával megkaphatjuk a megfigyelések számát, illetve az átlagos per capita GDP-t. A `summarise()` a `mutate()` közeli rokona, hasonló szintaxissal és logikával használható. Ezt a függvénypárost fogjuk majd használni a szöveges adataink leíró statisztikáinál is a 4. fejezetben.
+Az adataink részletesebb és alaposabb megismerésében segítenek a különböző szintű leíró statisztikai adatok. A szintek megadására a `group_by()` használható, a csoportokon belüli számításokhoz pedig a `summarize()`. A lenti példa azt illusztrálja, hogy ha kontinensenként csoportosítjuk a `gapminder` adattáblát, akkor a `summarise()` használatával megkaphatjuk a megfigyelések számát, illetve az átlagos per capita GDP-t. A `summarise()` a `mutate()` közeli rokona, hasonló szintaxissal és logikával használható. Ezt a függvénypárost fogjuk majd használni a szöveges adataink leíró statisztikáinál is az 5. fejezetben.
 
 ```{r}
 gapminder %>%
@@ -135,7 +135,7 @@ gapminder %>%
 
 [^adatkezel-4]: A könyv terjedelme miatt ezt a témát itt csak bemutatni tudjuk, de minden részletre kiterjedően nem tudunk elmélyülni benne. A témában nagyon jól használható online anyagok találhatóak az RStudio GitHub tárhelyén ([https://github.com/rstudio/cheatsheets/raw/master/strings.pdf](https://github.com/rstudio/cheatsheets/raw/master/strings.pdf)), illetve @wickham2016r 14. fejezetében.
 
-A szöveges adatokkal (karakter stringekkel) való munka elkerülhetetlen velejárója, hogy a felesleges szövegelemeket, karaktereket el kell távolítanunk, hogy javuljon az elemzésünk hatásfoka. Erre a célra a `stringr` csomagot fogjuk használni, kombinálva a korábban bemutatott `mutate()`-el. A `stringr` függvények az `str_` előtaggal kezdődnek és eléggé beszédes nevekkel rendelkeznek. Egy gyakran előforduló probléma, hogy extra szóközök maradnak a szövegben, vagy bizonyos szavakról, karakterkombinációkról tudjuk, hogy nem kellenek az elemzésünkhöz. Ebben az esetben egy vagy több reguláris kifejezés (*regular expression, regex*) használatával tudjuk pontosan kijelölni, hogy a karakter sornak melyik részét akarjuk módosítani.[^adatkezel-5] A legegyszerűbb formája a regexeknek, ha pontosan tudjuk milyen szöveget akarunk megtalálni. A kísérletezésre az `str_view()`-t használjuk, ami megjeleníti, hogy a megadott regex mintánk pontosan mit jelöl.
+A szöveges adatokkal (karakter stringekkel) való munka elkerülhetetlen velejárója, hogy a felesleges szövegelemeket, karaktereket el kell távolítanunk, hogy javuljon az elemzésünk hatásfoka. Erre a célra a `stringr` csomagot fogjuk használni, kombinálva a korábban bemutatott `mutate()`-el. A `stringr` függvények az `str_` előtaggal kezdődnek és eléggé beszédes nevekkel rendelkeznek. Egy gyakran előforduló probléma, hogy extra szóközök maradnak a szövegben, vagy bizonyos szavakról, karakterkombinációkról tudjuk, hogy nem kellenek az elemzésünkhöz. Ebben az esetben egy vagy több reguláris kifejezés (*regular expression, regex*) használatával tudjuk pontosan kijelölni, hogy a karakter sornak melyik részét akarjuk módosítani.[^adatkezel-5] A legegyszerűbb formája a regexeknek, ha pontosan tudjuk milyen szöveget akarunk megtalálni. A kísérletezésre az `str_view()`-t használjuk, ami megjeleníti, hogy a megadott regex mintánk pontosan mit jelöl. A függvény match = TRUE paramétere lehetővé teszi, hogy csak a releváns találatokat kapjuk vissza.
 
 [^adatkezel-5]: A reguláris kifejezés egy olyan, meghatározott szintaktikai szabályok szerint leírt karakterlánc (*string)*, amivel meghatározható stringek egy adott halmaza. Az ilyen kifejezés valamilyen minta szerinti szöveg keresésére, cseréjére, illetve a szöveges adatok ellenőrzésére használható. További információ: [http://www.regular-expressions.info/](http://www.regular-expressions.info/)
 

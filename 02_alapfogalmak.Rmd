@@ -27,7 +27,7 @@ Már említettük, hogy egy szövegbányászati elemzés során a szöveg is ada
 
 *1. Az Európai Unió 27 tagországának egyike Magyarország.*
 
-*2. Magyarország 2004-ben csatlakozott az Európai Unóhoz.*
+*2. Magyarország 2004-ben csatlakozott az Európai Unióhoz.*
 
 *3. Szlovákia, akárcsak Magyarország, 2004-ben lett ez Európai Unió tagja.*
 
@@ -57,7 +57,7 @@ Az emberi nyelv egy meglehetősen bonyolult rendszer, így egy szöveg jelentés
 
 *2. A kvantitatív modellek kiegészítik az embert, nem helyettesítik azt*
 
-A kvantitatív eszközökkel történő elemzés nem szünteti meg a szövegek elolvasásának szükségességét, hiszen egészen más információk kinyerését teszi lehetővé, mint egy kvantitatív megközelítés. Emiatt a kvantitatív szövegelemzés talán legfontosabb kihívása, hogy a kutató megtalálja a gépi és a humán erőforrások együttes hasznosításának legjobb módját.
+A kvantitatív eszközökkel történő elemzés nem szünteti meg a szövegek elolvasásának szükségességét, hiszen egészen más információk kinyerését teszi lehetővé, mint egy kvalitatív megközelítés. Emiatt a kvantitatív szövegelemzés talán legfontosabb kihívása, hogy a kutató megtalálja a gépi és a humán erőforrások együttes hasznosításának legjobb módját.
 
 *3. Nincs legjobb modell*
 
@@ -65,4 +65,4 @@ Minden kutatáshoz meg kell találni a leginkább alkalmas modellt a kutatási k
 
 *4. Validálás, validálás, validálás!*
 
-Mivel az automatizált szövegelemzés számos esetben jelentősen lecsökkenti az elemzéshez szükséges időt és energiát, csábító lehet a gondolat, hogy ezekhez a módszerekhez forduljon a kutató, ugyanakkor nem szabad elfelejteni, hogy az elemzés csupán a kezdeti lépés, hiszen a kutatónak validálnia kell az eredményeket ahhoz, hogy valóban megbízható következtetésekre jussunk. Az érvényesség-vizsgálat (*validálás*) lényege egy felügyelet nélküli modell esetén -- ahol az elvárt eredmények nem ismertek, így a teljesítmény nem tesztelhető --, hogy meggyőződjünk: egy felügyelt modellel (olyan modellel, ahol az elvárt eredmény ismert, így ellenőrizhető) egyenértékű eredményeket hozzon. Ennek az elvárásnak a teljesítése gyakran nem egyszerű, azonban az eljárások alapos kiértékelést (*validálást*) nélkülöző alkalmazása meglehetősen kétesélyes eredményekhez vezethet, emiatt érdemes megfelelő alapossággal eljárni az érvényesség-vizsgálat során.
+Mivel az automatizált szövegelemzés számos esetben jelentősen lecsökkenti az elemzéshez szükséges időt és energiát, csábító lehet a gondolat, hogy ezekhez a módszerekhez forduljon a kutató, ugyanakkor nem szabad elfelejteni, hogy az elemzés csupán a kezdeti lépés, hiszen a kutatónak validálnia kell az eredményeket ahhoz, hogy valóban megbízható következtetésekre jussunk. Az érvényesség-vizsgálat (*validálás*) lényege egy felügyelet nélküli modell esetén -- ahol az elvárt eredmények nem ismertek, így a teljesítmény nem tesztelhető --, hogy meggyőződjünk: egy felügyelt modellel (olyan modellel, ahol az elvárt eredmény ismert, így ellenőrizhető) egyenértékű eredményeket hozzon. Ennek az elvárásnak a teljesítése gyakran nem egyszerű, azonban az eljárások alapos kiértékelést nélkülöző alkalmazása meglehetősen kétesélyes eredményekhez vezethet, emiatt érdemes megfelelő alapossággal eljárni az érvényesség-vizsgálat során.
