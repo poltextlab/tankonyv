@@ -23,6 +23,23 @@ A magyar tankönyvpiacon elsőként ismertetünk lépésről-lépésre a nemzetk
 A könyv megrendelhető a [Typotex kiadó honlapján!](https://www.typotex.hu/book/11810/sebok_szovegbanyaszat_es_mesterseges_intelligencia_r_ben)
 
 
+Javasolt hivatkozás: 
+
+Sebők, Miklós, Orsolya Ring, és Ákos Máté. 2021. Szövegbányászat És Mesterséges Intelligencia R-Ben. Budapest: *Typotext*.
+
+
+Bib formátumban:
+
+```
+@book{sebok2021szovegbanyaszat,
+	address = {Budapest},
+	title = {Szövegbányászat és mesterséges intelligencia {R}-ben},
+	publisher = {Typotext},
+	author = {Sebők, Miklós and Ring, Orsolya and Máté, Ákos},
+	year = {2021}
+}
+```
+
 <br>
 <br>
  
