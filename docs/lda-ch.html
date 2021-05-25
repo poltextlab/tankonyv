@@ -162,6 +162,7 @@ div.csl-indent {
 
 <ul class="summary">
 <li><a href="./">Szövegbányászat R-ben</a></li>
+
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Üdvözöljük!</a></li>
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Bevezetés</a>
@@ -274,6 +275,8 @@ div.csl-indent {
 <li class="chapter" data-level="13.2" data-path="függelék.html"><a href="függelék.html#vizualizáció"><i class="fa fa-check"></i><b>13.2</b> Vizualizáció</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="irodalomjegyzék.html"><a href="irodalomjegyzék.html"><i class="fa fa-check"></i>Irodalomjegyzék</a></li>
+<li class="divider"></li>
+<li>Sebők, Miklós, Orsolya Ring, és Ákos Máté. 2021. Szövegbányászat És Mesterséges Intelligencia R-Ben. Budapest: Typotext.</li>
 </ul>
 
       </nav>
@@ -328,7 +331,7 @@ div.csl-indent {
 <span id="cb95-3"><a href="lda-ch.html#cb95-3" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(beszedek_klaszter<span class="sc">$</span>cluster)</span>
 <span id="cb95-4"><a href="lda-ch.html#cb95-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb95-5"><a href="lda-ch.html#cb95-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 2 </span></span>
-<span id="cb95-6"><a href="lda-ch.html#cb95-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 2</span></span></code></pre></div>
+<span id="cb95-6"><a href="lda-ch.html#cb95-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 5</span></span></code></pre></div>
 <p>A felügyelet nélküli klasszifikáció nagy kérdése, hány klasztert alakítsunk ki, hogy megközelítsük a valóságot, és ne csak mesterségesen kreáljunk csoportokat. Ez ugyanis azzal a kockázattal jár, hogy ténylegesen nem létező csoportok is létrejönnek. A klaszterek optimális számának meghatározására kvalitatív és kvantitatív lehetőségeink is vannak. A következőkben az utóbbira mutatunk példát, amihez a <code>factoextra</code> csomagot használjuk A lenti ábra azt mutatja, hogy a klasztereken belüli négyzetösszegek hogyan változnak a <em>k</em> paraméter változásának függvényében. Minél kisebb a klasztereken belüli négyzetösszegek értéke, annál közelebbi pontok tartoznak össze, így a kisebb értékekkel definiált klasztereket kapunk. Az ábra alapján tehát az ideális <em>k</em> 4 vagy 2, attól fuggően, hogy milyen feltevésekkel élünk a kutatásunk során. A 2-es érték azért lehet jó, mert a <span class="math inline">\(k &gt; 2\)</span> értékek esetén a négyzetösszegek értéke nem csökken drasztikusan és a korpuszunk alapján a két („jobb-bal") klaszter kvalitativ alapon is jól definiálható. A <span class="math inline">\(k = 4\)</span> pedig azért lehet jó, mert utánna gyakorlatilag nem változik a kapott négyzetösszeg, ami azt jelzi, hogy a további klaszterek hozzáadásával nem lesz pontosabb a csoportosítás.</p>
 <div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="lda-ch.html#cb96-1" aria-hidden="true" tabindex="-1"></a>factoextra<span class="sc">::</span><span class="fu">fviz_nbclust</span>(<span class="fu">as.matrix</span>(beszedek_dfm), kmeans, <span class="at">method =</span> <span class="st">&quot;wss&quot;</span>, <span class="at">k.max =</span> <span class="dv">5</span>, <span class="at">linecolor =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
 <span id="cb96-2"><a href="lda-ch.html#cb96-2" aria-hidden="true" tabindex="-1"></a><span class="fu">labs</span>(</span>
