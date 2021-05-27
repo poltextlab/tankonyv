@@ -25,7 +25,7 @@ A könyv megrendelhető a [Typotex kiadó honlapján!](https://www.typotex.hu/bo
 
 Javasolt hivatkozás: 
 
-Sebők, Miklós, Orsolya Ring, és Ákos Máté. 2021. Szövegbányászat És Mesterséges Intelligencia R-Ben. Budapest: *Typotext*.
+Sebők Miklós, Ring Orsolya, és Máté Ákos. 2021. Szövegbányászat és Mesterséges Intelligencia R-ben. Budapest: *Typotext*.
 
 
 Bib formátumban:

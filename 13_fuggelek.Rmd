@@ -8,7 +8,7 @@ source("_common.R")
 
 ## Az R és az RStudio használata
 
-Az R egy programozási nyelv, amely alkalmas statisztikai számítások elvégzésére és ezek eredményeinek grafikus megjelenítésére. Az R ingyenes, nyílt forráskódú szoftver, mely telepíthető mind Windows, mind Linux, mind MacOS operációs rendszerek alatt, az alábbi oldalról: [https://cran.r-project.org/](https://cran.r-project.org/) Az RStudio az R integrált fejlesztői környezete (*integrated development environment, IDE*), mely egy olyan felhasználóbarát felületet biztosít, ami egyszerűbb és átláthatóbb munkát tesz lehetővé. Az RStudio az alábbi oldalról tölthető le: [https://rstudio.com/products/rstudio/download/](https://rstudio.com/products/rstudio/download/)
+Az R egy programozási nyelv, amely alkalmas statisztikai számítások elvégzésére és ezek eredményeinek grafikus megjelenítésére. Az R ingyenes, nyílt forráskódú szoftver, mely telepíthető mind Windows, mind Linux, mind MacOS operációs rendszerek alatt az alábbi oldalról: [https://cran.r-project.org/](https://cran.r-project.org/) Az RStudio az R integrált fejlesztői környezete (*integrated development environment, IDE*), mely egy olyan felhasználóbarát felületet biztosít, ami egyszerűbb és átláthatóbb munkát tesz lehetővé. Az RStudio az alábbi oldalról tölthető le: [https://rstudio.com/products/rstudio/download/](https://rstudio.com/products/rstudio/download/)
 
 A *„point and click"* szoftverekkel szemben az R használata során scripteket kell írni, ami bizonyos programozási jártasságot feltételez, de a későbbiekben lehetővé teszi azt adott kutatási kérdéshez maximálisan illeszkedő kódok összeállítását, melyek segítségével az elemzések mások számára is megbízhatóan reprodukálhatók lesznek. Ugyancsak az R használata mellett szól, hogy komoly fejlesztői és felhasználói közösséggel rendelkezik, így a használat során felmerülő problémákra általában gyorsan megoldást találhatunk.
 
@@ -20,10 +20,10 @@ Az RStudio kezdőfelülete négy panelből, eszközsorból és menüsorból áll
 knitr::include_graphics('figures/13-01_layout.png')
 ```
 
-Az **(1) editor** ablak  szolgál a kód beírására, futtatására és mentésére. A **(2) console** ablakban jelenik meg a lefuttatott kód és az eredmények. A jobb felső ablak **(3) environment** fülén láthatóak a memóriában tárolt adatállományok, változók és felhasználói függvények. A **history** fül mutatja a korábban lefuttatott utasításokat. A jobb alsó ablak **(4) files** fülén az aktuális munkakönyvtárban tárolt mappákat és fájlok találjuk, míg a **plot** fülön az elemzéseink során elkészített ábrák jelennek meg. A **packages** fülön frissíthetjük a meglévő r csomagokat és telepíthetünk újakat. A **help** fülön a különböző függvények, parancsok leírását, és használatát találjuk meg. A `Tools -> Global Options` menüpont végezhetjük el az RStudio testreszabását. Így például beállíthatjuk az ablaktér elrendezését (*Pane layout*), vagy a színvilágot (*Appearance*), illetve azt hogy a kódok ne fussanak ki az ablakból (`Code -> Editing -> Soft wrap R source files`)
+Az **(1) editor** ablak  szolgál a kód beírására, futtatására és mentésére. A **(2) console** ablakban jelenik meg a lefuttatott kód és az eredmények. A jobb felső ablak **(3) environment** fülén láthatóak a memóriában tárolt adatállományok, változók és felhasználói függvények. A **history** fül mutatja a korábban lefuttatott utasításokat. A jobb alsó ablak **(4) files** fülén az aktuális munkakönyvtárban tárolt mappákat és fájlok találjuk, míg a **plot** fülön az elemzéseink során elkészített ábrák jelennek meg. A **packages** fülön frissíthetjük a meglévő r csomagokat és telepíthetünk újakat. A **help** fülön a különböző függvények, parancsok leírását, és használatát találjuk meg. A `Tools -> Global Options` menüpont végezhetjük el az RStudio testreszabását. Így például beállíthatjuk az ablaktér elrendezését (*Pane layout*), vagy a színvilágot (*Appearance*), illetve azt hogy a kódok ne fussanak ki az ablakból (`Code -> Editing -> Soft wrap R source files`).
 
 
-### Projekt alapú munka {#projektmunka}
+### A projektalapú munka {#projektmunka}
 
 Bár nem kötelező, de javasolt, hogy az RStudio-ban projekt alapon dolgozzunk, mivel így az összes – az adott projekttel kapcsolatos fájlt – egy mappában tárolhatjuk. Új projekt beállítását a `File->New Project` menüben tehetjük meg, ahol a saját gépünk egy könyvtárát kell kiválasztani, ahová az R a scripteket, az adat- és előzményfájlokat menti. Ezenkívül a `Tools->Global Options->General` menüpont alatt le kell tiltani a *„Restore most recently opened project at startup”* és a *„Restore .RData ino workspace at startup”* beállítást, valamint *„Save workspace to .RData on exit”* legördülő menüjében be kell állítani a *„Never”*  értéket. 
 
@@ -62,7 +62,7 @@ Az R súgórendszere a `help.start()` utasítással indítható el. Egy adott f�
 
 ### R csomagok {#packages}
 
-Az `R`-ben telepíthetők kiegészítő csomagok (packages), amelyek alapértelmezetten el nem érhető algoritmusokat, függvényeket tartalmaznak. A csomagok saját dokumentációval rendelkeznek, amelyeket fel kell tüntetni a használatukkal készült publikációink hivatkozáslistájában. A csomagok telepítésre több lehetőségünk is van: használhatjuk a menüsor `Tools -> Install Packages` menüpontját, vagy a jobb alsó ablak **packages** fül `Install` menüpontját, illetve az **editor** ablakban az `install.packages()` parancsot futtatva, ahol a `()`-be a telepíteni kívánt csomag nevét kell beírnunk (pl.: `install.packages(dplyr)`).
+Az `R`-ben telepíthetők kiegészítő csomagok (packages), amelyek alapértelmezetten el nem érhető algoritmusokat, függvényeket tartalmaznak. A csomagok saját dokumentációval rendelkeznek, amelyeket fel kell tüntetni a használatukkal készült publikációink hivatkozáslistájában. A csomagok telepítésre több lehetőségünk is van: használhatjuk a menüsor `Tools -> Install Packages` menüpontját, vagy a jobb alsó ablak **packages** fül `Install` menüpontját, illetve az **editor** ablakban az `install.packages()` parancsot futtatva, ahol a `()`-be a telepíteni kívánt csomag nevét kell beírnunk (pl.: `install.packages("dplyr")`).
 
 
 ```{r fig.align='center', fig.cap='Packages fül', echo=FALSE}
@@ -79,10 +79,10 @@ Az objektumok lehetnek például **vektorok**, **mátrixok**, **tömbök** (*arr
 
 Az R-ben kétféle típusú vektort különböztetünk meg:
 
-- **egyedüli vektor** (*atomic vector*)
+- **atomi vektor** (*atomic vector*)
 - **lista** (*list*)
 
-Az egyedüli vektornak hat típusa van, **logikai** (*logical*), **egész szám** (*integer*), **természetes szám** (*double*), **karakter** (*character*), **komplex szám** (*complex*) és **nyers adat** (*raw*). A leggyakrabban valamilyen numerikus, logikai vagy karakter vektorral használjuk. Az egyedüli vektorok onnan kapták a nevüket hogy csak egy féle adattípust tudnak tárolni. A listák ezzel szemben gyakorlatilag bármit tudnak tárolni, akár több listát is egybeágyazhatunk.
+Az atomi vektornak hat típusa van, **logikai** (*logical*), **egész szám** (*integer*), **természetes szám** (*double*), **karakter** (*character*), **komplex szám** (*complex*) és **nyers adat** (*raw*). A leggyakrabban valamilyen numerikus, logikai vagy karakter vektorral használjuk. Az egyedüli vektorok onnan kapták a nevüket hogy csak egy féle adattípust tudnak tárolni. A listák ezzel szemben gyakorlatilag bármit tudnak tárolni, akár több listát is egybeágyazhatunk.
 
 A vektorok és listák azok az építőelemek amikből felépülnek az `R` objektumaink. Több érték vagy azonos típusú objektum összefűzését a `c()` függvénnyel végezhetjük el. A lenti példában három különböző objektumot kreálunk, egy numerikusat, egy karaktert és egy logikait. A karakter vektorban az elemeket időzőjellel és vesszővel szeparáljuk. A logikai vektor csak `TRUE`, illetve `FALSE` értékeket tartalmazhat.
 
@@ -172,7 +172,7 @@ library(gapminder)
 ```
 
 
-Az elemzéseinkhez használt data frame adatainak alapján a `ggplot2` csomag segítségével lehetőségünk van különböző vizualizációk készítésére is. 
+Az elemzéseinkhez használt data frame adatai alapján a `ggplot2` csomag segítségével lehetőségünk van különböző vizualizációk készítésére is. 
 
 
 A `ggplot2` használata során különböző témákat alkalmazhatunk, melyek részletes leírása megtalálható: https://ggplot2.tidyverse.org/reference/ggtheme.html

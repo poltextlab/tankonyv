@@ -1,4 +1,4 @@
-# Felügyelet nélküli tanulás - Topik-modellezés {#lda_ch}
+# Felügyelet nélküli tanulás - Topikmodellezés {#lda_ch}
 
 ```{r include=FALSE}
 
@@ -89,19 +89,19 @@ factoextra::fviz_cluster(
   theme(legend.position = "none")
 ```
 
-## LDA topik modellek[^lda1]
+## LDA topikmodellek[^lda1]
 
 [^lda1]: A kód részben az alábbiakon alapul: [tidytextmining.com/topicmodeling.html](tidytextmining.com/topicmodeling.html). Az általunk is használt `topicmodels` csomag interfészt biztosít az LDA modellek és a korrelált témamodellek (CTM) C kódjához, valamint az LDA modellek illesztéséhez szükséges C ++ kódhoz.
 
-A topik modellezés a dokumentumok téma klasztereinek meghatározására szolgáló valószínűség alapú eljárás, amely szógyakoriságot állapít meg minden témához, és minden dokumentumhoz hozzárendeli az adott témák valószínűségét. A topik modellezés egy felügyelet nélküli tanulási módszer, amely során az alkalmazott algoritmus a dokumentum tulajdonságait és a modell becsléseit felhasználva hoz létre különböző kategóriákat, melyekhez később hozzárendeli a szöveget [@tikkSzovegbanyaszat2007; @grimmer2013text; @burtejinCsoportositasKlaszterezes2016]. Az egyik leggyakrabban alkalmazott topik modellezési eljárás, a Látens Dirichlet Allokáció (LDA) alapja az a feltételezés, hogy minden korpusz topikok/témák keverékéből áll, ezen témák pedig statisztikailag a korpusz szókészlete valószínűségi függvényeinek (eloszlásának) tekinthetőek [@bleiLatentDirichletAllocation2003]. Az LDA a korpusz dokumentumainak csoportosítása során az egyes dokumentumokhoz topik szavakat rendel, a topikok megbecsléséhez pedig a szavak együttes megjelenését vizsgálja a dokumentum egészében. Az LDA algoritmusnak előzetesen meg kell adni a keresett klaszterek (azaz a keresett topikok) számát, ezt követően a dokumentumhalmazban szereplő szavak eloszlása alapján az algoritmus azonosítja a kulcsszavakat, amelyek eloszlása kirajzolja a topikokat [@bleiLatentDirichletAllocation2003; @burtejinCsoportositasKlaszterezes2016; @jacobiQuantitativeAnalysisLarge2016].
+A topikmodellezés a dokumentumok téma klasztereinek meghatározására szolgáló valószínűség alapú eljárás, amely szógyakoriságot állapít meg minden témához, és minden dokumentumhoz hozzárendeli az adott témák valószínűségét. A topikmodellezés egy felügyelet nélküli tanulási módszer, amely során az alkalmazott algoritmus a dokumentum tulajdonságait és a modell becsléseit felhasználva hoz létre különböző kategóriákat, melyekhez később hozzárendeli a szöveget [@tikkSzovegbanyaszat2007; @grimmer2013text; @burtejinCsoportositasKlaszterezes2016]. Az egyik leggyakrabban alkalmazott topikmodellezési eljárás, a Látens Dirichlet Allokáció (LDA) alapja az a feltételezés, hogy minden korpusz topikok/témák keverékéből áll, ezen témák pedig statisztikailag a korpusz szókészlete valószínűségi függvényeinek (eloszlásának) tekinthetőek [@bleiLatentDirichletAllocation2003]. Az LDA a korpusz dokumentumainak csoportosítása során az egyes dokumentumokhoz topik szavakat rendel, a topikok megbecsléséhez pedig a szavak együttes megjelenését vizsgálja a dokumentum egészében. Az LDA algoritmusnak előzetesen meg kell adni a keresett klaszterek (azaz a keresett topikok) számát, ezt követően a dokumentumhalmazban szereplő szavak eloszlása alapján az algoritmus azonosítja a kulcsszavakat, amelyek eloszlása kirajzolja a topikokat [@bleiLatentDirichletAllocation2003; @burtejinCsoportositasKlaszterezes2016; @jacobiQuantitativeAnalysisLarge2016].
 
 ```{r echo=FALSE}
 knitr::include_graphics("figures/08-01_topik_modell.png")
 ```
 
-A következőkben a magyar törvények korpuszán szemléltetjük a topik modellezés módszerét, hogy a mesterséges intelligencia segítségével feltárjuk a korpuszon belüli rejtett összefüggéseket. A korábban leírtak szerint tehát nincsenek előre meghatározott kategóriáink, dokumentumainkat a klaszterezés segítségével szeretnénk csoportosítani. Egy-egy dokumentumban keveredhetnek a témák és az azokat reprezentáló szavak. Mivel ugyanaz a szó több topikhoz is kapcsolódhat, így az eljárás komplex elemzési lehetőséget nyújt, az egy szövegen belüli témák és akár azok dokumentumon belüli súlyának azonosítására.
+A következőkben a magyar törvények korpuszán szemléltetjük a topikmodellezés módszerét, hogy a mesterséges intelligencia segítségével feltárjuk a korpuszon belüli rejtett összefüggéseket. A korábban leírtak szerint tehát nincsenek előre meghatározott kategóriáink, dokumentumainkat a klaszterezés segítségével szeretnénk csoportosítani. Egy-egy dokumentumban keveredhetnek a témák és az azokat reprezentáló szavak. Mivel ugyanaz a szó több topikhoz is kapcsolódhat, így az eljárás komplex elemzési lehetőséget nyújt, az egy szövegen belüli témák és akár azok dokumentumon belüli súlyának azonosítására.
 
-Az alábbiakban a 1998--2002-es és a 2002--2006-os parlamenti ciklus 1032 törvényszövegének topik modellezését és a szükséges előkészítő, korpusztisztító lépéseket mutatjuk be. A HunMineR csomag segítségével beolvassuk az elemezni kívánt fájlokat.[^lda2]
+Az alábbiakban a 1998--2002-es és a 2002--2006-os parlamenti ciklus 1032 törvényszövegének topikmodellezését és a szükséges előkészítő, korpusztisztító lépéseket mutatjuk be. A HunMineR csomag segítségével beolvassuk az elemezni kívánt fájlokat.[^lda2]
 
 [^lda2]: A törvényeket és a metaadatokat tartalmazó adatbázisokat regisztációt követően a Hungarian Comparative Agendas Projekt honlapjáról <https://cap.tk.hu/> lehet letölteni.
 
@@ -458,9 +458,9 @@ top_terms_gibbs %>%
   scale_x_reordered()
 ```
 
-## Strukturális topik modellek
+## Strukturális topikmodellek
 
-A kvantitatív szövegelemzés elterjedésével együtt megjelentek a módszertani innovációk is. @roberts2014structural kiváló cikkben mutatták be a strukturális topik modelleket (*structural topic models -- stm*), amelyek fő újítása, hogy a dokumentumok metaadatai kovariánsként[^lda6] tudják befolyásolni, hogy egy-egy kifejezés mekkora valószínűséggel lesz egy-egy téma része. A kovariánsok egyrészről megmagyarázhatják, hogy egy-egy dokumentum mennyire függ össze egy-egy témával (*topical prevalence*), illetve hogy egy-egy szó mennyire függ össze egy-egy témán belül (*topical content*).
+A kvantitatív szövegelemzés elterjedésével együtt megjelentek a módszertani innovációk is. @roberts2014structural kiváló cikkben mutatták be a strukturális topikmodelleket (*structural topic models -- stm*), amelyek fő újítása, hogy a dokumentumok metaadatai kovariánsként[^lda6] tudják befolyásolni, hogy egy-egy kifejezés mekkora valószínűséggel lesz egy-egy téma része. A kovariánsok egyrészről megmagyarázhatják, hogy egy-egy dokumentum mennyire függ össze egy-egy témával (*topical prevalence*), illetve hogy egy-egy szó mennyire függ össze egy-egy témán belül (*topical content*).
 
 [^lda6]: A kovariancia megadja két egymástól különböző változó együttmozgását. Kis értékei gyenge, nagy értékei erős lineáris összefüggésre utalnak.
 
@@ -497,7 +497,7 @@ out <- stm::prepDocuments(processed_stm$documents, processed_stm$vocab, processe
 out <- readRDS("data/temp/stm_out.RDS")
 ```
 
-A strukturális topik-modellünket az `stm` függvénnyel becsüljük és a kovariánsokat a `prevalence` opciónál tudjuk formulaként megadni. A lenti példában a Hungarian Comparative Agendas Project[^lda7] kategóriáit (például gazdaság, egészségügy stb.) és a kormányciklusokat használjuk. A futási idő kicsit hosszabb mint az LDA modellek esetében.
+A strukturális topikmodellünket az `stm` függvénnyel becsüljük és a kovariánsokat a `prevalence` opciónál tudjuk formulaként megadni. A lenti példában a Hungarian Comparative Agendas Project[^lda7] kategóriáit (például gazdaság, egészségügy stb.) és a kormányciklusokat használjuk. A futási idő kicsit hosszabb mint az LDA modellek esetében.
 
 [^lda7]: A kódkönyv elérhető az alábbi linken: [Comparative Agendas Project](https://cap.tk.hu/kozpolitikai-magyar).
 
