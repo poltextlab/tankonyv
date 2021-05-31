@@ -66,10 +66,10 @@ mnb-sajtóközlemények
 lda_ch
 fogalmi-alapok-2
 k-közép-klaszterezés
-lda-topik-modelleklda1
+lda-topikmodelleklda1
 a-vem-módszer-alkalmazása-a-magyar-törvények-korpuszán
 az-lda-gibbs-módszer-alkalmazása-a-magyar-törvények-korpuszán
-strukturális-topik-modellek
+strukturális-topikmodellek
 embedding
 a-szóbeágyazás-célja
 word2vec-és-glove
