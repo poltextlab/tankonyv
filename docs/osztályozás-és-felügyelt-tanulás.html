@@ -411,7 +411,7 @@ div.csl-indent {
 <span id="cb243-7"><a href="osztályozás-és-felügyelt-tanulás.html#cb243-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      20  21  23  26  27  28  29  31  33  34  35  36  99</span></span>
 <span id="cb243-8"><a href="osztályozás-és-felügyelt-tanulás.html#cb243-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   0  80   4  14  12   8  80 116  11  58   8  27   8   1</span></span>
 <span id="cb243-9"><a href="osztályozás-és-felügyelt-tanulás.html#cb243-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   1  23   0   0   3   1  11  10   0  13   2   5   0   0</span></span></code></pre></div>
-<p>Végezetül előrejelzéseinket ezek kódonkénti gyakorisága szempontjából ábrázoljuk (ld, 12.1. ábra).</p>
+<p>Végezetül előrejelzéseinket ezek kódonkénti gyakorisága szempontjából ábrázoljuk (ld. <a href="osztályozás-és-felügyelt-tanulás.html#fig:svm">12.1</a>. ábra).</p>
 <div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="osztályozás-és-felügyelt-tanulás.html#cb244-1" aria-hidden="true" tabindex="-1"></a>ggplot_data <span class="ot">&lt;-</span> Data_NOL_predictions[,<span class="fu">c</span>(<span class="st">&quot;majortopic_code&quot;</span>,<span class="st">&quot;predictions_label&quot;</span>)]</span>
 <span id="cb244-2"><a href="osztályozás-és-felügyelt-tanulás.html#cb244-2" aria-hidden="true" tabindex="-1"></a>ggplot_data<span class="sc">$</span>predictions_label <span class="ot">&lt;-</span> <span class="fu">factor</span>(ggplot_data<span class="sc">$</span>predictions_label)</span></code></pre></div>
 <div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="osztályozás-és-felügyelt-tanulás.html#cb245-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> ggplot_data <span class="sc">%&gt;%</span></span>
@@ -422,11 +422,11 @@ div.csl-indent {
 <span id="cb246-2"><a href="osztályozás-és-felügyelt-tanulás.html#cb246-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="sc">+</span></span>
 <span id="cb246-3"><a href="osztályozás-és-felügyelt-tanulás.html#cb246-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
 <span id="cb246-4"><a href="osztályozás-és-felügyelt-tanulás.html#cb246-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-263"></span>
+<div class="figure" style="text-align: center"><span id="fig:svm"></span>
 <p class="caption">
 Ábra 12.1: Az SVM modell klasszifikációs eredményei
 </p>
-<img src="_main_files/figure-html/unnamed-chunk-263-1.png" alt="Az SVM modell klasszifikációs eredményei" width="90%" />
+<img src="_main_files/figure-html/svm-1.png" alt="Az SVM modell klasszifikációs eredményei" width="90%" />
 </div>
 
 </div>

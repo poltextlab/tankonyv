@@ -306,7 +306,7 @@ div.csl-indent {
 <div id="az-rstudio-kezdőfelülete" class="section level3" number="13.1.1">
 <h3><span class="header-section-number">13.1.1</span> Az RStudio kezdőfelülete</h3>
 <p>Az RStudio kezdőfelülete négy panelből, eszközsorból és menüsorból áll:</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-265"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-243"></span>
 <p class="caption">
 Ábra 13.1: RStudio felhasználói felület
 </p>
@@ -317,7 +317,7 @@ div.csl-indent {
 <div id="projektmunka" class="section level3" number="13.1.2">
 <h3><span class="header-section-number">13.1.2</span> A projektalapú munka</h3>
 <p>Bár nem kötelező, de javasolt, hogy az RStudio-ban projekt alapon dolgozzunk, mivel így az összes – az adott projekttel kapcsolatos fájlt – egy mappában tárolhatjuk. Új projekt beállítását a <code>File-&gt;New Project</code> menüben tehetjük meg, ahol a saját gépünk egy könyvtárát kell kiválasztani, ahová az R a scripteket, az adat- és előzményfájlokat menti. Ezenkívül a <code>Tools-&gt;Global Options-&gt;General</code> menüpont alatt le kell tiltani a <em>„Restore most recently opened project at startup”</em> és a <em>„Restore .RData ino workspace at startup”</em> beállítást, valamint <em>„Save workspace to .RData on exit”</em> legördülő menüjében be kell állítani a <em>„Never”</em> értéket.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-266"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-244"></span>
 <p class="caption">
 Ábra 13.2: RStudio projekt beállítások
 </p>
@@ -331,7 +331,7 @@ div.csl-indent {
 A scriptbeli utasítások az azokat tartalmazó sorokra állva vagy több sort kijelölve a <code>Run</code> feliratra kattintva vagy a <code>Ctrl+Enter</code> billentyűparanccsal futtathatók le. A lefuttatott parancsok és azok eredményei ezután a bal alsó sarokban lévő <strong>console</strong> ablakban jelennek meg és ugyanitt kapunk hibaüzenetet is, ha valamilyen hibát vétettünk a script írása közben.</p>
 <p>A munkafolyamat során létrehozott állományok (ábrák, fájlok) az ún. munkakönyvtárba (<em>working directory</em>) mentődnek. Az aktuális munkakönyvtár neve, elérési útja a <code>getwd()</code> utasítással jeleníthető meg. A könyvtárban található állományok listázására a <code>list.files()</code> utasítással van lehetőségünk. Ha a korábbiaktól eltérő munkakönyvtárat akarunk megadni, azt a <code>setwd()</code> függvénnyel tehetjük meg, ahol a <code>()</code>-ben az adott mappa elérési útját kell megadnunk. Az elérési útban a meghajtó azonosítóját, majd a mappák, almappák nevét vagy egy normál irányú perjel (<code>/</code>), vagy két fordított perjel (<code>\\</code>) választja el, mivel az elérési út karakterlánc, ezért azt idézőjelek vagy aposztrófok közé kell tennünk.
 Az aktuális munkakönyvtárba beléphetünk a jobb alsó ablak file lapján a <code>„More -&gt; Go To Working Directory”</code> segítségével. Ugyanitt a <code>„Set Working Directory”</code>-val munkakönyvtárnak állíthatjuk be az a mappát, amelyben épp benne vagyunk.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-267"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-245"></span>
 <p class="caption">
 Ábra 13.3: Working directory beállítások
 </p>
@@ -351,7 +351,7 @@ Az R súgórendszere a <code>help.start()</code> utasítással indítható el. E
 <div id="packages" class="section level3" number="13.1.4">
 <h3><span class="header-section-number">13.1.4</span> R csomagok</h3>
 <p>Az <code>R</code>-ben telepíthetők kiegészítő csomagok (packages), amelyek alapértelmezetten el nem érhető algoritmusokat, függvényeket tartalmaznak. A csomagok saját dokumentációval rendelkeznek, amelyeket fel kell tüntetni a használatukkal készült publikációink hivatkozáslistájában. A csomagok telepítésre több lehetőségünk is van: használhatjuk a menüsor <code>Tools -&gt; Install Packages</code> menüpontját, vagy a jobb alsó ablak <strong>packages</strong> fül <code>Install</code> menüpontját, illetve az <strong>editor</strong> ablakban az <code>install.packages()</code> parancsot futtatva, ahol a <code>()</code>-be a telepíteni kívánt csomag nevét kell beírnunk (pl.: <code>install.packages("dplyr")</code>).</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-268"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-246"></span>
 <p class="caption">
 Ábra 13.4: Packages fül
 </p>
@@ -443,14 +443,14 @@ Először egyszerű alapbeállítások mellett egy histogram típusú vizualizá
 <span id="cb255-3"><a href="függelék.html#cb255-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap)</span>
 <span id="cb255-4"><a href="függelék.html#cb255-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span> </span>
 <span id="cb255-5"><a href="függelék.html#cb255-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() </span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-278-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-256-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>Lehetőségünk van arra, hogy az alakzat színét megváltoztassuk. A használható színek és színkódok megtalálhatóak a <code>ggplot2</code> leírásában: <a href="https://ggplot2-book.org/scale-colour.html">https://ggplot2-book.org/scale-colour.html</a></p>
 <div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="függelék.html#cb256-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
 <span id="cb256-2"><a href="függelék.html#cb256-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> gapminder,</span>
 <span id="cb256-3"><a href="függelék.html#cb256-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap)</span>
 <span id="cb256-4"><a href="függelék.html#cb256-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
 <span id="cb256-5"><a href="függelék.html#cb256-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">&quot;yellow&quot;</span>, <span class="at">colour =</span> <span class="st">&quot;green&quot;</span>) </span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-279-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-257-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>Meghatározhatjuk külön-külön a histogram x és y tengelyén ábrázolni kívánt adatokat és választhatjuk azok pontszerű ábrázolását is.</p>
 <div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="függelék.html#cb257-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
 <span id="cb257-2"><a href="függelék.html#cb257-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> gapminder,</span>
@@ -460,7 +460,7 @@ Először egyszerű alapbeállítások mellett egy histogram típusú vizualizá
 <span id="cb257-6"><a href="függelék.html#cb257-6" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb257-7"><a href="függelék.html#cb257-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
 <span id="cb257-8"><a href="függelék.html#cb257-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() </span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-280-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-258-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>Ahogy az előzőekben, itt is megváltoztathatjuk az ábra színét.</p>
 <div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="függelék.html#cb258-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
 <span id="cb258-2"><a href="függelék.html#cb258-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> gapminder,</span>
@@ -470,7 +470,7 @@ Először egyszerű alapbeállítások mellett egy histogram típusú vizualizá
 <span id="cb258-6"><a href="függelék.html#cb258-6" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb258-7"><a href="függelék.html#cb258-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
 <span id="cb258-8"><a href="függelék.html#cb258-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">colour =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-281-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-259-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>Az fenti script kibővítésével az egyes kontinensek adatait különböző színnel ábrázolhatjuk, az x és y tengelyt elnevezhetjük, a histogramnak címet és alcímet adhatunk, illetve az adataink forrását is feltüntethetjük az alábbi módon:</p>
 <div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="függelék.html#cb259-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
 <span id="cb259-2"><a href="függelék.html#cb259-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> gapminder,</span>
@@ -488,7 +488,7 @@ Először egyszerű alapbeállítások mellett egy histogram típusú vizualizá
 <span id="cb259-14"><a href="függelék.html#cb259-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Points are country-years&quot;</span>,</span>
 <span id="cb259-15"><a href="függelék.html#cb259-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Source: Gapminder dataset&quot;</span></span>
 <span id="cb259-16"><a href="függelék.html#cb259-16" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-282-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-260-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>Az ábrán található feliratok méretének, betűtípusának és betűszínének megválasztásra is lehetőségünk van.</p>
 <div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="függelék.html#cb260-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
 <span id="cb260-2"><a href="függelék.html#cb260-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> gapminder,</span>
@@ -510,23 +510,23 @@ Először egyszerű alapbeállítások mellett egy histogram típusú vizualizá
 <span id="cb260-18"><a href="függelék.html#cb260-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">12</span>, </span>
 <span id="cb260-19"><a href="függelék.html#cb260-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">colour =</span> <span class="st">&quot;red&quot;</span></span>
 <span id="cb260-20"><a href="függelék.html#cb260-20" aria-hidden="true" tabindex="-1"></a>  ))</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-283-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-261-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>Készíthetünk oszlopdiagramot is, amit a <code>ggplot2</code> diamonds adatkészletén személtetünk</p>
 <div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="függelék.html#cb261-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamonds) <span class="sc">+</span></span>
 <span id="cb261-2"><a href="függelék.html#cb261-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cut))</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-284-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-262-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>Itt is lehetőségünk van arra, hogy a diagram színét megváltoztassuk.</p>
 <div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="függelék.html#cb262-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamonds) <span class="sc">+</span></span>
 <span id="cb262-2"><a href="függelék.html#cb262-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cut), <span class="at">fill =</span> <span class="st">&quot;darkgreen&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-285-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-263-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>De arra is lehetőségünk van, hogy az egyes oszlopok eltérő színűek legyenek.</p>
 <div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="függelék.html#cb263-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamonds) <span class="sc">+</span></span>
 <span id="cb263-2"><a href="függelék.html#cb263-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cut, <span class="at">fill =</span> cut))</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-286-1.png" width="90%" style="display: block; margin: auto;" />
+<p><img src="_main_files/figure-html/unnamed-chunk-264-1.png" width="90%" style="display: block; margin: auto;" />
 Arra is van lehetőségünk, hogy egyszerre több változót is ábrázoljunk.</p>
 <div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="függelék.html#cb264-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamonds) <span class="sc">+</span></span>
 <span id="cb264-2"><a href="függelék.html#cb264-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cut, <span class="at">fill =</span> clarity))</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-287-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-265-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>Arra ggplot2 segítségével arra is lehetőségünk van, hogy csv-ből beolvasott adatainkat vizualizáljuk.</p>
 <div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="függelék.html#cb265-1" aria-hidden="true" tabindex="-1"></a>plot_cap_1 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/plot_cap_1.csv&quot;</span>, <span class="at">head =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">&quot;;&quot;</span>) </span>
 <span id="cb265-2"><a href="függelék.html#cb265-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(plot_cap_1, <span class="fu">aes</span>(Year, <span class="at">fill =</span> Subtopic)) <span class="sc">+</span> </span>

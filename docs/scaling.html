@@ -453,13 +453,13 @@ div.csl-indent {
 <span id="cb153-9"><a href="scaling.html#cb153-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">expression</span>(beta),</span>
 <span id="cb153-10"><a href="scaling.html#cb153-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">expression</span>(psi)</span>
 <span id="cb153-11"><a href="scaling.html#cb153-11" aria-hidden="true" tabindex="-1"></a>    )  </span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-168"></span>
+<div class="figure" style="text-align: center"><span id="fig:eiffel"></span>
 <p class="caption">
 Ábra 9.1: A wordfish ‘Eiffel-torony’
 </p>
-<img src="_main_files/figure-html/unnamed-chunk-168-1.png" alt="A wordfish 'Eiffel-torony'" width="90%" />
+<img src="_main_files/figure-html/eiffel-1.png" alt="A wordfish 'Eiffel-torony'" width="90%" />
 </div>
-<p>A dokumentumok szintjén is érdemes megvizsgálni az eredményeket. Ehhez a dokumentum szintű paramétereket fogjuk egy data frame-be gyűjteni: a <span class="math inline">\(\theta\)</span> ideológiai pozíciót, illetve a beszélő nevét. A vizualizáció kedvéért a párttagságot is hozzáadjuk. A data frame összerakása után az alsó és a felső határát is kiszámoljuk a konfidencia intervallumnak és azt is ábrázoljuk (ld. 9.1. ábra).</p>
+<p>A dokumentumok szintjén is érdemes megvizsgálni az eredményeket. Ehhez a dokumentum szintű paramétereket fogjuk egy data frame-be gyűjteni: a <span class="math inline">\(\theta\)</span> ideológiai pozíciót, illetve a beszélő nevét. A vizualizáció kedvéért a párttagságot is hozzáadjuk. A data frame összerakása után az alsó és a felső határát is kiszámoljuk a konfidencia intervallumnak és azt is ábrázoljuk (ld. <a href="scaling.html#fig:eiffel">9.1</a>. ábra).</p>
 <div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="scaling.html#cb154-1" aria-hidden="true" tabindex="-1"></a>dokumentumok_wf <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
 <span id="cb154-2"><a href="scaling.html#cb154-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">speaker =</span> beszedek_wf<span class="sc">$</span>x<span class="sc">@</span>docvars<span class="sc">$</span>felszolalo,</span>
 <span id="cb154-3"><a href="scaling.html#cb154-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">part =</span> beszedek_wf<span class="sc">$</span>x<span class="sc">@</span>docvars<span class="sc">$</span>part,</span>
@@ -478,13 +478,13 @@ div.csl-indent {
 <span id="cb154-16"><a href="scaling.html#cb154-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="cn">NULL</span>,</span>
 <span id="cb154-17"><a href="scaling.html#cb154-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">expression</span>(theta)</span>
 <span id="cb154-18"><a href="scaling.html#cb154-18" aria-hidden="true" tabindex="-1"></a>  ) </span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-169"></span>
+<div class="figure" style="text-align: center"><span id="fig:pozicio"></span>
 <p class="caption">
 Ábra 9.2: A beszédek egymáshoz viszonyított pozíciója
 </p>
-<img src="_main_files/figure-html/unnamed-chunk-169-1.png" alt="A beszédek egymáshoz viszonyított pozíciója" width="90%" />
+<img src="_main_files/figure-html/pozicio-1.png" alt="A beszédek egymáshoz viszonyított pozíciója" width="90%" />
 </div>
-<p>A párt metaadattal összehasonlíthatjuk az egy párthoz tartozó frakcióvezetők értékeit a <code>facet_wrap()</code> használatával. Figyeljünk arra, hogy az <code>y</code> tengelyen szabadon változhasson az egyes rész ábrák között, a <code>scales = "free"</code> opcióval (ld. 9.2. ábra).</p>
+<p>A párt metaadattal összehasonlíthatjuk az egy párthoz tartozó frakcióvezetők értékeit a <code>facet_wrap()</code> használatával. Figyeljünk arra, hogy az <code>y</code> tengelyen szabadon változhasson az egyes rész ábrák között, a <code>scales = "free"</code> opcióval (ld. <a href="scaling.html#fig:pozicio">9.2</a>. ábra).</p>
 <div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="scaling.html#cb155-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dokumentumok_wf, <span class="fu">aes</span>(theta, <span class="fu">reorder</span>(speaker, theta))) <span class="sc">+</span></span>
 <span id="cb155-2"><a href="scaling.html#cb155-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb155-3"><a href="scaling.html#cb155-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbarh</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> lower, <span class="at">xmax =</span> upper), <span class="at">height =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
@@ -493,17 +493,17 @@ div.csl-indent {
 <span id="cb155-6"><a href="scaling.html#cb155-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">expression</span>(theta)</span>
 <span id="cb155-7"><a href="scaling.html#cb155-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb155-8"><a href="scaling.html#cb155-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>part, <span class="at">ncol =</span> <span class="dv">1</span>, <span class="at">scales =</span> <span class="st">&quot;free_y&quot;</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-170"></span>
+<div class="figure" style="text-align: center"><span id="fig:partbanpoz"></span>
 <p class="caption">
 Ábra 9.3: Párton belüli pozíciók
 </p>
-<img src="_main_files/figure-html/unnamed-chunk-170-1.png" alt="Párton belüli pozíciók" width="90%" />
+<img src="_main_files/figure-html/partbanpoz-1.png" alt="Párton belüli pozíciók" width="90%" />
 </div>
 </div>
 <div id="wordscores" class="section level2" number="9.3">
 <h2><span class="header-section-number">9.3</span> Wordscores</h2>
 <p>A modell illesztést a wordfish-hez hasonlóan a <code>quanteda.textmodels</code> csomagban található <code>textmodel_wordscores()</code> függvény végzi. A kiinduló dfm ugyanaz, mint amit a fejezet elején elkészítettünk, a <code>beszedek_dfm</code>.</p>
-<p>A referencia pontokat dokumentumváltozóként hozzáadjuk a dfm-hez (a <code>refrencia_pont</code> oszlopot, ami <code>NA</code> értéket kap alapértelmezetten). A kiválasztott referencia dokumentumoknál pedig egyenként hozzáadjuk az értékeket. Erre több megoldás is van, az egyszerűbb út, hogy az egyik és a másik végletet a <code>-1; 1</code> intervallummal jelöljük. Ennek a lehetséges alternatívája, hogy egy külső, már validált forrást használunk. Pártok esetén ilyen lehet a Chapel Hill szakértői kérdőívének a pontszámai, a Manifesto projekt által kódolt jobb-bal (<em>rile</em>) dimenzió. A lenti példánál mi maradunk az egyszerűbb bináris kódolásnál (ld. 9.3. ábra). A wordfish eredményt alapul véve a két referencia pont Gulyás Gergely és Szél Bernadett beszédei lesznek.<a href="#fn50" class="footnote-ref" id="fnref50"><sup>50</sup></a> Ezek a 3. és a 10. dokumentumok.</p>
+<p>A referencia pontokat dokumentumváltozóként hozzáadjuk a dfm-hez (a <code>refrencia_pont</code> oszlopot, ami <code>NA</code> értéket kap alapértelmezetten). A kiválasztott referencia dokumentumoknál pedig egyenként hozzáadjuk az értékeket. Erre több megoldás is van, az egyszerűbb út, hogy az egyik és a másik végletet a <code>-1; 1</code> intervallummal jelöljük. Ennek a lehetséges alternatívája, hogy egy külső, már validált forrást használunk. Pártok esetén ilyen lehet a Chapel Hill szakértői kérdőívének a pontszámai, a Manifesto projekt által kódolt jobb-bal (<em>rile</em>) dimenzió. A lenti példánál mi maradunk az egyszerűbb bináris kódolásnál (ld. <a href="scaling.html#fig:partbanpoz">9.3</a>. ábra). A wordfish eredményt alapul véve a két referencia pont Gulyás Gergely és Szél Bernadett beszédei lesznek.<a href="#fn50" class="footnote-ref" id="fnref50"><sup>50</sup></a> Ezek a 3. és a 10. dokumentumok.</p>
 <div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="scaling.html#cb156-1" aria-hidden="true" tabindex="-1"></a><span class="fu">docvars</span>(beszedek_dfm, <span class="st">&quot;referencia_pont&quot;</span>) <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
 <span id="cb156-2"><a href="scaling.html#cb156-2" aria-hidden="true" tabindex="-1"></a><span class="fu">docvars</span>(beszedek_dfm, <span class="st">&quot;referencia_pont&quot;</span>)[<span class="dv">3</span>] <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">1</span></span>
 <span id="cb156-3"><a href="scaling.html#cb156-3" aria-hidden="true" tabindex="-1"></a><span class="fu">docvars</span>(beszedek_dfm, <span class="st">&quot;referencia_pont&quot;</span>)[<span class="dv">10</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
@@ -602,11 +602,11 @@ div.csl-indent {
 <span id="cb160-6"><a href="scaling.html#cb160-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;wordscores&quot;</span></span>
 <span id="cb160-7"><a href="scaling.html#cb160-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb160-8"><a href="scaling.html#cb160-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>part, <span class="at">ncol =</span> <span class="dv">1</span>, <span class="at">scales =</span> <span class="st">&quot;free_y&quot;</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-175"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-155"></span>
 <p class="caption">
 Ábra 9.4: A párton belüli wordscores-alapú skála
 </p>
-<img src="_main_files/figure-html/unnamed-chunk-175-1.png" alt="A párton belüli wordscores-alapú skála" width="90%" />
+<img src="_main_files/figure-html/unnamed-chunk-155-1.png" alt="A párton belüli wordscores-alapú skála" width="90%" />
 </div>
 
 </div>

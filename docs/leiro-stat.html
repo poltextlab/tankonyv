@@ -571,13 +571,13 @@ div.csl-indent {
 <span id="cb54-28"><a href="leiro-stat.html#cb54-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Vm    1.0000  0.1122 -0.393</span></span>
 <span id="cb54-29"><a href="leiro-stat.html#cb54-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Maas  0.1122  1.0000 -0.848</span></span>
 <span id="cb54-30"><a href="leiro-stat.html#cb54-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lgV0 -0.3931 -0.8479  1.000</span></span></code></pre></div>
-<p>A kapott értékeket a <code>ggcorr()</code> függvény segítségével ábrázolhatjuk is. Ha a függvény argumentumában a <code>label = TRUE</code> szerepel, a kapott ábrán a kiszámított értékek is láthatók (ld. 5.1. ábra).</p>
+<p>A kapott értékeket a <code>ggcorr()</code> függvény segítségével ábrázolhatjuk is. Ha a függvény argumentumában a <code>label = TRUE</code> szerepel, a kapott ábrán a kiszámított értékek is láthatók (ld. <a href="leiro-stat.html#fig:heatmap">5.1</a>. ábra).</p>
 <div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="leiro-stat.html#cb55-1" aria-hidden="true" tabindex="-1"></a>GGally<span class="sc">::</span><span class="fu">ggcorr</span>(div_df[, <span class="dv">2</span><span class="sc">:</span><span class="dv">13</span>], <span class="at">label =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-63"></span>
+<div class="figure" style="text-align: center"><span id="fig:heatmap"></span>
 <p class="caption">
 Ábra 5.1: Korrelációs hotérkép
 </p>
-<img src="_main_files/figure-html/unnamed-chunk-63-1.png" alt="Korrelációs hotérkép" width="90%" />
+<img src="_main_files/figure-html/heatmap-1.png" alt="Korrelációs hotérkép" width="90%" />
 </div>
 <p>Ezt követően azt is megvizsgálhatjuk, hogy a korpusz szövegei mennyire könnyen olvashatóak. Ehhez a <code>Flesch.Kincaid</code> pontszámot használjuk, ami a szavak és a mondatok hossza alapján határozza meg a szöveg olvashatóságát. Ehhez a <code>textstat_readability()</code> függvényt használjuk, mely a korpuszunkat elemzi.</p>
 <div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="leiro-stat.html#cb56-1" aria-hidden="true" tabindex="-1"></a>quanteda.textstats<span class="sc">::</span><span class="fu">textstat_readability</span>(<span class="at">x =</span> corpus_mineln, <span class="at">measure =</span> <span class="st">&quot;Flesch.Kincaid&quot;</span>)</span>
@@ -614,7 +614,7 @@ div.csl-indent {
 <span id="cb58-10"><a href="leiro-stat.html#cb58-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 2002  medgyessy_peter  medgyessy_peter       bal 15.8</span></span>
 <span id="cb58-11"><a href="leiro-stat.html#cb58-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 1998     orban_viktor     orban_viktor      jobb 13.0</span></span>
 <span id="cb58-12"><a href="leiro-stat.html#cb58-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7 2018     orban_viktor     orban_viktor      jobb 11.4</span></span></code></pre></div>
-<p>Majd a <code>ggplot2</code> segítségével vizualizálhatjuk az eredményt (ld. 5.2. ábra). Ehhez az olvashatósági pontszámmal kiegészített korpuszból egy adattáblát alakítunk ki, majd beállítjuk az ábrázolás paramétereit. Az ábra két tengelyén az év, illetve az olvashatósági pontszám szerepel, a jobb- és a baloldalt a vonal típusa különbözteti meg, az egyes dokumentumokat ponttal jelöljük, az ábrára pedig felíratjuk a miniszterelnökök neveit, valamint azt is beállítjuk, hogy az x tengely beosztása az egyes beszédek dátumához igazodjon. A <code>theme_minimal()</code> függvénnyel pedig azt határozzuk meg, hogy mindez fehér hátteret kapjon.</p>
+<p>Majd a <code>ggplot2</code> segítségével vizualizálhatjuk az eredményt (ld. <a href="leiro-stat.html#fig:olvashatosag">5.2</a>. ábra). Ehhez az olvashatósági pontszámmal kiegészített korpuszból egy adattáblát alakítunk ki, majd beállítjuk az ábrázolás paramétereit. Az ábra két tengelyén az év, illetve az olvashatósági pontszám szerepel, a jobb- és a baloldalt a vonal típusa különbözteti meg, az egyes dokumentumokat ponttal jelöljük, az ábrára pedig felíratjuk a miniszterelnökök neveit, valamint azt is beállítjuk, hogy az x tengely beosztása az egyes beszédek dátumához igazodjon. A <code>theme_minimal()</code> függvénnyel pedig azt határozzuk meg, hogy mindez fehér hátteret kapjon.</p>
 <div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="leiro-stat.html#cb59-1" aria-hidden="true" tabindex="-1"></a>corpus_df <span class="ot">&lt;-</span> <span class="fu">docvars</span>(corpus_mineln)</span></code></pre></div>
 <div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="leiro-stat.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(corpus_df, <span class="fu">aes</span>(year, f_k)) <span class="sc">+</span></span>
 <span id="cb60-2"><a href="leiro-stat.html#cb60-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
@@ -629,11 +629,11 @@ div.csl-indent {
 <span id="cb60-11"><a href="leiro-stat.html#cb60-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb60-12"><a href="leiro-stat.html#cb60-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
 <span id="cb60-13"><a href="leiro-stat.html#cb60-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-69"></span>
+<div class="figure" style="text-align: center"><span id="fig:olvashatosag"></span>
 <p class="caption">
 Ábra 5.2: Az olvashatósági index alakulása
 </p>
-<img src="_main_files/figure-html/unnamed-chunk-69-1.png" alt="Az olvashatósági index alakulása" width="90%" />
+<img src="_main_files/figure-html/olvashatosag-1.png" alt="Az olvashatósági index alakulása" width="90%" />
 </div>
 </div>
 <div id="összehasonlításleiro-5" class="section level2" number="5.4">
@@ -696,17 +696,17 @@ A következőkben <code>textstat_dist()</code> és <code>textstat_simil()</code>
 <span id="cb62-25"><a href="leiro-stat.html#cb62-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; medgyessy_peter_2002                     0              77.5              60.7</span></span>
 <span id="cb62-26"><a href="leiro-stat.html#cb62-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; orban_viktor_1998                     77.5                 0              83.6</span></span>
 <span id="cb62-27"><a href="leiro-stat.html#cb62-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; orban_viktor_2018                     60.7              83.6                 0</span></span></code></pre></div>
-<p>Ezután vizualizálhatjuk is a dokumentumok egymástól való távolságát egy olyan dendogram<a href="#fn22" class="footnote-ref" id="fnref22"><sup>22</sup></a> segítségével, amely megmutatja nekünk a lehetséges dokumentumpárokat (ld. 5.3. ábra).</p>
+<p>Ezután vizualizálhatjuk is a dokumentumok egymástól való távolságát egy olyan dendogram<a href="#fn22" class="footnote-ref" id="fnref22"><sup>22</sup></a> segítségével, amely megmutatja nekünk a lehetséges dokumentumpárokat (ld. <a href="leiro-stat.html#fig:csoportositas">5.3</a>. ábra).</p>
 <div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="leiro-stat.html#cb63-1" aria-hidden="true" tabindex="-1"></a>dist <span class="ot">&lt;-</span> mineln_dfm <span class="sc">%&gt;%</span></span>
 <span id="cb63-2"><a href="leiro-stat.html#cb63-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">textstat_dist</span>(<span class="at">margin =</span> <span class="st">&quot;documents&quot;</span>, <span class="at">method =</span> <span class="st">&quot;euclidean&quot;</span>)</span></code></pre></div>
 <div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="leiro-stat.html#cb64-1" aria-hidden="true" tabindex="-1"></a>hierarchikus_klaszter <span class="ot">&lt;-</span> <span class="fu">hclust</span>(<span class="fu">as.dist</span>(dist))</span>
 <span id="cb64-2"><a href="leiro-stat.html#cb64-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb64-3"><a href="leiro-stat.html#cb64-3" aria-hidden="true" tabindex="-1"></a>ggdendro<span class="sc">::</span><span class="fu">ggdendrogram</span>(hierarchikus_klaszter)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-73"></span>
+<div class="figure" style="text-align: center"><span id="fig:csoportositas"></span>
 <p class="caption">
 Ábra 5.3: A dokumentumok csoportosítása a távolságuk alapján
 </p>
-<img src="_main_files/figure-html/unnamed-chunk-73-1.png" alt="A dokumentumok csoportosítása a távolságuk alapján" width="90%" />
+<img src="_main_files/figure-html/csoportositas-1.png" alt="A dokumentumok csoportosítása a távolságuk alapján" width="90%" />
 </div>
 <div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="leiro-stat.html#cb65-1" aria-hidden="true" tabindex="-1"></a>mineln_dfm <span class="sc">%&gt;%</span></span>
 <span id="cb65-2"><a href="leiro-stat.html#cb65-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">textstat_simil</span>(<span class="at">y =</span> mineln_dfm[, <span class="fu">c</span>(<span class="st">&quot;kormány&quot;</span>)], <span class="at">margin =</span> <span class="st">&quot;features&quot;</span>, <span class="at">method =</span> <span class="st">&quot;correlation&quot;</span>) <span class="sc">%&gt;%</span></span>
@@ -722,7 +722,7 @@ A következőkben <code>textstat_dist()</code> és <code>textstat_simil()</code>
 <span id="cb65-12"><a href="leiro-stat.html#cb65-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; pillanatban    0.959</span></span>
 <span id="cb65-13"><a href="leiro-stat.html#cb65-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; állok          0.683</span></span>
 <span id="cb65-14"><a href="leiro-stat.html#cb65-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; magyar         0.861</span></span></code></pre></div>
-<p>Arra is van lehetőségünk, hogy a két alkorpuszt hasonlítsuk össze egymással. Ehhez a <code>textstat_keyness()</code> függvényt használjuk, melynek a bemenete a <code>dfm</code>. A függvény argumentumában a <code>target =</code> után kell megadni, hogy mely alkorpusz a viszonyítási alap. Az összehasonlítás eredményét a <code>textplot_keyness()</code> függvény segítségével ábrázolhatjuk, ami megjeleníti a két alkorpusz leggyakoribb kifejezéseit (ld. 5.4. ábra).</p>
+<p>Arra is van lehetőségünk, hogy a két alkorpuszt hasonlítsuk össze egymással. Ehhez a <code>textstat_keyness()</code> függvényt használjuk, melynek a bemenete a <code>dfm</code>. A függvény argumentumában a <code>target =</code> után kell megadni, hogy mely alkorpusz a viszonyítási alap. Az összehasonlítás eredményét a <code>textplot_keyness()</code> függvény segítségével ábrázolhatjuk, ami megjeleníti a két alkorpusz leggyakoribb kifejezéseit (ld. <a href="leiro-stat.html#fig:fontoskifejezes">5.4</a>. ábra).</p>
 <div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="leiro-stat.html#cb66-1" aria-hidden="true" tabindex="-1"></a>dfm_keyness <span class="ot">&lt;-</span> corpus_mineln <span class="sc">%&gt;%</span> </span>
 <span id="cb66-2"><a href="leiro-stat.html#cb66-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tokens</span>(<span class="at">remove_punct =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb66-3"><a href="leiro-stat.html#cb66-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tokens_remove</span>(<span class="at">pattern =</span> custom_stopwords) <span class="sc">%&gt;%</span> </span>
@@ -733,13 +733,13 @@ A következőkben <code>textstat_dist()</code> és <code>textstat_simil()</code>
 <div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="leiro-stat.html#cb67-1" aria-hidden="true" tabindex="-1"></a>quanteda.textplots<span class="sc">::</span><span class="fu">textplot_keyness</span>(result_keyness, <span class="at">color =</span> <span class="fu">c</span>(<span class="st">&quot;#484848&quot;</span>, <span class="st">&quot;#D0D0D0&quot;</span>)) <span class="sc">+</span></span>
 <span id="cb67-2"><a href="leiro-stat.html#cb67-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">65</span>, <span class="dv">65</span>)) <span class="sc">+</span></span>
 <span id="cb67-3"><a href="leiro-stat.html#cb67-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="fu">c</span>(<span class="fl">0.9</span>,<span class="fl">0.1</span>))</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-76"></span>
+<div class="figure" style="text-align: center"><span id="fig:fontoskifejezes"></span>
 <p class="caption">
 Ábra 5.4: A korpuszok legfontosabb kifejezései
 </p>
-<img src="_main_files/figure-html/unnamed-chunk-76-1.png" alt="A korpuszok legfontosabb kifejezései" width="90%" />
+<img src="_main_files/figure-html/fontoskifejezes-1.png" alt="A korpuszok legfontosabb kifejezései" width="90%" />
 </div>
-<p>Ha az egyes miniszterelnökök beszédeinek leggyakoribb kifejezéseit szeretnénk összehasonlítani, azt a <code>textstat_frequency()</code> függvény segítségével tehetjük meg, melynek bemenete a megtisztított és súlyozott <code>dfm</code>. Az összehasonlítás eredményét pedig a <code>ggplot2</code> segítségével ábrázolhatjuk is (ld. 5.5. ábra).</p>
+<p>Ha az egyes miniszterelnökök beszédeinek leggyakoribb kifejezéseit szeretnénk összehasonlítani, azt a <code>textstat_frequency()</code> függvény segítségével tehetjük meg, melynek bemenete a megtisztított és súlyozott <code>dfm</code>. Az összehasonlítás eredményét pedig a <code>ggplot2</code> segítségével ábrázolhatjuk is (ld. <a href="leiro-stat.html#fig:freqfeat">5.5</a>. ábra).</p>
 <div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="leiro-stat.html#cb68-1" aria-hidden="true" tabindex="-1"></a>dfm_weighted <span class="ot">&lt;-</span> corpus_mineln <span class="sc">%&gt;%</span></span>
 <span id="cb68-2"><a href="leiro-stat.html#cb68-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tokens</span>(</span>
 <span id="cb68-3"><a href="leiro-stat.html#cb68-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">remove_punct =</span> <span class="cn">TRUE</span>, </span>
@@ -765,11 +765,11 @@ A következőkben <code>textstat_dist()</code> és <code>textstat_simil()</code>
 <span id="cb69-10"><a href="leiro-stat.html#cb69-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>, </span>
 <span id="cb69-11"><a href="leiro-stat.html#cb69-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Relatív szófrekvencia&quot;</span></span>
 <span id="cb69-12"><a href="leiro-stat.html#cb69-12" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-78"></span>
+<div class="figure" style="text-align: center"><span id="fig:freqfeat"></span>
 <p class="caption">
 Ábra 5.5: Leggyakoribb kifejezések a miniszterelnöki beszédekben
 </p>
-<img src="_main_files/figure-html/unnamed-chunk-78-1.png" alt="Leggyakoribb kifejezések a miniszterelnöki beszédekben" width="90%" />
+<img src="_main_files/figure-html/freqfeat-1.png" alt="Leggyakoribb kifejezések a miniszterelnöki beszédekben" width="90%" />
 </div>
 <p>Mivel a szövegösszehasonlítás egy komplex kutatási feladat, a témával bőbben is foglalkozunk a <em><a href="similarity.html#similarity">Szövegösszhasonlítás</a></em> fejezetben.</p>
 </div>

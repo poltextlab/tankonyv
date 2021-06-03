@@ -425,7 +425,7 @@ div.csl-indent {
 <span id="cb81-10"><a href="sentiment.html#cb81-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 2006-01-02 11.036  8.13</span></span></code></pre></div>
 <p>Végül a kapott korpuszt a kiszámolt szentimentértékekkel a <code>quanteda</code>-ban lévő <code>convert()</code> függvénnyel adattáblává alakítjuk. A<code>convert()</code> függvény dokumentációját érdemes elolvasni, mert ennek segítségével tudjuk a <code>quanteda</code>-ban elkészült objektumainkat átalakítani úgy, hogy azt más csomagok is tudják használni.</p>
 <div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="sentiment.html#cb82-1" aria-hidden="true" tabindex="-1"></a>mn_df <span class="ot">&lt;-</span> quanteda<span class="sc">::</span><span class="fu">convert</span>(mn_corpus, <span class="at">to =</span> <span class="st">&quot;data.frame&quot;</span>)</span></code></pre></div>
-<p>Mielőtt vizualizálnánk az eredményt érdemes a napi szintre aggregálni a szentimentértéket és egy nettó értéket kalkulálni (ld. 6.1. ábra).<a href="#fn34" class="footnote-ref" id="fnref34"><sup>34</sup></a></p>
+<p>Mielőtt vizualizálnánk az eredményt érdemes a napi szintre aggregálni a szentimentértéket és egy nettó értéket kalkulálni (ld. <a href="sentiment.html#fig:MNszentiment">6.1</a>. ábra).<a href="#fn34" class="footnote-ref" id="fnref34"><sup>34</sup></a></p>
 <div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="sentiment.html#cb83-1" aria-hidden="true" tabindex="-1"></a>mn_df <span class="ot">&lt;-</span> mn_df <span class="sc">%&gt;%</span></span>
 <span id="cb83-2"><a href="sentiment.html#cb83-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(doc_date) <span class="sc">%&gt;%</span></span>
 <span id="cb83-3"><a href="sentiment.html#cb83-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
@@ -436,11 +436,11 @@ div.csl-indent {
 <p>A plot alapján a cikkek érzelemelemzése során több kiugrást is tapasztalhatunk. Természetesen messzemenő következtetéseket egy ilyen kis korpusz alapján nem vonhatunk le, de a kiugrásokhoz tartozó cikkek kvalitatív vizsgálatával megállapíthatjuk, hogy az áprilisi kiugrást a választásokhoz kötődő cikkek pozitív hangulata, míg az októberi negatív kilengést az öszödi beszéd nyilvánosságra kerüléséhez köthető cikkek negatív szentimentje okozza.</p>
 <div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="sentiment.html#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mn_df, <span class="fu">aes</span>(doc_date, net_daily)) <span class="sc">+</span> <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Szentiment&quot;</span>, <span class="at">x =</span> <span class="cn">NULL</span>, </span>
 <span id="cb84-2"><a href="sentiment.html#cb84-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Adatforrás: https://cap.tk.hu/&quot;</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-95"></span>
+<div class="figure" style="text-align: center"><span id="fig:MNszentiment"></span>
 <p class="caption">
 Ábra 6.1: Magyar Nemzet címlap szentimentje
 </p>
-<img src="_main_files/figure-html/unnamed-chunk-95-1.png" alt="Magyar Nemzet címlap szentimentje" width="90%" />
+<img src="_main_files/figure-html/MNszentiment-1.png" alt="Magyar Nemzet címlap szentimentje" width="90%" />
 </div>
 </div>
 <div id="mnb-sajtóközlemények" class="section level2" number="6.4">
@@ -511,7 +511,7 @@ div.csl-indent {
 <span id="cb91-4"><a href="sentiment.html#cb91-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">&quot;sent_type&quot;</span>,</span>
 <span id="cb91-5"><a href="sentiment.html#cb91-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">&quot;sent_score&quot;</span></span>
 <span id="cb91-6"><a href="sentiment.html#cb91-6" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
-<p>Az átalakítás után már könnyedén tudjuk kategóriákra bontva megjeleníteni az MNB közlemények különböző látens dimenzióit. Fontos emlékezni arra, hogy ez az eredmény a kulcsszavaink +/- 10 tokenes környezetében lévő szavak szentimentjét méri. Ami érdekes eredmény, hogy a felesleges „töltelék” (<em>superfluous</em>) szövegek szinte soha nem fordulnak elő a kulcsszavaink körül. A többi érték is nagyjából megfelel a várakozásainknak, habár a 2008-as gazdasági válság nem tűnik kiugró pontnak. Azonban a 2010 utáni európai válság már láthatóan megjelenik az idősorainkban (ld. 6.2. ábra).</p>
+<p>Az átalakítás után már könnyedén tudjuk kategóriákra bontva megjeleníteni az MNB közlemények különböző látens dimenzióit. Fontos emlékezni arra, hogy ez az eredmény a kulcsszavaink +/- 10 tokenes környezetében lévő szavak szentimentjét méri. Ami érdekes eredmény, hogy a felesleges „töltelék” (<em>superfluous</em>) szövegek szinte soha nem fordulnak elő a kulcsszavaink körül. A többi érték is nagyjából megfelel a várakozásainknak, habár a 2008-as gazdasági válság nem tűnik kiugró pontnak. Azonban a 2010 utáni európai válság már láthatóan megjelenik az idősorainkban (ld. <a href="sentiment.html#fig:MNBsent">6.2</a>. ábra).</p>
 <p>Az általunk használt szótár alapvetően az Egyesült Államokban a tőzsdén kereskedő cégek publikus beszámolóiból készült, így elképzelhető, hogy egyes jegybanki környezetben sokat használt kifejezések nincsenek benne. A kapott eredmények validálása ezért is nagyon fontos, illetve érdemes azzal is tisztában lenni, hogy a szótáras módszer nem tökéletes (ahogy az emberi vagy más gépi kódolás sem).</p>
 <div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="sentiment.html#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mnb_df, <span class="fu">aes</span>(date, sent_score)) <span class="sc">+</span></span>
 <span id="cb92-2"><a href="sentiment.html#cb92-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
@@ -520,11 +520,11 @@ div.csl-indent {
 <span id="cb92-5"><a href="sentiment.html#cb92-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span></span>
 <span id="cb92-6"><a href="sentiment.html#cb92-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb92-7"><a href="sentiment.html#cb92-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>sent_type, <span class="at">ncol =</span> <span class="dv">2</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-103"></span>
+<div class="figure" style="text-align: center"><span id="fig:MNBsent"></span>
 <p class="caption">
 Ábra 6.2: Magyar Nemzeti Bank közleményeinek szentimentje
 </p>
-<img src="_main_files/figure-html/unnamed-chunk-103-1.png" alt="Magyar Nemzeti Bank közleményeinek szentimentje" width="90%" />
+<img src="_main_files/figure-html/MNBsent-1.png" alt="Magyar Nemzeti Bank közleményeinek szentimentje" width="90%" />
 </div>
 
 </div>

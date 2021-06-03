@@ -693,7 +693,7 @@ Amennyiben számítunk rá, hogy még változhatnak a szövegeket tartalmazó os
 <span id="cb189-13"><a href="similarity.html#cb189-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ docs1      &lt;chr&gt; &quot;text501&quot;, &quot;text501&quot;, &quot;text501&quot;, &quot;text501&quot;, &quot;text501&quot;, &quot;te~</span></span>
 <span id="cb189-14"><a href="similarity.html#cb189-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ docs2      &lt;chr&gt; &quot;text501&quot;, &quot;text502&quot;, &quot;text503&quot;, &quot;text504&quot;, &quot;text505&quot;, &quot;te~</span></span>
 <span id="cb189-15"><a href="similarity.html#cb189-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ similarity &lt;dbl&gt; 0.95601, 0.02297, 0.04258, 0.02809, 0.00906, 0.03936, 0.05~</span></span></code></pre></div>
-<p>Ezt követően pedig a <code>ggplot</code> függvényt használva a <code>geom_tile</code> segítségével tudjuk elkészíteni a hőtérképet, ami a hasonlósági mátrixot ábrázolja (ld. 10.1. ábra).</p>
+<p>Ezt követően pedig a <code>ggplot</code> függvényt használva a <code>geom_tile</code> segítségével tudjuk elkészíteni a hőtérképet, ami a hasonlósági mátrixot ábrázolja (ld. <a href="similarity.html#fig:cosheat">10.1</a>. ábra).</p>
 <div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="similarity.html#cb190-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(koszinusz_df, <span class="fu">aes</span>(docs1, docs2, <span class="at">fill =</span> similarity)) <span class="sc">+</span></span>
 <span id="cb190-2"><a href="similarity.html#cb190-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>() <span class="sc">+</span></span>
 <span id="cb190-3"><a href="similarity.html#cb190-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">high =</span> <span class="st">&quot;#2c3e50&quot;</span>, <span class="at">low =</span> <span class="st">&quot;#bdc3c7&quot;</span>) <span class="sc">+</span></span>
@@ -708,8 +708,13 @@ Amennyiben számítunk rá, hogy még változhatnak a szövegeket tartalmazó os
 <span id="cb190-12"><a href="similarity.html#cb190-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.y=</span><span class="fu">element_blank</span>(),</span>
 <span id="cb190-13"><a href="similarity.html#cb190-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.ticks.y=</span><span class="fu">element_blank</span>()</span>
 <span id="cb190-14"><a href="similarity.html#cb190-14" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/10_2_koszinusz-1.png" width="90%" style="display: block; margin: auto;" /></p>
-<p>A Jaccard-hasonlósági hőtérképet ugyanezzel a módszerrel tudjuk elkészíteni (ld. 10.2. ábra).</p>
+<div class="figure" style="text-align: center"><span id="fig:cosheat"></span>
+<p class="caption">
+Ábra 10.1: Koszinusz-hasonlóság hotérképen ábrázolva
+</p>
+<img src="_main_files/figure-html/cosheat-1.png" alt="Koszinusz-hasonlóság hotérképen ábrázolva" width="90%" />
+</div>
+<p>A Jaccard-hasonlósági hőtérképet ugyanezzel a módszerrel tudjuk elkészíteni (ld. <a href="similarity.html#fig:jaccardheat">10.2</a>. ábra).</p>
 <div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="similarity.html#cb191-1" aria-hidden="true" tabindex="-1"></a><span class="co"># adatok átalakítása</span></span>
 <span id="cb191-2"><a href="similarity.html#cb191-2" aria-hidden="true" tabindex="-1"></a>jaccard_df <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(jaccard_hasonlosag[<span class="dv">501</span><span class="sc">:</span><span class="dv">600</span>, <span class="dv">501</span><span class="sc">:</span><span class="dv">600</span>]) <span class="sc">%&gt;%</span></span>
 <span id="cb191-3"><a href="similarity.html#cb191-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span></span>
@@ -735,9 +740,14 @@ Amennyiben számítunk rá, hogy még változhatnak a szövegeket tartalmazó os
 <span id="cb191-23"><a href="similarity.html#cb191-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.y=</span><span class="fu">element_blank</span>(),</span>
 <span id="cb191-24"><a href="similarity.html#cb191-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.ticks.y=</span><span class="fu">element_blank</span>()</span>
 <span id="cb191-25"><a href="similarity.html#cb191-25" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/10_3_jaccard-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<div class="figure" style="text-align: center"><span id="fig:jaccardheat"></span>
+<p class="caption">
+Ábra 10.2: Jaccard hasonlóság hotérképen ábrázolva
+</p>
+<img src="_main_files/figure-html/jaccardheat-1.png" alt="Jaccard hasonlóság hotérképen ábrázolva" width="90%" />
+</div>
 <p>A két ábra összehasonlításánál láthatjuk, hogy a koszinusz-hasonlóság általában magasabb hasonlósági értékeket mutat. A mátrix főátlójában kiugró világos csík azt mutatja meg, hogy a legnagyobb hasonlóság az összetartozó törvény- és törvényjavaslat-szövegek között mutatkozik meg, eddig tehát az adataink az elvárásaink szerinti képet mutatják. Amennyiben a világos csíkot nem látnánk, az egyértelmű visszajelzés volna arról, hogy elrontottunk valamit a szövegelőkészítés eddigi lépései során, vagy a várakozásásaink voltak teljesen rosszak.</p>
-<p>A koszinusz- és a Jaccard-hasonlóság értékét ábrázolhatjuk közös pont-diagramon a <code>geom_jitter()</code> segítségével (ld. 10.3. ábra). Ehhez először egy kicsit átalakítjuk a data frame-et a <code>tidyr</code> csomag <code>pivot_longer()</code> függvényével, hogy a két hasonlósági érték egy oszlopban legyen. Ez azért szükséges, hogy a <code>ggplot</code> ábránkat könnyebben tudjuk létrehozni.</p>
+<p>A koszinusz- és a Jaccard-hasonlóság értékét ábrázolhatjuk közös pont-diagramon a <code>geom_jitter()</code> segítségével (ld. <a href="similarity.html#fig:cosjac">10.3</a>. ábra). Ehhez először egy kicsit átalakítjuk a data frame-et a <code>tidyr</code> csomag <code>pivot_longer()</code> függvényével, hogy a két hasonlósági érték egy oszlopban legyen. Ez azért szükséges, hogy a <code>ggplot</code> ábránkat könnyebben tudjuk létrehozni.</p>
 <div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="similarity.html#cb192-1" aria-hidden="true" tabindex="-1"></a>tv_tvjav_tidy <span class="ot">&lt;-</span> tv_tvjav_minta <span class="sc">%&gt;%</span></span>
 <span id="cb192-2"><a href="similarity.html#cb192-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
 <span id="cb192-3"><a href="similarity.html#cb192-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;jaccard_index&quot;</span><span class="sc">:</span><span class="st">&quot;koszinusz&quot;</span>,</span>
@@ -770,7 +780,12 @@ Amennyiben számítunk rá, hogy még változhatnak a szövegeket tartalmazó os
 <span id="cb193-10"><a href="similarity.html#cb193-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>,</span>
 <span id="cb193-11"><a href="similarity.html#cb193-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>(),</span>
 <span id="cb193-12"><a href="similarity.html#cb193-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.minor.x =</span> <span class="fu">element_blank</span>() )</span></code></pre></div>
-<p><img src="_main_files/figure-html/10_4_cos_jac-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<div class="figure" style="text-align: center"><span id="fig:cosjac"></span>
+<p class="caption">
+Ábra 10.3: Koszinusz- és Jaccard hasonlóság értékeinek alakulása
+</p>
+<img src="_main_files/figure-html/cosjac-1.png" alt="Koszinusz- és Jaccard hasonlóság értékeinek alakulása" width="90%" />
+</div>
 <p>A hasonlósági értékek évenkénti alakulásának megértése érdekében érdemes átlagot számolni a mutatókra. Ezt a <code>group_by()</code> és a <code>summarize()</code> függvények együttes alkalmazásával tehetjük meg. Megadjuk, hogy évenkénti bontásban szeretnénk a számításainkat elvégezni <code>group_by(ev)</code>, és azt, hogy átlagszámítást szeretnénk végezni <code>mean()</code>.</p>
 <div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="similarity.html#cb194-1" aria-hidden="true" tabindex="-1"></a>evenkenti_atlag <span class="ot">&lt;-</span> tv_tvjav_tidy <span class="sc">%&gt;%</span> </span>
 <span id="cb194-2"><a href="similarity.html#cb194-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ev, hasonlosag_tipus) <span class="sc">%&gt;%</span> </span>
@@ -787,7 +802,7 @@ Amennyiben számítunk rá, hogy még változhatnak a szövegeket tartalmazó os
 <span id="cb194-13"><a href="similarity.html#cb194-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4  1995 koszinusz                 0.776</span></span>
 <span id="cb194-14"><a href="similarity.html#cb194-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5  1996 jaccard_index             0.675</span></span>
 <span id="cb194-15"><a href="similarity.html#cb194-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  1996 koszinusz                 0.880</span></span></code></pre></div>
-<p>Az évenkénti átlagot tartalmazó adattáblánkra ezt követően vonal diagramot illesztünk. A 10.4-es ábrán az látható, hogy a Jaccard- és koszinsz-hasonlóság értéke nagyjából együtt mozog, leszámítva a 2002-es, 2003-as éveket, mival azonban itt csak néhány adatpont áll rendelkezésre, ettől az inkonzisztenciától eltekinthetünk.</p>
+<p>Az évenkénti átlagot tartalmazó adattáblánkra ezt követően vonal diagramot illesztünk. A <a href="similarity.html#fig:lineplot">10.4</a>.-es ábrán az látható, hogy a Jaccard- és koszinsz-hasonlóság értéke nagyjából együtt mozog, leszámítva a 2002-es, 2003-as éveket, mival azonban itt csak néhány adatpont áll rendelkezésre, ettől az inkonzisztenciától eltekinthetünk.</p>
 <div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="similarity.html#cb195-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(evenkenti_atlag, <span class="fu">aes</span>(ev, atl_hasonlosag)) <span class="sc">+</span></span>
 <span id="cb195-2"><a href="similarity.html#cb195-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">linetype =</span> hasonlosag_tipus)) <span class="sc">+</span></span>
 <span id="cb195-3"><a href="similarity.html#cb195-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Átlagos Jaccard- és koszinusz-hasonlóság&quot;</span>, </span>
@@ -798,8 +813,13 @@ Amennyiben számítunk rá, hogy még változhatnak a szövegeket tartalmazó os
 <span id="cb195-8"><a href="similarity.html#cb195-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>(),</span>
 <span id="cb195-9"><a href="similarity.html#cb195-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor.x =</span> <span class="fu">element_blank</span>() </span>
 <span id="cb195-10"><a href="similarity.html#cb195-10" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
-<p><img src="_main_files/figure-html/10_5_lineplot-1.png" width="90%" style="display: block; margin: auto;" /></p>
-<p>Ahhoz, hogy valamivel pontosabb képet kapjunk a Jaccard-index értékének alakulásáról, az eredményeinket érdemes vizualizálni a <code>ggplot2</code> segítségével. Elsőként évenkénti bontásban, boxplotokkal ábrázoljuk a Jaccard-index értékének alakulását (ld. 10.5. ábra).</p>
+<div class="figure" style="text-align: center"><span id="fig:lineplot"></span>
+<p class="caption">
+Ábra 10.4: Koszinusz- és Jaccard hasonlóság vonal diagramon ábrázolva
+</p>
+<img src="_main_files/figure-html/lineplot-1.png" alt="Koszinusz- és Jaccard hasonlóság vonal diagramon ábrázolva" width="90%" />
+</div>
+<p>Ahhoz, hogy valamivel pontosabb képet kapjunk a Jaccard-index értékének alakulásáról, az eredményeinket érdemes vizualizálni a <code>ggplot2</code> segítségével. Elsőként évenkénti bontásban, boxplotokkal ábrázoljuk a Jaccard-index értékének alakulását (ld. <a href="similarity.html#fig:boxplot">10.5</a>. ábra).</p>
 <div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="similarity.html#cb196-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(tv_tvjav_minta, <span class="fu">aes</span>(<span class="fu">as.factor</span>(ev), jaccard_index)) <span class="sc">+</span></span>
 <span id="cb196-2"><a href="similarity.html#cb196-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
 <span id="cb196-3"><a href="similarity.html#cb196-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
@@ -809,7 +829,12 @@ Amennyiben számítunk rá, hogy még változhatnak a szövegeket tartalmazó os
 <span id="cb196-7"><a href="similarity.html#cb196-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>),</span>
 <span id="cb196-8"><a href="similarity.html#cb196-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span></span>
 <span id="cb196-9"><a href="similarity.html#cb196-9" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
-<p><img src="_main_files/figure-html/10_6_boxplot-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<div class="figure" style="text-align: center"><span id="fig:boxplot"></span>
+<p class="caption">
+Ábra 10.5: Jaccard hasonlóság boxplotokkal ábrázolva
+</p>
+<img src="_main_files/figure-html/boxplot-1.png" alt="Jaccard hasonlóság boxplotokkal ábrázolva" width="90%" />
+</div>
 <p>A legalacsonyabb Jaccard-hasonlóság talán az 1994–1998-as időszakra jellemző, míg a 2014–2018-as időszakra szembetűnően magas Jaccard-értékeket látunk az első ábrázolt ciklushoz képest. Összességében nehéz trendet látni az ábrán, de érdemes azt is megjegyezni, hogy a negatív irányba kiugró adatpontok a 2014–2018-as ciklusban jelentősen nagyobb arányban tűnnek fel, mint a korábbi kormányzati ciklusok alatt.</p>
 <p>Végezetül pedig ábrázolhatjuk a Jaccard-hasonlóságot a benyújtó személye alapján is a korm_ell változónk alapján. A változók értékei a következők a <a href="https://docs.google.com/document/d/11AwjQiRNbMifBaBnbgo2MpWR00-03VEjb63FgPUy6VA/edit#heading=h.cx672ghhctgs">CAP kódkönyve</a> alapján:</p>
 <p><em>0 - Ellenzéki benyújtó</em></p>
@@ -833,7 +858,7 @@ Amennyiben számítunk rá, hogy még változhatnak a szövegeket tartalmazó os
 <span id="cb197-10"><a href="similarity.html#cb197-10" aria-hidden="true" tabindex="-1"></a>    ),</span>
 <span id="cb197-11"><a href="similarity.html#cb197-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">korm_ell2 =</span> <span class="fu">as.factor</span>(korm_ell2)</span>
 <span id="cb197-12"><a href="similarity.html#cb197-12" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
-<p>Miután létrehoztuk az új oszlopot, létrehozhatjuk a vizualizációt is annak alapján. Itt egy speciális pontdiagramot fogunk használni: <code>geom_jitter()</code>. Ez annyiban különbözik a pontdiagramtól, hogy kicsit szórtabban ábrázolja a diszkrét értékekre (évekre) eső pontokat, hogy az egy helyen sűrűsödő értékek ne takarják ki egymást. A <code>facet_wrap</code> segítségével tudjuk kategóriánként ábrázolni az évenkénti hasonlóságot (ld. 10.6. ábra).</p>
+<p>Miután létrehoztuk az új oszlopot, létrehozhatjuk a vizualizációt is annak alapján. Itt egy speciális pontdiagramot fogunk használni: <code>geom_jitter()</code>. Ez annyiban különbözik a pontdiagramtól, hogy kicsit szórtabban ábrázolja a diszkrét értékekre (évekre) eső pontokat, hogy az egy helyen sűrűsödő értékek ne takarják ki egymást. A <code>facet_wrap</code> segítségével tudjuk kategóriánként ábrázolni az évenkénti hasonlóságot (ld. <a href="similarity.html#fig:govopp">10.6</a>. ábra).</p>
 <div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="similarity.html#cb198-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(tv_tvjav_minta, <span class="fu">aes</span>(ev, jaccard_index)) <span class="sc">+</span></span>
 <span id="cb198-2"><a href="similarity.html#cb198-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
 <span id="cb198-3"><a href="similarity.html#cb198-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">1994</span>, <span class="dv">2018</span>, <span class="at">by =</span> <span class="dv">2</span>)) <span class="sc">+</span></span>
@@ -841,7 +866,12 @@ Amennyiben számítunk rá, hogy még változhatnak a szövegeket tartalmazó os
 <span id="cb198-5"><a href="similarity.html#cb198-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
 <span id="cb198-6"><a href="similarity.html#cb198-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Jaccard-hasonlóság&quot;</span>,</span>
 <span id="cb198-7"><a href="similarity.html#cb198-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/10_7_jitter-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<div class="figure" style="text-align: center"><span id="fig:govopp"></span>
+<p class="caption">
+Ábra 10.6: Jaccard hasonlóság a benyújtó személye alapján
+</p>
+<img src="_main_files/figure-html/govopp-1.png" alt="Jaccard hasonlóság a benyújtó személye alapján" width="90%" />
+</div>
 <p>Mivel a törvényjavaslatok túlnyomó többségét a kabinet tagjai nyújtják be, nem igazán tudunk érdemi következtetéseket levonni arra vonatkozóan, hogy az ellenzéki vagy a kormánypárti képviselők által benyújtott javaslatok módosulnak-e többet a vita folyamán. Amennyiben ezzel a kérdéssel alaposabban is szeretnénk foglalkozni, érdemes csak azokat a sorokat kiválasztani a hasonlóságszámításhoz, amelyekben a számunkra releváns megfigyelések szerepelnek. Ha azonban ezt az eljárást választjuk, mindenképpen fontos odafigyelni arra is, hogy az elemzésben használandó megfigyelések kiválogatása nehogy szelektív legyen valamely nem megfigyelt változó szempontjából, ezzel befolyásolva a kutatás eredményeit.</p>
 
 </div>
