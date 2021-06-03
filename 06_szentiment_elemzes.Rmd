@@ -177,7 +177,7 @@ Végül a kapott korpuszt a kiszámolt szentimentértékekkel a `quanteda`-ban l
 mn_df <- quanteda::convert(mn_corpus, to = "data.frame")
 ```
 
-Mielőtt vizualizálnánk az eredményt érdemes a napi szintre aggregálni a szentimentértéket és egy nettó értéket kalkulálni (ld. 6.1. ábra).[^szent-12]
+Mielőtt vizualizálnánk az eredményt érdemes a napi szintre aggregálni a szentimentértéket és egy nettó értéket kalkulálni (ld. \@ref(fig:MNszentiment). ábra).[^szent-12]
 
 [^szent-12]: A csoportosított adatokkal való munka bővebb bemutatását lásd a [Függelékben](#fuggelek).
 
@@ -193,7 +193,7 @@ mn_df <- mn_df %>%
 
 A plot alapján a cikkek érzelemelemzése során több kiugrást is tapasztalhatunk. Természetesen messzemenő következtetéseket egy ilyen kis korpusz alapján nem vonhatunk le, de a kiugrásokhoz tartozó cikkek kvalitatív vizsgálatával megállapíthatjuk, hogy az áprilisi kiugrást a választásokhoz kötődő cikkek pozitív hangulata, míg az októberi negatív kilengést az öszödi beszéd nyilvánosságra kerüléséhez köthető cikkek negatív szentimentje okozza.
 
-```{r tidy = TRUE, tidy.opts=list(width.cutoff=80), fig.cap="Magyar Nemzet címlap szentimentje"}
+```{r MNszentiment, tidy = TRUE, tidy.opts=list(width.cutoff=80), fig.cap="Magyar Nemzet címlap szentimentje"}
 ggplot(mn_df, aes(doc_date, net_daily)) +
   geom_line() +
   labs(
@@ -287,11 +287,11 @@ mnb_df <- mnb_df %>%
   )
 ```
 
-Az átalakítás után már könnyedén tudjuk kategóriákra bontva megjeleníteni az MNB közlemények különböző látens dimenzióit. Fontos emlékezni arra, hogy ez az eredmény a kulcsszavaink +/- 10 tokenes környezetében lévő szavak szentimentjét méri. Ami érdekes eredmény, hogy a felesleges „töltelék” (*superfluous*) szövegek szinte soha nem fordulnak elő a kulcsszavaink körül. A többi érték is nagyjából megfelel a várakozásainknak, habár a 2008-as gazdasági válság nem tűnik kiugró pontnak. Azonban a 2010 utáni európai válság már láthatóan megjelenik az idősorainkban (ld. 6.2. ábra).
+Az átalakítás után már könnyedén tudjuk kategóriákra bontva megjeleníteni az MNB közlemények különböző látens dimenzióit. Fontos emlékezni arra, hogy ez az eredmény a kulcsszavaink +/- 10 tokenes környezetében lévő szavak szentimentjét méri. Ami érdekes eredmény, hogy a felesleges „töltelék” (*superfluous*) szövegek szinte soha nem fordulnak elő a kulcsszavaink körül. A többi érték is nagyjából megfelel a várakozásainknak, habár a 2008-as gazdasági válság nem tűnik kiugró pontnak. Azonban a 2010 utáni európai válság már láthatóan megjelenik az idősorainkban (ld. \@ref(fig:MNBsent). ábra).
 
 Az általunk használt szótár alapvetően az Egyesült Államokban a tőzsdén kereskedő cégek publikus beszámolóiból készült, így elképzelhető, hogy egyes jegybanki környezetben sokat használt kifejezések nincsenek benne. A kapott eredmények validálása ezért is nagyon fontos, illetve érdemes azzal is tisztában lenni, hogy a szótáras módszer nem tökéletes (ahogy az emberi vagy más gépi kódolás sem).
 
-```{r fig.cap="Magyar Nemzeti Bank közleményeinek szentimentje"}
+```{r  MNBsent, fig.cap="Magyar Nemzeti Bank közleményeinek szentimentje"}
 ggplot(mnb_df, aes(date, sent_score)) +
   geom_line() +
   labs(

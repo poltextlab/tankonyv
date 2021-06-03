@@ -168,7 +168,7 @@ mn_embedding_df <- as.data.frame(mn_word_vectors[, c(1:2)]) %>%
 
 Ezután pedig a `ggplot()` függvényt felhasználva definiálunk egy új, `embedding_plot()` nevű, függvényt, ami az elkészült data frame alapján bármilyen kulcsszó kombinációt képes ábrázolni.
 
-```{r}
+```{r embedding, fig.cap="Kiválasztott szavak két dimenzós térben"}
 embedding_plot <- function(data, keywords) {
   data %>% 
     filter(words %in% keywords) %>% 

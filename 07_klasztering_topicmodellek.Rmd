@@ -61,9 +61,9 @@ beszedek_klaszter <- kmeans(beszedek_dfm, centers = 2)
 table(beszedek_klaszter$cluster)
 ```
 
-A felügyelet nélküli klasszifikáció nagy kérdése, hány klasztert alakítsunk ki, hogy megközelítsük a valóságot, és ne csak mesterségesen kreáljunk csoportokat. Ez ugyanis azzal a kockázattal jár, hogy ténylegesen nem létező csoportok is létrejönnek. A klaszterek optimális számának meghatározására kvalitatív és kvantitatív lehetőségeink is vannak. A következőkben az utóbbira mutatunk példát, amihez a `factoextra` csomagot használjuk. A 7.1-es ábra azt mutatja, hogy a klasztereken belüli négyzetösszegek hogyan változnak a *k* paraméter változásának függvényében. Minél kisebb a klasztereken belüli négyzetösszegek értéke, annál közelebbi pontok tartoznak össze, így a kisebb értékekkel definiált klasztereket kapunk. Az ábra alapján tehát az ideális *k* 4 vagy 2, attól fuggően, hogy milyen feltevésekkel élünk a kutatásunk során. A 2-es érték azért lehet jó, mert a $k > 2$ értékek esetén a négyzetösszegek értéke nem csökken drasztikusan és a korpuszunk alapján a két („jobb-bal") klaszter kvalitativ alapon is jól definiálható. A $k = 4$ pedig azért lehet jó, mert utánna gyakorlatilag nem változik a kapott négyzetösszeg, ami azt jelzi, hogy a további klaszterek hozzáadásával nem lesz pontosabb a csoportosítás.
+A felügyelet nélküli klasszifikáció nagy kérdése, hány klasztert alakítsunk ki, hogy megközelítsük a valóságot, és ne csak mesterségesen kreáljunk csoportokat. Ez ugyanis azzal a kockázattal jár, hogy ténylegesen nem létező csoportok is létrejönnek. A klaszterek optimális számának meghatározására kvalitatív és kvantitatív lehetőségeink is vannak. A következőkben az utóbbira mutatunk példát, amihez a `factoextra` csomagot használjuk. A \@ref(fig:optclus).-es ábra azt mutatja, hogy a klasztereken belüli négyzetösszegek hogyan változnak a *k* paraméter változásának függvényében. Minél kisebb a klasztereken belüli négyzetösszegek értéke, annál közelebbi pontok tartoznak össze, így a kisebb értékekkel definiált klasztereket kapunk. Az ábra alapján tehát az ideális *k* 4 vagy 2, attól fuggően, hogy milyen feltevésekkel élünk a kutatásunk során. A 2-es érték azért lehet jó, mert a $k > 2$ értékek esetén a négyzetösszegek értéke nem csökken drasztikusan és a korpuszunk alapján a két („jobb-bal") klaszter kvalitativ alapon is jól definiálható. A $k = 4$ pedig azért lehet jó, mert utánna gyakorlatilag nem változik a kapott négyzetösszeg, ami azt jelzi, hogy a további klaszterek hozzáadásával nem lesz pontosabb a csoportosítás.
 
-```{r, fig.cap="A klaszterek optimális száma"}
+```{r optclus, fig.cap="A klaszterek optimális száma"}
 factoextra::fviz_nbclust(as.matrix(beszedek_dfm), kmeans, method = "wss", k.max = 5, linecolor = "black") +
 labs(
   title = NULL,
@@ -71,9 +71,9 @@ labs(
   y = "Klasztereken belüli négyzetösszeg")
 ```
 
-A kialakított csoportokat vizuálisan is megjeleníthetjük (ld. 7.2. ábra).
+A kialakított csoportokat vizuálisan is megjeleníthetjük (ld. \@ref(fig:PM_speech). ábra).
 
-```{r, fig.cap="A miniszterelnöki beszédek klaszterei"}
+```{r PM_speech, fig.cap="A miniszterelnöki beszédek klaszterei"}
 factoextra::fviz_cluster(
   beszedek_klaszter, 
   data = beszedek_dfm, 
@@ -194,9 +194,9 @@ torvenyek_dfm <- dfm(torvenyek_tokens) %>%
   quanteda::dfm_trim(min_termfreq = 0.001, termfreq_type = "prop")
 ```
 
-A szövegtisztító lépesek eredményét úgy ellenőrizhetjük, hogy szógyakorisági listát készítünk a korpuszban maradt kifejezésekről. Itt kihasználhatjuk a korpuszunkban lévő metaadatokat és megnézhetjük ciklus szerinti bontásban a szófrekvencia ábrát. Az ábránál figyeljünk arra, hogy a tidytext `reorder_within()` függvényét használjuk, ami egy nagyon hasznos megoldás a csoportosított sorrendbe rendezésre a `ggplot2` ábránál (ld. 7.3. ábra).
+A szövegtisztító lépesek eredményét úgy ellenőrizhetjük, hogy szógyakorisági listát készítünk a korpuszban maradt kifejezésekről. Itt kihasználhatjuk a korpuszunkban lévő metaadatokat és megnézhetjük ciklus szerinti bontásban a szófrekvencia ábrát. Az ábránál figyeljünk arra, hogy a tidytext `reorder_within()` függvényét használjuk, ami egy nagyon hasznos megoldás a csoportosított sorrendbe rendezésre a `ggplot2` ábránál (ld. \@ref(fig:toptoc). ábra).
 
-```{r tidy = TRUE, tidy.opts=list(width.cutoff=80), fig.cap="A 15 leggyakoribb token a korpuszban"}
+```{r toptoc, tidy = TRUE, tidy.opts=list(width.cutoff=80), fig.cap="A 15 leggyakoribb token a korpuszban"}
 top_tokens <- textstat_frequency(
   torvenyek_dfm, 
   n = 15, 
@@ -237,9 +237,9 @@ top_tokens_final <- textstat_frequency(torvenyek_dfm_final,
                                        )
 ```
 
-Ezt egy ábrán is megjelenítjük (ld. 7.4. ábra).
+Ezt egy ábrán is megjelenítjük (ld. \@ref(fig:freqtoc). ábra).
 
-```{r fig.cap="A 15 leggyakoribb token a korpuszban, a bővített stop szó listával"}
+```{r freqtoc, fig.cap="A 15 leggyakoribb token a korpuszban, a bővített stop szó listával"}
 ggplot(top_tokens_final, aes(reorder_within(feature, frequency, group), frequency)) +
   geom_point(aes(shape = group), size = 2) +
   coord_flip() +
@@ -298,7 +298,7 @@ lda_98_02 <- readRDS("data/temp/lda_perp_temp.RDS")
 perp_df <- readRDS("data/temp/temp_df.RDS")
 ```
 
-```{r fig.cap="Zavarosság változása a k függvényében", cache=FALSE}
+```{r zavarossag, fig.cap="Zavarosság változása a k függvényében", cache=FALSE}
 ggplot(perp_df, aes(k, perplexity)) +
   geom_point() +
   geom_line() +
@@ -309,7 +309,7 @@ ggplot(perp_df, aes(k, perplexity)) +
 ```
 
 
-A zavarossági mutató alapján a 20 topikos modell szerepel a legjobban, de a megfelelő *k* kiválasztása a kutató kvalitatív döntésén múlik.  Természetesen könnyen elképzelhető az is, hogy egy 40 topikos modellnél jelentősen kisebb zavarossági értéket kapjunk. Egy ilyen esetben mérlegelni kell, hogy a kapott csoportosítás kvalitatívan értelmezhető-e, illetve hogy tisztább-e annyival a kapott modell, mint amennyivel több idő és számítási energia a becslése.  A zavarossági pontszám ehhez a kvalitatív döntéshez ad kvantitatív szempontokat, de érdemes általános sorvezetőként tekinteni rá, nem pedig mint egy áthághatatlan szabályra (ld. 7.5. ábra).[^lda4]
+A zavarossági mutató alapján a 20 topikos modell szerepel a legjobban, de a megfelelő *k* kiválasztása a kutató kvalitatív döntésén múlik.  Természetesen könnyen elképzelhető az is, hogy egy 40 topikos modellnél jelentősen kisebb zavarossági értéket kapjunk. Egy ilyen esetben mérlegelni kell, hogy a kapott csoportosítás kvalitatívan értelmezhető-e, illetve hogy tisztább-e annyival a kapott modell, mint amennyivel több idő és számítási energia a becslése.  A zavarossági pontszám ehhez a kvalitatív döntéshez ad kvantitatív szempontokat, de érdemes általános sorvezetőként tekinteni rá, nem pedig mint egy áthághatatlan szabályra (ld. \@ref(fig:zavarossag)).[^lda4]
 
 [^lda4]: A `ldatuning` csomagban további indikátor implementációja található, ami a perplexityhez hasonlóan minimalizálásra [@arun2010finding; @cao2009density], illetve maximalizálásra alapoz [@deveaud2014accurate; @griffithsFindingScientificTopics2004]
 
@@ -355,9 +355,9 @@ top_terms <- lda_vem %>%
   arrange(topic, -beta)
 ```
 
-Végül a `ggplot2` csomag segítségével ábrán is megjeleníthetjük az egyes topikok 10 legfontosabb kifejezését (ld. 7.6. és 7.7. ábra).
+Végül a `ggplot2` csomag segítségével ábrán is megjeleníthetjük az egyes topikok 10 legfontosabb kifejezését (ld. \@ref(fig:topic9802). és \@ref(fig:topic0206). ábra).
 
-```{r fig.cap="1998–2002-es ciklus: topikok és kifejezések (VEM mintavételezéssel)"}
+```{r topic9802, fig.cap="1998–2002-es ciklus: topikok és kifejezések (VEM mintavételezéssel)"}
 top_terms %>%
   filter(electoral_cycle == "1998-2002") %>%
   ggplot(aes(reorder_within(term, beta, topic), beta)) +
@@ -371,7 +371,7 @@ top_terms %>%
   tidytext::scale_x_reordered()
 ```
 
-```{r fig.cap="2002–2006-os ciklus topikok és kifejezések (VEM mintavételezéssel)"}
+```{r topic0206, fig.cap="2002–2006-os ciklus topikok és kifejezések (VEM mintavételezéssel)"}
 top_terms %>%
   filter(electoral_cycle == "2002-2006") %>%
   ggplot(aes(reorder_within(term, beta, topic), beta)) +
@@ -427,9 +427,9 @@ top_terms_gibbs <- lda_gibbs %>%
   arrange(topic, -beta)
 ```
 
-Ezután a `ggplot2` csomag segítségével ábrán is megjeleníthetjük (ld. 7.8. és 7.9. ábra).
+Ezután a `ggplot2` csomag segítségével ábrán is megjeleníthetjük (ld. \@ref(fig:Gibbs9802). és \@ref(fig:Gibbs_02_06 ábra).
 
-```{r fig.cap="1998–2002-es ciklus topikok és kifejezések (Gibbs mintavétellel)"}
+```{r Gibbs9802, fig.cap="1998–2002-es ciklus topikok és kifejezések (Gibbs mintavétellel)"}
 top_terms_gibbs %>%
   filter(electoral_cycle == "1998-2002") %>%
   ggplot(aes(reorder_within(term, beta, topic), beta)) +
@@ -444,7 +444,7 @@ top_terms_gibbs %>%
   tidytext::scale_x_reordered()
 ```
 
-```{r fig.cap="2002–2006-os ciklus topikok és kifejezések (Gibbs mintavétellel)"}
+```{r Gibbs_02_06, fig.cap="2002–2006-os ciklus topikok és kifejezések (Gibbs mintavétellel)"}
 top_terms_gibbs %>%
   filter(electoral_cycle == "2002-2006") %>%
   ggplot(aes(reorder_within(term, beta, topic), beta)) +

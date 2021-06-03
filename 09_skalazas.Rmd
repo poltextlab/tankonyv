@@ -99,7 +99,7 @@ Az eredményeinket mind a szavak, mind a dokumentumok szintjén tudjuk vizualiz�
 
 Kihasználhatjuk, hogy a `ggplot` ábra definiálása közben a felhasznált bemeneti data frame-et különböző szempontok alapján lehet szűrni. Így ábrázolni tudjuk a gyakran használt, ám semleges szavakat (magas $\psi$, alacsony $\beta$), illetve a ritkább, de meghatározóbb szavakat (magas $\beta$, alacsony $\psi$).
 
-```{r, fig.cap="A wordfish 'Eiffel-torony'"}
+```{r eiffel, fig.cap="A wordfish 'Eiffel-torony'"}
 ggplot(szavak_wf, aes(x = beta, y = psi)) +
   geom_point(color = "grey") +
   geom_text_repel(
@@ -113,9 +113,9 @@ ggplot(szavak_wf, aes(x = beta, y = psi)) +
     )  
 ```
 
-A dokumentumok szintjén is érdemes megvizsgálni az eredményeket. Ehhez a dokumentum szintű paramétereket fogjuk egy data frame-be gyűjteni: a $\theta$ ideológiai pozíciót, illetve a beszélő nevét. A vizualizáció kedvéért a párttagságot is hozzáadjuk. A data frame összerakása után az alsó és a felső határát is kiszámoljuk a konfidencia intervallumnak és azt is ábrázoljuk (ld. 9.1. ábra).
+A dokumentumok szintjén is érdemes megvizsgálni az eredményeket. Ehhez a dokumentum szintű paramétereket fogjuk egy data frame-be gyűjteni: a $\theta$ ideológiai pozíciót, illetve a beszélő nevét. A vizualizáció kedvéért a párttagságot is hozzáadjuk. A data frame összerakása után az alsó és a felső határát is kiszámoljuk a konfidencia intervallumnak és azt is ábrázoljuk (ld. \@ref(fig:eiffel). ábra).
 
-```{r, fig.cap="A beszédek egymáshoz viszonyított pozíciója"}
+```{r pozicio, fig.cap="A beszédek egymáshoz viszonyított pozíciója"}
 dokumentumok_wf <- data.frame(
   speaker = beszedek_wf$x@docvars$felszolalo,
   part = beszedek_wf$x@docvars$part,
@@ -136,9 +136,9 @@ ggplot(dokumentumok_wf, aes(theta, reorder(speaker, theta))) +
   ) 
 ```
 
-A párt metaadattal összehasonlíthatjuk az egy párthoz tartozó frakcióvezetők értékeit a `facet_wrap()` használatával. Figyeljünk arra, hogy az `y` tengelyen szabadon változhasson az egyes rész ábrák között, a `scales = "free"` opcióval (ld. 9.2. ábra).
+A párt metaadattal összehasonlíthatjuk az egy párthoz tartozó frakcióvezetők értékeit a `facet_wrap()` használatával. Figyeljünk arra, hogy az `y` tengelyen szabadon változhasson az egyes rész ábrák között, a `scales = "free"` opcióval  (ld. \@ref(fig:pozicio). ábra).
 
-```{r, fig.cap="Párton belüli pozíciók"}
+```{r partbanpoz, fig.cap="Párton belüli pozíciók"}
 ggplot(dokumentumok_wf, aes(theta, reorder(speaker, theta))) +
   geom_point() +
   geom_errorbarh(aes(xmin = lower, xmax = upper), height = 0) +
@@ -153,7 +153,7 @@ ggplot(dokumentumok_wf, aes(theta, reorder(speaker, theta))) +
 
 A modell illesztést a wordfish-hez hasonlóan a `quanteda.textmodels` csomagban található `textmodel_wordscores()` függvény végzi. A kiinduló dfm ugyanaz, mint amit a fejezet elején elkészítettünk, a `beszedek_dfm`.
 
-A referencia pontokat dokumentumváltozóként hozzáadjuk a dfm-hez (a `refrencia_pont` oszlopot, ami `NA` értéket kap alapértelmezetten). A kiválasztott referencia dokumentumoknál pedig egyenként hozzáadjuk az értékeket. Erre több megoldás is van, az egyszerűbb út, hogy az egyik és a másik végletet a `-1; 1` intervallummal jelöljük. Ennek a lehetséges alternatívája, hogy egy külső, már validált forrást használunk. Pártok esetén ilyen lehet a Chapel Hill szakértői kérdőívének a pontszámai, a Manifesto projekt által kódolt jobb-bal (*rile*) dimenzió. A lenti példánál mi maradunk az egyszerűbb bináris kódolásnál (ld. 9.3. ábra). A wordfish eredményt alapul véve a két referencia pont Gulyás Gergely és Szél Bernadett beszédei lesznek.[^skala-3] Ezek a 3. és a 10. dokumentumok.
+A referencia pontokat dokumentumváltozóként hozzáadjuk a dfm-hez (a `refrencia_pont` oszlopot, ami `NA` értéket kap alapértelmezetten). A kiválasztott referencia dokumentumoknál pedig egyenként hozzáadjuk az értékeket. Erre több megoldás is van, az egyszerűbb út, hogy az egyik és a másik végletet a `-1; 1` intervallummal jelöljük. Ennek a lehetséges alternatívája, hogy egy külső, már validált forrást használunk. Pártok esetén ilyen lehet a Chapel Hill szakértői kérdőívének a pontszámai, a Manifesto projekt által kódolt jobb-bal (*rile*) dimenzió. A lenti példánál mi maradunk az egyszerűbb bináris kódolásnál (ld. \@ref(fig:partbanpoz). ábra). A wordfish eredményt alapul véve a két referencia pont Gulyás Gergely és Szél Bernadett beszédei lesznek.[^skala-3] Ezek a 3. és a 10. dokumentumok.
 
 [^skala-3]: Azért nem Vona Gábor beszédét választottuk, mert az gyaníthatóan egy kiugró érték, ami nem reprezentálja megfelelően a sokaságot.
 

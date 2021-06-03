@@ -376,10 +376,10 @@ koszinusz_df <- as.matrix(koszinusz_hasonlosag[501:600, 501:600]) %>%
 glimpse(koszinusz_df)
 ```
 
-Ezt követően pedig a `ggplot` függvényt használva a `geom_tile` segítségével tudjuk elkészíteni a hőtérképet, ami a hasonlósági mátrixot ábrázolja (ld. 10.1. ábra).
+Ezt követően pedig a `ggplot` függvényt használva a `geom_tile` segítségével tudjuk elkészíteni a hőtérképet, ami a hasonlósági mátrixot ábrázolja (ld. \@ref(fig:cosheat). ábra).
 
 
-```{r 10_2_koszinusz}
+```{r cosheat, fig.cap="Koszinusz-hasonlóság hőtérképen ábrázolva"}
 ggplot(koszinusz_df, aes(docs1, docs2, fill = similarity)) +
   geom_tile() +
   scale_fill_gradient(high = "#2c3e50", low = "#bdc3c7") +
@@ -396,9 +396,9 @@ ggplot(koszinusz_df, aes(docs1, docs2, fill = similarity)) +
 )
 ```
 
-A Jaccard-hasonlósági hőtérképet ugyanezzel a módszerrel tudjuk elkészíteni (ld. 10.2. ábra).
+A Jaccard-hasonlósági hőtérképet ugyanezzel a módszerrel tudjuk elkészíteni (ld. \@ref(fig:jaccardheat). ábra).
 
-```{r 10_3_jaccard}
+```{r jaccardheat, fig.cap="Jaccard hasonlóság hőtérképen ábrázolva"}
 # adatok átalakítása
 jaccard_df <- as.matrix(jaccard_hasonlosag[501:600, 501:600]) %>%
   as.data.frame() %>%
@@ -428,7 +428,7 @@ ggplot(jaccard_df, aes(docs1, docs2, fill = similarity)) +
 
 A két ábra összehasonlításánál láthatjuk, hogy a koszinusz-hasonlóság általában magasabb hasonlósági értékeket mutat. A mátrix főátlójában kiugró világos csík azt mutatja meg, hogy a legnagyobb hasonlóság az összetartozó törvény- és törvényjavaslat-szövegek között mutatkozik meg, eddig tehát az adataink az elvárásaink szerinti képet mutatják. Amennyiben a világos csíkot nem látnánk, az egyértelmű visszajelzés volna arról, hogy elrontottunk valamit a szövegelőkészítés eddigi lépései során, vagy a várakozásásaink voltak teljesen rosszak.
 
-A koszinusz- és a Jaccard-hasonlóság értékét ábrázolhatjuk közös pont-diagramon a `geom_jitter()` segítségével (ld. 10.3. ábra). Ehhez először egy kicsit átalakítjuk a data frame-et a `tidyr` csomag `pivot_longer()` függvényével, hogy a két hasonlósági érték egy oszlopban legyen. Ez azért szükséges, hogy a `ggplot` ábránkat könnyebben tudjuk létrehozni.
+A koszinusz- és a Jaccard-hasonlóság értékét ábrázolhatjuk közös pont-diagramon a `geom_jitter()` segítségével (ld. \@ref(fig:cosjac). ábra). Ehhez először egy kicsit átalakítjuk a data frame-et a `tidyr` csomag `pivot_longer()` függvényével, hogy a két hasonlósági érték egy oszlopban legyen. Ez azért szükséges, hogy a `ggplot` ábránkat könnyebben tudjuk létrehozni.
 
 ```{r}
 tv_tvjav_tidy <- tv_tvjav_minta %>%
@@ -442,7 +442,7 @@ tv_tvjav_tidy <- tv_tvjav_minta %>%
 glimpse(tv_tvjav_tidy)
 ```
 
-```{r 10_4_cos_jac}
+```{r cosjac, fig.cap="Koszinusz- és Jaccard hasonlóság értékeinek alakulása"}
 ggplot(tv_tvjav_tidy, aes(ev, hasonlosag)) +
   geom_jitter(aes(shape = hasonlosag_tipus,color = hasonlosag_tipus), width = 0.1, alpha = 0.45) +
   scale_x_continuous(breaks = seq(1994, 2018, by = 2)) + 
@@ -468,9 +468,9 @@ evenkenti_atlag <- tv_tvjav_tidy %>%
 head(evenkenti_atlag)
 ```
 
-Az évenkénti átlagot tartalmazó adattáblánkra ezt követően vonal diagramot illesztünk. A 10.4-es ábrán az látható, hogy a Jaccard- és koszinsz-hasonlóság értéke nagyjából együtt mozog, leszámítva a 2002-es, 2003-as éveket, mival azonban itt csak néhány adatpont áll rendelkezésre, ettől az inkonzisztenciától eltekinthetünk. 
+Az évenkénti átlagot tartalmazó adattáblánkra ezt követően vonal diagramot illesztünk. A \@ref(fig:lineplot).-es ábrán az látható, hogy a Jaccard- és koszinsz-hasonlóság értéke nagyjából együtt mozog, leszámítva a 2002-es, 2003-as éveket, mival azonban itt csak néhány adatpont áll rendelkezésre, ettől az inkonzisztenciától eltekinthetünk. 
 
-```{r 10_5_lineplot}
+```{r lineplot, fig.cap="Koszinusz- és Jaccard hasonlóság vonal diagramon ábrázolva"}
 ggplot(evenkenti_atlag, aes(ev, atl_hasonlosag)) +
   geom_line(aes(linetype = hasonlosag_tipus)) +
   labs(y = "Átlagos Jaccard- és koszinusz-hasonlóság", 
@@ -483,9 +483,9 @@ ggplot(evenkenti_atlag, aes(ev, atl_hasonlosag)) +
     )
 ```
 
-Ahhoz, hogy valamivel pontosabb képet kapjunk a Jaccard-index értékének alakulásáról, az eredményeinket érdemes vizualizálni a `ggplot2` segítségével. Elsőként évenkénti bontásban, boxplotokkal ábrázoljuk a Jaccard-index értékének alakulását (ld. 10.5. ábra).
+Ahhoz, hogy valamivel pontosabb képet kapjunk a Jaccard-index értékének alakulásáról, az eredményeinket érdemes vizualizálni a `ggplot2` segítségével. Elsőként évenkénti bontásban, boxplotokkal ábrázoljuk a Jaccard-index értékének alakulását (ld. \@ref(fig:boxplot). ábra).
 
-```{r 10_6_boxplot}
+```{r boxplot, fig.cap="Jaccard hasonlóság boxplotokkal ábrázolva"}
 ggplot(tv_tvjav_minta, aes(as.factor(ev), jaccard_index)) +
   geom_boxplot() +
   labs(
@@ -536,9 +536,9 @@ tv_tvjav_minta <- tv_tvjav_minta %>%
 ```
 
 
-Miután létrehoztuk az új oszlopot, létrehozhatjuk a vizualizációt is annak alapján. Itt egy speciális pontdiagramot fogunk használni: `geom_jitter()`. Ez annyiban különbözik a pontdiagramtól, hogy kicsit szórtabban ábrázolja a diszkrét értékekre (évekre) eső pontokat, hogy az egy helyen sűrűsödő értékek ne takarják ki egymást. A `facet_wrap` segítségével tudjuk kategóriánként ábrázolni az évenkénti hasonlóságot (ld. 10.6. ábra).
+Miután létrehoztuk az új oszlopot, létrehozhatjuk a vizualizációt is annak alapján. Itt egy speciális pontdiagramot fogunk használni: `geom_jitter()`. Ez annyiban különbözik a pontdiagramtól, hogy kicsit szórtabban ábrázolja a diszkrét értékekre (évekre) eső pontokat, hogy az egy helyen sűrűsödő értékek ne takarják ki egymást. A `facet_wrap` segítségével tudjuk kategóriánként ábrázolni az évenkénti hasonlóságot (ld. \@ref(fig:govopp). ábra).
 
-```{r 10_7_jitter}
+```{r govopp, fig.cap="Jaccard hasonlóság a benyújtó személye alapján"}
 ggplot(tv_tvjav_minta, aes(ev, jaccard_index)) +
   geom_jitter(width = 0.1, alpha = 0.5) +
   scale_x_continuous(breaks = seq(1994, 2018, by = 2)) +

@@ -221,7 +221,7 @@ De térjünk még vissza eredményeinkhez és vizsgáljuk meg őket közpolitika
 table(Data_NOL_predictions$predictions_label, Data_NOL_predictions$majortopic_code)
 ```
 
-Végezetül előrejelzéseinket ezek kódonkénti gyakorisága szempontjából ábrázoljuk (ld, 12.1. ábra).
+Végezetül előrejelzéseinket ezek kódonkénti gyakorisága szempontjából ábrázoljuk (ld. \@ref(fig:svm). ábra).
 
 ```{r include = TRUE}
 ggplot_data <- Data_NOL_predictions[,c("majortopic_code","predictions_label")]
@@ -235,7 +235,7 @@ df <- ggplot_data %>%
   filter(majortopic_code < 30)
 ```
 
-```{r include = TRUE, fig.cap="Az SVM modell klasszifikációs eredményei"}
+```{r svm, include = TRUE, fig.cap="Az SVM modell klasszifikációs eredményei"}
 ggplot(df, aes(majortopic_code, n, fill = predictions_label)) + 
   geom_bar(stat = "identity") +
   labs(fill = NULL) +

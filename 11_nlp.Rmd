@@ -215,11 +215,11 @@ lemma <- rep("Monetary Council", length(mc))
 mnb_tokens <- tokens_replace(mnb_tokens, mc, lemma, valuetype = "fixed")
 ```
 
-Majd elkészítettük a szóbeágyazás fejezetben már megismert fcm-et, végezetül pedig egy együttes előfordulási mátrixot készítettünk a kinyert entitásokból és a `ggplot()` segítségével ábrázoltuk (ld 11.4. ábra).[^nlp9]
+Majd elkészítettük a szóbeágyazás fejezetben már megismert fcm-et, végezetül pedig egy együttes előfordulási mátrixot készítettünk a kinyert entitásokból és a `ggplot()` segítségével ábrázoltuk (ld \@ref(fig:MNBnevelem). ábra).[^nlp9]
 
 [^nlp9]: Részletes leírását lásd: <https://tutorials.quanteda.io/basic-operations/fcm/fcm/>
 
-```{r fig.cap="A Magyar Nemzeti Bank korpusz névelemeinek együttelőfordulási mátrixa"}
+```{r MNBnevelem, fig.cap="A Magyar Nemzeti Bank korpusz névelemeinek együttelőfordulási mátrixa"}
 mnb_fcm <- fcm(mnb_tokens, context = "window", count = "weighted", weights = 1 / (1:5), tri = TRUE)
 
 feat <- names(topfeatures(mnb_fcm, 80))

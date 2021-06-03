@@ -214,9 +214,9 @@ div_df <- mineln_dfm %>%
 cor(div_df[, 2:13])
 ```
 
-A kapott értékeket a `ggcorr()` függvény segítségével ábrázolhatjuk is. Ha a függvény argumentumában a `label = TRUE` szerepel, a kapott ábrán a kiszámított értékek is láthatók (ld. 5.1. ábra).
+A kapott értékeket a `ggcorr()` függvény segítségével ábrázolhatjuk is. Ha a függvény argumentumában a `label = TRUE` szerepel, a kapott ábrán a kiszámított értékek is láthatók (ld. \@ref(fig:heatmap). ábra).
 
-```{r, fig.cap="Korrelációs hőtérkép"}
+```{r heatmap, fig.cap="Korrelációs hőtérkép"}
 GGally::ggcorr(div_df[, 2:13], label = TRUE)
 ```
 
@@ -240,7 +240,7 @@ docvars(corpus_mineln, "f_k") <- textstat_readability(corpus_mineln, measure = "
 docvars(corpus_mineln)
 ```
 
-Majd a `ggplot2` segítségével vizualizálhatjuk az eredményt (ld. 5.2. ábra). Ehhez az olvashatósági pontszámmal kiegészített korpuszból egy adattáblát alakítunk ki, majd beállítjuk az ábrázolás paramétereit. Az ábra két tengelyén az év, illetve az olvashatósági pontszám szerepel, a jobb- és a baloldalt a vonal típusa különbözteti meg, az egyes dokumentumokat ponttal jelöljük, az ábrára pedig felíratjuk a miniszterelnökök neveit, valamint azt is beállítjuk, hogy az x tengely beosztása az egyes beszédek dátumához igazodjon. A `theme_minimal()` függvénnyel pedig azt határozzuk meg, hogy mindez fehér hátteret kapjon.
+Majd a `ggplot2` segítségével vizualizálhatjuk az eredményt (ld. \@ref(fig:olvashatosag). ábra). Ehhez az olvashatósági pontszámmal kiegészített korpuszból egy adattáblát alakítunk ki, majd beállítjuk az ábrázolás paramétereit. Az ábra két tengelyén az év, illetve az olvashatósági pontszám szerepel, a jobb- és a baloldalt a vonal típusa különbözteti meg, az egyes dokumentumokat ponttal jelöljük, az ábrára pedig felíratjuk a miniszterelnökök neveit, valamint azt is beállítjuk, hogy az x tengely beosztása az egyes beszédek dátumához igazodjon. A `theme_minimal()` függvénnyel pedig azt határozzuk meg, hogy mindez fehér hátteret kapjon.
 
 ```{r}
 corpus_df <- docvars(corpus_mineln)
@@ -262,7 +262,7 @@ ggplot(corpus_df, aes(year, f_k)) +
   theme(legend.position = "bottom")
 ```
 
-```{r, echo=FALSE, fig.cap="Az olvashatósági index alakulása"}
+```{r olvashatosag, echo=FALSE, fig.cap="Az olvashatósági index alakulása"}
 # b <- ggplot(corpus_df, aes(year, f_k)) +
 #   geom_point(size = 2) +
 #   geom_line(aes(linetype = partoldal), size = 1) +
@@ -305,7 +305,7 @@ mineln_dfm %>%
   quanteda.textstats::textstat_dist(margin = "documents", method = "euclidean")
 ```
 
-Ezután vizualizálhatjuk is a dokumentumok egymástól való távolságát egy olyan dendogram[^leiro6] segítségével, amely megmutatja nekünk a lehetséges dokumentumpárokat (ld. 5.3. ábra).
+Ezután vizualizálhatjuk is a dokumentumok egymástól való távolságát egy olyan dendogram[^leiro6] segítségével, amely megmutatja nekünk a lehetséges dokumentumpárokat (ld. \@ref(fig:csoportositas). ábra).
 
 [^leiro6]: Olyan ábra, amely hasonlóságaik vagy különbségeik alapján csoportosított objektumok összefüggéseit mutatja meg.
 
@@ -314,7 +314,7 @@ dist <- mineln_dfm %>%
   textstat_dist(margin = "documents", method = "euclidean")
 ```
 
-```{r fig.cap="A dokumentumok csoportosítása a távolságuk alapján"}
+```{r csoportositas, fig.cap="A dokumentumok csoportosítása a távolságuk alapján"}
 hierarchikus_klaszter <- hclust(as.dist(dist))
 
 ggdendro::ggdendrogram(hierarchikus_klaszter)
@@ -326,7 +326,7 @@ mineln_dfm %>%
   head(n = 10)
 ```
 
-Arra is van lehetőségünk, hogy a két alkorpuszt hasonlítsuk össze egymással. Ehhez a `textstat_keyness()` függvényt használjuk, melynek a bemenete a `dfm`. A függvény argumentumában a `target =` után kell megadni, hogy mely alkorpusz a viszonyítási alap. Az összehasonlítás eredményét a `textplot_keyness()` függvény segítségével ábrázolhatjuk, ami megjeleníti a két alkorpusz leggyakoribb kifejezéseit (ld. 5.4. ábra).
+Arra is van lehetőségünk, hogy a két alkorpuszt hasonlítsuk össze egymással. Ehhez a `textstat_keyness()` függvényt használjuk, melynek a bemenete a `dfm`. A függvény argumentumában a `target =` után kell megadni, hogy mely alkorpusz a viszonyítási alap. Az összehasonlítás eredményét a `textplot_keyness()` függvény segítségével ábrázolhatjuk, ami megjeleníti a két alkorpusz leggyakoribb kifejezéseit (ld. \@ref(fig:fontoskifejezes). ábra).
 
 ```{r}
 dfm_keyness <- corpus_mineln %>% 
@@ -338,13 +338,13 @@ dfm_keyness <- corpus_mineln %>%
 result_keyness <- quanteda.textstats::textstat_keyness(dfm_keyness, target = "jobb")
 ```
 
-```{r fig.cap="A korpuszok legfontosabb kifejezései", message=FALSE, warning=FALSE}
+```{r fontoskifejezes, fig.cap="A korpuszok legfontosabb kifejezései", message=FALSE, warning=FALSE}
 quanteda.textplots::textplot_keyness(result_keyness, color = c("#484848", "#D0D0D0")) +
   xlim(c(-65, 65)) +
   theme(legend.position = c(0.9,0.1))
 ```
 
-Ha az egyes miniszterelnökök beszédeinek leggyakoribb kifejezéseit szeretnénk összehasonlítani, azt a `textstat_frequency()` függvény segítségével tehetjük meg, melynek bemenete a megtisztított és súlyozott `dfm`. Az összehasonlítás eredményét pedig a `ggplot2` segítségével ábrázolhatjuk is (ld. 5.5. ábra).
+Ha az egyes miniszterelnökök beszédeinek leggyakoribb kifejezéseit szeretnénk összehasonlítani, azt a `textstat_frequency()` függvény segítségével tehetjük meg, melynek bemenete a megtisztított és súlyozott `dfm`. Az összehasonlítás eredményét pedig a `ggplot2` segítségével ábrázolhatjuk is (ld. \@ref(fig:freqfeat). ábra).
 
 ```{r,  tidy.opts=list(width.cutoff=80)}
 dfm_weighted <- corpus_mineln %>%
@@ -362,7 +362,7 @@ dfm_weighted <- corpus_mineln %>%
 freq_weight <- textstat_frequency(dfm_weighted, n = 5, groups = mineln)
 ```
 
-```{r fig.cap="Leggyakoribb kifejezések a miniszterelnöki beszédekben"}
+```{r freqfeat, fig.cap="Leggyakoribb kifejezések a miniszterelnöki beszédekben"}
 ggplot(data = freq_weight, aes(x = nrow(freq_weight):1, y = frequency)) +
   geom_point() +
   facet_wrap(~ group, scales = "free", ncol = 2) +
