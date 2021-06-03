@@ -1,7 +1,8 @@
 knitr::opts_chunk$set(
   comment = "#>",
   collapse = TRUE,
-  cache = FALSE,
+  cache = TRUE,
+  cache.lazy = FALSE,
   warning = FALSE,
   message = FALSE,
   echo = TRUE,
@@ -13,5 +14,5 @@ knitr::opts_chunk$set(
 
 options(digits = 3, dplyr.print_min = 6, dplyr.print_max = 6)
 options(crayon.enabled = FALSE)
-suppressPackageStartupMessages(library(tidyverse))
+
 theme_set(theme_light())

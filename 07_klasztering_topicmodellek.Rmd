@@ -1,6 +1,7 @@
 # Felügyelet nélküli tanulás - Topikmodellezés {#lda_ch}
 
 ```{r include=FALSE}
+set.seed(1234)
 
 source("_common.R")
 
@@ -71,9 +72,9 @@ labs(
   y = "Klasztereken belüli négyzetösszeg")
 ```
 
-A kialakított csoportokat vizuálisan is megjeleníthetjük (ld. \@ref(fig:PM_speech). ábra).
+A kialakított csoportokat vizuálisan is megjeleníthetjük (ld. \@ref(fig:PMspeech). ábra).
 
-```{r PM_speech, fig.cap="A miniszterelnöki beszédek klaszterei"}
+```{r PMspeech, fig.cap="A miniszterelnöki beszédek klaszterei"}
 factoextra::fviz_cluster(
   beszedek_klaszter, 
   data = beszedek_dfm, 
@@ -268,7 +269,7 @@ Saját korpuszunkon először a `VEM` módszert alkalmazzuk, ahol `k = 10`, azaz
 
 [^lda3]: Részletesebben lásd például: [http://brooksandrew.github.io/simpleblog/articles/latent-dirichlet-allocation-under-the-hood/](http://brooksandrew.github.io/simpleblog/articles/latent-dirichlet-allocation-under-the-hood/)
 
-```{r purrr_lda, eval=FALSE}
+```{r purrr_lda}
 k_topics <- c(5, 10, 15, 20)
 
 lda_98_02 <- k_topics %>%
@@ -282,20 +283,20 @@ perp_df <- dplyr::tibble(
 ```
 
 ```{r echo=FALSE}
-# saveRDS(lda_98_02, "data/lda_perp_temp.RDS")
-
-k_topics <- c(5, 10, 15, 20)
-
-lda_98_02 <- readRDS("data/temp/lda_perp_temp.RDS")
-
-# temp_tibble <- tibble(
-#   k = k_topics,
-#   perplexity = map_dbl(lda_98_02, perplexity)
-# )
-
-# saveRDS(temp_tibble, "data/temp_df.RDS")
-
-perp_df <- readRDS("data/temp/temp_df.RDS")
+# # saveRDS(lda_98_02, "data/lda_perp_temp.RDS")
+# 
+# k_topics <- c(5, 10, 15, 20)
+# 
+# lda_98_02 <- readRDS("data/temp/lda_perp_temp.RDS")
+# 
+# # temp_tibble <- tibble(
+# #   k = k_topics,
+# #   perplexity = map_dbl(lda_98_02, perplexity)
+# # )
+# 
+# # saveRDS(temp_tibble, "data/temp_df.RDS")
+# 
+# perp_df <- readRDS("data/temp/temp_df.RDS")
 ```
 
 ```{r zavarossag, fig.cap="Zavarosság változása a k függvényében", cache=FALSE}
@@ -315,19 +316,19 @@ A zavarossági mutató alapján a 20 topikos modell szerepel a legjobban, de a m
 
 A reprodukálhatóság és a futási sebesség érdekében a fejezet további részeiben a *k* paraméternek 10-es értéket adunk. Ezzel lefuttatunk egy-egy modellt a két ciklusra.
 
-```{r double_vem, eval=FALSE}
+```{r double_vem}
 vem_98_02 <- LDA(dfm_98_02, k = 10, method = "VEM", control = list(seed = 1234))
 
 vem_02_06 <- LDA(dfm_02_06, k = 10, method = "VEM", control = list(seed = 1234))
 ```
 
 ```{r, echo=FALSE}
-# saveRDS(vem_98_02, "data/temp/vem_98.RDS")
-# saveRDS(vem_02_06, "data/temp/vem_02.RDS")
-
-vem_98_02 <- readRDS("data/temp/vem_98.RDS")
-
-vem_02_06 <- readRDS("data/temp/vem_02.RDS")
+# # saveRDS(vem_98_02, "data/temp/vem_98.RDS")
+# # saveRDS(vem_02_06, "data/temp/vem_02.RDS")
+# 
+# vem_98_02 <- readRDS("data/temp/vem_98.RDS")
+# 
+# vem_02_06 <- readRDS("data/temp/vem_02.RDS")
 ```
 
 Ezt követően a modell által létrehozott topikokat tidy formátumba tesszük és egyesítjük egy adattáblában.[^lda5]
@@ -389,19 +390,19 @@ top_terms %>%
 
 A következőkben ugyanazon a korpuszon az LDA Gibbs módszert alkalmazzuk. A szövegelőkészítő és tisztító lépések ennél a módszernél is ugyanazok, mint a fentebb bemutatott VEM módszer esetében, így itt most csak a modell illesztését mutatjuk be.
 
-```{r double_gibbs, eval=FALSE}
+```{r double_gibbs}
 gibbs_98_02 <- LDA(dfm_98_02, k = 10, method = "Gibbs", control = list(seed = 1234))
 
 gibbs_02_06 <- LDA(dfm_02_06, k = 10, method = "Gibbs", control = list(seed = 1234))
 ```
 
 ```{r echo=FALSE}
- # saveRDS(gibbs_98_02, "data/temp/gibbs_98.RDS")
- # saveRDS(gibbs_02_06, "data/temp/gibbs_02.RDS")
-
-gibbs_98_02 <- readRDS("data/temp/gibbs_98.RDS")
-
-gibbs_02_06 <- readRDS("data/temp/gibbs_02.RDS")
+#  # saveRDS(gibbs_98_02, "data/temp/gibbs_98.RDS")
+#  # saveRDS(gibbs_02_06, "data/temp/gibbs_02.RDS")
+# 
+# gibbs_98_02 <- readRDS("data/temp/gibbs_98.RDS")
+# 
+# gibbs_02_06 <- readRDS("data/temp/gibbs_02.RDS")
 ```
 
 Itt is elvégezzük a topikok tidy formátumra alakítását.
@@ -472,7 +473,7 @@ A lenti lépésekben a csomag dokumentációjában szereplő ajánlásokat köve
 
 Az előkészítés utolsó szakaszában az `out` objektumban tároljuk el a dokumentumokat, az egyedi szavakat, illetve a metaadatokat (kovariánsokat).
 
-```{r stm_preprocess, eval=FALSE}
+```{r stm_preprocess}
 data_stm <- torveny_final
 
 processed_stm <- stm::textProcessor(
@@ -492,16 +493,16 @@ out <- stm::prepDocuments(processed_stm$documents, processed_stm$vocab, processe
 ```
 
 ```{r echo=FALSE}
-# saveRDS(out, "data/temp/stm_out.RDS")
-
-out <- readRDS("data/temp/stm_out.RDS")
+# # saveRDS(out, "data/temp/stm_out.RDS")
+# 
+# out <- readRDS("data/temp/stm_out.RDS")
 ```
 
 A strukturális topikmodellünket az `stm` függvénnyel becsüljük és a kovariánsokat a `prevalence` opciónál tudjuk formulaként megadni. A lenti példában a Hungarian Comparative Agendas Project[^lda7] kategóriáit (például gazdaság, egészségügy stb.) és a kormányciklusokat használjuk. A futási idő kicsit hosszabb mint az LDA modellek esetében.
 
 [^lda7]: A kódkönyv elérhető az alábbi linken: [Comparative Agendas Project](https://cap.tk.hu/kozpolitikai-magyar).
 
-```{r stm_fit, eval=FALSE}
+```{r stm_fit}
 stm_fit <- stm::stm(
   out$documents,
   out$vocab,
@@ -515,9 +516,9 @@ stm_fit <- stm::stm(
 ```
 
 ```{r echo=FALSE}
-# saveRDS(stm_fit, "data/temp/stm_fit.RDS")
-
-stm_fit <- readRDS("data/temp/stm_fit.RDS")
+# # saveRDS(stm_fit, "data/temp/stm_fit.RDS")
+# 
+# stm_fit <- readRDS("data/temp/stm_fit.RDS")
 ```
 
 Amennyiben a kutatási kérdés megkívánja, akkor megvizsgálhatjuk, hogy a kategorikus változóinknak milyen hatása volt az egyes topikok esetében. Ehhez az `estimateEffect()` függvénnyel lefuttatunk egy lineáris regressziót és a `summary()` használatával láthatjuk az egyes kovariánsok koefficienseit. Itt az első topikkal illusztráljuk az eredményt, ami azt mutatja, hogy (a kategórikus változóink első kategóriájához mérten) statisztikailag szignifikáns mind a téma, mind pedig a kormányzati ciklusok abban, hogy egyes dokumentumok milyen témákból épülnek fel.

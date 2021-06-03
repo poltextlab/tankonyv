@@ -3,7 +3,6 @@
 ## Fogalmi alapok
 
 ```{r, include=FALSE}
-
 source("_common.R")
 
 ```
@@ -116,7 +115,7 @@ dtm_NOL <- dfm_trim(dtm_NOL, min_docfreq = 5, verbose=TRUE)
 
 Ezen a ponton megkezdhetjük a modellünk tanítását! Erre a fent említett SVM algoritmust használjuk. E lépés futási ideje akár 1--2 percig is eltarthat.
 
-```{r eval=FALSE}
+```{r}
 SVMmodel <- svm(
   x=dtm_NOL[dtm_NOL@docvars$training == 1,], 
   y	=dtm_NOL[dtm_NOL@docvars$training == 1,]@docvars$label,
@@ -128,7 +127,7 @@ SVMmodel <- svm(
 
 ```{r echo=FALSE}
 #saveRDS(SVMmodel, file = "data/temp/svm_model.rds")
-SVMmodel <- readRDS("data/temp/svm_model.rds")
+#SVMmodel <- readRDS("data/temp/svm_model.rds")
 ```
 
 A létrejövő *predictions* objektum tartalmazza majd az előrejelzési eredményeket.

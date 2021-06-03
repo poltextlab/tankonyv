@@ -1,6 +1,7 @@
 # Szóbeágyazások {#embedding}
 
 ```{r include=FALSE}
+set.seed(1234)
 
 source("_common.R")
 
@@ -89,15 +90,15 @@ Az egyszerűség és a gyorsaság miatt a lenti kód 10 körös tanulást ad meg
 
 [^config]: A futtatásra használt PC konfiguráció: CPU: Intel Core i5-4460 (3.2GHz); RAM: 16GB 
 
-```{r 09_glove_fit, eval=FALSE}
+```{r 09_glove_fit}
 glove <- GlobalVectors$new(rank = 300, x_max = 10, learning_rate = 0.1)
 
-mn_main <- glove$fit_transform(mn_fcm, n_iter = 10, convergence_tol = 0.01)
+mn_main <- glove$fit_transform(mn_fcm, n_iter = 10, convergence_tol = 0.1)
 ```
 
 A végleges szóvektorokat a becslés során elkészült két mátrix összegeként kapjuk.
 
-```{r, eval=FALSE}
+```{r}
 mn_context <- glove$components
 
 mn_word_vectors <- mn_main + t(mn_context)
@@ -106,7 +107,7 @@ mn_word_vectors <- mn_main + t(mn_context)
 ```{r echo=FALSE}
 # saveRDS(mn_word_vectors, "data/temp/mn_word_vector.RDS")
 
-mn_word_vectors <- readRDS("data/temp/mn_word_vector.RDS")
+# mn_word_vectors <- readRDS("data/temp/mn_word_vector.RDS")
 ```
 
 

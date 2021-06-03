@@ -33,7 +33,6 @@
   
 <link rel="prev" href="embedding.html"/>
 <link rel="next" href="similarity.html"/>
-<script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,6 +50,7 @@
 
 
 
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
@@ -64,7 +64,6 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -125,28 +124,6 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
-<style type="text/css">
-/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}
-</style>
 
 <link rel="stylesheet" href="konyv_style.css" type="text/css" />
 </head>
@@ -297,162 +274,162 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="scaling" class="section level1" number="9">
+<div id="scaling" class="section level1">
 <h1><span class="header-section-number">9</span> Szövegskálázás</h1>
-<div id="fogalmi-alapok-3" class="section level2" number="9.1">
+<div id="fogalmi-alapok-3" class="section level2">
 <h2><span class="header-section-number">9.1</span> Fogalmi alapok</h2>
-<p>A politikatudomány egyik izgalmas kérdése a szereplők ideológiai skálákon való elhelyezése. Ezt jellemzően pártprogramok vagy különböző ügyekkel kapcsolatos álláspontpontok alapján szokták meghatározni, de a politikusok beszédei is alkalmasak arra, hogy meghatározzuk a beszélő ideológiai hovatartozását. A szövegbányászat területén jellemzően a wordfish és a wordscores módszert alkalmazzák erre a feladatra. Míg előbbi a felügyelet nélküli módszerek sorába tartozik, utóbbi felügyelt módszerek közé. A wordscores a szótári módszerekhez hasonlóan a szövegeket a bennük található szavak alapján helyezi el a politikai térben oly módon, hogy az ún. referenciadokumentumok szövegét használja tanító halmazként. A wordscores kiindulópontja, hogy pozíció pontszámokat kell rendelni referencia szövegekhez. A modell számításba veszi a szövegek szavainak súlyozott gyakoriságát és a pozíciópontszám, valamint a szógyakoriság alapján becsüli meg a korpuszban lévő többi dokumentum pozícióját <span class="citation">(<a href="irodalomjegyzék.html#ref-laver2003extracting" role="doc-biblioref">Laver, Benoit, and Garry 2003</a>)</span>.</p>
-<p>A felügyelet nélküli <code>wordfish</code> módszer a skálázás során nem a referencia dokumentumokra támaszkodik, hanem olyan kifejezéseket keres a szövegben, amelyek megkülönböztetik egymástól a politikai spektrum különböző pontjain elhelyezkedő beszélőket. Az IRT-n (<em>item response theory</em>) alapuló módszer azt feltételezi, hogy a politikusok egy kevés dimenziós politikai térben mozognak, amely tér leírható az <em>i</em> politikus <span class="math inline">\(\theta_1\)</span> paraméterével. Egy politikus (vagy párt) ebben a térben elfoglalt helyzete pedig befolyásolja a szavak szövegekben történő használatát. A módszer erőssége, hogy kevés erőforrás-befektetéssel megbízható becsléseket ad, ha a szövegek valóban az ideológiák mentén különböznek, tehát ha a szereplők erősen ideológiai tartalamú diskurzust folytatnak. Alkalmazásakor azonban tudnunk kell: a módszer nem képes kezelni, hogy a szövegek között nem csak ideológiai különbség lehet. Mivel a modell nem felügyelt, ezért nehéz garantálni, hogy valóban megbízhatóan azonosítja a szereplők elhelyezkedését a politikai térben, így az eredményeket mindenképpen körültekintően kell validálni <span class="citation">(<a href="irodalomjegyzék.html#ref-grimmer2013text" role="doc-biblioref">Grimmer and Stewart 2013</a>; <a href="irodalomjegyzék.html#ref-hjorthComputersCodersVoters2015" role="doc-biblioref">Hjorth et al. 2015</a>; <a href="irodalomjegyzék.html#ref-slapinScalingModelEstimating2008" role="doc-biblioref">Slapin and Proksch 2008</a>)</span>.</p>
-<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="scaling.html#cb146-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb146-2"><a href="scaling.html#cb146-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb146-3"><a href="scaling.html#cb146-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
-<span id="cb146-4"><a href="scaling.html#cb146-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb146-5"><a href="scaling.html#cb146-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
-<span id="cb146-6"><a href="scaling.html#cb146-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quanteda)</span>
-<span id="cb146-7"><a href="scaling.html#cb146-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quanteda.textmodels)</span>
-<span id="cb146-8"><a href="scaling.html#cb146-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(HunMineR)</span></code></pre></div>
+<p>A politikatudomány egyik izgalmas kérdése a szereplők ideológiai skálákon való elhelyezése. Ezt jellemzően pártprogramok vagy különböző ügyekkel kapcsolatos álláspontpontok alapján szokták meghatározni, de a politikusok beszédei is alkalmasak arra, hogy meghatározzuk a beszélő ideológiai hovatartozását. A szövegbányászat területén jellemzően a wordfish és a wordscores módszert alkalmazzák erre a feladatra. Míg előbbi a felügyelet nélküli módszerek sorába tartozik, utóbbi felügyelt módszerek közé. A wordscores a szótári módszerekhez hasonlóan a szövegeket a bennük található szavak alapján helyezi el a politikai térben oly módon, hogy az ún. referenciadokumentumok szövegét használja tanító halmazként. A wordscores kiindulópontja, hogy pozíció pontszámokat kell rendelni referencia szövegekhez. A modell számításba veszi a szövegek szavainak súlyozott gyakoriságát és a pozíciópontszám, valamint a szógyakoriság alapján becsüli meg a korpuszban lévő többi dokumentum pozícióját <span class="citation">(Laver, Benoit, and Garry <a href="irodalomjegyzék.html#ref-laver2003extracting" role="doc-biblioref">2003</a>)</span>.</p>
+<p>A felügyelet nélküli <code>wordfish</code> módszer a skálázás során nem a referencia dokumentumokra támaszkodik, hanem olyan kifejezéseket keres a szövegben, amelyek megkülönböztetik egymástól a politikai spektrum különböző pontjain elhelyezkedő beszélőket. Az IRT-n (<em>item response theory</em>) alapuló módszer azt feltételezi, hogy a politikusok egy kevés dimenziós politikai térben mozognak, amely tér leírható az <em>i</em> politikus <span class="math inline">\(\theta_1\)</span> paraméterével. Egy politikus (vagy párt) ebben a térben elfoglalt helyzete pedig befolyásolja a szavak szövegekben történő használatát. A módszer erőssége, hogy kevés erőforrás-befektetéssel megbízható becsléseket ad, ha a szövegek valóban az ideológiák mentén különböznek, tehát ha a szereplők erősen ideológiai tartalamú diskurzust folytatnak. Alkalmazásakor azonban tudnunk kell: a módszer nem képes kezelni, hogy a szövegek között nem csak ideológiai különbség lehet. Mivel a modell nem felügyelt, ezért nehéz garantálni, hogy valóban megbízhatóan azonosítja a szereplők elhelyezkedését a politikai térben, így az eredményeket mindenképpen körültekintően kell validálni <span class="citation">(Grimmer and Stewart <a href="irodalomjegyzék.html#ref-grimmer2013text" role="doc-biblioref">2013</a>; Hjorth et al. <a href="irodalomjegyzék.html#ref-hjorthComputersCodersVoters2015" role="doc-biblioref">2015</a>; Slapin and Proksch <a href="irodalomjegyzék.html#ref-slapinScalingModelEstimating2008" role="doc-biblioref">2008</a>)</span>.</p>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="scaling.html#cb146-1"></a><span class="kw">library</span>(readr)</span>
+<span id="cb146-2"><a href="scaling.html#cb146-2"></a><span class="kw">library</span>(dplyr)</span>
+<span id="cb146-3"><a href="scaling.html#cb146-3"></a><span class="kw">library</span>(stringr)</span>
+<span id="cb146-4"><a href="scaling.html#cb146-4"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb146-5"><a href="scaling.html#cb146-5"></a><span class="kw">library</span>(ggrepel)</span>
+<span id="cb146-6"><a href="scaling.html#cb146-6"></a><span class="kw">library</span>(quanteda)</span>
+<span id="cb146-7"><a href="scaling.html#cb146-7"></a><span class="kw">library</span>(quanteda.textmodels)</span>
+<span id="cb146-8"><a href="scaling.html#cb146-8"></a><span class="kw">library</span>(HunMineR)</span></code></pre></div>
 <p>A skálázási algoritmusokat egy kis korpuszon mutatjuk be. A minta dokumentumok a 2014–2018-as parlamenti ciklusban az Országgyűlésben frakcióvezető politikusok egy-egy véletlenszerűen kiválasztott napirend előtti felszólalásai. Ebben a ciklusban összesen 11 frakcióvezetője volt a két kormánypárti és öt ellenzéki frakciónak.<a href="#fn48" class="footnote-ref" id="fnref48"><sup>48</sup></a> A dokumentumokon először elvégeztük a szokásos előkészítési lépéseket.</p>
-<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="scaling.html#cb147-1" aria-hidden="true" tabindex="-1"></a>parl_beszedek <span class="ot">&lt;-</span> HunMineR<span class="sc">::</span>data_parlspeakers_small</span>
-<span id="cb147-2"><a href="scaling.html#cb147-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb147-3"><a href="scaling.html#cb147-3" aria-hidden="true" tabindex="-1"></a>beszedek_tiszta <span class="ot">&lt;-</span> parl_beszedek <span class="sc">%&gt;%</span> </span>
-<span id="cb147-4"><a href="scaling.html#cb147-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
-<span id="cb147-5"><a href="scaling.html#cb147-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">str_remove_all</span>(<span class="at">string =</span> text, <span class="at">pattern =</span> <span class="st">&quot;[:cntrl:]&quot;</span>),</span>
-<span id="cb147-6"><a href="scaling.html#cb147-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">str_remove_all</span>(<span class="at">string =</span> text, <span class="at">pattern =</span> <span class="st">&quot;[:punct:]&quot;</span>),</span>
-<span id="cb147-7"><a href="scaling.html#cb147-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">str_remove_all</span>(<span class="at">string =</span> text, <span class="at">pattern =</span> <span class="st">&quot;[:digit:]&quot;</span>),</span>
-<span id="cb147-8"><a href="scaling.html#cb147-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">str_to_lower</span>(text),</span>
-<span id="cb147-9"><a href="scaling.html#cb147-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">str_trim</span>(text),</span>
-<span id="cb147-10"><a href="scaling.html#cb147-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">str_squish</span>(text)</span>
-<span id="cb147-11"><a href="scaling.html#cb147-11" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="scaling.html#cb147-1"></a>parl_beszedek &lt;-<span class="st"> </span>HunMineR<span class="op">::</span>data_parlspeakers_small</span>
+<span id="cb147-2"><a href="scaling.html#cb147-2"></a></span>
+<span id="cb147-3"><a href="scaling.html#cb147-3"></a>beszedek_tiszta &lt;-<span class="st"> </span>parl_beszedek <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb147-4"><a href="scaling.html#cb147-4"></a><span class="st">    </span><span class="kw">mutate</span>(</span>
+<span id="cb147-5"><a href="scaling.html#cb147-5"></a>    <span class="dt">text =</span> <span class="kw">str_remove_all</span>(<span class="dt">string =</span> text, <span class="dt">pattern =</span> <span class="st">&quot;[:cntrl:]&quot;</span>),</span>
+<span id="cb147-6"><a href="scaling.html#cb147-6"></a>    <span class="dt">text =</span> <span class="kw">str_remove_all</span>(<span class="dt">string =</span> text, <span class="dt">pattern =</span> <span class="st">&quot;[:punct:]&quot;</span>),</span>
+<span id="cb147-7"><a href="scaling.html#cb147-7"></a>    <span class="dt">text =</span> <span class="kw">str_remove_all</span>(<span class="dt">string =</span> text, <span class="dt">pattern =</span> <span class="st">&quot;[:digit:]&quot;</span>),</span>
+<span id="cb147-8"><a href="scaling.html#cb147-8"></a>    <span class="dt">text =</span> <span class="kw">str_to_lower</span>(text),</span>
+<span id="cb147-9"><a href="scaling.html#cb147-9"></a>    <span class="dt">text =</span> <span class="kw">str_trim</span>(text),</span>
+<span id="cb147-10"><a href="scaling.html#cb147-10"></a>    <span class="dt">text =</span> <span class="kw">str_squish</span>(text)</span>
+<span id="cb147-11"><a href="scaling.html#cb147-11"></a>  )</span></code></pre></div>
 <p>A wordfish és wordscores algoritmus is ugyanazt a kiinduló corpus és dfm objektumot használja, amit a szokásos módon a <code>quanteda</code> csomag <code>corpus()</code> függvényével hozunk létre.</p>
-<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="scaling.html#cb148-1" aria-hidden="true" tabindex="-1"></a>beszedek_corpus <span class="ot">&lt;-</span> <span class="fu">corpus</span>(beszedek_tiszta)</span>
-<span id="cb148-2"><a href="scaling.html#cb148-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb148-3"><a href="scaling.html#cb148-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(beszedek_corpus)</span>
-<span id="cb148-4"><a href="scaling.html#cb148-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Corpus consisting of 10 documents, showing 10 documents:</span></span>
-<span id="cb148-5"><a href="scaling.html#cb148-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb148-6"><a href="scaling.html#cb148-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    Text Types Tokens Sentences                     id</span></span>
-<span id="cb148-7"><a href="scaling.html#cb148-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   text1   442    819         1 20142018_024_0002_0002</span></span>
-<span id="cb148-8"><a href="scaling.html#cb148-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   text2   354    607         1 20142018_055_0002_0002</span></span>
-<span id="cb148-9"><a href="scaling.html#cb148-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   text3   426    736         1 20142018_064_0002_0002</span></span>
-<span id="cb148-10"><a href="scaling.html#cb148-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   text4   314    538         1 20142018_115_0002_0002</span></span>
-<span id="cb148-11"><a href="scaling.html#cb148-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   text5   354    589         1 20142018_158_0002_0002</span></span>
-<span id="cb148-12"><a href="scaling.html#cb148-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   text6   333    538         1 20142018_172_0002_0002</span></span>
-<span id="cb148-13"><a href="scaling.html#cb148-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   text7   344    559         1 20142018_206_0002_0002</span></span>
-<span id="cb148-14"><a href="scaling.html#cb148-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   text8   352    628         1 20142018_212_0002_0002</span></span>
-<span id="cb148-15"><a href="scaling.html#cb148-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   text9   317    492         1 20142018_236_0002_0002</span></span>
-<span id="cb148-16"><a href="scaling.html#cb148-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  text10   343    600         1 20142018_249_0002_0002</span></span>
-<span id="cb148-17"><a href="scaling.html#cb148-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                   felszolalo   part</span></span>
-<span id="cb148-18"><a href="scaling.html#cb148-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          Vona Gábor (Jobbik) Jobbik</span></span>
-<span id="cb148-19"><a href="scaling.html#cb148-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    Dr. Schiffer András (LMP)    LMP</span></span>
-<span id="cb148-20"><a href="scaling.html#cb148-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Dr. Szél Bernadett (LMP)    LMP</span></span>
-<span id="cb148-21"><a href="scaling.html#cb148-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         Tóbiás József (MSZP)   MSZP</span></span>
-<span id="cb148-22"><a href="scaling.html#cb148-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       Schmuck Erzsébet (LMP)    LMP</span></span>
-<span id="cb148-23"><a href="scaling.html#cb148-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Dr. Tóth Bertalan (MSZP)   MSZP</span></span>
-<span id="cb148-24"><a href="scaling.html#cb148-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        Volner János (Jobbik) Jobbik</span></span>
-<span id="cb148-25"><a href="scaling.html#cb148-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          Kósa Lajos (Fidesz) Fidesz</span></span>
-<span id="cb148-26"><a href="scaling.html#cb148-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         Harrach Péter (KDNP)   KDNP</span></span>
-<span id="cb148-27"><a href="scaling.html#cb148-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Dr. Gulyás Gergely (Fidesz) Fidesz</span></span></code></pre></div>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="scaling.html#cb148-1"></a>beszedek_corpus &lt;-<span class="st"> </span><span class="kw">corpus</span>(beszedek_tiszta)</span>
+<span id="cb148-2"><a href="scaling.html#cb148-2"></a></span>
+<span id="cb148-3"><a href="scaling.html#cb148-3"></a><span class="kw">summary</span>(beszedek_corpus)</span>
+<span id="cb148-4"><a href="scaling.html#cb148-4"></a><span class="co">#&gt; Corpus consisting of 10 documents, showing 10 documents:</span></span>
+<span id="cb148-5"><a href="scaling.html#cb148-5"></a><span class="co">#&gt; </span></span>
+<span id="cb148-6"><a href="scaling.html#cb148-6"></a><span class="co">#&gt;    Text Types Tokens Sentences                     id</span></span>
+<span id="cb148-7"><a href="scaling.html#cb148-7"></a><span class="co">#&gt;   text1   442    819         1 20142018_024_0002_0002</span></span>
+<span id="cb148-8"><a href="scaling.html#cb148-8"></a><span class="co">#&gt;   text2   354    607         1 20142018_055_0002_0002</span></span>
+<span id="cb148-9"><a href="scaling.html#cb148-9"></a><span class="co">#&gt;   text3   426    736         1 20142018_064_0002_0002</span></span>
+<span id="cb148-10"><a href="scaling.html#cb148-10"></a><span class="co">#&gt;   text4   314    538         1 20142018_115_0002_0002</span></span>
+<span id="cb148-11"><a href="scaling.html#cb148-11"></a><span class="co">#&gt;   text5   354    589         1 20142018_158_0002_0002</span></span>
+<span id="cb148-12"><a href="scaling.html#cb148-12"></a><span class="co">#&gt;   text6   333    538         1 20142018_172_0002_0002</span></span>
+<span id="cb148-13"><a href="scaling.html#cb148-13"></a><span class="co">#&gt;   text7   344    559         1 20142018_206_0002_0002</span></span>
+<span id="cb148-14"><a href="scaling.html#cb148-14"></a><span class="co">#&gt;   text8   352    628         1 20142018_212_0002_0002</span></span>
+<span id="cb148-15"><a href="scaling.html#cb148-15"></a><span class="co">#&gt;   text9   317    492         1 20142018_236_0002_0002</span></span>
+<span id="cb148-16"><a href="scaling.html#cb148-16"></a><span class="co">#&gt;  text10   343    600         1 20142018_249_0002_0002</span></span>
+<span id="cb148-17"><a href="scaling.html#cb148-17"></a><span class="co">#&gt;                   felszolalo   part</span></span>
+<span id="cb148-18"><a href="scaling.html#cb148-18"></a><span class="co">#&gt;          Vona Gábor (Jobbik) Jobbik</span></span>
+<span id="cb148-19"><a href="scaling.html#cb148-19"></a><span class="co">#&gt;    Dr. Schiffer András (LMP)    LMP</span></span>
+<span id="cb148-20"><a href="scaling.html#cb148-20"></a><span class="co">#&gt;     Dr. Szél Bernadett (LMP)    LMP</span></span>
+<span id="cb148-21"><a href="scaling.html#cb148-21"></a><span class="co">#&gt;         Tóbiás József (MSZP)   MSZP</span></span>
+<span id="cb148-22"><a href="scaling.html#cb148-22"></a><span class="co">#&gt;       Schmuck Erzsébet (LMP)    LMP</span></span>
+<span id="cb148-23"><a href="scaling.html#cb148-23"></a><span class="co">#&gt;     Dr. Tóth Bertalan (MSZP)   MSZP</span></span>
+<span id="cb148-24"><a href="scaling.html#cb148-24"></a><span class="co">#&gt;        Volner János (Jobbik) Jobbik</span></span>
+<span id="cb148-25"><a href="scaling.html#cb148-25"></a><span class="co">#&gt;          Kósa Lajos (Fidesz) Fidesz</span></span>
+<span id="cb148-26"><a href="scaling.html#cb148-26"></a><span class="co">#&gt;         Harrach Péter (KDNP)   KDNP</span></span>
+<span id="cb148-27"><a href="scaling.html#cb148-27"></a><span class="co">#&gt;  Dr. Gulyás Gergely (Fidesz) Fidesz</span></span></code></pre></div>
 <p>A leíró statisztikai táblázatban látszik, hogy a beszédek hosszúsága nem egységes, a leghosszabb 819, a legrövidebb pedig 492 szavas. Az átlagos dokumentum hossz az 611 szó. A korpusz szemléltető célú, alaposabb elemzéshez hosszabb és/vagy több dokumentummal érdemes dolgoznunk.</p>
 <p>A korpusz létrehozása után elkészítjük a dfm mátrixot, amelyből eltávolítjuk a magyar stopszvakat a <code>quanteda</code> beépített szótára segítségével.</p>
-<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="scaling.html#cb149-1" aria-hidden="true" tabindex="-1"></a>beszedek_dfm <span class="ot">&lt;-</span> beszedek_corpus <span class="sc">%&gt;%</span> </span>
-<span id="cb149-2"><a href="scaling.html#cb149-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tokens</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb149-3"><a href="scaling.html#cb149-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tokens_remove</span>(<span class="fu">stopwords</span>(<span class="st">&quot;hungarian&quot;</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb149-4"><a href="scaling.html#cb149-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dfm</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="scaling.html#cb149-1"></a>beszedek_dfm &lt;-<span class="st"> </span>beszedek_corpus <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb149-2"><a href="scaling.html#cb149-2"></a><span class="st">  </span><span class="kw">tokens</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb149-3"><a href="scaling.html#cb149-3"></a><span class="st">  </span><span class="kw">tokens_remove</span>(<span class="kw">stopwords</span>(<span class="st">&quot;hungarian&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb149-4"><a href="scaling.html#cb149-4"></a><span class="st">  </span><span class="kw">dfm</span>()</span></code></pre></div>
 </div>
-<div id="wordfish" class="section level2" number="9.2">
+<div id="wordfish" class="section level2">
 <h2><span class="header-section-number">9.2</span> Wordfish</h2>
 <p>A wordfish felügyelet nélküli skálázást a <code>quanteda.textmodels</code> csomagban implementált <code>textmodel_wordfish()</code> függvény fogja végezni. A megadott <code>dir = c(1, 2)</code> paraméterrel a két dokumentum relatív <span class="math inline">\(\theta\)</span> értékét tudjuk rögzíteni, mégpedig úgy hogy <span class="math inline">\(\theta_{dir1} &lt; \theta_{dir2}\)</span>. Alapbeállításként az algoritmus az első és az utolsó dokumentumot teszi be ide. A lenti példánál mi a pártpozíciók alapján a Jobbikos Vona Gábor és az LMP-s Schiffer András egy-egy beszédét használtuk. A <code>summary()</code> használható az illesztett modellel, és a dokumentumonkénti <span class="math inline">\(\theta\)</span> koefficienst tudjuk így megnézni.</p>
-<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="scaling.html#cb150-1" aria-hidden="true" tabindex="-1"></a>beszedek_wf <span class="ot">&lt;-</span> quanteda.textmodels<span class="sc">::</span><span class="fu">textmodel_wordfish</span>(beszedek_dfm, <span class="at">dir =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>))</span>
-<span id="cb150-2"><a href="scaling.html#cb150-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb150-3"><a href="scaling.html#cb150-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(beszedek_wf)</span>
-<span id="cb150-4"><a href="scaling.html#cb150-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb150-5"><a href="scaling.html#cb150-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb150-6"><a href="scaling.html#cb150-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; textmodel_wordfish.dfm(x = beszedek_dfm, dir = c(2, 1))</span></span>
-<span id="cb150-7"><a href="scaling.html#cb150-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb150-8"><a href="scaling.html#cb150-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Estimated Document Positions:</span></span>
-<span id="cb150-9"><a href="scaling.html#cb150-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          theta     se</span></span>
-<span id="cb150-10"><a href="scaling.html#cb150-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text1   1.7947 0.0422</span></span>
-<span id="cb150-11"><a href="scaling.html#cb150-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text2   0.0893 0.0400</span></span>
-<span id="cb150-12"><a href="scaling.html#cb150-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text3   1.0014 0.0391</span></span>
-<span id="cb150-13"><a href="scaling.html#cb150-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text4  -0.0999 0.0423</span></span>
-<span id="cb150-14"><a href="scaling.html#cb150-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text5   0.7360 0.0436</span></span>
-<span id="cb150-15"><a href="scaling.html#cb150-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text6   0.1857 0.0445</span></span>
-<span id="cb150-16"><a href="scaling.html#cb150-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text7  -0.7283 0.0359</span></span>
-<span id="cb150-17"><a href="scaling.html#cb150-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text8  -0.8059 0.0336</span></span>
-<span id="cb150-18"><a href="scaling.html#cb150-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text9  -0.5203 0.0400</span></span>
-<span id="cb150-19"><a href="scaling.html#cb150-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text10 -1.6527 0.0379</span></span>
-<span id="cb150-20"><a href="scaling.html#cb150-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb150-21"><a href="scaling.html#cb150-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Estimated Feature Scores:</span></span>
-<span id="cb150-22"><a href="scaling.html#cb150-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       vona gábor jobbik tisztelt   elnök     úr országgyulés tegnapi napon</span></span>
-<span id="cb150-23"><a href="scaling.html#cb150-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; beta  3.68  2.32  1.971    0.239 -0.1115 0.0275        1.229    4.37  2.99</span></span>
-<span id="cb150-24"><a href="scaling.html#cb150-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; psi  -4.98 -2.73 -0.753    0.457 -0.0569 0.2872       -0.671   -5.31 -3.01</span></span>
-<span id="cb150-25"><a href="scaling.html#cb150-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      helyen tartottak idoközi önkormányzati választásokat    két érdekelt</span></span>
-<span id="cb150-26"><a href="scaling.html#cb150-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; beta   3.10      3.68    3.68          3.68          3.68  1.189     3.68</span></span>
-<span id="cb150-27"><a href="scaling.html#cb150-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; psi   -2.63     -4.98   -4.98         -4.98         -4.98 -0.944    -4.98</span></span>
-<span id="cb150-28"><a href="scaling.html#cb150-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      recsken ózdon október nyertünk örömmel közlöm ország közvéleményével</span></span>
-<span id="cb150-29"><a href="scaling.html#cb150-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; beta    4.37  4.77    3.40     3.68    3.68   3.68  1.747            3.68</span></span>
-<span id="cb150-30"><a href="scaling.html#cb150-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; psi    -5.31 -5.54   -3.23    -4.98   -4.98  -4.98 -0.364           -4.98</span></span>
-<span id="cb150-31"><a href="scaling.html#cb150-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      amúgy    is tudnak mindkét jobbikos polgármester</span></span>
-<span id="cb150-32"><a href="scaling.html#cb150-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; beta  3.68 0.913   1.43    3.68     3.68         3.68</span></span>
-<span id="cb150-33"><a href="scaling.html#cb150-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; psi  -4.98 1.834  -1.74   -4.98    -4.98        -4.98</span></span></code></pre></div>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="scaling.html#cb150-1"></a>beszedek_wf &lt;-<span class="st"> </span>quanteda.textmodels<span class="op">::</span><span class="kw">textmodel_wordfish</span>(beszedek_dfm, <span class="dt">dir =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">1</span>))</span>
+<span id="cb150-2"><a href="scaling.html#cb150-2"></a></span>
+<span id="cb150-3"><a href="scaling.html#cb150-3"></a><span class="kw">summary</span>(beszedek_wf)</span>
+<span id="cb150-4"><a href="scaling.html#cb150-4"></a><span class="co">#&gt; </span></span>
+<span id="cb150-5"><a href="scaling.html#cb150-5"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb150-6"><a href="scaling.html#cb150-6"></a><span class="co">#&gt; textmodel_wordfish.dfm(x = beszedek_dfm, dir = c(2, 1))</span></span>
+<span id="cb150-7"><a href="scaling.html#cb150-7"></a><span class="co">#&gt; </span></span>
+<span id="cb150-8"><a href="scaling.html#cb150-8"></a><span class="co">#&gt; Estimated Document Positions:</span></span>
+<span id="cb150-9"><a href="scaling.html#cb150-9"></a><span class="co">#&gt;          theta     se</span></span>
+<span id="cb150-10"><a href="scaling.html#cb150-10"></a><span class="co">#&gt; text1   1.7947 0.0422</span></span>
+<span id="cb150-11"><a href="scaling.html#cb150-11"></a><span class="co">#&gt; text2   0.0893 0.0400</span></span>
+<span id="cb150-12"><a href="scaling.html#cb150-12"></a><span class="co">#&gt; text3   1.0014 0.0391</span></span>
+<span id="cb150-13"><a href="scaling.html#cb150-13"></a><span class="co">#&gt; text4  -0.0999 0.0423</span></span>
+<span id="cb150-14"><a href="scaling.html#cb150-14"></a><span class="co">#&gt; text5   0.7360 0.0436</span></span>
+<span id="cb150-15"><a href="scaling.html#cb150-15"></a><span class="co">#&gt; text6   0.1857 0.0445</span></span>
+<span id="cb150-16"><a href="scaling.html#cb150-16"></a><span class="co">#&gt; text7  -0.7283 0.0359</span></span>
+<span id="cb150-17"><a href="scaling.html#cb150-17"></a><span class="co">#&gt; text8  -0.8059 0.0336</span></span>
+<span id="cb150-18"><a href="scaling.html#cb150-18"></a><span class="co">#&gt; text9  -0.5203 0.0400</span></span>
+<span id="cb150-19"><a href="scaling.html#cb150-19"></a><span class="co">#&gt; text10 -1.6527 0.0379</span></span>
+<span id="cb150-20"><a href="scaling.html#cb150-20"></a><span class="co">#&gt; </span></span>
+<span id="cb150-21"><a href="scaling.html#cb150-21"></a><span class="co">#&gt; Estimated Feature Scores:</span></span>
+<span id="cb150-22"><a href="scaling.html#cb150-22"></a><span class="co">#&gt;       vona gábor jobbik tisztelt   elnök     úr országgyulés tegnapi napon</span></span>
+<span id="cb150-23"><a href="scaling.html#cb150-23"></a><span class="co">#&gt; beta  3.68  2.32  1.971    0.239 -0.1115 0.0275        1.229    4.37  2.99</span></span>
+<span id="cb150-24"><a href="scaling.html#cb150-24"></a><span class="co">#&gt; psi  -4.98 -2.73 -0.753    0.457 -0.0569 0.2872       -0.671   -5.31 -3.01</span></span>
+<span id="cb150-25"><a href="scaling.html#cb150-25"></a><span class="co">#&gt;      helyen tartottak idoközi önkormányzati választásokat    két érdekelt</span></span>
+<span id="cb150-26"><a href="scaling.html#cb150-26"></a><span class="co">#&gt; beta   3.10      3.68    3.68          3.68          3.68  1.189     3.68</span></span>
+<span id="cb150-27"><a href="scaling.html#cb150-27"></a><span class="co">#&gt; psi   -2.63     -4.98   -4.98         -4.98         -4.98 -0.944    -4.98</span></span>
+<span id="cb150-28"><a href="scaling.html#cb150-28"></a><span class="co">#&gt;      recsken ózdon október nyertünk örömmel közlöm ország közvéleményével amúgy</span></span>
+<span id="cb150-29"><a href="scaling.html#cb150-29"></a><span class="co">#&gt; beta    4.37  4.77    3.40     3.68    3.68   3.68  1.747            3.68  3.68</span></span>
+<span id="cb150-30"><a href="scaling.html#cb150-30"></a><span class="co">#&gt; psi    -5.31 -5.54   -3.23    -4.98   -4.98  -4.98 -0.364           -4.98 -4.98</span></span>
+<span id="cb150-31"><a href="scaling.html#cb150-31"></a><span class="co">#&gt;         is tudnak mindkét jobbikos polgármester</span></span>
+<span id="cb150-32"><a href="scaling.html#cb150-32"></a><span class="co">#&gt; beta 0.913   1.43    3.68     3.68         3.68</span></span>
+<span id="cb150-33"><a href="scaling.html#cb150-33"></a><span class="co">#&gt; psi  1.834  -1.74   -4.98    -4.98        -4.98</span></span></code></pre></div>
 <p>Amennyiben szeretnénk a szavak szintjén is megnézni a <span class="math inline">\(\beta\)</span> (a szavakhoz társított súly, ami a relatív fontosságát mutatja) és <span class="math inline">\(\psi\)</span> (a szó rögzített hatást (<em>word fixed effects</em>), ami az eltérő szófrekvencia kezeléséért felelős) koefficienseket, akkor a <code>beszedek_wf</code> objektumban tárolt értékeket egy data frame-be tudjuk bemásolni. A dokumentumok hosszát és a szófrekvenciát figyelembe véve, a negatív <span class="math inline">\(\beta\)</span> értékű szavakat gyakrabban használják a negatív <span class="math inline">\(\theta\)</span> koefficienssel rendelkező politikusok.</p>
-<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="scaling.html#cb151-1" aria-hidden="true" tabindex="-1"></a>szavak_wf <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb151-2"><a href="scaling.html#cb151-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">word =</span> beszedek_wf<span class="sc">$</span>features, </span>
-<span id="cb151-3"><a href="scaling.html#cb151-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">beta =</span> beszedek_wf<span class="sc">$</span>beta, </span>
-<span id="cb151-4"><a href="scaling.html#cb151-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">psi =</span> beszedek_wf<span class="sc">$</span>psi</span>
-<span id="cb151-5"><a href="scaling.html#cb151-5" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb151-6"><a href="scaling.html#cb151-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb151-7"><a href="scaling.html#cb151-7" aria-hidden="true" tabindex="-1"></a>szavak_wf <span class="sc">%&gt;%</span> </span>
-<span id="cb151-8"><a href="scaling.html#cb151-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(beta) <span class="sc">%&gt;%</span> </span>
-<span id="cb151-9"><a href="scaling.html#cb151-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">15</span>)</span>
-<span id="cb151-10"><a href="scaling.html#cb151-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;              word  beta   psi</span></span>
-<span id="cb151-11"><a href="scaling.html#cb151-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1        czeglédy -5.90 -6.22</span></span>
-<span id="cb151-12"><a href="scaling.html#cb151-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2           csaba -5.77 -6.15</span></span>
-<span id="cb151-13"><a href="scaling.html#cb151-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3           human -5.44 -5.98</span></span>
-<span id="cb151-14"><a href="scaling.html#cb151-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4        operator -5.44 -5.98</span></span>
-<span id="cb151-15"><a href="scaling.html#cb151-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5             zrt -5.22 -5.86</span></span>
-<span id="cb151-16"><a href="scaling.html#cb151-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6         fizette -4.93 -5.72</span></span>
-<span id="cb151-17"><a href="scaling.html#cb151-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7           gyanú -4.93 -5.72</span></span>
-<span id="cb151-18"><a href="scaling.html#cb151-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8     szocialista -4.93 -5.72</span></span>
-<span id="cb151-19"><a href="scaling.html#cb151-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9      elkövetett -4.51 -5.52</span></span>
-<span id="cb151-20"><a href="scaling.html#cb151-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10         tárgya -4.51 -5.52</span></span>
-<span id="cb151-21"><a href="scaling.html#cb151-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11     céghálózat -4.51 -5.52</span></span>
-<span id="cb151-22"><a href="scaling.html#cb151-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 12         diákok -4.51 -5.52</span></span>
-<span id="cb151-23"><a href="scaling.html#cb151-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 13         májusi -4.51 -5.52</span></span>
-<span id="cb151-24"><a href="scaling.html#cb151-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 14        júniusi -4.51 -5.52</span></span>
-<span id="cb151-25"><a href="scaling.html#cb151-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 15 büntetoeljárás -4.51 -5.52</span></span></code></pre></div>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="scaling.html#cb151-1"></a>szavak_wf &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</span>
+<span id="cb151-2"><a href="scaling.html#cb151-2"></a>  <span class="dt">word =</span> beszedek_wf<span class="op">$</span>features, </span>
+<span id="cb151-3"><a href="scaling.html#cb151-3"></a>  <span class="dt">beta =</span> beszedek_wf<span class="op">$</span>beta, </span>
+<span id="cb151-4"><a href="scaling.html#cb151-4"></a>  <span class="dt">psi =</span> beszedek_wf<span class="op">$</span>psi</span>
+<span id="cb151-5"><a href="scaling.html#cb151-5"></a>  )</span>
+<span id="cb151-6"><a href="scaling.html#cb151-6"></a></span>
+<span id="cb151-7"><a href="scaling.html#cb151-7"></a>szavak_wf <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb151-8"><a href="scaling.html#cb151-8"></a><span class="st">  </span><span class="kw">arrange</span>(beta) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb151-9"><a href="scaling.html#cb151-9"></a><span class="st">  </span><span class="kw">head</span>(<span class="dt">n =</span> <span class="dv">15</span>)</span>
+<span id="cb151-10"><a href="scaling.html#cb151-10"></a><span class="co">#&gt;              word  beta   psi</span></span>
+<span id="cb151-11"><a href="scaling.html#cb151-11"></a><span class="co">#&gt; 1        czeglédy -5.90 -6.22</span></span>
+<span id="cb151-12"><a href="scaling.html#cb151-12"></a><span class="co">#&gt; 2           csaba -5.77 -6.15</span></span>
+<span id="cb151-13"><a href="scaling.html#cb151-13"></a><span class="co">#&gt; 3           human -5.44 -5.98</span></span>
+<span id="cb151-14"><a href="scaling.html#cb151-14"></a><span class="co">#&gt; 4        operator -5.44 -5.98</span></span>
+<span id="cb151-15"><a href="scaling.html#cb151-15"></a><span class="co">#&gt; 5             zrt -5.22 -5.86</span></span>
+<span id="cb151-16"><a href="scaling.html#cb151-16"></a><span class="co">#&gt; 6         fizette -4.93 -5.72</span></span>
+<span id="cb151-17"><a href="scaling.html#cb151-17"></a><span class="co">#&gt; 7           gyanú -4.93 -5.72</span></span>
+<span id="cb151-18"><a href="scaling.html#cb151-18"></a><span class="co">#&gt; 8     szocialista -4.93 -5.72</span></span>
+<span id="cb151-19"><a href="scaling.html#cb151-19"></a><span class="co">#&gt; 9      elkövetett -4.51 -5.52</span></span>
+<span id="cb151-20"><a href="scaling.html#cb151-20"></a><span class="co">#&gt; 10         tárgya -4.51 -5.52</span></span>
+<span id="cb151-21"><a href="scaling.html#cb151-21"></a><span class="co">#&gt; 11     céghálózat -4.51 -5.52</span></span>
+<span id="cb151-22"><a href="scaling.html#cb151-22"></a><span class="co">#&gt; 12         diákok -4.51 -5.52</span></span>
+<span id="cb151-23"><a href="scaling.html#cb151-23"></a><span class="co">#&gt; 13         májusi -4.51 -5.52</span></span>
+<span id="cb151-24"><a href="scaling.html#cb151-24"></a><span class="co">#&gt; 14        júniusi -4.51 -5.52</span></span>
+<span id="cb151-25"><a href="scaling.html#cb151-25"></a><span class="co">#&gt; 15 büntetoeljárás -4.51 -5.52</span></span></code></pre></div>
 <p>Ez a pozitív értékekre is igaz.</p>
-<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="scaling.html#cb152-1" aria-hidden="true" tabindex="-1"></a>szavak_wf <span class="sc">%&gt;%</span> </span>
-<span id="cb152-2"><a href="scaling.html#cb152-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(beta)) <span class="sc">%&gt;%</span> </span>
-<span id="cb152-3"><a href="scaling.html#cb152-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">15</span>)</span>
-<span id="cb152-4"><a href="scaling.html#cb152-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;            word beta   psi</span></span>
-<span id="cb152-5"><a href="scaling.html#cb152-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1    nemzetközi 5.06 -5.72</span></span>
-<span id="cb152-6"><a href="scaling.html#cb152-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2       önöknek 4.98 -4.78</span></span>
-<span id="cb152-7"><a href="scaling.html#cb152-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3         ózdon 4.77 -5.54</span></span>
-<span id="cb152-8"><a href="scaling.html#cb152-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4   kétharmados 4.77 -5.54</span></span>
-<span id="cb152-9"><a href="scaling.html#cb152-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5        igenis 4.77 -5.54</span></span>
-<span id="cb152-10"><a href="scaling.html#cb152-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6    választási 4.77 -5.54</span></span>
-<span id="cb152-11"><a href="scaling.html#cb152-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7  geopolitikai 4.77 -5.54</span></span>
-<span id="cb152-12"><a href="scaling.html#cb152-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8   ártatlanság 4.77 -5.54</span></span>
-<span id="cb152-13"><a href="scaling.html#cb152-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9       vélelme 4.77 -5.54</span></span>
-<span id="cb152-14"><a href="scaling.html#cb152-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10      tegnapi 4.37 -5.31</span></span>
-<span id="cb152-15"><a href="scaling.html#cb152-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11      recsken 4.37 -5.31</span></span>
-<span id="cb152-16"><a href="scaling.html#cb152-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 12       lássuk 4.37 -5.31</span></span>
-<span id="cb152-17"><a href="scaling.html#cb152-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 13       tolünk 4.37 -5.31</span></span>
-<span id="cb152-18"><a href="scaling.html#cb152-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 14     janiczak 4.37 -5.31</span></span>
-<span id="cb152-19"><a href="scaling.html#cb152-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 15  szavazattal 4.37 -5.31</span></span></code></pre></div>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="scaling.html#cb152-1"></a>szavak_wf <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb152-2"><a href="scaling.html#cb152-2"></a><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(beta)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb152-3"><a href="scaling.html#cb152-3"></a><span class="st">  </span><span class="kw">head</span>(<span class="dt">n =</span> <span class="dv">15</span>)</span>
+<span id="cb152-4"><a href="scaling.html#cb152-4"></a><span class="co">#&gt;            word beta   psi</span></span>
+<span id="cb152-5"><a href="scaling.html#cb152-5"></a><span class="co">#&gt; 1    nemzetközi 5.06 -5.72</span></span>
+<span id="cb152-6"><a href="scaling.html#cb152-6"></a><span class="co">#&gt; 2       önöknek 4.98 -4.78</span></span>
+<span id="cb152-7"><a href="scaling.html#cb152-7"></a><span class="co">#&gt; 3         ózdon 4.77 -5.54</span></span>
+<span id="cb152-8"><a href="scaling.html#cb152-8"></a><span class="co">#&gt; 4   kétharmados 4.77 -5.54</span></span>
+<span id="cb152-9"><a href="scaling.html#cb152-9"></a><span class="co">#&gt; 5        igenis 4.77 -5.54</span></span>
+<span id="cb152-10"><a href="scaling.html#cb152-10"></a><span class="co">#&gt; 6    választási 4.77 -5.54</span></span>
+<span id="cb152-11"><a href="scaling.html#cb152-11"></a><span class="co">#&gt; 7  geopolitikai 4.77 -5.54</span></span>
+<span id="cb152-12"><a href="scaling.html#cb152-12"></a><span class="co">#&gt; 8   ártatlanság 4.77 -5.54</span></span>
+<span id="cb152-13"><a href="scaling.html#cb152-13"></a><span class="co">#&gt; 9       vélelme 4.77 -5.54</span></span>
+<span id="cb152-14"><a href="scaling.html#cb152-14"></a><span class="co">#&gt; 10      tegnapi 4.37 -5.31</span></span>
+<span id="cb152-15"><a href="scaling.html#cb152-15"></a><span class="co">#&gt; 11      recsken 4.37 -5.31</span></span>
+<span id="cb152-16"><a href="scaling.html#cb152-16"></a><span class="co">#&gt; 12       lássuk 4.37 -5.31</span></span>
+<span id="cb152-17"><a href="scaling.html#cb152-17"></a><span class="co">#&gt; 13       tolünk 4.37 -5.31</span></span>
+<span id="cb152-18"><a href="scaling.html#cb152-18"></a><span class="co">#&gt; 14     janiczak 4.37 -5.31</span></span>
+<span id="cb152-19"><a href="scaling.html#cb152-19"></a><span class="co">#&gt; 15  szavazattal 4.37 -5.31</span></span></code></pre></div>
 <p>Az eredményeinket mind a szavak, mind a dokumentumok szintjén tudjuk vizualizálni. Elsőként a klasszikus „Eiffel-torony” ábrát reprodukáljuk, ami a szavak gyakoriságának és a skálára gyakorolt befolyásának az illusztrálására szolgál. Ehhez a már elkészült <code>szavak_wf</code> data framet-et és a <code>ggplot2</code> csomagot fogjuk használni. Mivel a korpuszunk nagyon kicsi, ezért csak 2410 kifejezést fogunk ábrázolni. Ennek ellenére a lényeg kirajzolódik a lenti ábrán is.<a href="#fn49" class="footnote-ref" id="fnref49"><sup>49</sup></a></p>
 <p>Kihasználhatjuk, hogy a <code>ggplot</code> ábra definiálása közben a felhasznált bemeneti data frame-et különböző szempontok alapján lehet szűrni. Így ábrázolni tudjuk a gyakran használt, ám semleges szavakat (magas <span class="math inline">\(\psi\)</span>, alacsony <span class="math inline">\(\beta\)</span>), illetve a ritkább, de meghatározóbb szavakat (magas <span class="math inline">\(\beta\)</span>, alacsony <span class="math inline">\(\psi\)</span>).</p>
-<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="scaling.html#cb153-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(szavak_wf, <span class="fu">aes</span>(<span class="at">x =</span> beta, <span class="at">y =</span> psi)) <span class="sc">+</span></span>
-<span id="cb153-2"><a href="scaling.html#cb153-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;grey&quot;</span>) <span class="sc">+</span></span>
-<span id="cb153-3"><a href="scaling.html#cb153-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(</span>
-<span id="cb153-4"><a href="scaling.html#cb153-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> <span class="fu">filter</span>(szavak_wf, beta <span class="sc">&gt;</span> <span class="fl">4.5</span> <span class="sc">|</span> beta <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">5</span> <span class="sc">|</span> psi <span class="sc">&gt;</span> <span class="dv">0</span>),</span>
-<span id="cb153-5"><a href="scaling.html#cb153-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(beta, psi, <span class="at">label =</span> word),</span>
-<span id="cb153-6"><a href="scaling.html#cb153-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.7</span></span>
-<span id="cb153-7"><a href="scaling.html#cb153-7" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
-<span id="cb153-8"><a href="scaling.html#cb153-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb153-9"><a href="scaling.html#cb153-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">expression</span>(beta),</span>
-<span id="cb153-10"><a href="scaling.html#cb153-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">expression</span>(psi)</span>
-<span id="cb153-11"><a href="scaling.html#cb153-11" aria-hidden="true" tabindex="-1"></a>    )  </span></code></pre></div>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="scaling.html#cb153-1"></a><span class="kw">ggplot</span>(szavak_wf, <span class="kw">aes</span>(<span class="dt">x =</span> beta, <span class="dt">y =</span> psi)) <span class="op">+</span></span>
+<span id="cb153-2"><a href="scaling.html#cb153-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">color =</span> <span class="st">&quot;grey&quot;</span>) <span class="op">+</span></span>
+<span id="cb153-3"><a href="scaling.html#cb153-3"></a><span class="st">  </span><span class="kw">geom_text_repel</span>(</span>
+<span id="cb153-4"><a href="scaling.html#cb153-4"></a>    <span class="dt">data =</span> <span class="kw">filter</span>(szavak_wf, beta <span class="op">&gt;</span><span class="st"> </span><span class="fl">4.5</span> <span class="op">|</span><span class="st"> </span>beta <span class="op">&lt;</span><span class="st"> </span><span class="dv">-5</span> <span class="op">|</span><span class="st"> </span>psi <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>),</span>
+<span id="cb153-5"><a href="scaling.html#cb153-5"></a>    <span class="kw">aes</span>(beta, psi, <span class="dt">label =</span> word),</span>
+<span id="cb153-6"><a href="scaling.html#cb153-6"></a>    <span class="dt">alpha =</span> <span class="fl">0.7</span></span>
+<span id="cb153-7"><a href="scaling.html#cb153-7"></a>    ) <span class="op">+</span></span>
+<span id="cb153-8"><a href="scaling.html#cb153-8"></a><span class="st">  </span><span class="kw">labs</span>(</span>
+<span id="cb153-9"><a href="scaling.html#cb153-9"></a>    <span class="dt">x =</span> <span class="kw">expression</span>(beta),</span>
+<span id="cb153-10"><a href="scaling.html#cb153-10"></a>    <span class="dt">y =</span> <span class="kw">expression</span>(psi)</span>
+<span id="cb153-11"><a href="scaling.html#cb153-11"></a>    )  </span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:eiffel"></span>
 <p class="caption">
 Ábra 9.1: A wordfish ‘Eiffel-torony’
@@ -460,24 +437,24 @@ div.csl-indent {
 <img src="_main_files/figure-html/eiffel-1.png" alt="A wordfish 'Eiffel-torony'" width="90%" />
 </div>
 <p>A dokumentumok szintjén is érdemes megvizsgálni az eredményeket. Ehhez a dokumentum szintű paramétereket fogjuk egy data frame-be gyűjteni: a <span class="math inline">\(\theta\)</span> ideológiai pozíciót, illetve a beszélő nevét. A vizualizáció kedvéért a párttagságot is hozzáadjuk. A data frame összerakása után az alsó és a felső határát is kiszámoljuk a konfidencia intervallumnak és azt is ábrázoljuk (ld. <a href="scaling.html#fig:eiffel">9.1</a>. ábra).</p>
-<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="scaling.html#cb154-1" aria-hidden="true" tabindex="-1"></a>dokumentumok_wf <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb154-2"><a href="scaling.html#cb154-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">speaker =</span> beszedek_wf<span class="sc">$</span>x<span class="sc">@</span>docvars<span class="sc">$</span>felszolalo,</span>
-<span id="cb154-3"><a href="scaling.html#cb154-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">part =</span> beszedek_wf<span class="sc">$</span>x<span class="sc">@</span>docvars<span class="sc">$</span>part,</span>
-<span id="cb154-4"><a href="scaling.html#cb154-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">theta =</span> beszedek_wf<span class="sc">$</span>theta,</span>
-<span id="cb154-5"><a href="scaling.html#cb154-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">theta_se =</span> beszedek_wf<span class="sc">$</span>se.theta</span>
-<span id="cb154-6"><a href="scaling.html#cb154-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span> </span>
-<span id="cb154-7"><a href="scaling.html#cb154-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb154-8"><a href="scaling.html#cb154-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">lower =</span> theta <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> theta_se,</span>
-<span id="cb154-9"><a href="scaling.html#cb154-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">upper =</span> theta <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> theta_se</span>
-<span id="cb154-10"><a href="scaling.html#cb154-10" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb154-11"><a href="scaling.html#cb154-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb154-12"><a href="scaling.html#cb154-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dokumentumok_wf, <span class="fu">aes</span>(theta, <span class="fu">reorder</span>(speaker, theta))) <span class="sc">+</span></span>
-<span id="cb154-13"><a href="scaling.html#cb154-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb154-14"><a href="scaling.html#cb154-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbarh</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> lower, <span class="at">xmax =</span> upper), <span class="at">height =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
-<span id="cb154-15"><a href="scaling.html#cb154-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb154-16"><a href="scaling.html#cb154-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="cn">NULL</span>,</span>
-<span id="cb154-17"><a href="scaling.html#cb154-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">expression</span>(theta)</span>
-<span id="cb154-18"><a href="scaling.html#cb154-18" aria-hidden="true" tabindex="-1"></a>  ) </span></code></pre></div>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="scaling.html#cb154-1"></a>dokumentumok_wf &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</span>
+<span id="cb154-2"><a href="scaling.html#cb154-2"></a>  <span class="dt">speaker =</span> beszedek_wf<span class="op">$</span>x<span class="op">@</span>docvars<span class="op">$</span>felszolalo,</span>
+<span id="cb154-3"><a href="scaling.html#cb154-3"></a>  <span class="dt">part =</span> beszedek_wf<span class="op">$</span>x<span class="op">@</span>docvars<span class="op">$</span>part,</span>
+<span id="cb154-4"><a href="scaling.html#cb154-4"></a>  <span class="dt">theta =</span> beszedek_wf<span class="op">$</span>theta,</span>
+<span id="cb154-5"><a href="scaling.html#cb154-5"></a>  <span class="dt">theta_se =</span> beszedek_wf<span class="op">$</span>se.theta</span>
+<span id="cb154-6"><a href="scaling.html#cb154-6"></a>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb154-7"><a href="scaling.html#cb154-7"></a><span class="st">  </span><span class="kw">mutate</span>(</span>
+<span id="cb154-8"><a href="scaling.html#cb154-8"></a>    <span class="dt">lower =</span> theta <span class="op">-</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>theta_se,</span>
+<span id="cb154-9"><a href="scaling.html#cb154-9"></a>    <span class="dt">upper =</span> theta <span class="op">+</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>theta_se</span>
+<span id="cb154-10"><a href="scaling.html#cb154-10"></a>  )</span>
+<span id="cb154-11"><a href="scaling.html#cb154-11"></a></span>
+<span id="cb154-12"><a href="scaling.html#cb154-12"></a><span class="kw">ggplot</span>(dokumentumok_wf, <span class="kw">aes</span>(theta, <span class="kw">reorder</span>(speaker, theta))) <span class="op">+</span></span>
+<span id="cb154-13"><a href="scaling.html#cb154-13"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb154-14"><a href="scaling.html#cb154-14"></a><span class="st">  </span><span class="kw">geom_errorbarh</span>(<span class="kw">aes</span>(<span class="dt">xmin =</span> lower, <span class="dt">xmax =</span> upper), <span class="dt">height =</span> <span class="dv">0</span>) <span class="op">+</span></span>
+<span id="cb154-15"><a href="scaling.html#cb154-15"></a><span class="st">  </span><span class="kw">labs</span>(</span>
+<span id="cb154-16"><a href="scaling.html#cb154-16"></a>    <span class="dt">y =</span> <span class="ot">NULL</span>,</span>
+<span id="cb154-17"><a href="scaling.html#cb154-17"></a>    <span class="dt">x =</span> <span class="kw">expression</span>(theta)</span>
+<span id="cb154-18"><a href="scaling.html#cb154-18"></a>  ) </span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:pozicio"></span>
 <p class="caption">
 Ábra 9.2: A beszédek egymáshoz viszonyított pozíciója
@@ -485,14 +462,14 @@ div.csl-indent {
 <img src="_main_files/figure-html/pozicio-1.png" alt="A beszédek egymáshoz viszonyított pozíciója" width="90%" />
 </div>
 <p>A párt metaadattal összehasonlíthatjuk az egy párthoz tartozó frakcióvezetők értékeit a <code>facet_wrap()</code> használatával. Figyeljünk arra, hogy az <code>y</code> tengelyen szabadon változhasson az egyes rész ábrák között, a <code>scales = "free"</code> opcióval (ld. <a href="scaling.html#fig:pozicio">9.2</a>. ábra).</p>
-<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="scaling.html#cb155-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dokumentumok_wf, <span class="fu">aes</span>(theta, <span class="fu">reorder</span>(speaker, theta))) <span class="sc">+</span></span>
-<span id="cb155-2"><a href="scaling.html#cb155-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb155-3"><a href="scaling.html#cb155-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbarh</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> lower, <span class="at">xmax =</span> upper), <span class="at">height =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
-<span id="cb155-4"><a href="scaling.html#cb155-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb155-5"><a href="scaling.html#cb155-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="cn">NULL</span>,</span>
-<span id="cb155-6"><a href="scaling.html#cb155-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">expression</span>(theta)</span>
-<span id="cb155-7"><a href="scaling.html#cb155-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb155-8"><a href="scaling.html#cb155-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>part, <span class="at">ncol =</span> <span class="dv">1</span>, <span class="at">scales =</span> <span class="st">&quot;free_y&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="scaling.html#cb155-1"></a><span class="kw">ggplot</span>(dokumentumok_wf, <span class="kw">aes</span>(theta, <span class="kw">reorder</span>(speaker, theta))) <span class="op">+</span></span>
+<span id="cb155-2"><a href="scaling.html#cb155-2"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb155-3"><a href="scaling.html#cb155-3"></a><span class="st">  </span><span class="kw">geom_errorbarh</span>(<span class="kw">aes</span>(<span class="dt">xmin =</span> lower, <span class="dt">xmax =</span> upper), <span class="dt">height =</span> <span class="dv">0</span>) <span class="op">+</span></span>
+<span id="cb155-4"><a href="scaling.html#cb155-4"></a><span class="st">  </span><span class="kw">labs</span>(</span>
+<span id="cb155-5"><a href="scaling.html#cb155-5"></a>    <span class="dt">y =</span> <span class="ot">NULL</span>,</span>
+<span id="cb155-6"><a href="scaling.html#cb155-6"></a>    <span class="dt">x =</span> <span class="kw">expression</span>(theta)</span>
+<span id="cb155-7"><a href="scaling.html#cb155-7"></a>  ) <span class="op">+</span></span>
+<span id="cb155-8"><a href="scaling.html#cb155-8"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>part, <span class="dt">ncol =</span> <span class="dv">1</span>, <span class="dt">scales =</span> <span class="st">&quot;free_y&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:partbanpoz"></span>
 <p class="caption">
 Ábra 9.3: Párton belüli pozíciók
@@ -500,108 +477,108 @@ div.csl-indent {
 <img src="_main_files/figure-html/partbanpoz-1.png" alt="Párton belüli pozíciók" width="90%" />
 </div>
 </div>
-<div id="wordscores" class="section level2" number="9.3">
+<div id="wordscores" class="section level2">
 <h2><span class="header-section-number">9.3</span> Wordscores</h2>
 <p>A modell illesztést a wordfish-hez hasonlóan a <code>quanteda.textmodels</code> csomagban található <code>textmodel_wordscores()</code> függvény végzi. A kiinduló dfm ugyanaz, mint amit a fejezet elején elkészítettünk, a <code>beszedek_dfm</code>.</p>
 <p>A referencia pontokat dokumentumváltozóként hozzáadjuk a dfm-hez (a <code>refrencia_pont</code> oszlopot, ami <code>NA</code> értéket kap alapértelmezetten). A kiválasztott referencia dokumentumoknál pedig egyenként hozzáadjuk az értékeket. Erre több megoldás is van, az egyszerűbb út, hogy az egyik és a másik végletet a <code>-1; 1</code> intervallummal jelöljük. Ennek a lehetséges alternatívája, hogy egy külső, már validált forrást használunk. Pártok esetén ilyen lehet a Chapel Hill szakértői kérdőívének a pontszámai, a Manifesto projekt által kódolt jobb-bal (<em>rile</em>) dimenzió. A lenti példánál mi maradunk az egyszerűbb bináris kódolásnál (ld. <a href="scaling.html#fig:partbanpoz">9.3</a>. ábra). A wordfish eredményt alapul véve a két referencia pont Gulyás Gergely és Szél Bernadett beszédei lesznek.<a href="#fn50" class="footnote-ref" id="fnref50"><sup>50</sup></a> Ezek a 3. és a 10. dokumentumok.</p>
-<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="scaling.html#cb156-1" aria-hidden="true" tabindex="-1"></a><span class="fu">docvars</span>(beszedek_dfm, <span class="st">&quot;referencia_pont&quot;</span>) <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb156-2"><a href="scaling.html#cb156-2" aria-hidden="true" tabindex="-1"></a><span class="fu">docvars</span>(beszedek_dfm, <span class="st">&quot;referencia_pont&quot;</span>)[<span class="dv">3</span>] <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">1</span></span>
-<span id="cb156-3"><a href="scaling.html#cb156-3" aria-hidden="true" tabindex="-1"></a><span class="fu">docvars</span>(beszedek_dfm, <span class="st">&quot;referencia_pont&quot;</span>)[<span class="dv">10</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb156-4"><a href="scaling.html#cb156-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb156-5"><a href="scaling.html#cb156-5" aria-hidden="true" tabindex="-1"></a><span class="fu">docvars</span>(beszedek_dfm)</span>
-<span id="cb156-6"><a href="scaling.html#cb156-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                        id                  felszolalo   part referencia_pont</span></span>
-<span id="cb156-7"><a href="scaling.html#cb156-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  20142018_024_0002_0002         Vona Gábor (Jobbik) Jobbik              NA</span></span>
-<span id="cb156-8"><a href="scaling.html#cb156-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  20142018_055_0002_0002   Dr. Schiffer András (LMP)    LMP              NA</span></span>
-<span id="cb156-9"><a href="scaling.html#cb156-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  20142018_064_0002_0002    Dr. Szél Bernadett (LMP)    LMP              -1</span></span>
-<span id="cb156-10"><a href="scaling.html#cb156-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4  20142018_115_0002_0002        Tóbiás József (MSZP)   MSZP              NA</span></span>
-<span id="cb156-11"><a href="scaling.html#cb156-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5  20142018_158_0002_0002      Schmuck Erzsébet (LMP)    LMP              NA</span></span>
-<span id="cb156-12"><a href="scaling.html#cb156-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  20142018_172_0002_0002    Dr. Tóth Bertalan (MSZP)   MSZP              NA</span></span>
-<span id="cb156-13"><a href="scaling.html#cb156-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7  20142018_206_0002_0002       Volner János (Jobbik) Jobbik              NA</span></span>
-<span id="cb156-14"><a href="scaling.html#cb156-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8  20142018_212_0002_0002         Kósa Lajos (Fidesz) Fidesz              NA</span></span>
-<span id="cb156-15"><a href="scaling.html#cb156-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9  20142018_236_0002_0002        Harrach Péter (KDNP)   KDNP              NA</span></span>
-<span id="cb156-16"><a href="scaling.html#cb156-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 20142018_249_0002_0002 Dr. Gulyás Gergely (Fidesz) Fidesz               1</span></span></code></pre></div>
-<p>A lenti wordscores-modell specifikáció követi a <span class="citation"><a href="irodalomjegyzék.html#ref-laver2003extracting" role="doc-biblioref">Laver, Benoit, and Garry</a> (<a href="irodalomjegyzék.html#ref-laver2003extracting" role="doc-biblioref">2003</a>)</span> tanulmányban leírtakat.</p>
-<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="scaling.html#cb157-1" aria-hidden="true" tabindex="-1"></a>beszedek_ws <span class="ot">&lt;-</span> <span class="fu">textmodel_wordscores</span>(</span>
-<span id="cb157-2"><a href="scaling.html#cb157-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> beszedek_dfm,</span>
-<span id="cb157-3"><a href="scaling.html#cb157-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="fu">docvars</span>(beszedek_dfm, <span class="st">&quot;referencia_pont&quot;</span>),</span>
-<span id="cb157-4"><a href="scaling.html#cb157-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">scale =</span> <span class="st">&quot;linear&quot;</span>,</span>
-<span id="cb157-5"><a href="scaling.html#cb157-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">smooth =</span> <span class="dv">0</span></span>
-<span id="cb157-6"><a href="scaling.html#cb157-6" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb157-7"><a href="scaling.html#cb157-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb157-8"><a href="scaling.html#cb157-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(beszedek_ws, <span class="dv">10</span>)</span>
-<span id="cb157-9"><a href="scaling.html#cb157-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb157-10"><a href="scaling.html#cb157-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb157-11"><a href="scaling.html#cb157-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; textmodel_wordscores.dfm(x = beszedek_dfm, y = docvars(beszedek_dfm, </span></span>
-<span id="cb157-12"><a href="scaling.html#cb157-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     &quot;referencia_pont&quot;), scale = &quot;linear&quot;, smooth = 0)</span></span>
-<span id="cb157-13"><a href="scaling.html#cb157-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb157-14"><a href="scaling.html#cb157-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Reference Document Statistics:</span></span>
-<span id="cb157-15"><a href="scaling.html#cb157-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        score total min max  mean median</span></span>
-<span id="cb157-16"><a href="scaling.html#cb157-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text1     NA   486   0  18 0.202      0</span></span>
-<span id="cb157-17"><a href="scaling.html#cb157-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text2     NA   395   0  12 0.164      0</span></span>
-<span id="cb157-18"><a href="scaling.html#cb157-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text3     -1   439   0  12 0.182      0</span></span>
-<span id="cb157-19"><a href="scaling.html#cb157-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text4     NA   330   0   7 0.137      0</span></span>
-<span id="cb157-20"><a href="scaling.html#cb157-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text5     NA   360   0   8 0.149      0</span></span>
-<span id="cb157-21"><a href="scaling.html#cb157-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text6     NA   328   0   5 0.136      0</span></span>
-<span id="cb157-22"><a href="scaling.html#cb157-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text7     NA   349   0   5 0.145      0</span></span>
-<span id="cb157-23"><a href="scaling.html#cb157-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text8     NA   387   0  10 0.161      0</span></span>
-<span id="cb157-24"><a href="scaling.html#cb157-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text9     NA   307   0  13 0.127      0</span></span>
-<span id="cb157-25"><a href="scaling.html#cb157-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text10     1   383   0   8 0.159      0</span></span>
-<span id="cb157-26"><a href="scaling.html#cb157-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb157-27"><a href="scaling.html#cb157-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Wordscores:</span></span>
-<span id="cb157-28"><a href="scaling.html#cb157-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (showing first 10 elements)</span></span>
-<span id="cb157-29"><a href="scaling.html#cb157-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     tisztelt        elnök           úr országgyulés       ország           is </span></span>
-<span id="cb157-30"><a href="scaling.html#cb157-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      -0.0755       0.3925       0.0681       0.0681      -1.0000      -0.1986 </span></span>
-<span id="cb157-31"><a href="scaling.html#cb157-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          sot      nemhogy        tette       fidesz </span></span>
-<span id="cb157-32"><a href="scaling.html#cb157-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      -1.0000      -1.0000      -1.0000       1.0000</span></span></code></pre></div>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="scaling.html#cb156-1"></a><span class="kw">docvars</span>(beszedek_dfm, <span class="st">&quot;referencia_pont&quot;</span>) &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb156-2"><a href="scaling.html#cb156-2"></a><span class="kw">docvars</span>(beszedek_dfm, <span class="st">&quot;referencia_pont&quot;</span>)[<span class="dv">3</span>] &lt;-<span class="st"> </span><span class="dv">-1</span></span>
+<span id="cb156-3"><a href="scaling.html#cb156-3"></a><span class="kw">docvars</span>(beszedek_dfm, <span class="st">&quot;referencia_pont&quot;</span>)[<span class="dv">10</span>] &lt;-<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb156-4"><a href="scaling.html#cb156-4"></a></span>
+<span id="cb156-5"><a href="scaling.html#cb156-5"></a><span class="kw">docvars</span>(beszedek_dfm)</span>
+<span id="cb156-6"><a href="scaling.html#cb156-6"></a><span class="co">#&gt;                        id                  felszolalo   part referencia_pont</span></span>
+<span id="cb156-7"><a href="scaling.html#cb156-7"></a><span class="co">#&gt; 1  20142018_024_0002_0002         Vona Gábor (Jobbik) Jobbik              NA</span></span>
+<span id="cb156-8"><a href="scaling.html#cb156-8"></a><span class="co">#&gt; 2  20142018_055_0002_0002   Dr. Schiffer András (LMP)    LMP              NA</span></span>
+<span id="cb156-9"><a href="scaling.html#cb156-9"></a><span class="co">#&gt; 3  20142018_064_0002_0002    Dr. Szél Bernadett (LMP)    LMP              -1</span></span>
+<span id="cb156-10"><a href="scaling.html#cb156-10"></a><span class="co">#&gt; 4  20142018_115_0002_0002        Tóbiás József (MSZP)   MSZP              NA</span></span>
+<span id="cb156-11"><a href="scaling.html#cb156-11"></a><span class="co">#&gt; 5  20142018_158_0002_0002      Schmuck Erzsébet (LMP)    LMP              NA</span></span>
+<span id="cb156-12"><a href="scaling.html#cb156-12"></a><span class="co">#&gt; 6  20142018_172_0002_0002    Dr. Tóth Bertalan (MSZP)   MSZP              NA</span></span>
+<span id="cb156-13"><a href="scaling.html#cb156-13"></a><span class="co">#&gt; 7  20142018_206_0002_0002       Volner János (Jobbik) Jobbik              NA</span></span>
+<span id="cb156-14"><a href="scaling.html#cb156-14"></a><span class="co">#&gt; 8  20142018_212_0002_0002         Kósa Lajos (Fidesz) Fidesz              NA</span></span>
+<span id="cb156-15"><a href="scaling.html#cb156-15"></a><span class="co">#&gt; 9  20142018_236_0002_0002        Harrach Péter (KDNP)   KDNP              NA</span></span>
+<span id="cb156-16"><a href="scaling.html#cb156-16"></a><span class="co">#&gt; 10 20142018_249_0002_0002 Dr. Gulyás Gergely (Fidesz) Fidesz               1</span></span></code></pre></div>
+<p>A lenti wordscores-modell specifikáció követi a <span class="citation">Laver, Benoit, and Garry (<a href="irodalomjegyzék.html#ref-laver2003extracting" role="doc-biblioref">2003</a>)</span> tanulmányban leírtakat.</p>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="scaling.html#cb157-1"></a>beszedek_ws &lt;-<span class="st"> </span><span class="kw">textmodel_wordscores</span>(</span>
+<span id="cb157-2"><a href="scaling.html#cb157-2"></a>  <span class="dt">x =</span> beszedek_dfm,</span>
+<span id="cb157-3"><a href="scaling.html#cb157-3"></a>  <span class="dt">y =</span> <span class="kw">docvars</span>(beszedek_dfm, <span class="st">&quot;referencia_pont&quot;</span>),</span>
+<span id="cb157-4"><a href="scaling.html#cb157-4"></a>  <span class="dt">scale =</span> <span class="st">&quot;linear&quot;</span>,</span>
+<span id="cb157-5"><a href="scaling.html#cb157-5"></a>  <span class="dt">smooth =</span> <span class="dv">0</span></span>
+<span id="cb157-6"><a href="scaling.html#cb157-6"></a>  )</span>
+<span id="cb157-7"><a href="scaling.html#cb157-7"></a></span>
+<span id="cb157-8"><a href="scaling.html#cb157-8"></a><span class="kw">summary</span>(beszedek_ws, <span class="dv">10</span>)</span>
+<span id="cb157-9"><a href="scaling.html#cb157-9"></a><span class="co">#&gt; </span></span>
+<span id="cb157-10"><a href="scaling.html#cb157-10"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb157-11"><a href="scaling.html#cb157-11"></a><span class="co">#&gt; textmodel_wordscores.dfm(x = beszedek_dfm, y = docvars(beszedek_dfm, </span></span>
+<span id="cb157-12"><a href="scaling.html#cb157-12"></a><span class="co">#&gt;     &quot;referencia_pont&quot;), scale = &quot;linear&quot;, smooth = 0)</span></span>
+<span id="cb157-13"><a href="scaling.html#cb157-13"></a><span class="co">#&gt; </span></span>
+<span id="cb157-14"><a href="scaling.html#cb157-14"></a><span class="co">#&gt; Reference Document Statistics:</span></span>
+<span id="cb157-15"><a href="scaling.html#cb157-15"></a><span class="co">#&gt;        score total min max  mean median</span></span>
+<span id="cb157-16"><a href="scaling.html#cb157-16"></a><span class="co">#&gt; text1     NA   486   0  18 0.202      0</span></span>
+<span id="cb157-17"><a href="scaling.html#cb157-17"></a><span class="co">#&gt; text2     NA   395   0  12 0.164      0</span></span>
+<span id="cb157-18"><a href="scaling.html#cb157-18"></a><span class="co">#&gt; text3     -1   439   0  12 0.182      0</span></span>
+<span id="cb157-19"><a href="scaling.html#cb157-19"></a><span class="co">#&gt; text4     NA   330   0   7 0.137      0</span></span>
+<span id="cb157-20"><a href="scaling.html#cb157-20"></a><span class="co">#&gt; text5     NA   360   0   8 0.149      0</span></span>
+<span id="cb157-21"><a href="scaling.html#cb157-21"></a><span class="co">#&gt; text6     NA   328   0   5 0.136      0</span></span>
+<span id="cb157-22"><a href="scaling.html#cb157-22"></a><span class="co">#&gt; text7     NA   349   0   5 0.145      0</span></span>
+<span id="cb157-23"><a href="scaling.html#cb157-23"></a><span class="co">#&gt; text8     NA   387   0  10 0.161      0</span></span>
+<span id="cb157-24"><a href="scaling.html#cb157-24"></a><span class="co">#&gt; text9     NA   307   0  13 0.127      0</span></span>
+<span id="cb157-25"><a href="scaling.html#cb157-25"></a><span class="co">#&gt; text10     1   383   0   8 0.159      0</span></span>
+<span id="cb157-26"><a href="scaling.html#cb157-26"></a><span class="co">#&gt; </span></span>
+<span id="cb157-27"><a href="scaling.html#cb157-27"></a><span class="co">#&gt; Wordscores:</span></span>
+<span id="cb157-28"><a href="scaling.html#cb157-28"></a><span class="co">#&gt; (showing first 10 elements)</span></span>
+<span id="cb157-29"><a href="scaling.html#cb157-29"></a><span class="co">#&gt;     tisztelt        elnök           úr országgyulés       ország           is </span></span>
+<span id="cb157-30"><a href="scaling.html#cb157-30"></a><span class="co">#&gt;      -0.0755       0.3925       0.0681       0.0681      -1.0000      -0.1986 </span></span>
+<span id="cb157-31"><a href="scaling.html#cb157-31"></a><span class="co">#&gt;          sot      nemhogy        tette       fidesz </span></span>
+<span id="cb157-32"><a href="scaling.html#cb157-32"></a><span class="co">#&gt;      -1.0000      -1.0000      -1.0000       1.0000</span></span></code></pre></div>
 <p>Az illesztett wordscores modellünkkel ezek után már meg tudjuk becsülni a korpuszban lévő többi dokumentum pozícióját. Ehhez a <code>predict()</code> függvény megoldását használjuk. A kiegészítő opciókkal a konfidencia intervallum alsó és felső határát is meg tudjuk becsülni, ami jól jön akkor, ha szeretnénk ábrázolni az eredményt.</p>
-<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="scaling.html#cb158-1" aria-hidden="true" tabindex="-1"></a>beszedek_ws_pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(</span>
-<span id="cb158-2"><a href="scaling.html#cb158-2" aria-hidden="true" tabindex="-1"></a>  beszedek_ws, </span>
-<span id="cb158-3"><a href="scaling.html#cb158-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">newdata =</span> beszedek_dfm,</span>
-<span id="cb158-4"><a href="scaling.html#cb158-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">interval =</span> <span class="st">&quot;confidence&quot;</span>)</span>
-<span id="cb158-5"><a href="scaling.html#cb158-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb158-6"><a href="scaling.html#cb158-6" aria-hidden="true" tabindex="-1"></a>beszedek_ws_pred <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(beszedek_ws_pred<span class="sc">$</span>fit)</span>
-<span id="cb158-7"><a href="scaling.html#cb158-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb158-8"><a href="scaling.html#cb158-8" aria-hidden="true" tabindex="-1"></a>beszedek_ws_pred</span>
-<span id="cb158-9"><a href="scaling.html#cb158-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             fit     lwr     upr</span></span>
-<span id="cb158-10"><a href="scaling.html#cb158-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text1  -0.48986 -0.6214 -0.3583</span></span>
-<span id="cb158-11"><a href="scaling.html#cb158-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text2  -0.23461 -0.3966 -0.0726</span></span>
-<span id="cb158-12"><a href="scaling.html#cb158-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text3  -0.90905 -0.9351 -0.8830</span></span>
-<span id="cb158-13"><a href="scaling.html#cb158-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text4  -0.29653 -0.4754 -0.1177</span></span>
-<span id="cb158-14"><a href="scaling.html#cb158-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text5  -0.25907 -0.4495 -0.0687</span></span>
-<span id="cb158-15"><a href="scaling.html#cb158-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text6   0.00632 -0.2306  0.2432</span></span>
-<span id="cb158-16"><a href="scaling.html#cb158-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text7   0.16504 -0.0614  0.3915</span></span>
-<span id="cb158-17"><a href="scaling.html#cb158-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text8  -0.07774 -0.2765  0.1210</span></span>
-<span id="cb158-18"><a href="scaling.html#cb158-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text9  -0.12399 -0.3118  0.0638</span></span>
-<span id="cb158-19"><a href="scaling.html#cb158-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text10  0.90905  0.8793  0.9388</span></span></code></pre></div>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="scaling.html#cb158-1"></a>beszedek_ws_pred &lt;-<span class="st"> </span><span class="kw">predict</span>(</span>
+<span id="cb158-2"><a href="scaling.html#cb158-2"></a>  beszedek_ws, </span>
+<span id="cb158-3"><a href="scaling.html#cb158-3"></a>  <span class="dt">newdata =</span> beszedek_dfm,</span>
+<span id="cb158-4"><a href="scaling.html#cb158-4"></a>  <span class="dt">interval =</span> <span class="st">&quot;confidence&quot;</span>)</span>
+<span id="cb158-5"><a href="scaling.html#cb158-5"></a></span>
+<span id="cb158-6"><a href="scaling.html#cb158-6"></a>beszedek_ws_pred &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(beszedek_ws_pred<span class="op">$</span>fit)</span>
+<span id="cb158-7"><a href="scaling.html#cb158-7"></a></span>
+<span id="cb158-8"><a href="scaling.html#cb158-8"></a>beszedek_ws_pred</span>
+<span id="cb158-9"><a href="scaling.html#cb158-9"></a><span class="co">#&gt;             fit     lwr     upr</span></span>
+<span id="cb158-10"><a href="scaling.html#cb158-10"></a><span class="co">#&gt; text1  -0.48986 -0.6214 -0.3583</span></span>
+<span id="cb158-11"><a href="scaling.html#cb158-11"></a><span class="co">#&gt; text2  -0.23461 -0.3966 -0.0726</span></span>
+<span id="cb158-12"><a href="scaling.html#cb158-12"></a><span class="co">#&gt; text3  -0.90905 -0.9351 -0.8830</span></span>
+<span id="cb158-13"><a href="scaling.html#cb158-13"></a><span class="co">#&gt; text4  -0.29653 -0.4754 -0.1177</span></span>
+<span id="cb158-14"><a href="scaling.html#cb158-14"></a><span class="co">#&gt; text5  -0.25907 -0.4495 -0.0687</span></span>
+<span id="cb158-15"><a href="scaling.html#cb158-15"></a><span class="co">#&gt; text6   0.00632 -0.2306  0.2432</span></span>
+<span id="cb158-16"><a href="scaling.html#cb158-16"></a><span class="co">#&gt; text7   0.16504 -0.0614  0.3915</span></span>
+<span id="cb158-17"><a href="scaling.html#cb158-17"></a><span class="co">#&gt; text8  -0.07774 -0.2765  0.1210</span></span>
+<span id="cb158-18"><a href="scaling.html#cb158-18"></a><span class="co">#&gt; text9  -0.12399 -0.3118  0.0638</span></span>
+<span id="cb158-19"><a href="scaling.html#cb158-19"></a><span class="co">#&gt; text10  0.90905  0.8793  0.9388</span></span></code></pre></div>
 <p>A kapott modellünket a wordfish-hez hasonlóan tudjuk ábrázolni, miután a <code>beszedek_ws_pred</code> objektumból adattáblát csinálunk és a <code>ggplot2</code>-vel elkészítjük a vizualizációt. A <code>dokumentumok_ws</code> két részből áll össze. Először a wordscores modell objektumunkból a frakcióvezetők neveit és pártjaikat emeljük ki (kicsit körülményes a dolog, mert egy komplexebb objektumban tárolja őket a <code>quanteda</code>, de az <code>str()</code> függvény tud segíteni ilyen esetekben). A dokumentumok becsült pontszámait pedig a <code>beszedek_ws_pred</code> objektumból készített data frame hozzácsatolásával adjuk hozzá a már elkészült data frame-hez. Ehhez a <code>dplyr</code> csomag <code>bind_cols</code> függvényét használjuk. Fontos, hogy itt teljesen biztosnak kell lennünk abban, hogy a sorok a két data frame esetében ugyanarra a dokumentumra vonatkoznak.</p>
-<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="scaling.html#cb159-1" aria-hidden="true" tabindex="-1"></a>dokumentumok_ws <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb159-2"><a href="scaling.html#cb159-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">speaker =</span> beszedek_ws<span class="sc">$</span>x<span class="sc">@</span>docvars<span class="sc">$</span>felszolalo,</span>
-<span id="cb159-3"><a href="scaling.html#cb159-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">part =</span> beszedek_ws<span class="sc">$</span>x<span class="sc">@</span>docvars<span class="sc">$</span>part</span>
-<span id="cb159-4"><a href="scaling.html#cb159-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb159-5"><a href="scaling.html#cb159-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb159-6"><a href="scaling.html#cb159-6" aria-hidden="true" tabindex="-1"></a>dokumentumok_ws <span class="ot">&lt;-</span> <span class="fu">bind_cols</span>(dokumentumok_ws, beszedek_ws_pred)</span>
-<span id="cb159-7"><a href="scaling.html#cb159-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb159-8"><a href="scaling.html#cb159-8" aria-hidden="true" tabindex="-1"></a>dokumentumok_ws</span>
-<span id="cb159-9"><a href="scaling.html#cb159-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                            speaker   part      fit     lwr     upr</span></span>
-<span id="cb159-10"><a href="scaling.html#cb159-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text1          Vona Gábor (Jobbik) Jobbik -0.48986 -0.6214 -0.3583</span></span>
-<span id="cb159-11"><a href="scaling.html#cb159-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text2    Dr. Schiffer András (LMP)    LMP -0.23461 -0.3966 -0.0726</span></span>
-<span id="cb159-12"><a href="scaling.html#cb159-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text3     Dr. Szél Bernadett (LMP)    LMP -0.90905 -0.9351 -0.8830</span></span>
-<span id="cb159-13"><a href="scaling.html#cb159-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text4         Tóbiás József (MSZP)   MSZP -0.29653 -0.4754 -0.1177</span></span>
-<span id="cb159-14"><a href="scaling.html#cb159-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text5       Schmuck Erzsébet (LMP)    LMP -0.25907 -0.4495 -0.0687</span></span>
-<span id="cb159-15"><a href="scaling.html#cb159-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text6     Dr. Tóth Bertalan (MSZP)   MSZP  0.00632 -0.2306  0.2432</span></span>
-<span id="cb159-16"><a href="scaling.html#cb159-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text7        Volner János (Jobbik) Jobbik  0.16504 -0.0614  0.3915</span></span>
-<span id="cb159-17"><a href="scaling.html#cb159-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text8          Kósa Lajos (Fidesz) Fidesz -0.07774 -0.2765  0.1210</span></span>
-<span id="cb159-18"><a href="scaling.html#cb159-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text9         Harrach Péter (KDNP)   KDNP -0.12399 -0.3118  0.0638</span></span>
-<span id="cb159-19"><a href="scaling.html#cb159-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text10 Dr. Gulyás Gergely (Fidesz) Fidesz  0.90905  0.8793  0.9388</span></span></code></pre></div>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="scaling.html#cb159-1"></a>dokumentumok_ws &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</span>
+<span id="cb159-2"><a href="scaling.html#cb159-2"></a>  <span class="dt">speaker =</span> beszedek_ws<span class="op">$</span>x<span class="op">@</span>docvars<span class="op">$</span>felszolalo,</span>
+<span id="cb159-3"><a href="scaling.html#cb159-3"></a>  <span class="dt">part =</span> beszedek_ws<span class="op">$</span>x<span class="op">@</span>docvars<span class="op">$</span>part</span>
+<span id="cb159-4"><a href="scaling.html#cb159-4"></a>)</span>
+<span id="cb159-5"><a href="scaling.html#cb159-5"></a></span>
+<span id="cb159-6"><a href="scaling.html#cb159-6"></a>dokumentumok_ws &lt;-<span class="st"> </span><span class="kw">bind_cols</span>(dokumentumok_ws, beszedek_ws_pred)</span>
+<span id="cb159-7"><a href="scaling.html#cb159-7"></a></span>
+<span id="cb159-8"><a href="scaling.html#cb159-8"></a>dokumentumok_ws</span>
+<span id="cb159-9"><a href="scaling.html#cb159-9"></a><span class="co">#&gt;                            speaker   part      fit     lwr     upr</span></span>
+<span id="cb159-10"><a href="scaling.html#cb159-10"></a><span class="co">#&gt; text1          Vona Gábor (Jobbik) Jobbik -0.48986 -0.6214 -0.3583</span></span>
+<span id="cb159-11"><a href="scaling.html#cb159-11"></a><span class="co">#&gt; text2    Dr. Schiffer András (LMP)    LMP -0.23461 -0.3966 -0.0726</span></span>
+<span id="cb159-12"><a href="scaling.html#cb159-12"></a><span class="co">#&gt; text3     Dr. Szél Bernadett (LMP)    LMP -0.90905 -0.9351 -0.8830</span></span>
+<span id="cb159-13"><a href="scaling.html#cb159-13"></a><span class="co">#&gt; text4         Tóbiás József (MSZP)   MSZP -0.29653 -0.4754 -0.1177</span></span>
+<span id="cb159-14"><a href="scaling.html#cb159-14"></a><span class="co">#&gt; text5       Schmuck Erzsébet (LMP)    LMP -0.25907 -0.4495 -0.0687</span></span>
+<span id="cb159-15"><a href="scaling.html#cb159-15"></a><span class="co">#&gt; text6     Dr. Tóth Bertalan (MSZP)   MSZP  0.00632 -0.2306  0.2432</span></span>
+<span id="cb159-16"><a href="scaling.html#cb159-16"></a><span class="co">#&gt; text7        Volner János (Jobbik) Jobbik  0.16504 -0.0614  0.3915</span></span>
+<span id="cb159-17"><a href="scaling.html#cb159-17"></a><span class="co">#&gt; text8          Kósa Lajos (Fidesz) Fidesz -0.07774 -0.2765  0.1210</span></span>
+<span id="cb159-18"><a href="scaling.html#cb159-18"></a><span class="co">#&gt; text9         Harrach Péter (KDNP)   KDNP -0.12399 -0.3118  0.0638</span></span>
+<span id="cb159-19"><a href="scaling.html#cb159-19"></a><span class="co">#&gt; text10 Dr. Gulyás Gergely (Fidesz) Fidesz  0.90905  0.8793  0.9388</span></span></code></pre></div>
 <p>A 9.4-es ábrán a párton belüli bontást illusztráljuk a <code>facet_wrap()</code> segítségével.</p>
-<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="scaling.html#cb160-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dokumentumok_ws, <span class="fu">aes</span>(fit, <span class="fu">reorder</span>(speaker, fit))) <span class="sc">+</span></span>
-<span id="cb160-2"><a href="scaling.html#cb160-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb160-3"><a href="scaling.html#cb160-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbarh</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> lwr, <span class="at">xmax =</span> upr), <span class="at">height =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
-<span id="cb160-4"><a href="scaling.html#cb160-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb160-5"><a href="scaling.html#cb160-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="cn">NULL</span>,</span>
-<span id="cb160-6"><a href="scaling.html#cb160-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;wordscores&quot;</span></span>
-<span id="cb160-7"><a href="scaling.html#cb160-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb160-8"><a href="scaling.html#cb160-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>part, <span class="at">ncol =</span> <span class="dv">1</span>, <span class="at">scales =</span> <span class="st">&quot;free_y&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="scaling.html#cb160-1"></a><span class="kw">ggplot</span>(dokumentumok_ws, <span class="kw">aes</span>(fit, <span class="kw">reorder</span>(speaker, fit))) <span class="op">+</span></span>
+<span id="cb160-2"><a href="scaling.html#cb160-2"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb160-3"><a href="scaling.html#cb160-3"></a><span class="st">  </span><span class="kw">geom_errorbarh</span>(<span class="kw">aes</span>(<span class="dt">xmin =</span> lwr, <span class="dt">xmax =</span> upr), <span class="dt">height =</span> <span class="dv">0</span>) <span class="op">+</span></span>
+<span id="cb160-4"><a href="scaling.html#cb160-4"></a><span class="st">  </span><span class="kw">labs</span>(</span>
+<span id="cb160-5"><a href="scaling.html#cb160-5"></a>    <span class="dt">y =</span> <span class="ot">NULL</span>,</span>
+<span id="cb160-6"><a href="scaling.html#cb160-6"></a>    <span class="dt">x =</span> <span class="st">&quot;wordscores&quot;</span></span>
+<span id="cb160-7"><a href="scaling.html#cb160-7"></a>  ) <span class="op">+</span></span>
+<span id="cb160-8"><a href="scaling.html#cb160-8"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>part, <span class="dt">ncol =</span> <span class="dv">1</span>, <span class="dt">scales =</span> <span class="st">&quot;free_y&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-155"></span>
 <p class="caption">
 Ábra 9.4: A párton belüli wordscores-alapú skála
