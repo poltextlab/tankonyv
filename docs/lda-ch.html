@@ -570,7 +570,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb121-4"><a href="lda-ch.html#cb121-4"></a><span class="st">  </span><span class="kw">top_n</span>(<span class="dv">5</span>, term) <span class="op">%&gt;%</span></span>
 <span id="cb121-5"><a href="lda-ch.html#cb121-5"></a><span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span></span>
 <span id="cb121-6"><a href="lda-ch.html#cb121-6"></a><span class="st">  </span><span class="kw">arrange</span>(topic, <span class="op">-</span>beta)</span></code></pre></div>
-<p>Ezután a <code>ggplot2</code> csomag segítségével ábrán is megjeleníthetjük (ld. <a href="lda-ch.html#fig:Gibbs9802">7.8</a>. és @ref(fig:Gibbs_02_06 ábra).</p>
+<p>Ezután a <code>ggplot2</code> csomag segítségével ábrán is megjeleníthetjük (ld. <a href="lda-ch.html#fig:Gibbs9802">7.8</a>. és @ref(fig:Gibbs0206 ábra).</p>
 <div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="lda-ch.html#cb122-1"></a>top_terms_gibbs <span class="op">%&gt;%</span></span>
 <span id="cb122-2"><a href="lda-ch.html#cb122-2"></a><span class="st">  </span><span class="kw">filter</span>(electoral_cycle <span class="op">==</span><span class="st"> &quot;1998-2002&quot;</span>) <span class="op">%&gt;%</span></span>
 <span id="cb122-3"><a href="lda-ch.html#cb122-3"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="kw">reorder_within</span>(term, beta, topic), beta)) <span class="op">+</span></span>
@@ -600,11 +600,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb123-9"><a href="lda-ch.html#cb123-9"></a>    <span class="dt">y =</span> <span class="kw">expression</span>(beta)</span>
 <span id="cb123-10"><a href="lda-ch.html#cb123-10"></a>  ) <span class="op">+</span></span>
 <span id="cb123-11"><a href="lda-ch.html#cb123-11"></a><span class="st">  </span><span class="kw">scale_x_reordered</span>()</span></code></pre></div>
-<div class="figure" style="text-align: center">
+<div class="figure" style="text-align: center"><span id="fig:Gibbs0206"></span>
 <p class="caption">
-(#fig:Gibbs_02_06)2002–2006-os ciklus topikok és kifejezések (Gibbs mintavétellel)
+Ábra 7.9: 2002–2006-os ciklus topikok és kifejezések (Gibbs mintavétellel)
 </p>
-<img src="_main_files/figure-html/Gibbs_02_06-1.png" alt="2002–2006-os ciklus topikok és kifejezések (Gibbs mintavétellel)" width="90%" />
+<img src="_main_files/figure-html/Gibbs0206-1.png" alt="2002–2006-os ciklus topikok és kifejezések (Gibbs mintavétellel)" width="90%" />
 </div>
 </div>
 </div>
@@ -707,7 +707,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb128-17"><a href="lda-ch.html#cb128-17"></a>  )</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-125"></span>
 <p class="caption">
-Ábra 7.9: Topikonkénti legmagasabb valószínuségu szavak
+Ábra 7.10: Topikonkénti legmagasabb valószínuségu szavak
 </p>
 <img src="_main_files/figure-html/unnamed-chunk-125-1.png" alt="Topikonkénti legmagasabb valószínuségu szavak" width="90%" />
 </div>
@@ -733,7 +733,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb130-7"><a href="lda-ch.html#cb130-7"></a>         )</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-127"></span>
 <p class="caption">
-Ábra 7.10: Leggyakoribb témák és kifejezések
+Ábra 7.11: Leggyakoribb témák és kifejezések
 </p>
 <img src="_main_files/figure-html/unnamed-chunk-127-1.png" alt="Leggyakoribb témák és kifejezések" width="90%" />
 </div>
@@ -741,7 +741,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="lda-ch.html#cb131-1"></a><span class="kw">plot</span>(stm<span class="op">::</span><span class="kw">topicCorr</span>(stm_fit))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-128"></span>
 <p class="caption">
-Ábra 7.11: Témák közötti korreláció hálózat
+Ábra 7.12: Témák közötti korreláció hálózat
 </p>
 <img src="_main_files/figure-html/unnamed-chunk-128-1.png" alt="Témák közötti korreláció hálózat" width="90%" />
 </div>

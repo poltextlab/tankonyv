@@ -14,6 +14,7 @@ fig:zavarossag
 fig:topic9802
 fig:topic0206
 fig:Gibbs9802
+fig:Gibbs0206
 fig:unnamed-chunk-125
 fig:unnamed-chunk-127
 fig:unnamed-chunk-128
