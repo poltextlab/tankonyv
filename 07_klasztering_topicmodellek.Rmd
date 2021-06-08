@@ -428,7 +428,7 @@ top_terms_gibbs <- lda_gibbs %>%
   arrange(topic, -beta)
 ```
 
-Ezután a `ggplot2` csomag segítségével ábrán is megjeleníthetjük (ld. \@ref(fig:Gibbs9802). és \@ref(fig:Gibbs_02_06 ábra).
+Ezután a `ggplot2` csomag segítségével ábrán is megjeleníthetjük (ld. \@ref(fig:Gibbs9802). és \@ref(fig:Gibbs0206 ábra).
 
 ```{r Gibbs9802, fig.cap="1998–2002-es ciklus topikok és kifejezések (Gibbs mintavétellel)"}
 top_terms_gibbs %>%
@@ -445,7 +445,7 @@ top_terms_gibbs %>%
   tidytext::scale_x_reordered()
 ```
 
-```{r Gibbs_02_06, fig.cap="2002–2006-os ciklus topikok és kifejezések (Gibbs mintavétellel)"}
+```{r Gibbs0206, fig.cap="2002–2006-os ciklus topikok és kifejezések (Gibbs mintavétellel)"}
 top_terms_gibbs %>%
   filter(electoral_cycle == "2002-2006") %>%
   ggplot(aes(reorder_within(term, beta, topic), beta)) +
