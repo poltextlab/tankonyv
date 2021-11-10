@@ -1,4 +1,4 @@
-# Osztályozás és felügyelt tanulás
+# Osztályozás és felügyelt tanulás {#felugyelt}
 
 ## Fogalmi alapok
 
@@ -13,6 +13,15 @@ A felügyelt tanulási feladat megoldása egy úgynevezett tanító halmaz (*tra
 
 A felügyelt tanulás számos kutatási feladat megoldására alkalmazhatjuk, melyek közül a leggyakoribbak a különböző osztályozási (*classification*) feladatok. Miközben ezek – így pl. a véleményelemzés – szótáralapú módszertannal is megoldhatóak (lásd a *[Szótárak és érzelemelemzés](#sentiment)* fejezetet), a felügyelt tanulás a nagyobb élőmunkaigényt rendszerint jobb eredményekkel és rugalmasabb felhasználhatósággal hálálja meg (gondoljunk csak a szótárak domain-függőségére). A felügyelt tanulás egyben a mesterséges intelligencia kutatásának gyorsan fejlődő területe, mely az e fejezetben tárgyalt algoritmus-központú gépi tanuláson túl az ún. mélytanulás (*deep learning*) és a neurális hálók területén is zajlik egyre látványosabb sikerekkel.
 
+Jelen fejezetben két modell fajtát mutatunk be egyazon korpuszon az Support Vector Machine (SVM) és a Naïve Bayes (NB). Mindkettő a fentiekben leírt klasszifikációs feladatot végzi el, viszont eltérő módon működnek. Az SVM a tanító halmazunk dokumentumait vektorként reprezentálja, ami annyit jelent, hogy hozzájuk rendel egy számsort, amely egy közös térben betöltött pozíciójukat reprezentálja.
+
+![A teszthalmaz dokumentumai egy közös térben reprezentálva](figures/svm1.jpg)
+
+Ezt követően pedig a különféle képpen képpen felcímkézett dokumentumok között egy vonalat (hyperplane) húz meg, amely a lehető legnagyobb távolságra van minden egyes dokumentumtól.
+
+![A minta osztályozása](figures/svm2.jpg)
+
+Innentől kezdve pedig a modellnek nincs más dolga, mint a tanító halmazon kívül eső dokumentumok vektor értékeit is megállapítani, elhelyezni őket ebben a közös térben, és attól függően, hogy a hyperplane mely oldalára kerülnek besorolni őket. Ezzel szemben az NB a felcímkézett tanító halmazunk szavaihoz egy valószínűségi értéket rendel annak függvényében, hogy az adott szó adott kategóriába tartozó dokumentumokban hányszor jelenik meg, az adott kategória dokumentumainak teljes szószámához képest. Miután a teszt halmazunk dokumentumaiban minden szóhoz hozzárendeltük ezeket a valószínűségi értékeket nincs más dolgunk, mint a teszt halmazunkon kívül eső dokumentumokban felkeresni ugyanezen szavakat, a hozzájuk rendelt valószínűségi értékeket aggregálni és ez alapján minden dokumentumhoz tudunk rendelni több valószínűségi értéket is, amelyek megadják, hogy mekkora eséllyel tartozik a dokumentum a teszt halmazunk egyes kategóriáiba.
 
 ## Osztályozás felügyelt tanulással
 
@@ -22,221 +31,140 @@ Az alábbi fejezetben a CAP magyar média gyűjteményéből a napilap címlapok
 
 [^sml-2]: A kódkönyv regisztrációt követően elérhető az alábbi linken: [https://cap.tk.hu/kozpolitikai-cap](https://cap.tk.hu/kozpolitikai-cap)
 
-Annak érdekében, hogy egyértelműen értékelhessük a gépi tanulás hatékonyságát, a kiválasztott cikkcsoport (azaz a teszthalmaz) esetében is ismerjük a kézi kódolás eredményét („éles“ kutatási helyzetben, ismeretlen kódok esetében ugyanakkor ezt gyakran szintén csak egy kisebb mintán tudjuk kézzel validálni). További fontos lépés, hogy az észszerű futási idő érdekében a gyakorlat során a teljes adatbázisból -- és ezen belül is csak a Népszabadság részhalmazból -- fogunk venni egy 4500 darabos mintát. E mintán fogjuk vizsgálni, hogy milyen hatékonysággal képes a modellünk egy megadott közpolitikai kódba besorolni egy adott cikket, illetve, hogy ezt képes-e a hús-vér kutatókkal azonos színvonalon megtenni. Nézzük mindezek után a kutatás lépéseit!
+Annak érdekében, hogy egyértelműen értékelhessük a gépi tanulás hatékonyságát, a kiválasztott cikkcsoport (azaz a teszthalmaz) esetében is ismerjük a kézi kódolás eredményét („éles“ kutatási helyzetben, ismeretlen kódok esetében ugyanakkor ezt gyakran szintén csak egy kisebb mintán tudjuk kézzel validálni). További fontos lépés, hogy az észszerű futási idő érdekében a gyakorlat során a teljes adatbázisból -- és ezen belül is csak a Népszabadság részhalmazból -- fogunk venni egy 4500 darabos mintát. Ezen a mintán pedigg a már korábban említett kétféle modellt fogjuk futtatni a NB-t és az SVM-t. Az ezekkel a módszerekkel létrehozott két modellünk hatékonyságát fogjuk összehasonlítani, valamint azt is megfogjuk nézni, hogy az eredmények megbízhatósága mennyiben közelíti meg a kézikódolási módszerre jellemző 80-90%-os pontosságot.
 
-A először behívjuk a szükséges csomagokat, melyek közül a `quanteda` a szokásos szövegbányászati alapcsomagunk, az `e1071` az SVM algoritmus [^svm_algoritmus] használatát teszi a lehetővé, a `ggplot2` a vizualizációt segíti, a `dplyr` a korpuszon végzett műveletekhez kell, a `SparseM` pedig a mátrixtranszformációkhoz.
-
-[^svm_algoritmus]: A Support Vector Machine egy felügyelt gépi tanulási algoritmus, amelyet általában osztályozási és regressziós feladatokhoz használnak.
+Először behívjuk a szükséges csomagokat.  Majd a felügyelet nélküli tanulással foglalkozó fejezethez hasonlóan itt is alkalmazzuk a `set.seed()` funkciót, mivel anélkül nem egyeznének az eredményeink teljes mértékben egy a kódunk egy késöbbi újrafuttatása esetén.
 
 ```{r include = TRUE}
-library(quanteda)
-library(e1071)
-library(ggplot2)
+library(stringr)
 library(dplyr)
-library(SparseM)
+library(quanteda)
+library(caret)
+library(quanteda.textmodels)
 library(HunMineR)
 
 set.seed(1234)
 ```
 
-Ezt követően megadjuk azt a kódkategóriát, melynek kapcsán szeretnénk elvégezni a bináris osztályozást (beletartozik-e az adott cikk az adott kategóriába vagy nem). A kódban ez az egyes, azaz a makrogazdaság (adózás, költségvetés, monetáris politika stb.) lesz.
-
-```{r include = TRUE}
-CAPcode <- 1
-```
-
-Ezt követi a szövegelőkészítésen és tisztításon már átesett adatok betöltése. Az egyszerűség kedvéért a `HunMineR` csomagból.
+Ezt követően betöltjük a ` HunMineR`-ből az adatainkat. Jelen esetben is vethetünk egy pillantást az objektum tartalmára a glimpse funkció segítségével, és láthatjuk, hogy az öt változónk a cikkek tényleges szövege, a sorok száma, a fájlok neve, az újság, ahol a cikk megjelent, valamint a cikk adott témába való besorolása, amely kézi kódolással került hozzárendelésre.
 
 ```{r include = TRUE}
 Data_NOL_MNO <- HunMineR::data_nol_mno_clean
+glimpse(Data_NOL_MNO)
 ```
 
-A következő lépésben eltávolítjuk a szöveges adatot nem tartalmazó (a text változóra semmilyen értéket nem adó) sorokat az adatbázisból.
+Majd pár kissebb átalakítást hajtunk végre az adatainkon. Először is ehhez a modellhez most csak a Népszabadság cikkeket fogjuk alkalmazni a Magyar Nemzet cikkeit kiszedjük az adataink közül. Ezután leegyszerűsítjük a kódolást. Összesen 21 témakört lefed a cikkek kézi kódolása most viszont ezekből egy bináris változót készítünk, amelynek 1 lesz az értéke, ha a cikk makrogazdaságról szól, ha pedig bármilyne más témakörről, akkor 0 lesz az értéke.  Így két hasonló méretű csoportot hozunk létre. A modellek pedig az ide történő besorolálst próbálják majd megállapítani a cikkek szövege alapján vagyis, hogy makrogazdasági témáról szól-e az adott cikk, vagy valamilyen más témáról. Majd kiválasztjuk a táblából a két változó, amelyekre szükségünk lesz a cikkek szövegét `text` és a cikkekhez kézzel hozzárendelt téműt `label` a többit pedig elvetjük.
 
 ```{r include = TRUE}
-Data_NOL_MNO_ures <- Data_NOL_MNO[Data_NOL_MNO$text == "",]
-Data_NOL_MNO <- Data_NOL_MNO[!(Data_NOL_MNO$filename %in% Data_NOL_MNO_ures$filename),]
-```
+Data_NOL <- Data_NOL_MNO %>% 
+  filter(text != " " | text != "", corpus == "NOL") %>% 
+  mutate(label = if_else(majortopic_code == 1, 1, 0)) %>% 
+  group_by(label) %>% 
+  sample_n(2250) %>% 
+  ungroup() %>% 
+  select(text, label)
+``` 
+
+Ezt követően egy korpusszá alakítjuk az objektumunkat.
 
 ```{r include = TRUE}
-nrow(Data_NOL_MNO_ures)
-```
+nol_corpus <- corpus(Data_NOL)
+``` 
 
-Látható, hogy összesen 13 ilyen elemet találtunk.
-
-Majd szétválasztjuk a két újsághoz tartozó cikkeket is (esetünkben a *Népszabadság*-ot alapul véve).
+Majd létrehozunk egy új objektumot id_train néven amely 1 és 4500 között 3600 különböző a `sample()` funkció segítségével véletlenszerűen kiválogatott számot tartalmaz. Utána pedig a korpuszunkhoz hozzá adunk egy új id_numeric elnevezésű változót, amely csupán a megszámozza az egyes cikkeket. Ezeket a késöbbiekben arra fogjuk felhasználni, hogy kialakítsuk a tanító és teszt halmazokat
 
 ```{r include = TRUE}
-Data_NOL <- Data_NOL_MNO[Data_NOL_MNO$corpus == "NOL",]
-```
+id_train <- sample(1:4500, 3600, replace = FALSE)
+nol_corpus$id_numeric <- 1:ndoc(nol_corpus)
+``` 
 
-Mint az *Environment* ablakban is látható, ez a lépés `r nrow(Data_NOL)` cikkes halmazt adott. Ezen a ponton megkezdhetjük a felügyelt gépi tanulásra épülő lépéseket! Először egy 4500-as mintát veszünk az adatbázisból, hogy rövidítsük a futásidőt.
-
-```{r include = TRUE}
-Data_NOL <- Data_NOL[sample(nrow(Data_NOL), 4500), ]
-```
-
-
-Majd kutatási feladatunknak megfelelően felveszünk egy új címkét (*label*), ami már kifejezetten azt mutatja, hogy egy cikk a makrogazdasági (1) vagy bármilyen más (0) osztályba tartozik-e.
+Ezt követően a korpuszunkat egy tokenekké alakítjuk és ezzel egyidejűleg eltávolítjuk a quanteda beépített magyar stopszó szótárát, valamint sztemmelést is végrehajtunk. 
 
 ```{r include = TRUE}
-Data_NOL$label <- ifelse(Data_NOL$majortopic_code == CAPcode, 1, 0)
-```
+nol_toks <- tokens(nol_corpus, remove_punct = TRUE, remove_number = TRUE) %>% 
+  tokens_remove(pattern = stopwords("hungarian")) %>% 
+  tokens_wordstem()
+``` 
 
-Ezt követően felosztjuk a 4500 cikket 2:1 arányban tanító- és teszthalmazra.
-
-```{r}
-training <- Data_NOL[sample(nrow(Data_NOL), 3000), ]
-Data_NOL$training <- ifelse(Data_NOL$filename %in% training$filename, 1, 0)
-```
-
-
-Ahhoz, hogy a `quanteda` dtm-et tudjon készíteni a cikk-gyűjteményünkből, először egy korpusz objektumot kell létrehozni belőlük.
+A tokeneket pedig egy dfm-é alakítjuk.
 
 ```{r include = TRUE}
-lemma_corpus_NOL <- corpus(Data_NOL, docid_field = "filename", text_field = "text")
-```
+nol_dfm <- dfm(nol_toks)
+``` 
 
-Így a dfm függvénnyel már létre tudjuk hozni a dokumentum-kifejezés mátrixunkat!
-
-```{r include = TRUE}
-dtm_NOL <- lemma_corpus_NOL %>% 
-  tokens() %>% 
-  dfm()
-```
-
-A dimenzió-csökkentés érdekében eltávolítjuk a ritka (5-nél kevesebbszer szereplő) kifejezéseket a mátrixból. Láthatjuk, hogy ezzel a feature -ök majd 81 százalékát eltávolítottuk.
-
-
-
-```{r, message=TRUE}
-dtm_NOL <- dfm_trim(dtm_NOL, min_docfreq = 5, verbose=TRUE)
-```
-
-Ezen a ponton megkezdhetjük a modellünk tanítását! Erre a fent említett SVM algoritmust használjuk. E lépés futási ideje akár 1--2 percig is eltarthat.
-
-```{r}
-SVMmodel <- svm(
-  x=dtm_NOL[dtm_NOL@docvars$training == 1,], 
-  y	=dtm_NOL[dtm_NOL@docvars$training == 1,]@docvars$label,
-  kernel="linear", 
-  cost	=0.1, 
-  probability=TRUE
-  )
-```
-
-```{r echo=FALSE}
-#saveRDS(SVMmodel, file = "data/temp/svm_model.rds")
-#SVMmodel <- readRDS("data/temp/svm_model.rds")
-```
-
-A létrejövő *predictions* objektum tartalmazza majd az előrejelzési eredményeket.
+Ezt követően kialakítjunk a tanító és teszt halmazokat a korábban létrehozott változók segítségével. A lenti kód elsősora egy subsetet alakít ki az adattáblánk mindazon soraiból, amelyek id_numeric változója szerepel az id_train számsorban ez lesz a tanító alhalmaz. Majd ennek megfelelően egy másik alhalmazt alakítunk ki a teszteléshez, amely minden olyan sorát fogja tartalmazni adattáblánknak, amely id_numeric változója nem szerepel az id_train számsorban.
 
 ```{r include = TRUE}
-predictions <- predict(SVMmodel, dtm_NOL[dtm_NOL@docvars$training == 0,])
-```
+train_dfm <- dfm_subset(nol_dfm, id_numeric %in% id_train)
+test_dfm <- dfm_subset(nol_dfm, !id_numeric %in% id_train)
+``` 
+
+Azáltal pedig, hogy kialakítottuk a két alhalmazt el is végeztük az utolsó előkészítési folyamatot is, az így előkészített adatokon tudjuk majd futtatni a következőkben, mind az NB és az SVM modellünket.
+
+### Naïve Bayes
+
+A fejezet Naïve Bayesre vonatkozó kódjai quanteda tutoriál menetét és kódjait követik.[^quanteda_tutorial] Először létrehozzuk a modellünket, amely számára meghatározzuk, hogy a label változóhoz kell egy predikciót adnia, majd ezt alakalmazzuk az adatainkra. A `dfm_match` parancs segítségével eltávolítjuk a vizsgált dokumentumaink szavai közül mindazokat, amelyek nem szerepeltek a teszt halmazunkba. Erre azért van szükség, mivel az NB csak azokat a szavakat képes kezelni, amelyekhez már hozzárendelt egy valószínűségi értéket, tehát csak azokat, amelyek a teszt halmazban is megtalálhatóak.
+
+[^quanteda_tutorial]: [https://tutorials.quanteda.io/machine-learning/nb/](https://tutorials.quanteda.io/machine-learning/nb/)
 
 ```{r include = TRUE}
-Data_NOL_predictions <- cbind(Data_NOL[Data_NOL$training == 0,], predictions)
-```
+nol_nb <- textmodel_nb(train_dfm, train_dfm$label)
+dfm_kozos <- dfm_match(test_dfm, features = featnames(train_dfm))
+``` 
 
-Ezt követően meghatározzuk azt a küszöbértéket, ahonnan egy előrejelzést 1-es címkéhez tartozónak (azaz egy cikk szövegét makrogazdaságinak) tekintünk.
-
-```{r include = TRUE}
-cutoff_point = 0.5
-```
-
-Majd ez alapján átalakítjuk az SVM eredményeinket immár a végleges, a bináris osztályozási feladatnak megfelelő előrejelzésekké. A `cbind` függvénnyel pedig összevonjuk egy táblázatba az előrejelzés eredményét és annak cimkéit.
+A következő objektumban eltároljuk a kézikódolás eredményeit, amelyeket már ismerünk.
 
 ```{r include = TRUE}
-predictions_label <- ifelse(predictions > 0.5, 1, 0)
-```
+tenyleges_osztaly <- dfm_kozos$label
+``` 
+
+Majd eltároljuk egy másik objektumban azokat az eredményeket, amelyeket a modellünk generált.
 
 ```{r include = TRUE}
-Data_NOL_predictions <- cbind(Data_NOL_predictions, predictions_label)
-```
+becsult_osztaly <- predict(nol_nb, newdata = dfm_kozos)
+``` 
 
-Miután eredményeink elkészültek, kiszámoljuk a felügyelt gépi tanulás szokásos eredményességi mutatóit (ettől a résztől kódunkban Pablo Barbera munkájára támaszkodunk).[^sml3] Mindezek alapjául a tévesztési mátrix szolgál, először ennek adatait vizsgáljuk meg.
-
-[^sml3]: Elérhető az alábbi linken: [http://pablobarbera.com/ECPR-SC105/code/12-advanced-sml.html](http://pablobarbera.com/ECPR-SC105/code/12-advanced-sml.html).
+A két fenti adat segítségével pedig létrehozhatjuk a korábban is említett tévesztési táblát.
 
 ```{r include = TRUE}
-conf_mat <- table(Data_NOL_predictions$predictions_label, Data_NOL_predictions$label)
+eredmeny_tabla <- table(tenyleges_osztaly, becsult_osztaly)
+eredmeny_tabla
+``` 
 
-conf_mat
-```
-
-Látható, hogy modellünk alapvetően helyesen értékelte, hogy a teszthalmaz cikkeinek döntő többsége nem makrogazdasági tárgyú (`r conf_mat[1]`). Szintén sikerrel sorolt be `r conf_mat[4]` cikket a makrogazdasági osztályba. Ugyanakkor `r conf_mat[3]`-et hibásan tartott 1-es kategóriásnak, `r conf_mat[2]`-t pedig nem „talált meg” közülük.
-
-A mutatószámok esetében kezdjük a legáltalánosabbal, a hitelességgel (*accuracy*), ami a mátrix átlójára épít.
+Ezt létrehozhatjuk a  `caret ` csomag funkciójával is, amely a tévesztési tábla mellett sok más hasznos adatot is megad a számunkra.
 
 ```{r include = TRUE}
-accuracy <- function(ypred, y){
-  tab <- table(ypred, y)
-  return(sum(diag(tab))/sum(tab))
-}
+confusionMatrix(eredmeny_tabla, mode = "everything")
+``` 
 
-```
+Az eredményeken pedig láthatjuk, hogy még az egyszerűség kedvéért lecsökkentett méretű tanítási halmaz ellenére is egy kifejezett magas 84.78%-os pontossági értéket kapunk, amely többé-kevésbé megfeletethető egy kizárólag kézikódolással végzett vizsgálat pontosságának
 
-```{r include = TRUE}
-accuracy(Data_NOL_predictions$predictions_label, Data_NOL_predictions$label)
-```
+### Support-vector machine
 
-Ennek adatai azt mutatják, hogy nagy általánosságban jól működött a modell. Ugyanakkor kutatási kérdésünk szempontjából fontosabb, hogy milyen arányban találtuk meg a makrogazdasági cikkeket (felidézés -- *recall*), illetve milyen pontossággal osztottuk ki ezeket a kódokat (pontosság -- *precision*). A következő lépésben így először definiáljuk, majd kiszámoljuk a pontosságot és a felidézést, valamint ezek harmonikus átlagát, az F1 mutatót.
+A következő kódsorral alkalmazzuk az SVM modellünket, hogy az adatainkon belül a label változóra vonatkozóan készítsen predikciót.
 
 ```{r include = TRUE}
-precision <- function(ypred, y){
-  tab <- table(ypred, y)
-  return((tab[2,2])/(tab[2,1]+tab[2,2]))
-}
-```
+nol_svm <- textmodel_svm(train_dfm, y = train_dfm$label)
+``` 
+
+Ismét eltároljuk a kézikódolás eredményeit, amelyeket már ismerünk. Valamint az eredményeket, amelyeket az SVM modellünk generált szintén eltároljuk egy objektumba.
 
 ```{r include = TRUE}
-recall <- function(ypred, y){
-  tab <- table(ypred, y)
-  return(tab[2,2]/(tab[1,2]+tab[2,2]))
-}
-```
+tenyleges_osztaly_svm <- dfm_kozos$label
+becsult_osztaly_svm <- predict(nol_svm, newdata = dfm_kozos)
+``` 
+
+Ismét létrehozhatunk egy egyszerű tévesztési táblát. 
 
 ```{r include = TRUE}
-F1 <- function(ypred, y){
-  return(2*precision(ypred, y)*recall(ypred, y)/(precision(ypred, y)+recall(ypred, y)))
-}
-```
+eredmeny_tabla_svm <- table(tenyleges_osztaly_svm, becsult_osztaly_svm)
+eredmeny_tabla_svm
+``` 
+
+Valamint jelen esetben is használhatjuk a `caret ` csomagban található funkciót, hogy még több információt nyerjünk ki a modellünk működéséről.
 
 ```{r include = TRUE}
-precision(Data_NOL_predictions$predictions_label, Data_NOL_predictions$label)
+confusionMatrix(eredmeny_tabla_svm, mode = "everything")
+``` 
 
-recall(Data_NOL_predictions$predictions_label, Data_NOL_predictions$label)
-
-F1(Data_NOL_predictions$predictions_label, Data_NOL_predictions$label)
-```
-
-Összességében azt állapíthatjuk meg, hogy „játékmodellünk” közel hasonló arányú, azaz 60 százalékos pontosságot, illetve fedést eredményezett. Ez elmaradt a kettős vak kézi kódolás akár 80-90 százalékos találati arányától, ugyanakkor mintánkat didaktikai okokból szándékosan kisebbre vettük a lehetségesnél. A nagymintás adatok alapján (lásd @sebokMulticlassClassificationNewspaper2021) különösen a pontosság esetében akár 90 százalék feletti érték is elérhető felügyelt gépi tanulással, mely ponton már világossá válik a mesterséges intelligenciára épülő megközelítés versenyképessége a kézi kódoláséval, különösen nagymintás projektek esetében.
-
-De térjünk még vissza eredményeinkhez és vizsgáljuk meg őket közpolitikai kódonként is! Itt is látható, hogy `r table(Data_NOL_predictions$predictions_label, Data_NOL_predictions$majortopic_code)[2]` cikkre jeleztük előre helyesen az 1-es kódot.
-
-```{r include = TRUE}
-table(Data_NOL_predictions$predictions_label, Data_NOL_predictions$majortopic_code)
-```
-
-Végezetül előrejelzéseinket ezek kódonkénti gyakorisága szempontjából ábrázoljuk (ld. \@ref(fig:svm). ábra).
-
-```{r include = TRUE}
-ggplot_data <- Data_NOL_predictions[,c("majortopic_code","predictions_label")]
-ggplot_data$predictions_label <- factor(ggplot_data$predictions_label)
-```
-
-```{r include = TRUE}
-df <- ggplot_data %>%
-  group_by(majortopic_code, predictions_label) %>%
-  summarise(n = n()) %>% 
-  filter(majortopic_code < 30)
-```
-
-```{r svm, include = TRUE, fig.cap="Az SVM modell klasszifikációs eredményei"}
-ggplot(df, aes(majortopic_code, n, fill = predictions_label)) + 
-  geom_bar(stat = "identity") +
-  labs(fill = NULL) +
-  theme(legend.position = "bottom")
-```
+Itt ismét azt találjuk, hogy a csökkentett méretű korpusz ellenére is egy kifejezetten magas pontossági értéket 85.33%-ot kapunk.

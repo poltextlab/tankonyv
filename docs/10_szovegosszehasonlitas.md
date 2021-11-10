@@ -1,3 +1,0 @@
-# Szövegösszehasonlítás
-
-tizedik fejezet

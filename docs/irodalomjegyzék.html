@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Irodalomjegyzék | Szövegbányászat és mesterséges intelligencia R-ben</title>
   <meta name="description" content="Irodalomjegyzék | Szövegbányászat és mesterséges intelligencia R-ben" />
-  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Irodalomjegyzék | Szövegbányászat és mesterséges intelligencia R-ben" />
   <meta property="og:type" content="book" />
@@ -33,7 +33,9 @@
   
 <link rel="prev" href="függelék.html"/>
 
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,21 +51,26 @@
 
 
 
-
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
 <link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
 <script src="libs/str_view-binding-1.4.0/str_view.js"></script>
+<script src="libs/plotly-binding-4.10.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -124,6 +131,28 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="konyv_style.css" type="text/css" />
 </head>
@@ -141,17 +170,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">Szövegbányászat R-ben</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Üdvözöljük!</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Üdvözöljük!</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#online-második-kiadás"><i class="fa fa-check"></i>Online “második kiadás”</a></li>
+</ul></li>
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Bevezetés</a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#a-kötet-témái"><i class="fa fa-check"></i><b>1.1</b> A kötet témái</a></li>
 <li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#használati-utasítás"><i class="fa fa-check"></i><b>1.2</b> Használati utasítás</a></li>
 <li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#a-hunminer-használata"><i class="fa fa-check"></i><b>1.3</b> A HunMineR használata</a></li>
-<li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#köszönetnyilvánítás"><i class="fa fa-check"></i><b>1.4</b> Köszönetnyilvánítás</a></li>
+<li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#egy-gyakorlati-példa-az-r-programmal-való-szövegbányászatra"><i class="fa fa-check"></i><b>1.4</b> Egy gyakorlati példa az R programmal való szövegbányászatra</a></li>
+<li class="chapter" data-level="1.5" data-path="intro.html"><a href="intro.html#köszönetnyilvánítás"><i class="fa fa-check"></i><b>1.5</b> Köszönetnyilvánítás</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="alapfogalmak.html"><a href="alapfogalmak.html"><i class="fa fa-check"></i><b>2</b> Alapfogalmak</a>
+<li class="chapter" data-level="2" data-path="alapfogalmak.html"><a href="alapfogalmak.html"><i class="fa fa-check"></i><b>2</b> Kulcsfogalmak</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="alapfogalmak.html"><a href="alapfogalmak.html#elméleti-alapok"><i class="fa fa-check"></i><b>2.1</b> Elméleti alapok</a></li>
+<li class="chapter" data-level="2.1" data-path="alapfogalmak.html"><a href="alapfogalmak.html#big-data-és-társadalomtudomány"><i class="fa fa-check"></i><b>2.1</b> Big Data és társadalomtudomány</a></li>
 <li class="chapter" data-level="2.2" data-path="alapfogalmak.html"><a href="alapfogalmak.html#fogalmi-alapok"><i class="fa fa-check"></i><b>2.2</b> Fogalmi alapok</a></li>
 <li class="chapter" data-level="2.3" data-path="alapfogalmak.html"><a href="alapfogalmak.html#a-szövegbányászat-alapelvei"><i class="fa fa-check"></i><b>2.3</b> A szövegbányászat alapelvei</a></li>
 </ul></li>
@@ -163,23 +196,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.4" data-path="adatkezeles.html"><a href="adatkezeles.html#műveletek-adattáblákkal"><i class="fa fa-check"></i><b>3.4</b> Műveletek adattáblákkal</a></li>
 <li class="chapter" data-level="3.5" data-path="adatkezeles.html"><a href="adatkezeles.html#munka-karakter-vektorokkaladatkezel-4"><i class="fa fa-check"></i><b>3.5</b> Munka karakter vektorokkal</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="corpus-ch.html"><a href="corpus-ch.html"><i class="fa fa-check"></i><b>4</b> Korpuszépítés és szövegelőkészítés</a>
+<li class="chapter" data-level="4" data-path="corpus_ch.html"><a href="corpus_ch.html"><i class="fa fa-check"></i><b>4</b> Korpuszépítés és szövegelőkészítés</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="corpus-ch.html"><a href="corpus-ch.html#szövegbeszerzés"><i class="fa fa-check"></i><b>4.1</b> Szövegbeszerzés</a></li>
-<li class="chapter" data-level="4.2" data-path="corpus-ch.html"><a href="corpus-ch.html#szövegelőkészítés"><i class="fa fa-check"></i><b>4.2</b> Szövegelőkészítés</a>
+<li class="chapter" data-level="4.1" data-path="corpus_ch.html"><a href="corpus_ch.html#szövegbeszerzés"><i class="fa fa-check"></i><b>4.1</b> Szövegbeszerzés</a></li>
+<li class="chapter" data-level="4.2" data-path="corpus_ch.html"><a href="corpus_ch.html#szövegelőkészítés"><i class="fa fa-check"></i><b>4.2</b> Szövegelőkészítés</a>
 <ul>
-<li class="chapter" data-level="4.2.1" data-path="corpus-ch.html"><a href="corpus-ch.html#tokenizálás-szótövezés-kisbetűsítés-és-a-tiltólistás-szavak-eltávolítása"><i class="fa fa-check"></i><b>4.2.1</b> Tokenizálás, szótövezés, kisbetűsítés és a tiltólistás szavak eltávolítása</a></li>
-<li class="chapter" data-level="4.2.2" data-path="corpus-ch.html"><a href="corpus-ch.html#dokumentum-kifejezés-mátrix-dtm-dfm"><i class="fa fa-check"></i><b>4.2.2</b> Dokumentum kifejezés mátrix (dtm, dfm)</a></li>
-<li class="chapter" data-level="4.2.3" data-path="corpus-ch.html"><a href="corpus-ch.html#súlyozás"><i class="fa fa-check"></i><b>4.2.3</b> Súlyozás</a></li>
+<li class="chapter" data-level="4.2.1" data-path="corpus_ch.html"><a href="corpus_ch.html#tokenizálás-szótövezés-kisbetűsítés-és-a-tiltólistás-szavak-eltávolítása"><i class="fa fa-check"></i><b>4.2.1</b> Tokenizálás, szótövezés, kisbetűsítés és a tiltólistás szavak eltávolítása</a></li>
+<li class="chapter" data-level="4.2.2" data-path="corpus_ch.html"><a href="corpus_ch.html#dokumentum-kifejezés-mátrix-dtm-dfm"><i class="fa fa-check"></i><b>4.2.2</b> Dokumentum kifejezés mátrix (dtm, dfm)</a></li>
+<li class="chapter" data-level="4.2.3" data-path="corpus_ch.html"><a href="corpus_ch.html#súlyozás"><i class="fa fa-check"></i><b>4.2.3</b> Súlyozás</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="leiro-stat.html"><a href="leiro-stat.html"><i class="fa fa-check"></i><b>5</b> Leíró statisztika</a>
+<li class="chapter" data-level="5" data-path="leiro_stat.html"><a href="leiro_stat.html"><i class="fa fa-check"></i><b>5</b> Leíró statisztika</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="leiro-stat.html"><a href="leiro-stat.html#szövegek-a-vektortérben"><i class="fa fa-check"></i><b>5.1</b> Szövegek a vektortérben</a></li>
-<li class="chapter" data-level="5.2" data-path="leiro-stat.html"><a href="leiro-stat.html#leíró-statisztika"><i class="fa fa-check"></i><b>5.2</b> Leíró statisztika</a></li>
-<li class="chapter" data-level="5.3" data-path="leiro-stat.html"><a href="leiro-stat.html#a-szövegek-lexikai-diverzitása"><i class="fa fa-check"></i><b>5.3</b> A szövegek lexikai diverzitása</a></li>
-<li class="chapter" data-level="5.4" data-path="leiro-stat.html"><a href="leiro-stat.html#összehasonlításleiro-5"><i class="fa fa-check"></i><b>5.4</b> Összehasonlítás</a></li>
-<li class="chapter" data-level="5.5" data-path="leiro-stat.html"><a href="leiro-stat.html#a-kulcsszavak-kontextusa"><i class="fa fa-check"></i><b>5.5</b> A kulcsszavak kontextusa</a></li>
+<li class="chapter" data-level="5.1" data-path="leiro_stat.html"><a href="leiro_stat.html#szövegek-a-vektortérben"><i class="fa fa-check"></i><b>5.1</b> Szövegek a vektortérben</a></li>
+<li class="chapter" data-level="5.2" data-path="leiro_stat.html"><a href="leiro_stat.html#leíró-statisztika"><i class="fa fa-check"></i><b>5.2</b> Leíró statisztika</a></li>
+<li class="chapter" data-level="5.3" data-path="leiro_stat.html"><a href="leiro_stat.html#a-szövegek-lexikai-diverzitása"><i class="fa fa-check"></i><b>5.3</b> A szövegek lexikai diverzitása</a></li>
+<li class="chapter" data-level="5.4" data-path="leiro_stat.html"><a href="leiro_stat.html#összehasonlításleiro-5"><i class="fa fa-check"></i><b>5.4</b> Összehasonlítás</a></li>
+<li class="chapter" data-level="5.5" data-path="leiro_stat.html"><a href="leiro_stat.html#a-kulcsszavak-kontextusa"><i class="fa fa-check"></i><b>5.5</b> A kulcsszavak kontextusa</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="sentiment.html"><a href="sentiment.html"><i class="fa fa-check"></i><b>6</b> Szótárak és érzelemelemzés</a>
 <ul>
@@ -188,16 +221,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.3" data-path="sentiment.html"><a href="sentiment.html#a-magyar-nemzet-elemzése"><i class="fa fa-check"></i><b>6.3</b> A <em>Magyar Nemzet</em> elemzése</a></li>
 <li class="chapter" data-level="6.4" data-path="sentiment.html"><a href="sentiment.html#mnb-sajtóközlemények"><i class="fa fa-check"></i><b>6.4</b> MNB sajtóközlemények</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="lda-ch.html"><a href="lda-ch.html"><i class="fa fa-check"></i><b>7</b> Felügyelet nélküli tanulás - Topikmodellezés</a>
+<li class="chapter" data-level="7" data-path="lda_ch.html"><a href="lda_ch.html"><i class="fa fa-check"></i><b>7</b> Felügyelet nélküli tanulás - Topikmodellezés</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="lda-ch.html"><a href="lda-ch.html#fogalmi-alapok-2"><i class="fa fa-check"></i><b>7.1</b> Fogalmi alapok</a></li>
-<li class="chapter" data-level="7.2" data-path="lda-ch.html"><a href="lda-ch.html#k-közép-klaszterezés"><i class="fa fa-check"></i><b>7.2</b> K-közép klaszterezés</a></li>
-<li class="chapter" data-level="7.3" data-path="lda-ch.html"><a href="lda-ch.html#lda-topikmodelleklda1"><i class="fa fa-check"></i><b>7.3</b> LDA topikmodellek</a>
+<li class="chapter" data-level="7.1" data-path="lda_ch.html"><a href="lda_ch.html#fogalmi-alapok-2"><i class="fa fa-check"></i><b>7.1</b> Fogalmi alapok</a></li>
+<li class="chapter" data-level="7.2" data-path="lda_ch.html"><a href="lda_ch.html#k-közép-klaszterezés"><i class="fa fa-check"></i><b>7.2</b> K-közép klaszterezés</a></li>
+<li class="chapter" data-level="7.3" data-path="lda_ch.html"><a href="lda_ch.html#lda-topikmodelleklda1"><i class="fa fa-check"></i><b>7.3</b> LDA topikmodellek</a>
 <ul>
-<li class="chapter" data-level="7.3.1" data-path="lda-ch.html"><a href="lda-ch.html#a-vem-módszer-alkalmazása-a-magyar-törvények-korpuszán"><i class="fa fa-check"></i><b>7.3.1</b> A VEM módszer alkalmazása a magyar törvények korpuszán</a></li>
-<li class="chapter" data-level="7.3.2" data-path="lda-ch.html"><a href="lda-ch.html#az-lda-gibbs-módszer-alkalmazása-a-magyar-törvények-korpuszán"><i class="fa fa-check"></i><b>7.3.2</b> Az LDA Gibbs módszer alkalmazása a magyar törvények korpuszán</a></li>
+<li class="chapter" data-level="7.3.1" data-path="lda_ch.html"><a href="lda_ch.html#a-vem-módszer-alkalmazása-a-magyar-törvények-korpuszán"><i class="fa fa-check"></i><b>7.3.1</b> A VEM módszer alkalmazása a magyar törvények korpuszán</a></li>
+<li class="chapter" data-level="7.3.2" data-path="lda_ch.html"><a href="lda_ch.html#az-lda-gibbs-módszer-alkalmazása-a-magyar-törvények-korpuszán"><i class="fa fa-check"></i><b>7.3.2</b> Az LDA Gibbs módszer alkalmazása a magyar törvények korpuszán</a></li>
 </ul></li>
-<li class="chapter" data-level="7.4" data-path="lda-ch.html"><a href="lda-ch.html#strukturális-topikmodellek"><i class="fa fa-check"></i><b>7.4</b> Strukturális topikmodellek</a></li>
+<li class="chapter" data-level="7.4" data-path="lda_ch.html"><a href="lda_ch.html#strukturális-topikmodellek"><i class="fa fa-check"></i><b>7.4</b> Strukturális topikmodellek</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="embedding.html"><a href="embedding.html"><i class="fa fa-check"></i><b>8</b> Szóbeágyazások</a>
 <ul>
@@ -227,17 +260,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.7" data-path="similarity.html"><a href="similarity.html#a-koszinusz-hasonlóság-számítása"><i class="fa fa-check"></i><b>10.7</b> A koszinusz-hasonlóság számítása</a></li>
 <li class="chapter" data-level="10.8" data-path="similarity.html"><a href="similarity.html#az-eredmények-vizualizációja"><i class="fa fa-check"></i><b>10.8</b> Az eredmények vizualizációja</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="nlp-ch.html"><a href="nlp-ch.html"><i class="fa fa-check"></i><b>11</b> NLP és névelemfelismerés</a>
+<li class="chapter" data-level="11" data-path="nlp_ch.html"><a href="nlp_ch.html"><i class="fa fa-check"></i><b>11</b> NLP és névelemfelismerés</a>
 <ul>
-<li class="chapter" data-level="11.1" data-path="nlp-ch.html"><a href="nlp-ch.html#fogalmi-alapok-4"><i class="fa fa-check"></i><b>11.1</b> Fogalmi alapok</a></li>
-<li class="chapter" data-level="11.2" data-path="nlp-ch.html"><a href="nlp-ch.html#a-magyarlanc"><i class="fa fa-check"></i><b>11.2</b> A <code>magyarlanc</code></a></li>
-<li class="chapter" data-level="11.3" data-path="nlp-ch.html"><a href="nlp-ch.html#a-szeged-ner"><i class="fa fa-check"></i><b>11.3</b> A <code>szeged ner</code></a></li>
-<li class="chapter" data-level="11.4" data-path="nlp-ch.html"><a href="nlp-ch.html#angol-nyelvű-szövegek-névelemfelismerése"><i class="fa fa-check"></i><b>11.4</b> Angol nyelvű szövegek névelemfelismerése</a></li>
+<li class="chapter" data-level="11.1" data-path="nlp_ch.html"><a href="nlp_ch.html#fogalmi-alapok-4"><i class="fa fa-check"></i><b>11.1</b> Fogalmi alapok</a></li>
+<li class="chapter" data-level="11.2" data-path="nlp_ch.html"><a href="nlp_ch.html#a-magyarlanc"><i class="fa fa-check"></i><b>11.2</b> A <code>magyarlanc</code></a></li>
+<li class="chapter" data-level="11.3" data-path="nlp_ch.html"><a href="nlp_ch.html#a-szeged-ner"><i class="fa fa-check"></i><b>11.3</b> A <code>szeged ner</code></a></li>
+<li class="chapter" data-level="11.4" data-path="nlp_ch.html"><a href="nlp_ch.html#angol-nyelvű-szövegek-névelemfelismerése"><i class="fa fa-check"></i><b>11.4</b> Angol nyelvű szövegek névelemfelismerése</a></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="osztályozás-és-felügyelt-tanulás.html"><a href="osztályozás-és-felügyelt-tanulás.html"><i class="fa fa-check"></i><b>12</b> Osztályozás és felügyelt tanulás</a>
+<li class="chapter" data-level="12" data-path="felugyelt.html"><a href="felugyelt.html"><i class="fa fa-check"></i><b>12</b> Osztályozás és felügyelt tanulás</a>
 <ul>
-<li class="chapter" data-level="12.1" data-path="osztályozás-és-felügyelt-tanulás.html"><a href="osztályozás-és-felügyelt-tanulás.html#fogalmi-alapok-5"><i class="fa fa-check"></i><b>12.1</b> Fogalmi alapok</a></li>
-<li class="chapter" data-level="12.2" data-path="osztályozás-és-felügyelt-tanulás.html"><a href="osztályozás-és-felügyelt-tanulás.html#osztályozás-felügyelt-tanulással"><i class="fa fa-check"></i><b>12.2</b> Osztályozás felügyelt tanulással</a></li>
+<li class="chapter" data-level="12.1" data-path="felugyelt.html"><a href="felugyelt.html#fogalmi-alapok-5"><i class="fa fa-check"></i><b>12.1</b> Fogalmi alapok</a></li>
+<li class="chapter" data-level="12.2" data-path="felugyelt.html"><a href="felugyelt.html#osztályozás-felügyelt-tanulással"><i class="fa fa-check"></i><b>12.2</b> Osztályozás felügyelt tanulással</a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="felugyelt.html"><a href="felugyelt.html#naïve-bayes"><i class="fa fa-check"></i><b>12.2.1</b> Naïve Bayes</a></li>
+<li class="chapter" data-level="12.2.2" data-path="felugyelt.html"><a href="felugyelt.html#support-vector-machine"><i class="fa fa-check"></i><b>12.2.2</b> Support-vector machine</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="13" data-path="függelék.html"><a href="függelék.html"><i class="fa fa-check"></i><b>13</b> Függelék</a>
 <ul>
@@ -247,16 +284,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="13.1.2" data-path="függelék.html"><a href="függelék.html#projektmunka"><i class="fa fa-check"></i><b>13.1.2</b> A projektalapú munka</a></li>
 <li class="chapter" data-level="13.1.3" data-path="függelék.html"><a href="függelék.html#scriptek-szerkesztése-függvények-használata"><i class="fa fa-check"></i><b>13.1.3</b> Scriptek szerkesztése, függvények használata</a></li>
 <li class="chapter" data-level="13.1.4" data-path="függelék.html"><a href="függelék.html#packages"><i class="fa fa-check"></i><b>13.1.4</b> R csomagok</a></li>
-<li class="chapter" data-level="13.1.5" data-path="függelék.html"><a href="függelék.html#objektumok-tárolása-értékadás"><i class="fa fa-check"></i><b>13.1.5</b> Objektumok tárolása, értékadás</a></li>
-<li class="chapter" data-level="13.1.6" data-path="függelék.html"><a href="függelék.html#vektorok"><i class="fa fa-check"></i><b>13.1.6</b> Vektorok</a></li>
+<li class="chapter" data-level="13.1.5" data-path="függelék.html"><a href="függelék.html#objektumok-tárolása-értékadás-object"><i class="fa fa-check"></i><b>13.1.5</b> Objektumok tárolása, értékadás {object}</a></li>
+<li class="chapter" data-level="13.1.6" data-path="függelék.html"><a href="függelék.html#vektorok-vector"><i class="fa fa-check"></i><b>13.1.6</b> Vektorok {vector}</a></li>
 <li class="chapter" data-level="13.1.7" data-path="függelék.html"><a href="függelék.html#faktorok"><i class="fa fa-check"></i><b>13.1.7</b> Faktorok</a></li>
 <li class="chapter" data-level="13.1.8" data-path="függelék.html"><a href="függelék.html#data-frame"><i class="fa fa-check"></i><b>13.1.8</b> Data frame</a></li>
 </ul></li>
-<li class="chapter" data-level="13.2" data-path="függelék.html"><a href="függelék.html#vizualizáció"><i class="fa fa-check"></i><b>13.2</b> Vizualizáció</a></li>
+<li class="chapter" data-level="13.2" data-path="függelék.html"><a href="függelék.html#munka-saját-adatokkal"><i class="fa fa-check"></i><b>13.2</b> Munka saját adatokkal</a></li>
+<li class="chapter" data-level="13.3" data-path="függelék.html"><a href="függelék.html#vizualizáció"><i class="fa fa-check"></i><b>13.3</b> Vizualizáció</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="irodalomjegyzék.html"><a href="irodalomjegyzék.html"><i class="fa fa-check"></i>Irodalomjegyzék</a></li>
 <li class="divider"></li>
-<li>Sebők Miklós, Ring Orsolya, és Máté Ákos. 2021. Szövegbányászat és Mesterséges Intelligencia R-ben. Budapest: Typotex.</li>
+<li> Sebők Miklós, Ring Orsolya, és Máté Ákos. 2021. Szövegbányászat és Mesterséges Intelligencia R-ben. Budapest: Typotex. </li>
 </ul>
 
       </nav>
@@ -274,151 +312,153 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="irodalomjegyzék" class="section level1">
+<div id="irodalomjegyzék" class="section level1 unnumbered">
 <h1>Irodalomjegyzék</h1>
 
-<div id="refs" class="references hanging-indent">
-<div id="ref-arun2010finding">
-<p>Arun, Rajkumar, Venkatasubramaniyan Suresh, CE Veni Madhavan, and MN Narasimha Murthy. 2010. “On Finding the Natural Number of Topics with Latent Dirichlet Allocation: Some Observations.” In <em>Pacific-Asia Conference on Knowledge Discovery and Data Mining</em>, 391–402.</p>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-arun2010finding" class="csl-entry">
+Arun, Rajkumar, Venkatasubramaniyan Suresh, CE Veni Madhavan, and MN Narasimha Murthy. 2010. <span>“On Finding the Natural Number of Topics with Latent Dirichlet Allocation: <span>Some</span> Observations.”</span> In <em>Pacific-<span>Asia</span> Conference on Knowledge Discovery and Data Mining</em>, 391–402.
 </div>
-<div id="ref-baccianellaSentiwordnetEnhancedLexical2010">
-<p>Baccianella, Stefano, Andrea Esuli, and Fabrizio Sebastiani. 2010. “Sentiwordnet 3.0: An Enhanced Lexical Resource for Sentiment Analysis and Opinion Mining.” In <em>Lrec</em>, 2200–2204.</p>
+<div id="ref-baccianellaSentiwordnetEnhancedLexical2010" class="csl-entry">
+Baccianella, Stefano, Andrea Esuli, and Fabrizio Sebastiani. 2010. <span>“Sentiwordnet 3.0: An Enhanced Lexical Resource for Sentiment Analysis and Opinion Mining.”</span> In <em>Lrec</em>, 2200–2204.
 </div>
-<div id="ref-barReflectiveViewText2011">
-<p>Bar, Daniel, Torsten Zesch, and Iryna Gurevych. 2011. “A Reflective View on Text Similarity.” <em>Proceedings of Recent Advances in Natural Language Processing</em>: 515–20.</p>
+<div id="ref-barReflectiveViewText2011" class="csl-entry">
+Bar, Daniel, Torsten Zesch, and Iryna Gurevych. 2011. <span>“A <span>Reflective</span> <span>View</span> on <span>Text</span> <span>Similarity</span>.”</span> <em>Proceedings of Recent Advances in Natural Language Processing</em>: 515–20.
 </div>
-<div id="ref-bleiLatentDirichletAllocation2003">
-<p>Blei, David M, Andrew Y Ng, and Michael I Jordan. 2003. “Latent Dirichlet Allocation.” <em>Journal of machine Learning research</em> 3(Jan): 993–1022.</p>
+<div id="ref-benoit2018" class="csl-entry">
+Benoit, Kenneth et al. 2018. <span>“Quanteda: An r Package for the Quantitative Analysis of Textual Data.”</span> <em>Journal of Open Source Software</em> 3(30): 774. <a href="https://quanteda.io">https://quanteda.io</a>.
 </div>
-<div id="ref-bradyChallengeBigData2019">
-<p>Brady, Henry E. 2019. “The Challenge of Big Data and Data Science.” <em>Annual Review of Political Science</em> 22(1): 297–323. <a href="https://www.annualreviews.org/doi/10.1146/annurev-polisci-090216-023229">https://www.annualreviews.org/doi/10.1146/annurev-polisci-090216-023229</a> (April 15, 2021).</p>
+<div id="ref-bleiLatentDirichletAllocation2003" class="csl-entry">
+Blei, David M, Andrew Y Ng, and Michael I Jordan. 2003. <span>“Latent Dirichlet Allocation.”</span> <em>Journal of machine Learning research</em> 3(Jan): 993–1022.
 </div>
-<div id="ref-burtejinCsoportositasKlaszterezes2016">
-<p>Burtejin, Zorgit. 2016. “Csoportosítás (Klaszterezés).” In <em>Kvantitatív Szövegelemzés és Szövegbányászat a Politikatudományban</em>, ed. Miklós Sebők. Budapest: L’Harmattan, 85–101.</p>
+<div id="ref-bradyChallengeBigData2019" class="csl-entry">
+Brady, Henry E. 2019. <span>“The <span>Challenge</span> of <span>Big</span> <span>Data</span> and <span>Data</span> <span>Science</span>.”</span> <em>Annual Review of Political Science</em> 22(1): 297–323. <a href="https://www.annualreviews.org/doi/10.1146/annurev-polisci-090216-023229">https://www.annualreviews.org/doi/10.1146/annurev-polisci-090216-023229</a> (April 15, 2021).
 </div>
-<div id="ref-cao2009density">
-<p>Cao, Juan et al. 2009. “A Density-Based Method for Adaptive LDA Model Selection.” <em>Neurocomputing</em> 72(7-9): 1775–81.</p>
+<div id="ref-burtejinCsoportositasKlaszterezes2016" class="csl-entry">
+Burtejin, Zorgit. 2016. <span>“Csoportosítás (<span>Klaszterezés</span>).”</span> In <em>Kvantitatív Szövegelemzés És Szövegbányászat a Politikatudományban</em>, ed. Miklós Sebők. Budapest: L’Harmattan, 85–101.
 </div>
-<div id="ref-deveaud2014accurate">
-<p>Deveaud, Romain, Eric SanJuan, and Patrice Bellot. 2014. “Accurate and Effective Latent Concept Modeling for Ad Hoc Information Retrieval.” <em>Document numérique</em> 17(1): 61–84.</p>
+<div id="ref-cao2009density" class="csl-entry">
+Cao, Juan et al. 2009. <span>“A Density-Based Method for Adaptive <span>LDA</span> Model Selection.”</span> <em>Neurocomputing</em> 72(7-9): 1775–81.
 </div>
-<div id="ref-griffithsFindingScientificTopics2004">
-<p>Griffiths, T. L., and M. Steyvers. 2004. “Finding Scientific Topics.” <em>Proceedings of the National Academy of Sciences</em> 101(Supplement 1): 5228–35. <a href="http://www.pnas.org/cgi/doi/10.1073/pnas.0307752101">http://www.pnas.org/cgi/doi/10.1073/pnas.0307752101</a> (February 23, 2021).</p>
+<div id="ref-deveaud2014accurate" class="csl-entry">
+Deveaud, Romain, Eric SanJuan, and Patrice Bellot. 2014. <span>“Accurate and Effective Latent Concept Modeling for Ad Hoc Information Retrieval.”</span> <em>Document numérique</em> 17(1): 61–84.
 </div>
-<div id="ref-grimmer2013text">
-<p>Grimmer, Justin, and Brandon M Stewart. 2013. “Text as Data: The Promise and Pitfalls of Automatic Content Analysis Methods for Political Texts.” <em>Political analysis</em> 21(3): 267–97.</p>
+<div id="ref-griffithsFindingScientificTopics2004" class="csl-entry">
+Griffiths, T. L., and M. Steyvers. 2004. <span>“Finding Scientific Topics.”</span> <em>Proceedings of the National Academy of Sciences</em> 101(Supplement 1): 5228–35. <a href="http://www.pnas.org/cgi/doi/10.1073/pnas.0307752101">http://www.pnas.org/cgi/doi/10.1073/pnas.0307752101</a> (February 23, 2021).
 </div>
-<div id="ref-hjorthComputersCodersVoters2015">
-<p>Hjorth, Frederik et al. 2015. “Computers, Coders, and Voters: Comparing Automated Methods for Estimating Party Positions.” <em>Research &amp; Politics</em> 2(2): 2053168015580476.</p>
+<div id="ref-grimmer2013text" class="csl-entry">
+Grimmer, Justin, and Brandon M Stewart. 2013. <span>“Text as Data: <span>The</span> Promise and Pitfalls of Automatic Content Analysis Methods for Political Texts.”</span> <em>Political analysis</em> 21(3): 267–97.
 </div>
-<div id="ref-jacobiQuantitativeAnalysisLarge2016">
-<p>Jacobi, Carina, Wouter Van Atteveldt, and Kasper Welbers. 2016. “Quantitative Analysis of Large Amounts of Journalistic Texts Using Topic Modelling.” <em>Digital Journalism</em> 4(1): 89–106.</p>
+<div id="ref-hjorthComputersCodersVoters2015" class="csl-entry">
+Hjorth, Frederik et al. 2015. <span>“Computers, Coders, and Voters: <span>Comparing</span> Automated Methods for Estimating Party Positions.”</span> <em>Research &amp; Politics</em> 2(2): 2053168015580476.
 </div>
-<div id="ref-kusnerWordEmbeddingsDocument2015">
-<p>Kusner, Matt J, Yu Sun, Nicholas I Kolkin, and Kilian Q Weinberger. 2015. “From Word Embeddings to Document Distances.” <em>Proceedings of the 32nd International Conference on Machine Learning</em>.</p>
+<div id="ref-jacobiQuantitativeAnalysisLarge2016" class="csl-entry">
+Jacobi, Carina, Wouter Van Atteveldt, and Kasper Welbers. 2016. <span>“Quantitative Analysis of Large Amounts of Journalistic Texts Using Topic Modelling.”</span> <em>Digital Journalism</em> 4(1): 89–106.
 </div>
-<div id="ref-kwartlerTextMiningPractice2017">
-<p>Kwartler, Ted. 2017. <em>Text Mining in Practice with R</em>. John Wiley &amp; Sons.</p>
+<div id="ref-kusnerWordEmbeddingsDocument2015" class="csl-entry">
+Kusner, Matt J, Yu Sun, Nicholas I Kolkin, and Kilian Q Weinberger. 2015. <span>“From <span>Word</span> <span>Embeddings</span> <span>To</span> <span>Document</span> <span>Distances</span>.”</span> <em>Proceedings of the 32nd International Conference on Machine Learning</em>.
 </div>
-<div id="ref-laddUnderstandingUsingCommon2020">
-<p>Ladd, John R. 2020. “Understanding and Using Common Similarity Measures for Text Analysis.” <em>The Programming Historian</em> 9. <a href="https://doi.org/10.46430/phen0089">https://doi.org/10.46430/phen0089</a>.</p>
+<div id="ref-kwartlerTextMiningPractice2017" class="csl-entry">
+Kwartler, Ted. 2017. <em>Text Mining in Practice with <span>R</span></em>. John Wiley &amp; Sons.
 </div>
-<div id="ref-laver2003extracting">
-<p>Laver, Michael, Kenneth Benoit, and John Garry. 2003. “Extracting Policy Positions from Political Texts Using Words as Data.” <em>American political science review</em>: 311–31.</p>
+<div id="ref-laddUnderstandingUsingCommon2020" class="csl-entry">
+Ladd, John R. 2020. <span>“Understanding and <span>Using</span> <span>Common</span> <span>Similarity</span> <span>Measures</span> for <span>Text</span> <span>Analysis</span>.”</span> <em>The Programming Historian</em> 9. <a href="https://doi.org/10.46430/phen0089">https://doi.org/10.46430/phen0089</a>.
 </div>
-<div id="ref-laver2000estimating">
-<p>Laver, Michael, and John Garry. 2000. “Estimating Policy Positions from Political Texts.” <em>American Journal of Political Science</em>: 619–34.</p>
+<div id="ref-laver2003extracting" class="csl-entry">
+Laver, Michael, Kenneth Benoit, and John Garry. 2003. <span>“Extracting Policy Positions from Political Texts Using Words as Data.”</span> <em>American political science review</em>: 311–31.
 </div>
-<div id="ref-liuSentimentAnalysisSubjectivity2010">
-<p>Liu, Bing. 2010. “Sentiment Analysis and Subjectivity.” <em>Handbook of natural language processing</em> 2(2010): 627–66.</p>
+<div id="ref-laver2000estimating" class="csl-entry">
+Laver, Michael, and John Garry. 2000. <span>“Estimating Policy Positions from Political Texts.”</span> <em>American Journal of Political Science</em>: 619–34.
 </div>
-<div id="ref-loughranWhenLiabilityNot2011">
-<p>Loughran, Tim, and Bill McDonald. 2011. “When Is a Liability Not a Liability? Textual Analysis, Dictionaries, and 10-Ks.” <em>The Journal of Finance</em> 66(1): 35–65.</p>
+<div id="ref-liuSentimentAnalysisSubjectivity2010" class="csl-entry">
+Liu, Bing. 2010. <span>“Sentiment Analysis and Subjectivity.”</span> <em>Handbook of natural language processing</em> 2(2010): 627–66.
 </div>
-<div id="ref-mateEffectCentralBank2021">
-<p>Máté, Ákos, Miklós Sebők, and Tamás Barczikay. 2021. “The Effect of Central Bank Communication on Sovereign Bond Yields: The Case of Hungary” ed. Hiranya K. Nath. <em>PLOS ONE</em> 16(2): e0245515. <a href="https://dx.plos.org/10.1371/journal.pone.0245515">https://dx.plos.org/10.1371/journal.pone.0245515</a> (February 15, 2021).</p>
+<div id="ref-loughranWhenLiabilityNot2011" class="csl-entry">
+Loughran, Tim, and Bill McDonald. 2011. <span>“When Is a Liability Not a Liability? <span>Textual</span> Analysis, Dictionaries, and 10-<span>Ks</span>.”</span> <em>The Journal of Finance</em> 66(1): 35–65.
 </div>
-<div id="ref-mikolov2013efficient">
-<p>Mikolov, Tomas, Kai Chen, Greg Corrado, and Jeffrey Dean. 2013. “Efficient Estimation of Word Representations in Vector Space.” <em>arXiv preprint arXiv:1301.3781</em>.</p>
+<div id="ref-mateEffectCentralBank2021" class="csl-entry">
+Máté, Ákos, Miklós Sebők, and Tamás Barczikay. 2021. <span>“The Effect of Central Bank Communication on Sovereign Bond Yields: <span>The</span> Case of <span>Hungary</span>”</span> ed. Hiranya K. Nath. <em>PLOS ONE</em> 16(2): e0245515. <a href="https://dx.plos.org/10.1371/journal.pone.0245515">https://dx.plos.org/10.1371/journal.pone.0245515</a> (February 15, 2021).
 </div>
-<div id="ref-mikolov2018advances">
-<p>Mikolov, Tomas et al. 2018. “Advances in Pre-Training Distributed Word Representations.” In <em>Proceedings of the International Conference on Language Resources and Evaluation (LREC 2018)</em>,</p>
+<div id="ref-mikolov2018advances" class="csl-entry">
+Mikolov, Tomas et al. 2018. <span>“Advances in Pre-Training Distributed Word Representations.”</span> In <em>Proceedings of the International Conference on Language Resources and Evaluation (<span>LREC</span> 2018)</em>,.
 </div>
-<div id="ref-niwattanakulUsingJaccardCoefficient2013">
-<p>Niwattanakul, Suphakit, Jatsada Singthongchai, Ekkachai Naenudorn, and Supachanun Wanapu. 2013. “Using of Jaccard Coefficient for Keywords Similarity.” <em>Hong Kong</em>: 5.</p>
+<div id="ref-mikolov2013efficient" class="csl-entry">
+Mikolov, Tomas, Kai Chen, Greg Corrado, and Jeffrey Dean. 2013. <span>“Efficient Estimation of Word Representations in Vector Space.”</span> <em>arXiv preprint arXiv:1301.3781</em>.
 </div>
-<div id="ref-pennington2014glove">
-<p>Pennington, Jeffrey, Richard Socher, and Christopher D Manning. 2014. “Glove: Global Vectors for Word Representation.” In <em>Proceedings of the 2014 Conference on Empirical Methods in Natural Language Processing (EMNLP)</em>, 1532–43.</p>
+<div id="ref-niwattanakulUsingJaccardCoefficient2013" class="csl-entry">
+Niwattanakul, Suphakit, Jatsada Singthongchai, Ekkachai Naenudorn, and Supachanun Wanapu. 2013. <span>“Using of <span>Jaccard</span> <span>Coefficient</span> for <span>Keywords</span> <span>Similarity</span>.”</span> <em>Hong Kong</em>: 5.
 </div>
-<div id="ref-phanLearningClassifyShort2008">
-<p>Phan, Xuan-Hieu, Le-Minh Nguyen, and Susumu Horiguchi. 2008. “Learning to Classify Short and Sparse Text &amp; Web with Hidden Topics from Large-Scale Data Collections.” In, 91–100.</p>
+<div id="ref-pennington2014glove" class="csl-entry">
+Pennington, Jeffrey, Richard Socher, and Christopher D Manning. 2014. <span>“Glove: <span>Global</span> Vectors for Word Representation.”</span> In <em>Proceedings of the 2014 Conference on Empirical Methods in Natural Language Processing (<span>EMNLP</span>)</em>, 1532–43.
 </div>
-<div id="ref-roberts2014structural">
-<p>Roberts, Margaret E et al. 2014. “Structural Topic Models for Open-Ended Survey Responses.” <em>American Journal of Political Science</em> 58(4): 1064–82.</p>
+<div id="ref-phanLearningClassifyShort2008" class="csl-entry">
+Phan, Xuan-Hieu, Le-Minh Nguyen, and Susumu Horiguchi. 2008. <span>“Learning to Classify Short and Sparse Text &amp; Web with Hidden Topics from Large-Scale Data Collections.”</span> In, 91–100.
 </div>
-<div id="ref-russelMestersegesIntelligencia2005">
-<p>Russel, Stuart, and Peter Norvig. 2005. <em>Mesterséges Intelligencia</em>. Panem Kft.</p>
+<div id="ref-roberts2014structural" class="csl-entry">
+Roberts, Margaret E et al. 2014. <span>“Structural Topic Models for Open-Ended Survey Responses.”</span> <em>American Journal of Political Science</em> 58(4): 1064–82.
 </div>
-<div id="ref-schutzeIntroductionInformationRetrieval2008">
-<p>Schütze, Hinrich, Christopher D Manning, and Prabhakar Raghavan. 2008. 39 <em>Introduction to Information Retrieval</em>. Cambridge University Press Cambridge.</p>
+<div id="ref-russelMestersegesIntelligencia2005" class="csl-entry">
+Russel, Stuart, and Peter Norvig. 2005. <em>Mesterséges <span>Intelligencia</span></em>. Panem Kft.
 </div>
-<div id="ref-sebokKvantitativSzovegelemzesEs2016">
-<p>Sebők, Miklós. 2016. <em>Kvantitatív Szövegelemzés és Szövegbányászat a Politikatudományban</em>. L’Harmattan Kiadó.</p>
+<div id="ref-schutzeIntroductionInformationRetrieval2008" class="csl-entry">
+Schütze, Hinrich, Christopher D Manning, and Prabhakar Raghavan. 2008. 39 <em>Introduction to Information Retrieval</em>. Cambridge University Press Cambridge.
 </div>
-<div id="ref-sebokMulticlassClassificationNewspaper2021">
-<p>Sebők, Miklós, and Zoltán Kacsuk. 2021. “The Multiclass Classification of Newspaper Articles with Machine Learning: The Hybrid Binary Snowball Approach.” <em>Political Analysis</em> 29(2): 236–49. <a href="https://www.cambridge.org/core/product/identifier/S1047198720000273/type/journal_article">https://www.cambridge.org/core/product/identifier/S1047198720000273/type/journal_article</a> (April 19, 2021).</p>
+<div id="ref-sebokKvantitativSzovegelemzesEs2016" class="csl-entry">
+Sebők, Miklós. 2016. <em>Kvantitatív Szövegelemzés És Szövegbányászat a Politikatudományban</em>. L’Harmattan Kiadó.
 </div>
-<div id="ref-sebokViscosityRevisitedPower2021">
-<p>Sebők, Miklós et al. 2021. “Viscosity Revisited: The Power of Legislatures in New and Old Democracies - A Comparative Text Reuse Analysis.”</p>
+<div id="ref-sebokViscosityRevisitedPower2021" class="csl-entry">
+Sebők, Miklós et al. 2021. <span>“Viscosity <span>Revisited</span>: <span>The</span> <span>Power</span> of <span>Legislatures</span> in <span>New</span> and <span>Old</span> <span>Democracies</span> - <span>A</span> <span>Comparative</span> <span>Text</span> <span>Reuse</span> <span>Analysis</span>.”</span>
 </div>
-<div id="ref-siegTextSimilaritiesEstimate2018">
-<p>Sieg, Adrien. 2018. “Text Similarities : Estimate the Degree of Similarity Between Two Texts.” <em>Medium</em>. <a href="https://medium.com/@adriensieg/text-similarities-da019229c894">https://medium.com/@adriensieg/text-similarities-da019229c894</a>.</p>
+<div id="ref-text2vecpackage" class="csl-entry">
+Selivanov, Dmitriy, Manuel Bickel, and Qing Wang. 2020. <em>Text2vec: Modern Text Mining Framework for r</em>. <a href="https://CRAN.R-project.org/package=text2vec">https://CRAN.R-project.org/package=text2vec</a>.
 </div>
-<div id="ref-silge2017text">
-<p>Silge, Julia, and David Robinson. 2017. <em>Text Mining with R: A Tidy Approach</em>. " O’Reilly Media, Inc.".</p>
+<div id="ref-siegTextSimilaritiesEstimate2018" class="csl-entry">
+Sieg, Adrien. 2018. <span>“Text <span>Similarities</span> : <span>Estimate</span> the Degree of Similarity Between Two Texts.”</span> <em>Medium</em>. <a href="https://medium.com/@adriensieg/text-similarities-da019229c894">https://medium.com/@adriensieg/text-similarities-da019229c894</a>.
 </div>
-<div id="ref-slapinScalingModelEstimating2008">
-<p>Slapin, Jonathan B, and Sven‐Oliver Proksch. 2008. “A Scaling Model for Estimating Time‐series Party Positions from Texts.” <em>American Journal of Political Science</em> 52(3): 705–22.</p>
+<div id="ref-silge2017text" class="csl-entry">
+Silge, Julia, and David Robinson. 2017. <em>Text Mining with <span>R</span>: <span>A</span> Tidy Approach</em>. " O’Reilly Media, Inc.".
 </div>
-<div id="ref-spirlingword">
-<p>Spirling, Arthur, and Pedro L Rodriguez. 2021. “Word Embeddings.” <em>Journal of Politics</em>. <a href="https://polmeth.mit.edu/sites/default/files/documents/Pedro_Rodriguez.pdf">https://polmeth.mit.edu/sites/default/files/documents/Pedro_Rodriguez.pdf</a>.</p>
+<div id="ref-slapinScalingModelEstimating2008" class="csl-entry">
+Slapin, Jonathan B, and Sven‐Oliver Proksch. 2008. <span>“A Scaling Model for Estimating Time‐series Party Positions from Texts.”</span> <em>American Journal of Political Science</em> 52(3): 705–22.
 </div>
-<div id="ref-strakaTokenizingPosTagging2017">
-<p>Straka, Milan, and Jana Straková. 2017. “Tokenizing, Pos Tagging, Lemmatizing and Parsing Ud 2.0 with Udpipe.” In <em>Proceedings of the CoNLL 2017 Shared Task: Multilingual Parsing from Raw Text to Universal Dependencies</em>, 88–99.</p>
+<div id="ref-spirlingword" class="csl-entry">
+Spirling, Arthur, and Pedro L Rodriguez. 2021. <span>“Word Embeddings.”</span> <em>Journal of Politics</em>. <a href="https://polmeth.mit.edu/sites/default/files/documents/Pedro_Rodriguez.pdf">https://polmeth.mit.edu/sites/default/files/documents/Pedro_Rodriguez.pdf</a>.
 </div>
-<div id="ref-szarvasMultilingualNamedEntity2006">
-<p>Szarvas, György, Richárd Farkas, and András Kocsor. 2006. “A Multilingual Named Entity Recognition System Using Boosting and C4. 5 Decision Tree Learning Algorithms.” In <em>International Conference on Discovery Science</em>, Springer, 267–78.</p>
+<div id="ref-strakaTokenizingPosTagging2017" class="csl-entry">
+Straka, Milan, and Jana Straková. 2017. <span>“Tokenizing, Pos Tagging, Lemmatizing and Parsing Ud 2.0 with Udpipe.”</span> In <em>Proceedings of the <span>CoNLL</span> 2017 <span>Shared</span> <span>Task</span>: <span>Multilingual</span> <span>Parsing</span> from <span>Raw</span> <span>Text</span> to <span>Universal</span> <span>Dependencies</span></em>, 88–99.
 </div>
-<div id="ref-tanBevezetesAzAdatbanyaszatba2011">
-<p>Tan, Pang-Ning, Michael Steinbach, and Vipin Kumar. 2011. <em>Bevezetés Az Adatbányászatba</em>. Panem Kft.</p>
+<div id="ref-szarvasMultilingualNamedEntity2006" class="csl-entry">
+Szarvas, György, Richárd Farkas, and András Kocsor. 2006. <span>“A Multilingual Named Entity Recognition System Using Boosting and C4. 5 Decision Tree Learning Algorithms.”</span> In <em>International <span>Conference</span> on <span>Discovery</span> <span>Science</span></em>, Springer, 267–78.
 </div>
-<div id="ref-tikkSzovegbanyaszat2007">
-<p>Tikk, Domonkos. 2007. <em>Szövegbányászat</em>. Budapest: Typotext.</p>
+<div id="ref-tanBevezetesAzAdatbanyaszatba2011" class="csl-entry">
+Tan, Pang-Ning, Michael Steinbach, and Vipin Kumar. 2011. <em>Bevezetés Az Adatbányászatba</em>. Panem Kft.
 </div>
-<div id="ref-uvegesNamedEntityRecognition2019">
-<p>Üveges, István. 2019. “Named Entity Recognition in the Miskolc Legal Corpus.”</p>
+<div id="ref-tikkSzovegbanyaszat2007" class="csl-entry">
+Tikk, Domonkos. 2007. <em>Szövegbányászat</em>. Budapest: Typotext.
 </div>
-<div id="ref-vinczeBeszedEsNyelvelemzo2019">
-<p>Vincze, Veronika. 2019. “Beszéd és Nyelvelemző Szoftverek.” In <em>Beszéd és Nyelvelemző Szoftverek a Versenyképességért és Az Esélyegyenlőségért HunCLARIN Korpuszok és Nyelvtechnológiai Eszközök a Bölcsészet és Társadalomtudományokban</em>, Szeged, 7–22.</p>
+<div id="ref-uvegesNamedEntityRecognition2019" class="csl-entry">
+Üveges, István. 2019. <span>“Named <span>Entity</span> <span>Recognition</span> in the <span>Miskolc</span> <span>Legal</span> <span>Corpus</span>.”</span>
 </div>
-<div id="ref-wangMeasurementTextSimilarity2020">
-<p>Wang, Jiapeng, and Yihong Dong. 2020. “Measurement of Text Similarity: A Survey.” <em>Information</em> 11(9): 421. <a href="https://www.mdpi.com/2078-2489/11/9/421">https://www.mdpi.com/2078-2489/11/9/421</a> (March 20, 2021).</p>
+<div id="ref-vinczeBeszedEsNyelvelemzo2019" class="csl-entry">
+Vincze, Veronika. 2019. <span>“Beszéd És Nyelvelemző Szoftverek.”</span> In <em>Beszéd És Nyelvelemző Szoftverek a Versenyképességért És Az Esélyegyenlőségért <span>HunCLARIN</span> Korpuszok És Nyelvtechnológiai Eszközök a Bölcsészet És Társadalomtudományokban</em>, Szeged, 7–22.
 </div>
-<div id="ref-welbersTextAnalysis2017">
-<p>Welbers, Kasper, Wouter Van Atteveldt, and Kenneth Benoit. 2017. “Text Analysis in R.” <em>Communication Methods and Measures</em> 11(4): 245–65.</p>
+<div id="ref-wangMeasurementTextSimilarity2020" class="csl-entry">
+Wang, Jiapeng, and Yihong Dong. 2020. <span>“Measurement of <span>Text</span> <span>Similarity</span>: <span>A</span> <span>Survey</span>.”</span> <em>Information</em> 11(9): 421. <a href="https://www.mdpi.com/2078-2489/11/9/421">https://www.mdpi.com/2078-2489/11/9/421</a> (March 20, 2021).
 </div>
-<div id="ref-wickham2016r">
-<p>Wickham, Hadley, and Garrett Grolemund. 2016. <em>R for Data Science: Import, Tidy, Transform, Visualize, and Model Data</em>. " O’Reilly Media, Inc.".</p>
+<div id="ref-welbersTextAnalysis2017" class="csl-entry">
+Welbers, Kasper, Wouter Van Atteveldt, and Kenneth Benoit. 2017. <span>“Text Analysis in <span>R</span>.”</span> <em>Communication Methods and Measures</em> 11(4): 245–65.
 </div>
-<div id="ref-young2012affective">
-<p>Young, Lori, and Stuart Soroka. 2012. “Affective News: The Automated Coding of Sentiment in Political Texts.” <em>Political Communication</em> 29(2): 205–31.</p>
+<div id="ref-wickham2016r" class="csl-entry">
+Wickham, Hadley, and Garrett Grolemund. 2016. <em>R for Data Science: Import, Tidy, Transform, Visualize, and Model Data</em>. " O’Reilly Media, Inc.".
 </div>
-<div id="ref-zsibritaMagyarlancToolMorphological2013">
-<p>Zsibrita, János, Veronika Vincze, and Richárd Farkas. 2013. “Magyarlanc: A Tool for Morphological and Dependency Parsing of Hungarian.” In <em>Proceedings of the International Conference Recent Advances in Natural Language Processing RANLP 2013</em>, 763–71.</p>
+<div id="ref-young2012affective" class="csl-entry">
+Young, Lori, and Stuart Soroka. 2012. <span>“Affective News: <span>The</span> Automated Coding of Sentiment in Political Texts.”</span> <em>Political Communication</em> 29(2): 205–31.
+</div>
+<div id="ref-zsibritaMagyarlancToolMorphological2013" class="csl-entry">
+Zsibrita, János, Veronika Vincze, and Richárd Farkas. 2013. <span>“Magyarlanc: <span>A</span> Tool for Morphological and Dependency Parsing of Hungarian.”</span> In <em>Proceedings of the <span>International</span> <span>Conference</span> <span>Recent</span> <span>Advances</span> in <span>Natural</span> <span>Language</span> <span>Processing</span> <span>RANLP</span> 2013</em>, 763–71.
 </div>
 </div>
 </div>
-
 
 
 
@@ -498,7 +538,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -538,6 +577,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "section"
 }

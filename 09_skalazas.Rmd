@@ -21,12 +21,13 @@ library(ggplot2)
 library(ggrepel)
 library(quanteda)
 library(quanteda.textmodels)
+library(plotly)
 library(HunMineR)
 ```
 
 A skálázási algoritmusokat egy kis korpuszon mutatjuk be. A minta dokumentumok a 2014–2018-as parlamenti ciklusban az Országgyűlésben frakcióvezető politikusok egy-egy véletlenszerűen kiválasztott napirend előtti felszólalásai. Ebben a ciklusban összesen 11 frakcióvezetője volt a két kormánypárti és öt ellenzéki frakciónak. [^skala-1] A dokumentumokon először elvégeztük a szokásos előkészítési lépéseket. 
 
-[^skala-1]: a mintába nem került be Rogán Antal, akinek csak egy darab napirend előtti felszólalása volt.
+[^skala-1]: A mintába nem került be Rogán Antal, akinek csak egy darab napirend előtti felszólalása volt.
 
 ```{r}
 parl_beszedek <- HunMineR::data_parlspeakers_small
@@ -42,7 +43,14 @@ beszedek_tiszta <- parl_beszedek %>%
   )
 ```
 
-A wordfish és wordscores algoritmus is ugyanazt a kiinduló corpus és dfm objektumot használja, amit a szokásos módon a `quanteda` csomag `corpus()` függvényével hozunk létre. 
+A glimpse funkció segítségével ismét megtekinthetjük, mint az eredeti szöveget és a tisztított is, ezzel nem csak azt tudjuk ellenőrizni, hogy a tisztítás sikeres volt-e, hanem a metaadatokat is megnézhetjük, amelyek jelenesetben a felszólalás azonosító száma a felszólaló neve, valamint a pártja.
+
+```{r}
+glimpse(parl_beszedek)
+glimpse(beszedek_tiszta)
+```
+
+A wordfish és wordscores algoritmus is ugyanazt a kiinduló korpuszt és dfm objektumot használja, amit a szokásos módon a `quanteda` csomag `corpus()` függvényével hozunk létre. 
 
 ```{r}
 beszedek_corpus <- corpus(beszedek_tiszta)
@@ -113,6 +121,8 @@ ggplot(szavak_wf, aes(x = beta, y = psi)) +
     )  
 ```
 
+Az így kapott ábrán az egyes pontok mind egy szót reprezentálnak, láthatjuk, hogy tipikusan minél magasabb a $\psi$ értékük annál inkább középen helyezkednek el hiszen a leggyakoribb szavak azok, amelyeket mindenki használ politikai spektrumon való elhelyezkedésüktől függetlenül. Az ábra két szélén lévő szavak azok, amelyek specifikusan a skála egy-egy végpontjához kötődnek. Jelen esetben ezek kevésbé beszédések, mivel a korpusz kifejezetten kis méretű és láthatóan további stopszavazás is szükséges.
+
 A dokumentumok szintjén is érdemes megvizsgálni az eredményeket. Ehhez a dokumentum szintű paramétereket fogjuk egy data frame-be gyűjteni: a $\theta$ ideológiai pozíciót, illetve a beszélő nevét. A vizualizáció kedvéért a párttagságot is hozzáadjuk. A data frame összerakása után az alsó és a felső határát is kiszámoljuk a konfidencia intervallumnak és azt is ábrázoljuk (ld. \@ref(fig:eiffel). ábra).
 
 ```{r pozicio, fig.cap="A beszédek egymáshoz viszonyított pozíciója"}
@@ -138,22 +148,24 @@ ggplot(dokumentumok_wf, aes(theta, reorder(speaker, theta))) +
 
 A párt metaadattal összehasonlíthatjuk az egy párthoz tartozó frakcióvezetők értékeit a `facet_wrap()` használatával. Figyeljünk arra, hogy az `y` tengelyen szabadon változhasson az egyes rész ábrák között, a `scales = "free"` opcióval  (ld. \@ref(fig:pozicio). ábra).
 
-```{r partbanpoz, fig.cap="Párton belüli pozíciók"}
-ggplot(dokumentumok_wf, aes(theta, reorder(speaker, theta))) +
+```{r partbanpoz, eval = TRUE,  fig.height = 2, fig.cap="Párton belüli pozíciók"}
+speech_df <- ggplot(dokumentumok_wf, aes(theta, reorder(speaker, theta))) +
   geom_point() +
   geom_errorbarh(aes(xmin = lower, xmax = upper), height = 0) +
   labs(
     y = NULL,
-    x = expression(theta)
+    x = "wordscores"
   ) +
-  facet_wrap(~part, ncol = 1, scales = "free_y")
+  facet_wrap(~part, ncol = 1, scales = "free_y") 
+
+ggplotly(speech_df, height = 1000, tooltip = "theta")
 ```
 
 ## Wordscores
 
 A modell illesztést a wordfish-hez hasonlóan a `quanteda.textmodels` csomagban található `textmodel_wordscores()` függvény végzi. A kiinduló dfm ugyanaz, mint amit a fejezet elején elkészítettünk, a `beszedek_dfm`.
 
-A referencia pontokat dokumentumváltozóként hozzáadjuk a dfm-hez (a `refrencia_pont` oszlopot, ami `NA` értéket kap alapértelmezetten). A kiválasztott referencia dokumentumoknál pedig egyenként hozzáadjuk az értékeket. Erre több megoldás is van, az egyszerűbb út, hogy az egyik és a másik végletet a `-1; 1` intervallummal jelöljük. Ennek a lehetséges alternatívája, hogy egy külső, már validált forrást használunk. Pártok esetén ilyen lehet a Chapel Hill szakértői kérdőívének a pontszámai, a Manifesto projekt által kódolt jobb-bal (*rile*) dimenzió. A lenti példánál mi maradunk az egyszerűbb bináris kódolásnál (ld. \@ref(fig:partbanpoz). ábra). A wordfish eredményt alapul véve a két referencia pont Gulyás Gergely és Szél Bernadett beszédei lesznek.[^skala-3] Ezek a 3. és a 10. dokumentumok.
+A referencia pontokat dokumentumváltozóként hozzáadjuk a dfm-hez (a `refrencia_pont` oszlopot, ami `NA` értéket kap alapértelmezetten). A kiválasztott referencia dokumentumoknál pedig egyenként hozzáadjuk az értékeket. Erre több megoldás is van, az egyszerűbb út, hogy az egyik és a másik végletet a `-1; 1` intervallummal jelöljük. Ennek a lehetséges alternatívája, hogy egy külső, már validált forrást használunk. Pártok esetén ilyen lehet a Chapel Hill szakértői kérdőívének a pontszámai, a Manifesto projekt által kódolt jobb-bal (*rile*) dimenzió. A lenti példánál mi maradunk az egyszerűbb bináris kódolásnál (ld. \@ref(fig:partbanpoz). ábra). A wordfish eredményt alapul véve a két referencia pont Gulyás Gergely és Szél Bernadett beszédei lesznek.[^skala-3] Ezek a 3. és a 10. dokumentumok. Miután a referencia pontokat hozzárendeltünk az adattáblához szintén a `docvars` funkcióval meg is tekinthetjük azt és láthatjuk, hogy a referenci_pont már a metaadatok között szerepel.
 
 [^skala-3]: Azért nem Vona Gábor beszédét választottuk, mert az gyaníthatóan egy kiugró érték, ami nem reprezentálja megfelelően a sokaságot.
 
@@ -206,8 +218,8 @@ dokumentumok_ws
 
 A 9.4-es ábrán a párton belüli bontást illusztráljuk a `facet_wrap()` segítségével.
 
-```{r, fig.cap="A párton belüli wordscores-alapú skála"}
-ggplot(dokumentumok_ws, aes(fit, reorder(speaker, fit))) +
+```{r eval = TRUE, fig.height = 2, fig.cap="A párton belüli wordscores-alapú skála"}
+party_df <- ggplot(dokumentumok_ws, aes(fit, reorder(speaker, fit))) +
   geom_point() +
   geom_errorbarh(aes(xmin = lwr, xmax = upr), height = 0) +
   labs(
@@ -215,4 +227,6 @@ ggplot(dokumentumok_ws, aes(fit, reorder(speaker, fit))) +
     x = "wordscores"
   ) +
   facet_wrap(~part, ncol = 1, scales = "free_y")
+
+ggplotly(party_df, height = 1000, tooltip = "fit")
 ```

@@ -31,6 +31,7 @@ library(quanteda.textplots)
 library(GGally)
 library(ggdendro)
 library(tidytext)
+library(plotly)
 ```
 
 Első lépésben a [Bevezetőben](#intro) már ismertetett módon a `HunMineR` csomagból betöltjük a beszédeket. A `glimpse()` függvénnyel egy gyors pilltast vethetünk a betöltött adatokra.
@@ -40,6 +41,8 @@ texts <- HunMineR::data_miniszterelnokok_raw
 
 dplyr::glimpse(texts)
 ```
+
+A glimpse funkció segítségével nem csak a sorok és oszlopok számát tekinthetjük meg, hanem az egyes oszlopok neveit is, amelyek alapján megállapíthatjuk, hogy milyen információkat tartalmaz ez az objektum. Az egyes beszédek dokumentum azonosítóját, azok szövegét, az évüket és végül a miniszterelnök nevét, aki elmondta az adott beszédet.
 
 Ezt követően az [*Adatkezelés R-ben*](#adatkezeles) című fejezetben ismertetett `mutate()` függvény használatával két csoportra osztjuk a beszédeket. Ehhez először a `string_extract()` függvény segítségével meghatározzuk, hogy a kettéosztáshoz használni kívánt új változó a doc_id legyen, a `[^\\.]*` regex segítségével leválasztva arról a `.txt` kiterjesztést, majd a `str_sub()` függvénnyel megmondjuk, hogy a miniszterelnökök neve a `doc_id` hátulról számított hatodik karakteréig tart. Ezután kialakítjuk a két csoportot, azaz az `if_else()` segítségével meghatározzuk, hogy ha „antall_jozsef", „boross_peter", „orban_viktor" beszédeiről van szó azokat a jobb csoportba tegye, a maradékot pedig a bal csoportba.
 
@@ -188,6 +191,8 @@ mineln_dfm %>%
   dplyr::arrange(dplyr::desc(CTTR))
 ```
 
+A megkapott értékeket hozzáadhatjuk a dfm-hez is. A lenti kód egy dfm_lexdiv nevű adattáblát hoz létre, amely tartalmazza a mineln_dfm adattábla sorait, valamint a lexikai diverzitás értékeket.
+
 ```{r}
 dfm_lexdiv <- mineln_dfm
 
@@ -220,6 +225,8 @@ A kapott értékeket a `ggcorr()` függvény segítségével ábrázolhatjuk is.
 GGally::ggcorr(div_df[, 2:13], label = TRUE)
 ```
 
+Az így kapott ábránk egy korrelációs hőtérkép, az oszlopok tetején elhelyezkedő rövidítések az egyes mérőszámokat jelentik, amelyekkel a beszédeket vizsgáltuk ezek képlete megtalálható a [textstat lexdiv funkció oldalán](https://quanteda.io/reference/textstat_lexdiv.html). Ezek keresztmetszetében a számok az ábrázolják, hogy az egyes mérőszámok eredményei milyen kapcsolatban állnak egymással. Ahogy az ábra melletti skála is jelzi a piros négyzetben lévő számok pozitív korrelációt jeleznek, a kékben lévők pedig negatívat, minél halványabb egy adott négyzet színezése a korreláció mértéke annál kisebb.
+
 Ezt követően azt is megvizsgálhatjuk, hogy a korpusz szövegei mennyire könnyen olvashatóak. Ehhez a `Flesch.Kincaid` pontszámot használjuk, ami a szavak és a mondatok hossza alapján határozza meg a szöveg olvashatóságát. Ehhez a `textstat_readability()` függvényt használjuk, mely a korpuszunkat elemzi.
 
 ```{r}
@@ -234,20 +241,14 @@ docvars(corpus_mineln, "f_k") <- textstat_readability(corpus_mineln, measure = "
 docvars(corpus_mineln)
 ```
 
-```{r,  tidy = TRUE, tidy.opts=list(width.cutoff=80)}
-docvars(corpus_mineln, "f_k") <- textstat_readability(corpus_mineln, measure = "Flesch.Kincaid")[, 2]
-
-docvars(corpus_mineln)
-```
-
-Majd a `ggplot2` segítségével vizualizálhatjuk az eredményt (ld. \@ref(fig:olvashatosag). ábra). Ehhez az olvashatósági pontszámmal kiegészített korpuszból egy adattáblát alakítunk ki, majd beállítjuk az ábrázolás paramétereit. Az ábra két tengelyén az év, illetve az olvashatósági pontszám szerepel, a jobb- és a baloldalt a vonal típusa különbözteti meg, az egyes dokumentumokat ponttal jelöljük, az ábrára pedig felíratjuk a miniszterelnökök neveit, valamint azt is beállítjuk, hogy az x tengely beosztása az egyes beszédek dátumához igazodjon. A `theme_minimal()` függvénnyel pedig azt határozzuk meg, hogy mindez fehér hátteret kapjon.
+Majd a `ggplot2` segítségével vizualizálhatjuk az eredményt (ld. \@ref(fig:olvashatosag). ábra). Ehhez az olvashatósági pontszámmal kiegészített korpuszból egy adattáblát alakítunk ki, majd beállítjuk az ábrázolás paramétereit. Az ábra két tengelyén az év, illetve az olvashatósági pontszám szerepel, a jobb- és a baloldalt a vonal típusa különbözteti meg, az egyes dokumentumokat ponttal jelöljük, az ábrára pedig felíratjuk a miniszterelnökök neveit, valamint azt is beállítjuk, hogy az x tengely beosztása az egyes beszédek dátumához igazodjon. A `theme_minimal()` függvénnyel pedig azt határozzuk meg, hogy mindez fehér hátteret kapjon. Az így létrehozott ábránkat a `ggplotly` parancs segítségével pedig interaktívvá is tehetjük.
 
 ```{r}
 corpus_df <- docvars(corpus_mineln)
 ```
 
-```{r eval=FALSE}
-ggplot(corpus_df, aes(year, f_k)) +
+```{r eval=TRUE, fig.height = 2, fig.cap="Az olvashatósági index alakulása"}
+mineln_df <- ggplot(corpus_df, aes(year, f_k)) +
   geom_point(size = 2) +
   geom_line(aes(linetype = partoldal), size = 1) +
   geom_text(aes(label = mineln), color = "black", nudge_y = 0.15) +
@@ -260,9 +261,11 @@ ggplot(corpus_df, aes(year, f_k)) +
   ) +
   theme_minimal() +
   theme(legend.position = "bottom")
+
+ggplotly(mineln_df)
 ```
 
-```{r olvashatosag, echo=FALSE, fig.cap="Az olvashatósági index alakulása"}
+```{r olvashatosag, echo=FALSE}
 # b <- ggplot(corpus_df, aes(year, f_k)) +
 #   geom_point(size = 2) +
 #   geom_line(aes(linetype = partoldal), size = 1) +
@@ -279,7 +282,7 @@ ggplot(corpus_df, aes(year, f_k)) +
 # 
 # saveRDS(b, "data/temp/05_plot.rds")
 
-readRDS("data/temp/05_plot.rds")
+#readRDS("data/temp/05_plot.rds")
 ```
 
 
@@ -320,6 +323,8 @@ hierarchikus_klaszter <- hclust(as.dist(dist))
 ggdendro::ggdendrogram(hierarchikus_klaszter)
 ```
 
+A textstat_simil funkció segítségével azt is meg tudjuk vizsgálni, hogy egy adott kifejezés milyen egyéb kifejezésekkel korrelál.
+
 ```{r}
 mineln_dfm %>%
   textstat_simil(y = mineln_dfm[, c("kormány")], margin = "features", method = "correlation") %>%
@@ -344,7 +349,7 @@ quanteda.textplots::textplot_keyness(result_keyness, color = c("#484848", "#D0D0
   theme(legend.position = c(0.9,0.1))
 ```
 
-Ha az egyes miniszterelnökök beszédeinek leggyakoribb kifejezéseit szeretnénk összehasonlítani, azt a `textstat_frequency()` függvény segítségével tehetjük meg, melynek bemenete a megtisztított és súlyozott `dfm`. Az összehasonlítás eredményét pedig a `ggplot2` segítségével ábrázolhatjuk is (ld. \@ref(fig:freqfeat). ábra).
+Ha az egyes miniszterelnökök beszédeinek leggyakoribb kifejezéseit szeretnénk összehasonlítani, azt a `textstat_frequency()` függvény segítségével tehetjük meg, melynek bemenete a megtisztított és súlyozott `dfm`. Az összehasonlítás eredményét pedig a `ggplot2` segítségével ábrázolhatjuk is (ld. \@ref(fig:freqfeat). ábra). Majd ábránkat a `plotly` segítségével interaktívvá tehetjük.
 
 ```{r,  tidy.opts=list(width.cutoff=80)}
 dfm_weighted <- corpus_mineln %>%
@@ -363,9 +368,10 @@ freq_weight <- textstat_frequency(dfm_weighted, n = 5, groups = mineln)
 ```
 
 ```{r freqfeat, fig.cap="Leggyakoribb kifejezések a miniszterelnöki beszédekben"}
-ggplot(data = freq_weight, aes(x = nrow(freq_weight):1, y = frequency)) +
+data_df <- ggplot(data = freq_weight, aes(x = nrow(freq_weight):1, y = frequency)) +
   geom_point() +
-  facet_wrap(~ group, scales = "free", ncol = 2) +
+  facet_wrap(~ group, scales = "free", ncol = 1) +
+  theme(panel.spacing = unit(1, "lines"))+
   coord_flip() +
   scale_x_continuous(
     breaks = nrow(freq_weight):1,
@@ -375,6 +381,8 @@ ggplot(data = freq_weight, aes(x = nrow(freq_weight):1, y = frequency)) +
     x = NULL, 
     y = "Relatív szófrekvencia"
     )
+
+ggplotly(data_df, height = 1000, tooltip = "frequency")
 ```
 
 Mivel a szövegösszehasonlítás egy komplex kutatási feladat, a témával bőbben is foglalkozunk a *[Szövegösszhasonlítás](#similarity)* fejezetben.

@@ -215,7 +215,7 @@ lemma <- rep("Monetary Council", length(mc))
 mnb_tokens <- tokens_replace(mnb_tokens, mc, lemma, valuetype = "fixed")
 ```
 
-Majd elkészítettük a szóbeágyazás fejezetben már megismert fcm-et, végezetül pedig egy együttes előfordulási mátrixot készítettünk a kinyert entitásokból és a `ggplot()` segítségével ábrázoltuk (ld \@ref(fig:MNBnevelem). ábra).[^nlp9]
+Majd elkészítettük a szóbeágyazás fejezetben már megismert fcm-et, végezetül pedig egy együttes előfordulási mátrixot készítettünk a kinyert entitásokból és a `ggplot()` segítségével ábrázoltuk (ld \@ref(fig:MNBnevelem). ábra).[^nlp9] Az így kapott ábránk láthatóvá teszi, hogy mely szavak fordulnak elő jellemzően együtt, valamint a vonalvastagsággal azt is egmutatja, hogy ez relatív értelemben milyen gyakran történik.
 
 [^nlp9]: Részletes leírását lásd: <https://tutorials.quanteda.io/basic-operations/fcm/fcm/>
 

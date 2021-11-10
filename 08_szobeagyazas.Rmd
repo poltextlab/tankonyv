@@ -27,9 +27,9 @@ A fejezetben a gyakorlati példa során a GloVe algoritmust használjuk majd, mi
 
 ### GloVe használata magyar média korpuszon
 
-Az elemzéshez a `text2vec` csomagot használjuk, ami a GloVe implementációt tartalmazza. A lenti kód a csomag dokumentáción alapul és a Társadalomtudományi Kutatóközpont által a Hungarian Comparative Agendas Project (CAP) adatbázisában tárolt *Magyar Nemzet* korpuszt használja.[^cap-link]
+Az elemzéshez a `text2vec` csomagot használjuk, ami a GloVe implementációt tartalmazza [@text2vecpackage]. A lenti kód a csomag dokumentáción alapul és a Társadalomtudományi Kutatóközpont által a Hungarian Comparative Agendas Project (CAP) adatbázisában tárolt *Magyar Nemzet* korpuszt használja.[^cap-link]
 
-[^cap-link]: A Magyar CAP Project által kezelt adatbázisok regisztrációt követően elérhetőek az elábbi linken: [https://cap.tk.hu/adatbazisok](https://cap.tk.hu/adatbazisok).
+[^cap-link]: A Magyar CAP Project által kezelt adatbázisok regisztrációt követően elérhetőek az elábbi linken: [https://cap.tk.hu/adatbazisok](https://cap.tk.hu/adatbazisok). A `text2vec` csomag dokumentációja: [https://cran.r-project.org/web/packages/text2vec/vignettes/glove.html](https://cran.r-project.org/web/packages/text2vec/vignettes/glove.html)
 
 
 ```{r}
@@ -42,6 +42,7 @@ library(dplyr)
 library(tibble)
 library(stringr)
 library(ggplot2)
+library(plotly)
 library(HunMineR)
 ```
 
@@ -61,6 +62,12 @@ mn_clean <- mn %>%
   )
 ```
 
+A `glimpse` funkció segítségével belepillanthatunk mind a két korpuszba és láthatjuk, hogy sikeres volt a tisztítása, valamint azt is, hogy jelenleg egyetlen metaadatunk a dokumentumok azonosítója.
+
+```{r}
+glimpse(mn)
+glimpse(mn_clean)
+```
 
 Fontos különbség, hogy az eddigi munkafolyamatokkal ellentétben a GloVe algoritmus nem egy dokumentum-kifejezés mátrixon dolgozik, hanem egy kifejezések együttes előfordulását tartalmazó mátrixot (*feature co-occurence matrix*) kell készíteni inputként. Ezt a `quanteda` `fcm()` függvényével tudjuk előállítani, ami a tokenekből készíti el a mátrixot. A tokenek sorrendiségét úgy tudjuk megőrizni, hogy egy `dfm` objektumból csak a kifejezéseket tartjuk meg a `featnames()` függvény segítségével, majd a teljes token halmazból a `tokens_select()` függvénnyel kiválasztjuk őket.
 
@@ -169,7 +176,7 @@ mn_embedding_df <- as.data.frame(mn_word_vectors[, c(1:2)]) %>%
 
 Ezután pedig a `ggplot()` függvényt felhasználva definiálunk egy új, `embedding_plot()` nevű, függvényt, ami az elkészült data frame alapján bármilyen kulcsszó kombinációt képes ábrázolni.
 
-```{r embedding, fig.cap="Kiválasztott szavak két dimenzós térben"}
+```{r}
 embedding_plot <- function(data, keywords) {
   data %>% 
     filter(words %in% keywords) %>% 
@@ -182,13 +189,16 @@ embedding_plot <- function(data, keywords) {
     xlim(-1, 1) +
     ylim(-1, 1)
 }
+
 ```
 
-Példaként néhány településnevet megvizsgálva, azt látjuk, hogy a magyar városok közel helyezkednek el egymáshoz, ám "washington" és "moszkva" távolsága nagyobb. Ennek az oka az lehet hogy a két magyar nagyváros gyakrabban szerepel hasonló kontextusban a belföldi hírekben, míg a két külföldi főváros valószínűleg eltérő külpolitikai környezetben jelenik meg.
+Példaként néhány településnevet megvizsgálva, azt látjuk, hogy a megadott szavak, jelen esetben "budapest", "debrecen", "washington", "moszkva" milyen közel vagy távol vannak egymástól, vagyis milyen gyakorisággal fordulnak elő ugyanazon szavak társaságában. A magyar városok közel helyezkednek el egymáshoz, ám "washington" és "moszkva" távolsága nagyobb. Ennek az oka az lehet hogy a két magyar nagyváros gyakrabban szerepel hasonló kontextusban a belföldi hírekben, míg a két külföldi főváros valószínűleg eltérő külpolitikai környezetben jelenik meg.
 
 
-```{r}
+```{r embedding, fig.height = 2, fig.cap="Kiválasztott szavak két dimenzós térben"}
 words_selected <- c("moszkva", "debrecen", "budapest", "washington")
 
-embedding_plot(data = mn_embedding_df, keywords = words_selected)
+embedded <- embedding_plot(data = mn_embedding_df, keywords = words_selected)
+
+ggplotly(embedded)
 ```

@@ -10,7 +10,7 @@ source("_common.R")
 ## Fogalmi alapok
 
 
-A felügyelet nélküli tanulási során az alkalmazott algoritmus a dokumentum tulajdonságait és a modell becsléseit felhasználva végez csoportosítást, azaz hoz létre különböző kategóriákat, melyekhez később hozzárendeli a szöveget. Jelen fejezetben a felügyelet nélküli módszerek közül a topikmodellezést tár- gyaljuk részletesen, majd a következőkben bemutatjuk a szintén ide sorolható szóbeágyazást és a szövegskálázás wordfish módszerét is.
+A felügyelet nélküli tanulási során az alkalmazott algoritmus a dokumentum tulajdonságait és a modell becsléseit felhasználva végez csoportosítást, azaz hoz létre különböző kategóriákat, melyekhez később hozzárendeli a szöveget. Jelen fejezetben a felügyelet nélküli módszerek közül a topikmodellezést tárgyaljuk részletesen, majd a következőkben bemutatjuk a szintén ide sorolható szóbeágyazást és a szövegskálázás wordfish módszerét is.
 
 
 ## K-közép klaszterezés
@@ -39,6 +39,7 @@ library(topicmodels)
 library(factoextra)
 library(stm)
 library(igraph)
+library(plotly)
 library(HunMineR)
 ```
 
@@ -54,6 +55,12 @@ beszedek_dfm <- beszedek_corpus %>%
   dfm()
 ```
 
+A glimpse funkció segítségével ismét megtekinthetjük az adatainkat és láthatjuk, hogy a 4 változó a miniszterelnökök neve, az év, a dokumentum azonosító, amely az előző két változó kombinációja, valamint maguk a beszédek szövegei.
+
+```{r}
+glimpse(data_miniszterelnokok)
+```
+
 A beszédek klaszterekbe rendezését az R egyik alapfüggvénye, a `kmeans()` végzi. Első lépésben 2 klasztert készítünk. A `table()` függvénnyel megnézhetjük, hogy egy-egy csoportba hány dokumentum került.
 
 ```{r}
@@ -64,18 +71,20 @@ table(beszedek_klaszter$cluster)
 
 A felügyelet nélküli klasszifikáció nagy kérdése, hány klasztert alakítsunk ki, hogy megközelítsük a valóságot, és ne csak mesterségesen kreáljunk csoportokat. Ez ugyanis azzal a kockázattal jár, hogy ténylegesen nem létező csoportok is létrejönnek. A klaszterek optimális számának meghatározására kvalitatív és kvantitatív lehetőségeink is vannak. A következőkben az utóbbira mutatunk példát, amihez a `factoextra` csomagot használjuk. A \@ref(fig:optclus).-es ábra azt mutatja, hogy a klasztereken belüli négyzetösszegek hogyan változnak a *k* paraméter változásának függvényében. Minél kisebb a klasztereken belüli négyzetösszegek értéke, annál közelebbi pontok tartoznak össze, így a kisebb értékekkel definiált klasztereket kapunk. Az ábra alapján tehát az ideális *k* 4 vagy 2, attól fuggően, hogy milyen feltevésekkel élünk a kutatásunk során. A 2-es érték azért lehet jó, mert a $k > 2$ értékek esetén a négyzetösszegek értéke nem csökken drasztikusan és a korpuszunk alapján a két („jobb-bal") klaszter kvalitativ alapon is jól definiálható. A $k = 4$ pedig azért lehet jó, mert utánna gyakorlatilag nem változik a kapott négyzetösszeg, ami azt jelzi, hogy a további klaszterek hozzáadásával nem lesz pontosabb a csoportosítás.
 
-```{r optclus, fig.cap="A klaszterek optimális száma"}
-factoextra::fviz_nbclust(as.matrix(beszedek_dfm), kmeans, method = "wss", k.max = 5, linecolor = "black") +
+```{r optclus, eval = TRUE, fig.height = 2, fig.cap = "A klaszterek optimális száma"}
+klas_df <- factoextra::fviz_nbclust(as.matrix(beszedek_dfm), kmeans, method = "wss", k.max = 5, linecolor = "black") +
 labs(
   title = NULL,
   x = "Klaszterek száma",
   y = "Klasztereken belüli négyzetösszeg")
+
+ggplotly(klas_df)
 ```
 
 A kialakított csoportokat vizuálisan is megjeleníthetjük (ld. \@ref(fig:PMspeech). ábra).
 
-```{r PMspeech, fig.cap="A miniszterelnöki beszédek klaszterei"}
-factoextra::fviz_cluster(
+```{r PMspeech, fig.height = 2, fig.cap="A miniszterelnöki beszédek klaszterei"}
+min_besz_plot <- factoextra::fviz_cluster(
   beszedek_klaszter, 
   data = beszedek_dfm, 
   pointsize = 2,
@@ -88,7 +97,11 @@ factoextra::fviz_cluster(
     y = "Második dimenzió"
   ) +
   theme(legend.position = "none")
+
+ggplotly(min_besz_plot)
 ```
+
+Az így kapott ábrán láthatjuk nem csak a két klaszter középpontjainak egymáshoz viszonyított pozícióját, de a klaszterek elemeinek egymáshoz viszonyított pozícióját is. Ez alapján láthatjuk, hogy a 2 klaszterünk nem ugyanakkora elemszámból állnak, valamint a belső hasonlóságuk is eltérő. valamint a klaszter elemek neveiből láthatjuk, hogy nem vált be a hipotézisünk arra vonatkozóan, hogy két klaszter beállítása esetén azok a jobb és baloldaliságot fogják tükrözni, ez valószínűleg azért van így mert a korpuszokat ebben az esetben nem tisztítottuk, tehát stopszavazást sem végeztünk rajtuk, ebből kifolyólag pedig a politikai pozíciók mellett a szövegek hasonlósága és különbözősége sok más tényezőt is tükröz (pl: hogy mennyire összetetten vagy egyszerűen fogalmaz az illető, vagy a beszéd elhangzásának idején különös relevanciával bíró közpolitikákat)
 
 ## LDA topikmodellek[^lda1]
 
@@ -111,6 +124,12 @@ Töltsük be az elemezni kívánt csv fájlt, megadva az elérési útvonalát.
 ```{r warning=FALSE, message=FALSE}
 torvenyek <- HunMineR::data_lawtext_1998_2006
 ```
+
+```{r}
+glimpse(torvenyek)
+```
+
+Láthatjuk, hogy ezek az objektum a dokumentum azonosítón kívül (amely a törvény évét és számát tartalmazza) nem rendelkezik egyéb metaadatokkal.
 
 Az előző fejezetekben láthattuk, hogyan lehet használni a `stringr` csomagot a szövegtisztításra. A lépések a már megismert sztenderd folyamatot követik: számok, központozás, sortörések, extra szóközök eltávolítása, illetve a szöveg kisbetűsítése. Az eddigieket további szövegtisztító lépésekkel is kiegészíthetjük. Olyan elemek esetében, amelyek nem feltétlenül különálló szavak és el akarjuk távolítani őket a korpuszból, szintén a `str_remove_all()` a legegyszerűbb megoldás.
 
@@ -197,23 +216,26 @@ torvenyek_dfm <- dfm(torvenyek_tokens) %>%
 
 A szövegtisztító lépesek eredményét úgy ellenőrizhetjük, hogy szógyakorisági listát készítünk a korpuszban maradt kifejezésekről. Itt kihasználhatjuk a korpuszunkban lévő metaadatokat és megnézhetjük ciklus szerinti bontásban a szófrekvencia ábrát. Az ábránál figyeljünk arra, hogy a tidytext `reorder_within()` függvényét használjuk, ami egy nagyon hasznos megoldás a csoportosított sorrendbe rendezésre a `ggplot2` ábránál (ld. \@ref(fig:toptoc). ábra).
 
-```{r toptoc, tidy = TRUE, tidy.opts=list(width.cutoff=80), fig.cap="A 15 leggyakoribb token a korpuszban"}
+```{r  toptoc, eval = TRUE, tidy = TRUE, fig.height = 2, tidy.opts=list(width.cutoff=80), fig.cap="A 15 leggyakoribb token a korpuszban"}
 top_tokens <- textstat_frequency(
   torvenyek_dfm, 
   n = 15, 
   groups = docvars(torvenyek_dfm, field = "electoral_cycle")
   )
 
-ggplot(top_tokens, aes(reorder_within(feature, frequency, group), frequency)) +
+tok_df <- ggplot(top_tokens, aes(reorder_within(feature, frequency, group), frequency)) +
   geom_point(aes(shape = group), size = 2) +
   coord_flip() +
   labs(
     x = NULL,
-    y = "szófrekvencia"
-  ) +
-  facet_wrap(~group, nrow = 2, scales = "free") +
+    y = "szófrekvenica"
+    ) +
+  facet_wrap(~group, nrow = 4, scales = "free") +
+  theme(panel.spacing = unit(1, "lines")) +
   tidytext::scale_x_reordered() +
   theme(legend.position = "none")
+
+ggplotly(tok_df, height = 1000, tooltip = "frequency")
 ```
 
 A szövegtisztító lépéseket később újabbakkal is kiegészíthetjük, ha észrevesszük, hogy az elemzést zavaró tisztítási lépés maradt ki. Ilyen esetben tovább tisztíthatjuk a korpuszt, majd újra lefuttathatjuk az elemzést. Például, ha szükséges, további stopszavak eltávolítását is elvégezhetjük egy újabb stopszólista hozzáadásával. Ilyenkor ugyanúgy járunk el, mint az előző stopszólista esetén.
@@ -238,10 +260,10 @@ top_tokens_final <- textstat_frequency(torvenyek_dfm_final,
                                        )
 ```
 
-Ezt egy ábrán is megjelenítjük (ld. \@ref(fig:freqtoc). ábra).
+Ezt egy interaktív ábrán is megjelenítjük (ld. \@ref(fig:freqtoc). ábra).
 
-```{r freqtoc, fig.cap="A 15 leggyakoribb token a korpuszban, a bővített stop szó listával"}
-ggplot(top_tokens_final, aes(reorder_within(feature, frequency, group), frequency)) +
+```{r  freqtoc, eval = TRUE, fig.height = 2, fig.cap="A 15 leggyakoribb token a korpuszban, a bővített stop szó listával"}
+tokclean_df <- ggplot(top_tokens_final, aes(reorder_within(feature, frequency, group), frequency)) +
   geom_point(aes(shape = group), size = 2) +
   coord_flip() +
   labs(
@@ -249,8 +271,11 @@ ggplot(top_tokens_final, aes(reorder_within(feature, frequency, group), frequenc
     y = "szófrekvencia"
   ) +
   facet_wrap(~group, nrow = 2, scales = "free") +
+  theme(panel.spacing = unit(1, "lines")) +
   tidytext::scale_x_reordered() +
   theme(legend.position = "none")
+
+ggplotly(tokclean_df, height = 1000, tooltip = "frequency")
 ```
 
 A szövegtisztító és a korpusz előkészítő műveletek után következhet az LDA illesztése. Az alábbiakban az LDA illesztés két módszerét, a `VEM`-et és a `Gibbs`-et mutatjuk be. A modell mindkét módszer esetén ugyanaz, a különbség a következtetés módjában van. A `VEM` módszer variációs következtetés, míg a `Gibbs` mintavételen alapuló következtetés. [@bleiLatentDirichletAllocation2003; @griffithsFindingScientificTopics2004; @phanLearningClassifyShort2008].
@@ -299,14 +324,16 @@ perp_df <- dplyr::tibble(
 # perp_df <- readRDS("data/temp/temp_df.RDS")
 ```
 
-```{r zavarossag, fig.cap="Zavarosság változása a k függvényében", cache=FALSE}
-ggplot(perp_df, aes(k, perplexity)) +
+```{r  zavarossag, eval = TRUE, fig.height = 2, fig.width = 3, fig.cap="Zavarosság változása a k függvényében", cache=FALSE}
+perp_df <- ggplot(perp_df, aes(k, perplexity)) +
   geom_point() +
   geom_line() +
   labs(
     x = "Klaszterek száma",
     y = "Zavarosság"
   )
+
+ggplotly(perp_df)
 ```
 
 
@@ -359,31 +386,37 @@ top_terms <- lda_vem %>%
 Végül a `ggplot2` csomag segítségével ábrán is megjeleníthetjük az egyes topikok 10 legfontosabb kifejezését (ld. \@ref(fig:topic9802). és \@ref(fig:topic0206). ábra).
 
 ```{r topic9802, fig.cap="1998–2002-es ciklus: topikok és kifejezések (VEM mintavételezéssel)"}
-top_terms %>%
+toptermsplot9802vem <- top_terms %>%
   filter(electoral_cycle == "1998-2002") %>%
   ggplot(aes(reorder_within(term, beta, topic), beta)) +
   geom_col(show.legend = FALSE) +
-  facet_wrap(~topic, scales = "free", ncol = 2) +
+  facet_wrap(~topic, scales = "free", ncol = 1) +
+  theme(panel.spacing = unit(4, "lines")) +
   coord_flip() +
   labs(
     x = NULL,
-    y = expression(beta)
+    y = NULL
   ) +
   tidytext::scale_x_reordered()
+
+ggplotly(toptermsplot9802vem, tooltip = "beta")
 ```
 
 ```{r topic0206, fig.cap="2002–2006-os ciklus topikok és kifejezések (VEM mintavételezéssel)"}
-top_terms %>%
+toptermsplot0206vem <- top_terms %>%
   filter(electoral_cycle == "2002-2006") %>%
   ggplot(aes(reorder_within(term, beta, topic), beta)) +
   geom_col(show.legend = FALSE) +
-  facet_wrap(~topic, scales = "free", ncol = 2) +
+  facet_wrap(~topic, scales = "free", ncol = 1) +
+  theme(panel.spacing = unit(4, "lines")) +
   coord_flip() +
   labs(
     x = NULL,
-    y = expression(beta)
+    y = NULL
   ) +
   tidytext::scale_x_reordered()
+
+ggplotly(toptermsplot0206vem, tooltip = "beta")
 ```
 
 ### Az LDA Gibbs módszer alkalmazása a magyar törvények korpuszán
@@ -431,32 +464,38 @@ top_terms_gibbs <- lda_gibbs %>%
 Ezután a `ggplot2` csomag segítségével ábrán is megjeleníthetjük (ld. \@ref(fig:Gibbs9802). és \@ref(fig:Gibbs0206 ábra).
 
 ```{r Gibbs9802, fig.cap="1998–2002-es ciklus topikok és kifejezések (Gibbs mintavétellel)"}
-top_terms_gibbs %>%
+toptermsplot9802gibbs <- top_terms_gibbs %>%
   filter(electoral_cycle == "1998-2002") %>%
   ggplot(aes(reorder_within(term, beta, topic), beta)) +
   geom_col(show.legend = FALSE) +
-  facet_wrap(~topic, scales = "free", ncol = 2) +
+  facet_wrap(~topic, scales = "free", ncol = 1) +
+  theme(panel.spacing = unit(4, "lines")) +
   coord_flip() +
   labs(
     title = ,
     x = NULL,
-    y = expression(beta)
+    y = NULL
   ) +
   tidytext::scale_x_reordered()
+
+ggplotly(toptermsplot9802gibbs, tooltip = "beta")
 ```
 
 ```{r Gibbs0206, fig.cap="2002–2006-os ciklus topikok és kifejezések (Gibbs mintavétellel)"}
-top_terms_gibbs %>%
+toptermsplot0206gibbs <- top_terms_gibbs %>%
   filter(electoral_cycle == "2002-2006") %>%
   ggplot(aes(reorder_within(term, beta, topic), beta)) +
   geom_col(show.legend = FALSE) +
-  facet_wrap(~topic, scales = "free", ncol = 2) +
+  facet_wrap(~topic, scales = "free", ncol = 1) +
+  theme(panel.spacing = unit(4, "lines")) +
   coord_flip() +
   labs(
     x = NULL,
-    y = expression(beta)
+    y = NULL
   ) +
   scale_x_reordered()
+
+ggplotly(toptermsplot0206gibbs, tooltip = "beta")
 ```
 
 ## Strukturális topikmodellek
@@ -539,7 +578,7 @@ tidy_stm <- tidytext::tidy(stm_fit)
 ```
 
 ```{r fig.cap="Topikonkénti legmagasabb valószínűségű szavak"}
-tidy_stm %>%
+topicplot <- tidy_stm %>%
   group_by(topic) %>%
   top_n(5, beta) %>%
   ungroup() %>%
@@ -549,13 +588,16 @@ tidy_stm %>%
   ) %>%
   ggplot(aes(term, beta)) +
   geom_col() +
-  facet_wrap(~topic, scales = "free_y", ncol = 3) +
+  facet_wrap(~topic, scales = "free_y", ncol = 1) +
+  theme(panel.spacing = unit(4, "lines")) +
   coord_flip() +
   scale_x_reordered() +
   labs(
     x = NULL,
-    y = expression(beta)
+    y = NULL
   )
+
+ggplotly(topicplot, tooltip = "beta")
 ```
 
 Egy-egy topichoz tartozó meghatározó szavak annak függvényében változhatnak, hogy milyen algoritmust használunk. A `labelTopics()` függvény a már becsült stm modellünket alapul véve kínál négyféle alternatív opciót. Az egyes algoritmusok részletes magyarázatáért érdemes elolvasni a csomag részletes leírását.[^lda8]

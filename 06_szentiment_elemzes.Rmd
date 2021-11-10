@@ -7,6 +7,7 @@ source("_common.R")
 ```{r echo=FALSE}
 poltext_szotar <- read_rds("data/poltext_dict.Rds")
 ```
+
 ## Fogalmi alapok
 
 A szentiment- vagy vélemény-, illetve érzelemelemzés a számítógépes nyelvészet részterülete, melynek célja az egyes szövegek tartalmából kinyerni azokat az információkat, amelyek értékelést fejeznek ki.[^szent-1] A véleményelemzés a szövegeket három szinten osztályozza. A legáltalánosabb a dokumentumszintű osztályozás, amikor egy hosszabb szövegegység egészét vizsgáljuk, míg a mondatszintű osztályozásnál a vizsgálat alapegysége a mondat. A legrészletesebb adatokat akkor nyerjük, amikor az elemzést target-szinten végezzük, azaz meghatározzuk azt is, hogy egy-egy érzelem a szövegen belül mire vonatkozik. Mindhárom szinten azonos a feladat: egyrészt meg kell állapítani, hogy az adott egységben van-e értékelés, vélemény vagy érzelem, és ha igen, akkor pedig meg kell határozni, hogy milyen azok érzelmi tartalma.
@@ -59,9 +60,10 @@ library(tidyr)
 library(ggplot2)
 library(quanteda)
 library(HunMineR)
+library(plotly)
 ```
 
-Mielőtt két esettanulmányt bemutatnánk, vizsgáljuk meg, hogyan néz ki egy szentimentszótár az R-ben. A szótárt kézzel úgy tudjuk készíthetünk, hogy egy listán belül létrehozzuk karaktervektorként a kategóriákat és a kulcsszavakat, és ezt a listát a `quanteda` `dictionary` függvényével eltároljuk.
+Mielőtt két esettanulmányt bemutatnánk, vizsgáljuk meg, hogyan néz ki egy szentimentszótár az R-ben. A szótárt kézzel úgy tudjuk elkészíteni, hogy egy listán belül létrehozzuk karaktervektorként a kategóriákat és a kulcsszavakat, és ezt a listát a `quanteda` `dictionary` függvényével eltároljuk.
 
 ```{r}
 szentiment_szotar <- dictionary(
@@ -100,6 +102,12 @@ mn_minta <- HunMineR::data_magyar_nemzet_small
 
 A `HunMineR` csomag segítségével beolvassuk a *Magyar Nemzet* adatbázis egy kisebb részét, ami az esetünkben a 2006-os címlapokon szereplő híreket jelenti. A `summary()` parancs, ahogy a neve is mutatja, gyors áttekintést nyújt a betöltött adatbázisról. Látjuk, hogy `r nrow(mn_minta)` sorból (megfigyelés) és `r ncol(mn_minta)` oszlopból (változó) áll. Első ránézésre látszik, hogy a text változónk tartalmazza a szövegeket, és hogy azok tisztításra szorulnak.
 
+```{r}
+glimpse(mn_minta)
+```
+
+A `glimpse` függvény segítségével belepillanthatunk a használt korpuszba és láthatjuk, hogy az 3 oszlopból áll a dokumentum azonosítójából, amely csak egy sorszám, a dokumentum szövegéből, és a dokumentumhoz tartozó azonosítóból.
+
 Az első szöveget megnézve látjuk, hogy a standard előkészítési lépések mellett a sortörést (`\n`) is ki kell törölnünk.
 
 ```{r tidy = TRUE, tidy.opts=list(width.cutoff=80)}
@@ -126,7 +134,7 @@ A szöveg sokkal jobban néz ki, habár észrevehetjük, hogy maradhattak benne 
 mn_tiszta$text[1]
 ```
 
-Miután kész a tisztá(bb) szövegünk, korpuszt hozunk létre a quanteda `corpus()` függvényével. A corpus objektum a szöveg mellett egyéb dokumentum meta adatokat is tud tárolni (dátum, író, hely, stb.) Ezeket mi is hozzáadhatjuk (erre majd látunk példát), illetve amikor létrehozzuk a korpuszt a data frame-ünkből, automatikusan metaadatokként tárolódnak az változóink. Jelen esetben az egyetlen dokumentum változónk a szöveg mellett a dátum lesz. A korpusz dokumentum változóihoz a `docvars()` függvény segítségével tudunk hozzáférni.
+Miután kész a tisztá(bb) szövegünk, korpuszt hozunk létre a quanteda `corpus()` függvényével. A korpusz objektum a szöveg mellett egyéb dokumentum meta adatokat is tud tárolni (dátum, író, hely, stb.) Ezeket mi is hozzáadhatjuk (erre majd látunk példát), illetve amikor létrehozzuk a korpuszt a data frame-ünkből, automatikusan metaadatokként tárolódnak a változóink. Jelen esetben az egyetlen dokumentum változónk a szöveg mellett a dátum lesz. A korpusz dokumentum változóihoz a `docvars()` függvény segítségével tudunk hozzáférni.
 
 ```{r}
 mn_corpus <- corpus(mn_tiszta)
@@ -191,16 +199,18 @@ mn_df <- mn_df %>%
   )
 ```
 
-A plot alapján a cikkek érzelemelemzése során több kiugrást is tapasztalhatunk. Természetesen messzemenő következtetéseket egy ilyen kis korpusz alapján nem vonhatunk le, de a kiugrásokhoz tartozó cikkek kvalitatív vizsgálatával megállapíthatjuk, hogy az áprilisi kiugrást a választásokhoz kötődő cikkek pozitív hangulata, míg az októberi negatív kilengést az öszödi beszéd nyilvánosságra kerüléséhez köthető cikkek negatív szentimentje okozza.
+Az így kapott plot y tengelyén az adott cikkek időpontját láthatjuk, míg az x tengelyén a szentiment értékeiket. Ebben több kiugrást is tapasztalhatunk. Természetesen messzemenő következtetéseket egy ilyen kis korpusz alapján nem vonhatunk le, de a kiugrásokhoz tartozó cikkek kvalitatív vizsgálatával megállapíthatjuk, hogy az áprilisi kiugrást a választásokhoz kötődő cikkek pozitív hangulata, míg az októberi negatív kilengést az öszödi beszéd nyilvánosságra kerüléséhez köthető cikkek negatív szentimentje okozza.
 
-```{r MNszentiment, tidy = TRUE, tidy.opts=list(width.cutoff=80), fig.cap="Magyar Nemzet címlap szentimentje"}
-ggplot(mn_df, aes(doc_date, net_daily)) +
+```{r  MNszentiment, eval = TRUE, tidy = TRUE, tidy.opts=list(width.cutoff=80), fig.height = 2, fig.cap="Magyar Nemzet címlap szentimentje"}
+mncim_df <- ggplot(mn_df, aes(doc_date, net_daily)) +
   geom_line() +
   labs(
     y = "Szentiment",
     x = NULL,
     caption = "Adatforrás: https://cap.tk.hu/"
   )
+
+ggplotly(mncim_df)
 ```
 
 ## MNB sajtóközlemények
@@ -233,7 +243,13 @@ A munkamenet hasonló az előző példához:
 mnb_pr <- HunMineR::data_mnb_pr
 ```
 
-Adatbázisunk `r nrow(mnb_pr)` megfigyelésből és `r ncol(mnb_pr)` változóból áll. Az egyetlen lényeges dokumentum metaadat itt is a szövegek megjelenési ideje.
+Adatbázisunk `r nrow(mnb_pr)` megfigyelésből és `r ncol(mnb_pr)` változóból áll. Az egyetlen lényeges dokumentum metaadat itt is a szövegek megjelenési ideje, de a glimpse függvénnyel itt is ellenőrizhetjük hogyan néz ki a korpusz felépítése és milyen metaadatokat tartalmaz pontosan.
+
+```{r}
+glimpse(mnb_pr)
+```
+
+Ez alapján pedig láthatjuk, hogy a korpusz a tényleges szövegek mellett tartalmaz még id sorszámot, pontos dátumot és évet is.
 
 A szövegeket ugyanazokkal a standard eszközökkel kezeljük, mint a *Magyar Nemzet* esetében. Érdemes minden esetben ellenőrizni, hogy az R-kód, amit használunk, tényleg azt csinálja-e, amit szeretnénk. Ez hatványozottan igaz abban az esetben, amikor szövegekkel és reguláris kifejezésekkel dolgozunk.
 
@@ -287,16 +303,19 @@ mnb_df <- mnb_df %>%
   )
 ```
 
-Az átalakítás után már könnyedén tudjuk kategóriákra bontva megjeleníteni az MNB közlemények különböző látens dimenzióit. Fontos emlékezni arra, hogy ez az eredmény a kulcsszavaink +/- 10 tokenes környezetében lévő szavak szentimentjét méri. Ami érdekes eredmény, hogy a felesleges „töltelék” (*superfluous*) szövegek szinte soha nem fordulnak elő a kulcsszavaink körül. A többi érték is nagyjából megfelel a várakozásainknak, habár a 2008-as gazdasági válság nem tűnik kiugró pontnak. Azonban a 2010 utáni európai válság már láthatóan megjelenik az idősorainkban (ld. \@ref(fig:MNBsent). ábra).
+Az átalakítás után már könnyedén tudjuk kategóriákra bontva megjeleníteni az MNB közlemények különböző látens dimenzióit. Fontos emlékezni arra, hogy ez az eredmény a kulcsszavaink +/- 10 tokenes környezetében lévő szavak szentimentjét méri. Az így kapott ábránk a három alkalmazott szentiment kategória időbeli előfordulását mutatja be. Ami érdekes eredmény, hogy a felesleges „töltelék” (*superfluous*) szövegek szinte soha nem fordulnak elő a kulcsszavaink körül. A többi érték is nagyjából megfelel a várakozásainknak, habár a 2008-as gazdasági válság nem tűnik kiugró pontnak. Azonban a 2010 utáni európai válság már láthatóan megjelenik az idősorainkban (ld. \@ref(fig:MNBsent). ábra).
 
 Az általunk használt szótár alapvetően az Egyesült Államokban a tőzsdén kereskedő cégek publikus beszámolóiból készült, így elképzelhető, hogy egyes jegybanki környezetben sokat használt kifejezések nincsenek benne. A kapott eredmények validálása ezért is nagyon fontos, illetve érdemes azzal is tisztában lenni, hogy a szótáras módszer nem tökéletes (ahogy az emberi vagy más gépi kódolás sem).
 
-```{r  MNBsent, fig.cap="Magyar Nemzeti Bank közleményeinek szentimentje"}
-ggplot(mnb_df, aes(date, sent_score)) +
+```{r  MNBsent, eval = TRUE, fig.height = 2.5 , fig.cap="Magyar Nemzeti Bank közleményeinek szentimentje"}
+mnsent_df <- ggplot(mnb_df, aes(date, sent_score)) +
   geom_line() +
   labs(
-    y = "Szentiment",
+    y = NULL,
     x = NULL
   ) +
-  facet_wrap(~sent_type, ncol = 2)
+  facet_wrap(~sent_type, ncol = 1)+
+  theme(panel.spacing = unit(2, "lines"))
+
+ggplotly(mnsent_df)
 ```

@@ -52,7 +52,7 @@ title <- read_html("https://poltextlab.tk.hu/hu") %>%
 title
 ```
 
-Ezután a kigyűjtött információkat kiíratjuk egy `csv` fájlba.
+Ezután a kigyűjtött információkat kiírhatjuk egy `csv` fájlba.
 
 ```{r eval=FALSE}
 write_csv(title, "title.csv")

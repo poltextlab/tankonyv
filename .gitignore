@@ -36,3 +36,5 @@ data/data_ner/
 *.doc
 data/
 build_the_book.R
+nb_peter.R
+speech.xlsx

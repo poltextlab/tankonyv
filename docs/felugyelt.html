@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>12 Osztályozás és felügyelt tanulás | Szövegbányászat és mesterséges intelligencia R-ben</title>
+  <meta name="description" content="12 Osztályozás és felügyelt tanulás | Szövegbányászat és mesterséges intelligencia R-ben" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="12 Osztályozás és felügyelt tanulás | Szövegbányászat és mesterséges intelligencia R-ben" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="12 Osztályozás és felügyelt tanulás | Szövegbányászat és mesterséges intelligencia R-ben" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="12 Osztályozás és felügyelt tanulás | Szövegbányászat és mesterséges intelligencia R-ben" />
+  
+  <meta name="twitter:description" content="12 Osztályozás és felügyelt tanulás | Szövegbányászat és mesterséges intelligencia R-ben" />
+  
+
+<meta name="author" content="Sebők Miklós, Ring Orsolya, Máté Ákos" />
+
+
+<meta name="date" content="2021-01-01" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="nlp_ch.html"/>
+<link rel="next" href="függelék.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
+<script src="libs/str_view-binding-1.4.0/str_view.js"></script>
+<script src="libs/plotly-binding-4.10.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="konyv_style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Szövegbányászat R-ben</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Üdvözöljük!</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#online-második-kiadás"><i class="fa fa-check"></i>Online “második kiadás”</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Bevezetés</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#a-kötet-témái"><i class="fa fa-check"></i><b>1.1</b> A kötet témái</a></li>
+<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#használati-utasítás"><i class="fa fa-check"></i><b>1.2</b> Használati utasítás</a></li>
+<li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#a-hunminer-használata"><i class="fa fa-check"></i><b>1.3</b> A HunMineR használata</a></li>
+<li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#egy-gyakorlati-példa-az-r-programmal-való-szövegbányászatra"><i class="fa fa-check"></i><b>1.4</b> Egy gyakorlati példa az R programmal való szövegbányászatra</a></li>
+<li class="chapter" data-level="1.5" data-path="intro.html"><a href="intro.html#köszönetnyilvánítás"><i class="fa fa-check"></i><b>1.5</b> Köszönetnyilvánítás</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="alapfogalmak.html"><a href="alapfogalmak.html"><i class="fa fa-check"></i><b>2</b> Kulcsfogalmak</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="alapfogalmak.html"><a href="alapfogalmak.html#big-data-és-társadalomtudomány"><i class="fa fa-check"></i><b>2.1</b> Big Data és társadalomtudomány</a></li>
+<li class="chapter" data-level="2.2" data-path="alapfogalmak.html"><a href="alapfogalmak.html#fogalmi-alapok"><i class="fa fa-check"></i><b>2.2</b> Fogalmi alapok</a></li>
+<li class="chapter" data-level="2.3" data-path="alapfogalmak.html"><a href="alapfogalmak.html#a-szövegbányászat-alapelvei"><i class="fa fa-check"></i><b>2.3</b> A szövegbányászat alapelvei</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="adatkezeles.html"><a href="adatkezeles.html"><i class="fa fa-check"></i><b>3</b> Adatkezelés R-ben</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="adatkezeles.html"><a href="adatkezeles.html#az-adatok-importálása"><i class="fa fa-check"></i><b>3.1</b> Az adatok importálása</a></li>
+<li class="chapter" data-level="3.2" data-path="adatkezeles.html"><a href="adatkezeles.html#az-adatok-exportálása"><i class="fa fa-check"></i><b>3.2</b> Az adatok exportálása</a></li>
+<li class="chapter" data-level="3.3" data-path="adatkezeles.html"><a href="adatkezeles.html#a-pipe-operátor"><i class="fa fa-check"></i><b>3.3</b> A pipe operátor</a></li>
+<li class="chapter" data-level="3.4" data-path="adatkezeles.html"><a href="adatkezeles.html#műveletek-adattáblákkal"><i class="fa fa-check"></i><b>3.4</b> Műveletek adattáblákkal</a></li>
+<li class="chapter" data-level="3.5" data-path="adatkezeles.html"><a href="adatkezeles.html#munka-karakter-vektorokkaladatkezel-4"><i class="fa fa-check"></i><b>3.5</b> Munka karakter vektorokkal</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="corpus_ch.html"><a href="corpus_ch.html"><i class="fa fa-check"></i><b>4</b> Korpuszépítés és szövegelőkészítés</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="corpus_ch.html"><a href="corpus_ch.html#szövegbeszerzés"><i class="fa fa-check"></i><b>4.1</b> Szövegbeszerzés</a></li>
+<li class="chapter" data-level="4.2" data-path="corpus_ch.html"><a href="corpus_ch.html#szövegelőkészítés"><i class="fa fa-check"></i><b>4.2</b> Szövegelőkészítés</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="corpus_ch.html"><a href="corpus_ch.html#tokenizálás-szótövezés-kisbetűsítés-és-a-tiltólistás-szavak-eltávolítása"><i class="fa fa-check"></i><b>4.2.1</b> Tokenizálás, szótövezés, kisbetűsítés és a tiltólistás szavak eltávolítása</a></li>
+<li class="chapter" data-level="4.2.2" data-path="corpus_ch.html"><a href="corpus_ch.html#dokumentum-kifejezés-mátrix-dtm-dfm"><i class="fa fa-check"></i><b>4.2.2</b> Dokumentum kifejezés mátrix (dtm, dfm)</a></li>
+<li class="chapter" data-level="4.2.3" data-path="corpus_ch.html"><a href="corpus_ch.html#súlyozás"><i class="fa fa-check"></i><b>4.2.3</b> Súlyozás</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="leiro_stat.html"><a href="leiro_stat.html"><i class="fa fa-check"></i><b>5</b> Leíró statisztika</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="leiro_stat.html"><a href="leiro_stat.html#szövegek-a-vektortérben"><i class="fa fa-check"></i><b>5.1</b> Szövegek a vektortérben</a></li>
+<li class="chapter" data-level="5.2" data-path="leiro_stat.html"><a href="leiro_stat.html#leíró-statisztika"><i class="fa fa-check"></i><b>5.2</b> Leíró statisztika</a></li>
+<li class="chapter" data-level="5.3" data-path="leiro_stat.html"><a href="leiro_stat.html#a-szövegek-lexikai-diverzitása"><i class="fa fa-check"></i><b>5.3</b> A szövegek lexikai diverzitása</a></li>
+<li class="chapter" data-level="5.4" data-path="leiro_stat.html"><a href="leiro_stat.html#összehasonlításleiro-5"><i class="fa fa-check"></i><b>5.4</b> Összehasonlítás</a></li>
+<li class="chapter" data-level="5.5" data-path="leiro_stat.html"><a href="leiro_stat.html#a-kulcsszavak-kontextusa"><i class="fa fa-check"></i><b>5.5</b> A kulcsszavak kontextusa</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="sentiment.html"><a href="sentiment.html"><i class="fa fa-check"></i><b>6</b> Szótárak és érzelemelemzés</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="sentiment.html"><a href="sentiment.html#fogalmi-alapok-1"><i class="fa fa-check"></i><b>6.1</b> Fogalmi alapok</a></li>
+<li class="chapter" data-level="6.2" data-path="sentiment.html"><a href="sentiment.html#szótárak-az-r-ben"><i class="fa fa-check"></i><b>6.2</b> Szótárak az R-ben</a></li>
+<li class="chapter" data-level="6.3" data-path="sentiment.html"><a href="sentiment.html#a-magyar-nemzet-elemzése"><i class="fa fa-check"></i><b>6.3</b> A <em>Magyar Nemzet</em> elemzése</a></li>
+<li class="chapter" data-level="6.4" data-path="sentiment.html"><a href="sentiment.html#mnb-sajtóközlemények"><i class="fa fa-check"></i><b>6.4</b> MNB sajtóközlemények</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="lda_ch.html"><a href="lda_ch.html"><i class="fa fa-check"></i><b>7</b> Felügyelet nélküli tanulás - Topikmodellezés</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="lda_ch.html"><a href="lda_ch.html#fogalmi-alapok-2"><i class="fa fa-check"></i><b>7.1</b> Fogalmi alapok</a></li>
+<li class="chapter" data-level="7.2" data-path="lda_ch.html"><a href="lda_ch.html#k-közép-klaszterezés"><i class="fa fa-check"></i><b>7.2</b> K-közép klaszterezés</a></li>
+<li class="chapter" data-level="7.3" data-path="lda_ch.html"><a href="lda_ch.html#lda-topikmodelleklda1"><i class="fa fa-check"></i><b>7.3</b> LDA topikmodellek</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="lda_ch.html"><a href="lda_ch.html#a-vem-módszer-alkalmazása-a-magyar-törvények-korpuszán"><i class="fa fa-check"></i><b>7.3.1</b> A VEM módszer alkalmazása a magyar törvények korpuszán</a></li>
+<li class="chapter" data-level="7.3.2" data-path="lda_ch.html"><a href="lda_ch.html#az-lda-gibbs-módszer-alkalmazása-a-magyar-törvények-korpuszán"><i class="fa fa-check"></i><b>7.3.2</b> Az LDA Gibbs módszer alkalmazása a magyar törvények korpuszán</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="lda_ch.html"><a href="lda_ch.html#strukturális-topikmodellek"><i class="fa fa-check"></i><b>7.4</b> Strukturális topikmodellek</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="embedding.html"><a href="embedding.html"><i class="fa fa-check"></i><b>8</b> Szóbeágyazások</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="embedding.html"><a href="embedding.html#a-szóbeágyazás-célja"><i class="fa fa-check"></i><b>8.1</b> A szóbeágyazás célja</a></li>
+<li class="chapter" data-level="8.2" data-path="embedding.html"><a href="embedding.html#word2vec-és-glove"><i class="fa fa-check"></i><b>8.2</b> Word2Vec és GloVe</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="embedding.html"><a href="embedding.html#glove-használata-magyar-média-korpuszon"><i class="fa fa-check"></i><b>8.2.1</b> GloVe használata magyar média korpuszon</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="scaling.html"><a href="scaling.html"><i class="fa fa-check"></i><b>9</b> Szövegskálázás</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="scaling.html"><a href="scaling.html#fogalmi-alapok-3"><i class="fa fa-check"></i><b>9.1</b> Fogalmi alapok</a></li>
+<li class="chapter" data-level="9.2" data-path="scaling.html"><a href="scaling.html#wordfish"><i class="fa fa-check"></i><b>9.2</b> Wordfish</a></li>
+<li class="chapter" data-level="9.3" data-path="scaling.html"><a href="scaling.html#wordscores"><i class="fa fa-check"></i><b>9.3</b> Wordscores</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="similarity.html"><a href="similarity.html"><i class="fa fa-check"></i><b>10</b> Szövegösszehasonlítás</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="similarity.html"><a href="similarity.html#a-szövegösszehasonlítás-különböző-megközelítései"><i class="fa fa-check"></i><b>10.1</b> A szövegösszehasonlítás különböző megközelítései</a></li>
+<li class="chapter" data-level="10.2" data-path="similarity.html"><a href="similarity.html#lexikális-hasonlóság"><i class="fa fa-check"></i><b>10.2</b> Lexikális hasonlóság</a></li>
+<li class="chapter" data-level="10.3" data-path="similarity.html"><a href="similarity.html#szemantikai-hasonlóság"><i class="fa fa-check"></i><b>10.3</b> Szemantikai hasonlóság</a></li>
+<li class="chapter" data-level="10.4" data-path="similarity.html"><a href="similarity.html#hasonlóságszámítás"><i class="fa fa-check"></i><b>10.4</b> Hasonlóságszámítás</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="similarity.html"><a href="similarity.html#adatbázis-importálás-és-előkészítés"><i class="fa fa-check"></i><b>10.4.1</b> Adatbázis-importálás és előkészítés</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="similarity.html"><a href="similarity.html#szövegtisztítás"><i class="fa fa-check"></i><b>10.5</b> Szövegtisztítás</a></li>
+<li class="chapter" data-level="10.6" data-path="similarity.html"><a href="similarity.html#a-jaccard-hasonlóság-számítása"><i class="fa fa-check"></i><b>10.6</b> A Jaccard-hasonlóság számítása</a></li>
+<li class="chapter" data-level="10.7" data-path="similarity.html"><a href="similarity.html#a-koszinusz-hasonlóság-számítása"><i class="fa fa-check"></i><b>10.7</b> A koszinusz-hasonlóság számítása</a></li>
+<li class="chapter" data-level="10.8" data-path="similarity.html"><a href="similarity.html#az-eredmények-vizualizációja"><i class="fa fa-check"></i><b>10.8</b> Az eredmények vizualizációja</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="nlp_ch.html"><a href="nlp_ch.html"><i class="fa fa-check"></i><b>11</b> NLP és névelemfelismerés</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="nlp_ch.html"><a href="nlp_ch.html#fogalmi-alapok-4"><i class="fa fa-check"></i><b>11.1</b> Fogalmi alapok</a></li>
+<li class="chapter" data-level="11.2" data-path="nlp_ch.html"><a href="nlp_ch.html#a-magyarlanc"><i class="fa fa-check"></i><b>11.2</b> A <code>magyarlanc</code></a></li>
+<li class="chapter" data-level="11.3" data-path="nlp_ch.html"><a href="nlp_ch.html#a-szeged-ner"><i class="fa fa-check"></i><b>11.3</b> A <code>szeged ner</code></a></li>
+<li class="chapter" data-level="11.4" data-path="nlp_ch.html"><a href="nlp_ch.html#angol-nyelvű-szövegek-névelemfelismerése"><i class="fa fa-check"></i><b>11.4</b> Angol nyelvű szövegek névelemfelismerése</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="felugyelt.html"><a href="felugyelt.html"><i class="fa fa-check"></i><b>12</b> Osztályozás és felügyelt tanulás</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="felugyelt.html"><a href="felugyelt.html#fogalmi-alapok-5"><i class="fa fa-check"></i><b>12.1</b> Fogalmi alapok</a></li>
+<li class="chapter" data-level="12.2" data-path="felugyelt.html"><a href="felugyelt.html#osztályozás-felügyelt-tanulással"><i class="fa fa-check"></i><b>12.2</b> Osztályozás felügyelt tanulással</a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="felugyelt.html"><a href="felugyelt.html#naïve-bayes"><i class="fa fa-check"></i><b>12.2.1</b> Naïve Bayes</a></li>
+<li class="chapter" data-level="12.2.2" data-path="felugyelt.html"><a href="felugyelt.html#support-vector-machine"><i class="fa fa-check"></i><b>12.2.2</b> Support-vector machine</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="függelék.html"><a href="függelék.html"><i class="fa fa-check"></i><b>13</b> Függelék</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="függelék.html"><a href="függelék.html#az-r-és-az-rstudio-használata"><i class="fa fa-check"></i><b>13.1</b> Az R és az RStudio használata</a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="függelék.html"><a href="függelék.html#az-rstudio-kezdőfelülete"><i class="fa fa-check"></i><b>13.1.1</b> Az RStudio kezdőfelülete</a></li>
+<li class="chapter" data-level="13.1.2" data-path="függelék.html"><a href="függelék.html#projektmunka"><i class="fa fa-check"></i><b>13.1.2</b> A projektalapú munka</a></li>
+<li class="chapter" data-level="13.1.3" data-path="függelék.html"><a href="függelék.html#scriptek-szerkesztése-függvények-használata"><i class="fa fa-check"></i><b>13.1.3</b> Scriptek szerkesztése, függvények használata</a></li>
+<li class="chapter" data-level="13.1.4" data-path="függelék.html"><a href="függelék.html#packages"><i class="fa fa-check"></i><b>13.1.4</b> R csomagok</a></li>
+<li class="chapter" data-level="13.1.5" data-path="függelék.html"><a href="függelék.html#objektumok-tárolása-értékadás-object"><i class="fa fa-check"></i><b>13.1.5</b> Objektumok tárolása, értékadás {object}</a></li>
+<li class="chapter" data-level="13.1.6" data-path="függelék.html"><a href="függelék.html#vektorok-vector"><i class="fa fa-check"></i><b>13.1.6</b> Vektorok {vector}</a></li>
+<li class="chapter" data-level="13.1.7" data-path="függelék.html"><a href="függelék.html#faktorok"><i class="fa fa-check"></i><b>13.1.7</b> Faktorok</a></li>
+<li class="chapter" data-level="13.1.8" data-path="függelék.html"><a href="függelék.html#data-frame"><i class="fa fa-check"></i><b>13.1.8</b> Data frame</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="függelék.html"><a href="függelék.html#munka-saját-adatokkal"><i class="fa fa-check"></i><b>13.2</b> Munka saját adatokkal</a></li>
+<li class="chapter" data-level="13.3" data-path="függelék.html"><a href="függelék.html#vizualizáció"><i class="fa fa-check"></i><b>13.3</b> Vizualizáció</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="irodalomjegyzék.html"><a href="irodalomjegyzék.html"><i class="fa fa-check"></i>Irodalomjegyzék</a></li>
+<li class="divider"></li>
+<li> Sebők Miklós, Ring Orsolya, és Máté Ákos. 2021. Szövegbányászat és Mesterséges Intelligencia R-ben. Budapest: Typotex. </li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Szövegbányászat és mesterséges intelligencia R-ben</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="felugyelt" class="section level1" number="12">
+<h1><span class="header-section-number">12</span> Osztályozás és felügyelt tanulás</h1>
+<div id="fogalmi-alapok-5" class="section level2" number="12.1">
+<h2><span class="header-section-number">12.1</span> Fogalmi alapok</h2>
+<p>A mesterséges intelligencia két fontos társadalomtudományi alkalmazási területe a felügyelet nélküli és a felügyelt tanulás. Míg az első esetben – ahogy azt a <em><a href="lda_ch.html#lda_ch">Felügyelet nélküli tanulás</a></em> fejezetben bemutattuk – az emberi beavatkozás néhány kulcsparaméter megadására (így pl. a kívánt topikok számának meghatározására) szorítkozik, addig a felügyelt tanulás esetében a kutatónak nagyobb mozgástere van “tanítani” a gépet. Ennyiben a felügyelt tanulás alkalmasabb hipotézisek tesztelésére, mint az adatok rejtett mintázatait felfedező felügyelet nélküli tanulás.</p>
+<p>A felügyelt tanulási feladat megoldása egy úgynevezett tanító halmaz (<em>training set</em>) meghatározásával kezdődik, melynek során a kutatók saját maguk végzik el kézzel azt a feladatot melyet a továbbiakban gépi közreműködéssel szeretnének nagyobb nagyságrendben, de egyben érvényesen (<em>validity</em>) és megbízhatóan (<em>reliability</em>) kivitelezni. Eredményeinket az ugyanúgy eredetileg kézzel lekódolt, de a modell-építés során félretett teszthalmazunkon (<em>test set</em>) értékelhetjük. Ennek során négy kategóriába rendezzük modellünk előrejelzéseit. Egy, a politikusi beszédeket a pozitív hangulatuk alapján osztályozó példát véve ezek a következők: azok a beszédek amelyeket a modell helyesen sorolt be pozitívba (valódi pozitív), vagy negatívba (valódi negatív), illetve azok, amelyek hibásan szerepelnek a pozitív (ál-pozitív), vagy a negatív kategóriában (ál-negatív). Mindezek együttesen egy ún. tévesztési táblát (<em>confusion matrix</em>) adnak, melynek további elemzésével ítéletet alkothatunk modellépítésünk eredményességéről.</p>
+<p>A felügyelt tanulás számos kutatási feladat megoldására alkalmazhatjuk, melyek közül a leggyakoribbak a különböző osztályozási (<em>classification</em>) feladatok. Miközben ezek – így pl. a véleményelemzés – szótáralapú módszertannal is megoldhatóak (lásd a <em><a href="sentiment.html#sentiment">Szótárak és érzelemelemzés</a></em> fejezetet), a felügyelt tanulás a nagyobb élőmunkaigényt rendszerint jobb eredményekkel és rugalmasabb felhasználhatósággal hálálja meg (gondoljunk csak a szótárak domain-függőségére). A felügyelt tanulás egyben a mesterséges intelligencia kutatásának gyorsan fejlődő területe, mely az e fejezetben tárgyalt algoritmus-központú gépi tanuláson túl az ún. mélytanulás (<em>deep learning</em>) és a neurális hálók területén is zajlik egyre látványosabb sikerekkel.</p>
+<p>Jelen fejezetben két modell fajtát mutatunk be egyazon korpuszon az Support Vector Machine (SVM) és a Naïve Bayes (NB). Mindkettő a fentiekben leírt klasszifikációs feladatot végzi el, viszont eltérő módon működnek. Az SVM a tanító halmazunk dokumentumait vektorként reprezentálja, ami annyit jelent, hogy hozzájuk rendel egy számsort, amely egy közös térben betöltött pozíciójukat reprezentálja.</p>
+<div class="figure">
+<img src="figures/svm1.jpg" alt="" />
+<p class="caption">A teszthalmaz dokumentumai egy közös térben reprezentálva</p>
+</div>
+<p>Ezt követően pedig a különféle képpen képpen felcímkézett dokumentumok között egy vonalat (hyperplane) húz meg, amely a lehető legnagyobb távolságra van minden egyes dokumentumtól.</p>
+<div class="figure">
+<img src="figures/svm2.jpg" alt="" />
+<p class="caption">A minta osztályozása</p>
+</div>
+<p>Innentől kezdve pedig a modellnek nincs más dolga, mint a tanító halmazon kívül eső dokumentumok vektor értékeit is megállapítani, elhelyezni őket ebben a közös térben, és attól függően, hogy a hyperplane mely oldalára kerülnek besorolni őket. Ezzel szemben az NB a felcímkézett tanító halmazunk szavaihoz egy valószínűségi értéket rendel annak függvényében, hogy az adott szó adott kategóriába tartozó dokumentumokban hányszor jelenik meg, az adott kategória dokumentumainak teljes szószámához képest. Miután a teszt halmazunk dokumentumaiban minden szóhoz hozzárendeltük ezeket a valószínűségi értékeket nincs más dolgunk, mint a teszt halmazunkon kívül eső dokumentumokban felkeresni ugyanezen szavakat, a hozzájuk rendelt valószínűségi értékeket aggregálni és ez alapján minden dokumentumhoz tudunk rendelni több valószínűségi értéket is, amelyek megadják, hogy mekkora eséllyel tartozik a dokumentum a teszt halmazunk egyes kategóriáiba.</p>
+</div>
+<div id="osztályozás-felügyelt-tanulással" class="section level2" number="12.2">
+<h2><span class="header-section-number">12.2</span> Osztályozás felügyelt tanulással</h2>
+<p>Az alábbi fejezetben a CAP magyar média gyűjteményéből a napilap címlapokat tartalmazó modult használjuk.<a href="#fn62" class="footnote-ref" id="fnref62"><sup>62</sup></a> Az induló adatbázis 61 835 cikk szövegét és metaadatait (összesen öt változót: sorszám, fájlnév, a közpolitikai osztály kódja, szöveg, illetve a korpusz forrása – <em>Magyar Nemzet</em> vagy <em>Népszabadság</em>) tartalmazza. Az a célunk, hogy az egyes cikkekhez kézzel, jó minőségben (két, egymástól függetlenül dolgozó kódoló által) kiosztott és egyeztetett közpolitikai kódokat – ez a tanítóhalmaz – arra használjuk, hogy meghatározzuk egy kiválasztott cikkcsoport hasonló kódjait. Az osztályozási feladathoz a CAP közpolitikai kódrendszerét használjuk, mely 21 közpolitikai kategóriát határoz meg az oktatástól az egészségügyön át a honvédelemig.<a href="#fn63" class="footnote-ref" id="fnref63"><sup>63</sup></a></p>
+<p>Annak érdekében, hogy egyértelműen értékelhessük a gépi tanulás hatékonyságát, a kiválasztott cikkcsoport (azaz a teszthalmaz) esetében is ismerjük a kézi kódolás eredményét („éles“ kutatási helyzetben, ismeretlen kódok esetében ugyanakkor ezt gyakran szintén csak egy kisebb mintán tudjuk kézzel validálni). További fontos lépés, hogy az észszerű futási idő érdekében a gyakorlat során a teljes adatbázisból – és ezen belül is csak a Népszabadság részhalmazból – fogunk venni egy 4500 darabos mintát. Ezen a mintán pedigg a már korábban említett kétféle modellt fogjuk futtatni a NB-t és az SVM-t. Az ezekkel a módszerekkel létrehozott két modellünk hatékonyságát fogjuk összehasonlítani, valamint azt is megfogjuk nézni, hogy az eredmények megbízhatósága mennyiben közelíti meg a kézikódolási módszerre jellemző 80-90%-os pontosságot.</p>
+<p>Először behívjuk a szükséges csomagokat. Majd a felügyelet nélküli tanulással foglalkozó fejezethez hasonlóan itt is alkalmazzuk a <code>set.seed()</code> funkciót, mivel anélkül nem egyeznének az eredményeink teljes mértékben egy a kódunk egy késöbbi újrafuttatása esetén.</p>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="felugyelt.html#cb233-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb233-2"><a href="felugyelt.html#cb233-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb233-3"><a href="felugyelt.html#cb233-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quanteda)</span>
+<span id="cb233-4"><a href="felugyelt.html#cb233-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
+<span id="cb233-5"><a href="felugyelt.html#cb233-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quanteda.textmodels)</span>
+<span id="cb233-6"><a href="felugyelt.html#cb233-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(HunMineR)</span>
+<span id="cb233-7"><a href="felugyelt.html#cb233-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb233-8"><a href="felugyelt.html#cb233-8" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span></code></pre></div>
+<p>Ezt követően betöltjük a <code>HunMineR</code>-ből az adatainkat. Jelen esetben is vethetünk egy pillantást az objektum tartalmára a glimpse funkció segítségével, és láthatjuk, hogy az öt változónk a cikkek tényleges szövege, a sorok száma, a fájlok neve, az újság, ahol a cikk megjelent, valamint a cikk adott témába való besorolása, amely kézi kódolással került hozzárendelésre.</p>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="felugyelt.html#cb234-1" aria-hidden="true" tabindex="-1"></a>Data_NOL_MNO <span class="ot">&lt;-</span> HunMineR<span class="sc">::</span>data_nol_mno_clean</span>
+<span id="cb234-2"><a href="felugyelt.html#cb234-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(Data_NOL_MNO)</span>
+<span id="cb234-3"><a href="felugyelt.html#cb234-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Rows: 71,875</span></span>
+<span id="cb234-4"><a href="felugyelt.html#cb234-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Columns: 5</span></span>
+<span id="cb234-5"><a href="felugyelt.html#cb234-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ row_number      &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 1~</span></span>
+<span id="cb234-6"><a href="felugyelt.html#cb234-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ filename        &lt;chr&gt; &quot;nol_1990_01_02_01.txt&quot;, &quot;nol_1990_01_02_02.~</span></span>
+<span id="cb234-7"><a href="felugyelt.html#cb234-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ majortopic_code &lt;dbl&gt; 19, 19, 19, 1, 1, 19, 19, 1, 1, 19, 19, 1, 1~</span></span>
+<span id="cb234-8"><a href="felugyelt.html#cb234-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ text            &lt;chr&gt; &quot;változás év választás év világ ünneplés köz~</span></span>
+<span id="cb234-9"><a href="felugyelt.html#cb234-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ corpus          &lt;chr&gt; &quot;NOL&quot;, &quot;NOL&quot;, &quot;NOL&quot;, &quot;NOL&quot;, &quot;NOL&quot;, &quot;NOL&quot;, &quot;N~</span></span></code></pre></div>
+<p>Majd pár kissebb átalakítást hajtunk végre az adatainkon. Először is ehhez a modellhez most csak a Népszabadság cikkeket fogjuk alkalmazni a Magyar Nemzet cikkeit kiszedjük az adataink közül. Ezután leegyszerűsítjük a kódolást. Összesen 21 témakört lefed a cikkek kézi kódolása most viszont ezekből egy bináris változót készítünk, amelynek 1 lesz az értéke, ha a cikk makrogazdaságról szól, ha pedig bármilyne más témakörről, akkor 0 lesz az értéke. Így két hasonló méretű csoportot hozunk létre. A modellek pedig az ide történő besorolálst próbálják majd megállapítani a cikkek szövege alapján vagyis, hogy makrogazdasági témáról szól-e az adott cikk, vagy valamilyen más témáról. Majd kiválasztjuk a táblából a két változó, amelyekre szükségünk lesz a cikkek szövegét <code>text</code> és a cikkekhez kézzel hozzárendelt téműt <code>label</code> a többit pedig elvetjük.</p>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="felugyelt.html#cb235-1" aria-hidden="true" tabindex="-1"></a>Data_NOL <span class="ot">&lt;-</span> Data_NOL_MNO <span class="sc">%&gt;%</span> </span>
+<span id="cb235-2"><a href="felugyelt.html#cb235-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(text <span class="sc">!=</span> <span class="st">&quot; &quot;</span> <span class="sc">|</span> text <span class="sc">!=</span> <span class="st">&quot;&quot;</span>, corpus <span class="sc">==</span> <span class="st">&quot;NOL&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb235-3"><a href="felugyelt.html#cb235-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">label =</span> <span class="fu">if_else</span>(majortopic_code <span class="sc">==</span> <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb235-4"><a href="felugyelt.html#cb235-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(label) <span class="sc">%&gt;%</span> </span>
+<span id="cb235-5"><a href="felugyelt.html#cb235-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sample_n</span>(<span class="dv">2250</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb235-6"><a href="felugyelt.html#cb235-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb235-7"><a href="felugyelt.html#cb235-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(text, label)</span></code></pre></div>
+<p>Ezt követően egy korpusszá alakítjuk az objektumunkat.</p>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="felugyelt.html#cb236-1" aria-hidden="true" tabindex="-1"></a>nol_corpus <span class="ot">&lt;-</span> <span class="fu">corpus</span>(Data_NOL)</span></code></pre></div>
+<p>Majd létrehozunk egy új objektumot id_train néven amely 1 és 4500 között 3600 különböző a <code>sample()</code> funkció segítségével véletlenszerűen kiválogatott számot tartalmaz. Utána pedig a korpuszunkhoz hozzá adunk egy új id_numeric elnevezésű változót, amely csupán a megszámozza az egyes cikkeket. Ezeket a késöbbiekben arra fogjuk felhasználni, hogy kialakítsuk a tanító és teszt halmazokat</p>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="felugyelt.html#cb237-1" aria-hidden="true" tabindex="-1"></a>id_train <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4500</span>, <span class="dv">3600</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb237-2"><a href="felugyelt.html#cb237-2" aria-hidden="true" tabindex="-1"></a>nol_corpus<span class="sc">$</span>id_numeric <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">ndoc</span>(nol_corpus)</span></code></pre></div>
+<p>Ezt követően a korpuszunkat egy tokenekké alakítjuk és ezzel egyidejűleg eltávolítjuk a quanteda beépített magyar stopszó szótárát, valamint sztemmelést is végrehajtunk.</p>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="felugyelt.html#cb238-1" aria-hidden="true" tabindex="-1"></a>nol_toks <span class="ot">&lt;-</span> <span class="fu">tokens</span>(nol_corpus, <span class="at">remove_punct =</span> <span class="cn">TRUE</span>, <span class="at">remove_number =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb238-2"><a href="felugyelt.html#cb238-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tokens_remove</span>(<span class="at">pattern =</span> <span class="fu">stopwords</span>(<span class="st">&quot;hungarian&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb238-3"><a href="felugyelt.html#cb238-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tokens_wordstem</span>()</span></code></pre></div>
+<p>A tokeneket pedig egy dfm-é alakítjuk.</p>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="felugyelt.html#cb239-1" aria-hidden="true" tabindex="-1"></a>nol_dfm <span class="ot">&lt;-</span> <span class="fu">dfm</span>(nol_toks)</span></code></pre></div>
+<p>Ezt követően kialakítjunk a tanító és teszt halmazokat a korábban létrehozott változók segítségével. A lenti kód elsősora egy subsetet alakít ki az adattáblánk mindazon soraiból, amelyek id_numeric változója szerepel az id_train számsorban ez lesz a tanító alhalmaz. Majd ennek megfelelően egy másik alhalmazt alakítunk ki a teszteléshez, amely minden olyan sorát fogja tartalmazni adattáblánknak, amely id_numeric változója nem szerepel az id_train számsorban.</p>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="felugyelt.html#cb240-1" aria-hidden="true" tabindex="-1"></a>train_dfm <span class="ot">&lt;-</span> <span class="fu">dfm_subset</span>(nol_dfm, id_numeric <span class="sc">%in%</span> id_train)</span>
+<span id="cb240-2"><a href="felugyelt.html#cb240-2" aria-hidden="true" tabindex="-1"></a>test_dfm <span class="ot">&lt;-</span> <span class="fu">dfm_subset</span>(nol_dfm, <span class="sc">!</span>id_numeric <span class="sc">%in%</span> id_train)</span></code></pre></div>
+<p>Azáltal pedig, hogy kialakítottuk a két alhalmazt el is végeztük az utolsó előkészítési folyamatot is, az így előkészített adatokon tudjuk majd futtatni a következőkben, mind az NB és az SVM modellünket.</p>
+<div id="naïve-bayes" class="section level3" number="12.2.1">
+<h3><span class="header-section-number">12.2.1</span> Naïve Bayes</h3>
+<p>A fejezet Naïve Bayesre vonatkozó kódjai quanteda tutoriál menetét és kódjait követik.<a href="#fn64" class="footnote-ref" id="fnref64"><sup>64</sup></a> Először létrehozzuk a modellünket, amely számára meghatározzuk, hogy a label változóhoz kell egy predikciót adnia, majd ezt alakalmazzuk az adatainkra. A <code>dfm_match</code> parancs segítségével eltávolítjuk a vizsgált dokumentumaink szavai közül mindazokat, amelyek nem szerepeltek a teszt halmazunkba. Erre azért van szükség, mivel az NB csak azokat a szavakat képes kezelni, amelyekhez már hozzárendelt egy valószínűségi értéket, tehát csak azokat, amelyek a teszt halmazban is megtalálhatóak.</p>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="felugyelt.html#cb241-1" aria-hidden="true" tabindex="-1"></a>nol_nb <span class="ot">&lt;-</span> <span class="fu">textmodel_nb</span>(train_dfm, train_dfm<span class="sc">$</span>label)</span>
+<span id="cb241-2"><a href="felugyelt.html#cb241-2" aria-hidden="true" tabindex="-1"></a>dfm_kozos <span class="ot">&lt;-</span> <span class="fu">dfm_match</span>(test_dfm, <span class="at">features =</span> <span class="fu">featnames</span>(train_dfm))</span></code></pre></div>
+<p>A következő objektumban eltároljuk a kézikódolás eredményeit, amelyeket már ismerünk.</p>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="felugyelt.html#cb242-1" aria-hidden="true" tabindex="-1"></a>tenyleges_osztaly <span class="ot">&lt;-</span> dfm_kozos<span class="sc">$</span>label</span></code></pre></div>
+<p>Majd eltároljuk egy másik objektumban azokat az eredményeket, amelyeket a modellünk generált.</p>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="felugyelt.html#cb243-1" aria-hidden="true" tabindex="-1"></a>becsult_osztaly <span class="ot">&lt;-</span> <span class="fu">predict</span>(nol_nb, <span class="at">newdata =</span> dfm_kozos)</span></code></pre></div>
+<p>A két fenti adat segítségével pedig létrehozhatjuk a korábban is említett tévesztési táblát.</p>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="felugyelt.html#cb244-1" aria-hidden="true" tabindex="-1"></a>eredmeny_tabla <span class="ot">&lt;-</span> <span class="fu">table</span>(tenyleges_osztaly, becsult_osztaly)</span>
+<span id="cb244-2"><a href="felugyelt.html#cb244-2" aria-hidden="true" tabindex="-1"></a>eredmeny_tabla</span>
+<span id="cb244-3"><a href="felugyelt.html#cb244-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                  becsult_osztaly</span></span>
+<span id="cb244-4"><a href="felugyelt.html#cb244-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; tenyleges_osztaly   0   1</span></span>
+<span id="cb244-5"><a href="felugyelt.html#cb244-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                 0 391  65</span></span>
+<span id="cb244-6"><a href="felugyelt.html#cb244-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                 1  72 372</span></span></code></pre></div>
+<p>Ezt létrehozhatjuk a <code>caret</code> csomag funkciójával is, amely a tévesztési tábla mellett sok más hasznos adatot is megad a számunkra.</p>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="felugyelt.html#cb245-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(eredmeny_tabla, <span class="at">mode =</span> <span class="st">&quot;everything&quot;</span>)</span>
+<span id="cb245-2"><a href="felugyelt.html#cb245-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Confusion Matrix and Statistics</span></span>
+<span id="cb245-3"><a href="felugyelt.html#cb245-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb245-4"><a href="felugyelt.html#cb245-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                  becsult_osztaly</span></span>
+<span id="cb245-5"><a href="felugyelt.html#cb245-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; tenyleges_osztaly   0   1</span></span>
+<span id="cb245-6"><a href="felugyelt.html#cb245-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                 0 391  65</span></span>
+<span id="cb245-7"><a href="felugyelt.html#cb245-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                 1  72 372</span></span>
+<span id="cb245-8"><a href="felugyelt.html#cb245-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                                         </span></span>
+<span id="cb245-9"><a href="felugyelt.html#cb245-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                Accuracy : 0.848         </span></span>
+<span id="cb245-10"><a href="felugyelt.html#cb245-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                  95% CI : (0.823, 0.871)</span></span>
+<span id="cb245-11"><a href="felugyelt.html#cb245-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     No Information Rate : 0.514         </span></span>
+<span id="cb245-12"><a href="felugyelt.html#cb245-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     P-Value [Acc &gt; NIR] : &lt;2e-16        </span></span>
+<span id="cb245-13"><a href="felugyelt.html#cb245-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                                         </span></span>
+<span id="cb245-14"><a href="felugyelt.html#cb245-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                   Kappa : 0.695         </span></span>
+<span id="cb245-15"><a href="felugyelt.html#cb245-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                                         </span></span>
+<span id="cb245-16"><a href="felugyelt.html#cb245-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Mcnemar&#39;s Test P-Value : 0.608         </span></span>
+<span id="cb245-17"><a href="felugyelt.html#cb245-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                                         </span></span>
+<span id="cb245-18"><a href="felugyelt.html#cb245-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Sensitivity : 0.844         </span></span>
+<span id="cb245-19"><a href="felugyelt.html#cb245-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Specificity : 0.851         </span></span>
+<span id="cb245-20"><a href="felugyelt.html#cb245-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          Pos Pred Value : 0.857         </span></span>
+<span id="cb245-21"><a href="felugyelt.html#cb245-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          Neg Pred Value : 0.838         </span></span>
+<span id="cb245-22"><a href="felugyelt.html#cb245-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               Precision : 0.857         </span></span>
+<span id="cb245-23"><a href="felugyelt.html#cb245-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                  Recall : 0.844         </span></span>
+<span id="cb245-24"><a href="felugyelt.html#cb245-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                      F1 : 0.851         </span></span>
+<span id="cb245-25"><a href="felugyelt.html#cb245-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;              Prevalence : 0.514         </span></span>
+<span id="cb245-26"><a href="felugyelt.html#cb245-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          Detection Rate : 0.434         </span></span>
+<span id="cb245-27"><a href="felugyelt.html#cb245-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    Detection Prevalence : 0.507         </span></span>
+<span id="cb245-28"><a href="felugyelt.html#cb245-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       Balanced Accuracy : 0.848         </span></span>
+<span id="cb245-29"><a href="felugyelt.html#cb245-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                                         </span></span>
+<span id="cb245-30"><a href="felugyelt.html#cb245-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        &#39;Positive&#39; Class : 0             </span></span>
+<span id="cb245-31"><a href="felugyelt.html#cb245-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span></code></pre></div>
+<p>Az eredményeken pedig láthatjuk, hogy még az egyszerűség kedvéért lecsökkentett méretű tanítási halmaz ellenére is egy kifejezett magas 84.78%-os pontossági értéket kapunk, amely többé-kevésbé megfeletethető egy kizárólag kézikódolással végzett vizsgálat pontosságának</p>
+</div>
+<div id="support-vector-machine" class="section level3" number="12.2.2">
+<h3><span class="header-section-number">12.2.2</span> Support-vector machine</h3>
+<p>A következő kódsorral alkalmazzuk az SVM modellünket, hogy az adatainkon belül a label változóra vonatkozóan készítsen predikciót.</p>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="felugyelt.html#cb246-1" aria-hidden="true" tabindex="-1"></a>nol_svm <span class="ot">&lt;-</span> <span class="fu">textmodel_svm</span>(train_dfm, <span class="at">y =</span> train_dfm<span class="sc">$</span>label)</span></code></pre></div>
+<p>Ismét eltároljuk a kézikódolás eredményeit, amelyeket már ismerünk. Valamint az eredményeket, amelyeket az SVM modellünk generált szintén eltároljuk egy objektumba.</p>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="felugyelt.html#cb247-1" aria-hidden="true" tabindex="-1"></a>tenyleges_osztaly_svm <span class="ot">&lt;-</span> dfm_kozos<span class="sc">$</span>label</span>
+<span id="cb247-2"><a href="felugyelt.html#cb247-2" aria-hidden="true" tabindex="-1"></a>becsult_osztaly_svm <span class="ot">&lt;-</span> <span class="fu">predict</span>(nol_svm, <span class="at">newdata =</span> dfm_kozos)</span></code></pre></div>
+<p>Ismét létrehozhatunk egy egyszerű tévesztési táblát.</p>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="felugyelt.html#cb248-1" aria-hidden="true" tabindex="-1"></a>eredmeny_tabla_svm <span class="ot">&lt;-</span> <span class="fu">table</span>(tenyleges_osztaly_svm, becsult_osztaly_svm)</span>
+<span id="cb248-2"><a href="felugyelt.html#cb248-2" aria-hidden="true" tabindex="-1"></a>eredmeny_tabla_svm</span>
+<span id="cb248-3"><a href="felugyelt.html#cb248-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                      becsult_osztaly_svm</span></span>
+<span id="cb248-4"><a href="felugyelt.html#cb248-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; tenyleges_osztaly_svm   0   1</span></span>
+<span id="cb248-5"><a href="felugyelt.html#cb248-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                     0 369  87</span></span>
+<span id="cb248-6"><a href="felugyelt.html#cb248-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                     1  45 399</span></span></code></pre></div>
+<p>Valamint jelen esetben is használhatjuk a <code>caret</code> csomagban található funkciót, hogy még több információt nyerjünk ki a modellünk működéséről.</p>
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="felugyelt.html#cb249-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(eredmeny_tabla_svm, <span class="at">mode =</span> <span class="st">&quot;everything&quot;</span>)</span>
+<span id="cb249-2"><a href="felugyelt.html#cb249-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Confusion Matrix and Statistics</span></span>
+<span id="cb249-3"><a href="felugyelt.html#cb249-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb249-4"><a href="felugyelt.html#cb249-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                      becsult_osztaly_svm</span></span>
+<span id="cb249-5"><a href="felugyelt.html#cb249-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; tenyleges_osztaly_svm   0   1</span></span>
+<span id="cb249-6"><a href="felugyelt.html#cb249-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                     0 369  87</span></span>
+<span id="cb249-7"><a href="felugyelt.html#cb249-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                     1  45 399</span></span>
+<span id="cb249-8"><a href="felugyelt.html#cb249-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                                         </span></span>
+<span id="cb249-9"><a href="felugyelt.html#cb249-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                Accuracy : 0.853         </span></span>
+<span id="cb249-10"><a href="felugyelt.html#cb249-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                  95% CI : (0.829, 0.876)</span></span>
+<span id="cb249-11"><a href="felugyelt.html#cb249-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     No Information Rate : 0.54          </span></span>
+<span id="cb249-12"><a href="felugyelt.html#cb249-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     P-Value [Acc &gt; NIR] : &lt; 2e-16       </span></span>
+<span id="cb249-13"><a href="felugyelt.html#cb249-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                                         </span></span>
+<span id="cb249-14"><a href="felugyelt.html#cb249-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                   Kappa : 0.707         </span></span>
+<span id="cb249-15"><a href="felugyelt.html#cb249-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                                         </span></span>
+<span id="cb249-16"><a href="felugyelt.html#cb249-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Mcnemar&#39;s Test P-Value : 0.000359      </span></span>
+<span id="cb249-17"><a href="felugyelt.html#cb249-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                                         </span></span>
+<span id="cb249-18"><a href="felugyelt.html#cb249-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Sensitivity : 0.891         </span></span>
+<span id="cb249-19"><a href="felugyelt.html#cb249-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Specificity : 0.821         </span></span>
+<span id="cb249-20"><a href="felugyelt.html#cb249-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          Pos Pred Value : 0.809         </span></span>
+<span id="cb249-21"><a href="felugyelt.html#cb249-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          Neg Pred Value : 0.899         </span></span>
+<span id="cb249-22"><a href="felugyelt.html#cb249-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               Precision : 0.809         </span></span>
+<span id="cb249-23"><a href="felugyelt.html#cb249-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                  Recall : 0.891         </span></span>
+<span id="cb249-24"><a href="felugyelt.html#cb249-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                      F1 : 0.848         </span></span>
+<span id="cb249-25"><a href="felugyelt.html#cb249-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;              Prevalence : 0.460         </span></span>
+<span id="cb249-26"><a href="felugyelt.html#cb249-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          Detection Rate : 0.410         </span></span>
+<span id="cb249-27"><a href="felugyelt.html#cb249-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    Detection Prevalence : 0.507         </span></span>
+<span id="cb249-28"><a href="felugyelt.html#cb249-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       Balanced Accuracy : 0.856         </span></span>
+<span id="cb249-29"><a href="felugyelt.html#cb249-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                                         </span></span>
+<span id="cb249-30"><a href="felugyelt.html#cb249-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        &#39;Positive&#39; Class : 0             </span></span>
+<span id="cb249-31"><a href="felugyelt.html#cb249-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span></code></pre></div>
+<p>Itt ismét azt találjuk, hogy a csökkentett méretű korpusz ellenére is egy kifejezetten magas pontossági értéket 85.33%-ot kapunk.</p>
+
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="62">
+<li id="fn62"><p>A korpusz regisztációt követően elérhető az alábbi linken: <a href="https://cap.tk.hu/a-media-es-a-kozvelemeny-napirendje" class="uri">https://cap.tk.hu/a-media-es-a-kozvelemeny-napirendje</a><a href="felugyelt.html#fnref62" class="footnote-back">↩︎</a></p></li>
+<li id="fn63"><p>A kódkönyv regisztrációt követően elérhető az alábbi linken: <a href="https://cap.tk.hu/kozpolitikai-cap">https://cap.tk.hu/kozpolitikai-cap</a><a href="felugyelt.html#fnref63" class="footnote-back">↩︎</a></p></li>
+<li id="fn64"><p><a href="https://tutorials.quanteda.io/machine-learning/nb/">https://tutorials.quanteda.io/machine-learning/nb/</a><a href="felugyelt.html#fnref64" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="nlp_ch.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="függelék.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

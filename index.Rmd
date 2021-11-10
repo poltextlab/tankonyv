@@ -22,6 +22,9 @@ A magyar tankönyvpiacon elsőként ismertetünk lépésről-lépésre a nemzetk
 
 A könyv megrendelhető a [Typotex kiadó honlapján!](https://www.typotex.hu/book/11810/sebok_szovegbanyaszat_es_mesterseges_intelligencia_r_ben)
 
+## Online "második kiadás" {-}
+
+A nyomtatott kiadáshoz képest a jelenlegi online verzója a könyvnek számos újítást, javítást tartalmaz. Az ábrák többsége interaktív módón felfedezhető, a bevezetésben egy rövid bemutató erejéig megvizsgáljuk Ady és Petőfi verseit,  a 12. fejezetet pedig a Naiv Bayes felügyelt osztályozási módszerrel bővítettük. 
 
 Javasolt hivatkozás: 
 
@@ -31,7 +34,7 @@ Sebők Miklós, Ring Orsolya, és Máté Ákos. 2021. Szövegbányászat és Mes
 Bib formátumban:
 
 ```
-@book{sebok2021szovegbanyaszat,
+@book{sebokringmate2021szovegbanyaszat,
 	address = {Budapest},
 	title = {Szövegbányászat és mesterséges intelligencia {R}-ben},
 	publisher = {Typotex},
