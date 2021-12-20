@@ -22,9 +22,22 @@ A magyar tankönyvpiacon elsőként ismertetünk lépésről-lépésre a nemzetk
 
 A könyv megrendelhető a [Typotex kiadó honlapján!](https://www.typotex.hu/book/11810/sebok_szovegbanyaszat_es_mesterseges_intelligencia_r_ben)
 
-## Online "második kiadás" {-}
+## 2.0 - Online frissítések {-}
 
-A nyomtatott kiadáshoz képest a jelenlegi online verzója a könyvnek számos újítást, javítást tartalmaz. Az ábrák többsége interaktív módón felfedezhető, a bevezetésben egy rövid bemutató erejéig megvizsgáljuk Ady és Petőfi verseit,  a 12. fejezetet pedig a Naiv Bayes felügyelt osztályozási módszerrel bővítettük. 
+A Szövegbányászat és mesterséges intelligencia R-ben szerkesztette Sebők Miklós, Ring Orsolya, és Máté Ákos frissített verziója már online elérhető, a könyv a MILAB projekt támogatásával került publikációra. Az eredeti kézirat több részét is kiegészítettük mind Szövegbányászati módszertannal, gyakorlati példákkal, és ábrázolási technikákkal.
+
+Az újítások teljes listája:
+
+-	A szövegbányászat egy részletesebb meghatározása és definíciója a könyv [bevezetőjében](#intro).
+-	A gyakorlati szövegbányászat fő lépéseit egy [egyszerű példa mutatja be](#handson) az olvasó számára Ady Endre és Petőfi Sándor versein keresztül.
+-	A könyvben felhasznált adatokhoz és a könyvben előállított ábrákhoz külön leíró részeket helyeztünk a szövegbe.
+-	Egy [új alfejezet](#sajat-adat) segíti az olvasót a saját adatai használatához.
+-	A könyv statikus ábráit interaktív megfelelőikre cseréltük ki.
+-	Új információk az [adatábrázolással foglalkozó alfejezetben](#dataviz) interaktív ábrák előállítására vonatkozóan.
+-	Az [Osztályozás és felügyelt tanulás című fejezet](#felugyelt) immár mind az SVM és a Naïve Bayes módszer R-n belüli alkalmazását is bemutatja.
+-	Az [Osztályozás és felügyelt tanulás című fejezetet](#felugyelt) kiegészítettük az itt bemutatott módszerek működésének közérthető leírásával.
+-	A [Munka karakter vektorokkal](#strings-3) című alfejezetet kiegészítettük az n-grammok leírásával.
+
 
 Javasolt hivatkozás: 
 
