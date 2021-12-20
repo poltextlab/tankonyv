@@ -44,7 +44,7 @@ intro
 a-kötet-témái
 használati-utasítás
 a-hunminer-használata
-egy-gyakorlati-példa-az-r-programmal-való-szövegbányászatra
+handson
 köszönetnyilvánítás
 alapfogalmak
 big-data-és-társadalomtudomány
@@ -55,7 +55,7 @@ az-adatok-importálása
 az-adatok-exportálása
 a-pipe-operátor
 műveletek-adattáblákkal
-munka-karakter-vektorokkaladatkezel-4
+strings-3
 corpus_ch
 szövegbeszerzés
 szövegelőkészítés
@@ -104,7 +104,7 @@ a-magyarlanc
 a-szeged-ner
 angol-nyelvű-szövegek-névelemfelismerése
 felugyelt
-fogalmi-alapok-5
+basics
 osztályozás-felügyelt-tanulással
 naïve-bayes
 support-vector-machine
@@ -114,9 +114,9 @@ az-rstudio-kezdőfelülete
 projektmunka
 scriptek-szerkesztése-függvények-használata
 packages
-objektumok-tárolása-értékadás-object
-vektorok-vector
+object
+vector
 faktorok
 data-frame
-munka-saját-adatokkal
-vizualizáció
+sajat-adat
+dataviz
