@@ -131,7 +131,7 @@ gapminder %>%
   dplyr::summarise(megfigyelesek = n(), atlag_gdp = mean(gdpPercap))
 ```
 
-## Munka karakter vektorokkal[^adatkezel-4]
+## Munka karakter vektorokkal[^adatkezel-4] {#strings-3}
 
 [^adatkezel-4]: A könyv terjedelme miatt ezt a témát itt csak bemutatni tudjuk, de minden részletre kiterjedően nem tudunk elmélyülni benne. A témában nagyon jól használható online anyagok találhatóak az RStudio GitHub tárhelyén ([https://github.com/rstudio/cheatsheets/raw/master/strings.pdf](https://github.com/rstudio/cheatsheets/raw/master/strings.pdf)), illetve @wickham2016r 14. fejezetében.
 

@@ -83,7 +83,7 @@ data(package = "HunMineR")
 ```
 
 
-## Egy gyakorlati példa az R programmal való szövegbányászatra 
+## Egy gyakorlati példa az R programmal való szövegbányászatra {#handson}
 
 A következőkben egy példát mutatunk be a szövegbányászat gyakorlati alkalmazására vonatkozóan, amely során Ady Endre és Petőfi Sándor összes verseinek szóhasználatát hasonlítjuk össze, az eredményekhez pedig szemléletes ábrázolást is készítünk. A jelen példában alkalmazott eljárásokat a későbbi fejezetekben részletesen is kifejtjük itt csupán szemléltetni kívánjuk velük, hogy milyen jellegű elemzéseket sajátíthat majd el az olvasó a könyv segítségével.
 

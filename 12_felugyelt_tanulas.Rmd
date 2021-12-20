@@ -1,6 +1,6 @@
 # Osztályozás és felügyelt tanulás {#felugyelt}
 
-## Fogalmi alapok
+## Fogalmi alapok {#basics}
 
 ```{r, include=FALSE}
 source("_common.R")
