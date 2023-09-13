@@ -276,7 +276,7 @@ mnb_token <- tokens(mnb_corpus) %>%
   tokens_keep(pattern = phrase(gazdasag), window = 10)
 ```
 
-A szentimentet most is egy súlyozott dfm-ből számoljuk. A kész eredményt hozzáadjuk a korpuszhoz, majd adattáblát hozunk létre belőle. A 9 kategóriából 5-öt használunk csak, amelyeknek jegybanki környezetben értelmezhető tartalma van.
+A szentimentet most is egy súlyozott dfm-ből számoljuk. A kész eredményt hozzáadjuk a korpuszhoz, majd adattáblát hozunk létre belőle. A 7 kategóriából 5-öt használunk csak, amelyeknek jegybanki környezetben értelmezhető tartalma van.
 
 ```{r}
 mnb_szentiment <- tokens_lookup(mnb_token, dictionary = penzugy_szentiment) %>%

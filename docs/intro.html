@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>1 Bevezetés | Szövegbányászat és mesterséges intelligencia R-ben</title>
   <meta name="description" content="1 Bevezetés | Szövegbányászat és mesterséges intelligencia R-ben" />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
   <meta property="og:title" content="1 Bevezetés | Szövegbányászat és mesterséges intelligencia R-ben" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="1 Bevezetés | Szövegbányászat és mesterséges intelligencia R-ben" />
   
@@ -33,7 +32,6 @@
   
 <link rel="prev" href="index.html"/>
 <link rel="next" href="alapfogalmak.html"/>
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -51,19 +49,18 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
-<link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
-<script src="libs/str_view-binding-1.4.0/str_view.js"></script>
-<script src="libs/plotly-binding-4.10.0/plotly.js"></script>
+<script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.1/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -104,7 +101,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -117,7 +114,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -131,6 +128,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 <style type="text/css">
 /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
 div.csl-bib-body { }
@@ -179,7 +180,7 @@ div.csl-indent {
 <li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#a-kötet-témái"><i class="fa fa-check"></i><b>1.1</b> A kötet témái</a></li>
 <li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#használati-utasítás"><i class="fa fa-check"></i><b>1.2</b> Használati utasítás</a></li>
 <li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#a-hunminer-használata"><i class="fa fa-check"></i><b>1.3</b> A HunMineR használata</a></li>
-<li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#handson"><i class="fa fa-check"></i><b>1.4</b> Egy gyakorlati példa az R programmal való szövegbányászatra</a></li>
+<li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#handson"><i class="fa fa-check"></i><b>1.4</b> Egy bevezető példa</a></li>
 <li class="chapter" data-level="1.5" data-path="intro.html"><a href="intro.html#köszönetnyilvánítás"><i class="fa fa-check"></i><b>1.5</b> Köszönetnyilvánítás</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="alapfogalmak.html"><a href="alapfogalmak.html"><i class="fa fa-check"></i><b>2</b> Kulcsfogalmak</a>
@@ -221,7 +222,7 @@ div.csl-indent {
 <li class="chapter" data-level="6.3" data-path="sentiment.html"><a href="sentiment.html#a-magyar-nemzet-elemzése"><i class="fa fa-check"></i><b>6.3</b> A <em>Magyar Nemzet</em> elemzése</a></li>
 <li class="chapter" data-level="6.4" data-path="sentiment.html"><a href="sentiment.html#mnb-sajtóközlemények"><i class="fa fa-check"></i><b>6.4</b> MNB sajtóközlemények</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="lda_ch.html"><a href="lda_ch.html"><i class="fa fa-check"></i><b>7</b> Felügyelet nélküli tanulás - Topikmodellezés</a>
+<li class="chapter" data-level="7" data-path="lda_ch.html"><a href="lda_ch.html"><i class="fa fa-check"></i><b>7</b> Felügyelet nélküli tanulás</a>
 <ul>
 <li class="chapter" data-level="7.1" data-path="lda_ch.html"><a href="lda_ch.html#fogalmi-alapok-2"><i class="fa fa-check"></i><b>7.1</b> Fogalmi alapok</a></li>
 <li class="chapter" data-level="7.2" data-path="lda_ch.html"><a href="lda_ch.html#k-közép-klaszterezés"><i class="fa fa-check"></i><b>7.2</b> K-közép klaszterezés</a></li>
@@ -243,8 +244,8 @@ div.csl-indent {
 <li class="chapter" data-level="9" data-path="scaling.html"><a href="scaling.html"><i class="fa fa-check"></i><b>9</b> Szövegskálázás</a>
 <ul>
 <li class="chapter" data-level="9.1" data-path="scaling.html"><a href="scaling.html#fogalmi-alapok-3"><i class="fa fa-check"></i><b>9.1</b> Fogalmi alapok</a></li>
-<li class="chapter" data-level="9.2" data-path="scaling.html"><a href="scaling.html#wordfish"><i class="fa fa-check"></i><b>9.2</b> Wordfish</a></li>
-<li class="chapter" data-level="9.3" data-path="scaling.html"><a href="scaling.html#wordscores"><i class="fa fa-check"></i><b>9.3</b> Wordscores</a></li>
+<li class="chapter" data-level="9.2" data-path="scaling.html"><a href="scaling.html#wordscores"><i class="fa fa-check"></i><b>9.2</b> Wordscores</a></li>
+<li class="chapter" data-level="9.3" data-path="scaling.html"><a href="scaling.html#wordfish"><i class="fa fa-check"></i><b>9.3</b> Wordfish</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="similarity.html"><a href="similarity.html"><i class="fa fa-check"></i><b>10</b> Szövegösszehasonlítás</a>
 <ul>
@@ -263,9 +264,12 @@ div.csl-indent {
 <li class="chapter" data-level="11" data-path="nlp_ch.html"><a href="nlp_ch.html"><i class="fa fa-check"></i><b>11</b> NLP és névelemfelismerés</a>
 <ul>
 <li class="chapter" data-level="11.1" data-path="nlp_ch.html"><a href="nlp_ch.html#fogalmi-alapok-4"><i class="fa fa-check"></i><b>11.1</b> Fogalmi alapok</a></li>
-<li class="chapter" data-level="11.2" data-path="nlp_ch.html"><a href="nlp_ch.html#a-magyarlanc"><i class="fa fa-check"></i><b>11.2</b> A <code>magyarlanc</code></a></li>
-<li class="chapter" data-level="11.3" data-path="nlp_ch.html"><a href="nlp_ch.html#a-szeged-ner"><i class="fa fa-check"></i><b>11.3</b> A <code>szeged ner</code></a></li>
-<li class="chapter" data-level="11.4" data-path="nlp_ch.html"><a href="nlp_ch.html#angol-nyelvű-szövegek-névelemfelismerése"><i class="fa fa-check"></i><b>11.4</b> Angol nyelvű szövegek névelemfelismerése</a></li>
+<li class="chapter" data-level="11.2" data-path="nlp_ch.html"><a href="nlp_ch.html#a-spacyr-használata"><i class="fa fa-check"></i><b>11.2</b> A <code>spacyr</code> használata</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="nlp_ch.html"><a href="nlp_ch.html#lemmatizálás-tokenizálás-szófaji-egyértelműsítés"><i class="fa fa-check"></i><b>11.2.1</b> Lemmatizálás, tokenizálás, szófaji egyértelműsítés</a></li>
+<li class="chapter" data-level="11.2.2" data-path="nlp_ch.html"><a href="nlp_ch.html#saját-.txt-vagy-.csv-fájlokban-elmentett-szövegek-lemmatizálása"><i class="fa fa-check"></i><b>11.2.2</b> Saját <code>.txt</code> vagy <code>.csv</code> fájlokban elmentett szövegek lemmatizálása</a></li>
+<li class="chapter" data-level="11.2.3" data-path="nlp_ch.html"><a href="nlp_ch.html#névelemfelismerés-és-eredményeinek-vizualizálása"><i class="fa fa-check"></i><b>11.2.3</b> Névelemfelismerés és eredményeinek vizualizálása</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="felugyelt.html"><a href="felugyelt.html"><i class="fa fa-check"></i><b>12</b> Osztályozás és felügyelt tanulás</a>
 <ul>
@@ -312,33 +316,33 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="intro" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> Bevezetés</h1>
-<div id="a-kötet-témái" class="section level2" number="1.1">
-<h2><span class="header-section-number">1.1</span> A kötet témái</h2>
+<div id="intro" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">1</span> Bevezetés<a href="intro.html#intro" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="a-kötet-témái" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> A kötet témái<a href="intro.html#a-kötet-témái" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>A szövegek adatként való értelmezése (<em>text as data</em>) és kvantitatív elemzése (<em>quantitative text analysis</em>), avagy a szövegbányászat (<em>text mining</em>) a nemzetközi társadalomtudományi kutatások egyik leggyorsabban fejlődő irányzata. A szövegbányászat egy olyan folyamat, amely során nyers, strukturálatlan szövegeket (pl.: beszédek, felszólalások, újságcikkek) egy strukturált formátumba helyezünk, hogy így új, korábban ismeretlen információkhoz tudjunk hozzájutni, mint trendekhez, mintázatokhoz, összefüggésekhez stb. A szövegek és más kvalitatív adatok (filmek, képek) elemzése annyiban különbözik a mennyiségi (kvantitatív) adatokétól, hogy nyers formájukban még nem alkalmasak statisztikai, illetve ökonometriai elemzésre. Ezért van szükség az ezzel összefüggő módszertani problémák speciális tárgyalására.</p>
-<p>Jelen kötet bevezeti az érdeklődőket a szövegbányászat és a mesterséges intelligencia társadalomtudományi alkalmazásának ilyen speciális problémáiba, valamint ezek gyakorlati megoldásába. Közvetlen előzménynek tekinthető a témában a Sebők Miklós által szerkesztett <a href="https://poltextlab.tk.hu/uploads/files/Kvantitativ_szovegelemzes_keszpdf.pdf"><em>Kvantitatív szövegelemzés és szövegbányászat a politikatudományban</em></a> címmel megjelent könyv, amely a magyar tudományos diskurzusban kevésbé bevett alapfogalmakat és eljárásokat mutatta be <span class="citation">(<a href="irodalomjegyzék.html#ref-sebokKvantitativSzovegelemzesEs2016" role="doc-biblioref">Sebők 2016</a>)</span>. A hangsúly az elméleten volt, bár számos fejezet foglalkozott konkrét kódrészletek elemzésével. Míg az előző kötet az egyes kódolási eljárásokat, illetve ezek kutatásmódszertani előnyeit és hátrányait ismertette, ezúttal a társadalomtudományi elemzések során használható kvantitatív szövegelemzés legfontosabb gyakorlati feladatait vesszük sorra, ezek egymással való logikai kapcsolatátt illusztrálja a lenti ábra. A könyvben bemutatott kódok elsősorban a quanteda csomagot illetve egyes a quanteda-ra épülő csomagokat használnak <span class="citation">(<a href="irodalomjegyzék.html#ref-benoit2018" role="doc-biblioref">Benoit et al. 2018</a>)</span>.</p>
-<div class="figure">
-<img src="figures/01_modszerek.jpg" alt="" />
-<p class="caption">A szövegbányászat könyvünkben bemutatott egyes módszerei</p>
+<p>Jelen kötet bevezeti az érdeklődőket a szövegbányászat és a mesterséges intelligencia társadalomtudományi alkalmazásának ilyen speciális problémáiba, valamint ezek gyakorlati megoldásába. Közvetlen előzménynek tekinthető a témában a Sebők Miklós által szerkesztett <a href="https://poltextlab.tk.hu/uploads/files/Kvantitativ_szovegelemzes_keszpdf.pdf"><em>Kvantitatív szövegelemzés és szövegbányászat a politikatudományban</em></a> címmel megjelent könyv, amely a magyar tudományos diskurzusban kevésbé bevett alapfogalmakat és eljárásokat mutatta be <span class="citation">(<a href="irodalomjegyzék.html#ref-sebokKvantitativSzovegelemzesEs2016">Sebők 2016</a>)</span>. A hangsúly az elméleten volt, bár számos fejezet foglalkozott konkrét kódrészletek elemzésével. Míg az előző kötet az egyes kódolási eljárásokat, illetve ezek kutatásmódszertani előnyeit és hátrányait ismertette, ezúttal a társadalomtudományi elemzések során használható kvantitatív szövegelemzés legfontosabb gyakorlati feladatait vesszük sorra, ezek egymással való logikai kapcsolatátt illusztrálja a lenti ábra. A könyvben bemutatott kódok elsősorban a quanteda csomagot illetve egyes a quanteda-ra épülő csomagokat használnak <span class="citation">(<a href="irodalomjegyzék.html#ref-benoit2018">Benoit et al. 2018</a>)</span>.</p>
+<div class="float">
+<img src="figures/01_modszerek.jpg" alt="A szövegbányászat könyvünkben bemutatott egyes módszerei" />
+<div class="figcaption">A szövegbányászat könyvünkben bemutatott egyes módszerei</div>
 </div>
 <p>A kötetünkben tárgyalt egyes módszereket három kategóriába sorolhatjuk, a működési elvük alapján. A szövegek statisztikai leírása egyszerre lehet két szöveg összehasonlítása például a Koszinusz vagy Jaccard hasonlóság alapján, melyekről a <a href="similarity.html#similarity">Szövegösszehasonlítás</a> fejzetben írunk, valamint egy adott szöveg különböző statisztikai jellemzőinek leírása, az erre voantkozó módszerekkel <a href="leiro_stat.html#leiro_stat">Leíró statisztika</a> című fejezet foglalkozik. A szótáralapú módszerekről és ezek érzelemelemzésre való használatát a <a href="sentiment.html#sentiment">Szótárak és érzelemelemzés</a> című fejezet tárgyalja. Az ideológiai skálázás során politikai szereplők egymáshoz viszonyított realtív pozícióit azonosítjuk általában beszédek, illetve felszólalások alapján az erre vonatkozó módszertant a <a href="scaling.html#scaling">Szövegskálázás</a> című fejezet részletezi. A szövegbányászat egyik legalapvetőbb problémája a dokumentumok egyes kategóriákba való csoportosítása. Az erre vonatkozó módszerek két alkategóriája közül is többet mutatunk be. Amikor ismert kategóriákba történő osztályzásról beszélünk, akkor a kutatónak kell meghatároznia előre a kategóriákat a modell számára, mielőtt az replikálja a besorolásokat. Mind a Naïve Bayes és a Support Vector Machine ezt a feladatot látja el ezek működéséről és alkalmazásáról az <a href="felugyelt.html#felugyelt">Osztályozás és felügyelt tanulás</a> című fejezetben írunk. Ezzel szemben ismeretlen kategóriákba való csoportosítás esetén a kutató nem ad előzőleges utatsítást az algoritmus számára, a modell a csoportosítást a dokumentumok szövegében meglévő látens mintázatok alapján végzi el. Az ismeretlen kategóriákba történő csoportosítást a könyvben bemutatott több módszerrel is elvégezhetjók, mint a K-közép klaszterezés, Latent Dirichlet Allocation, és Struktúrális topikmodellek, amelyeket a <a href="lda_ch.html#lda_ch">Felügyelet nélküli tanulás - Topikmodellezés</a> című fejezetben tárgyaljuk. A Végezetül pedig a szóbeágyazások ellentétben a korábbiakban említett szózsák logikát követő módszerekkel képesek egy dokumentum szóhasználatának belső összefüggéseit azonosítani, ezzel a kifejezetten rugalmas kutatási módszerrel, illetve alkalmazásával <a href="embedding.html#embedding">Szóbeágyazások</a> fejezetben foglalkozunk.</p>
 <p>Könyvünk a magyar tankönyvpiacon elsőként ismerteti lépésről-lépésre a nemzetközi társadalomtudományban használatos kvantitatív szövegelemzési eljárásokat. A módszereink bemutatására szolgáló elemzéseket az R programnyelv segítségével végeztük el, mely a nemzetközi társadalomtudományi vizsgálatok során egyik leggyakrabban használt környezet a Python mellett. A kötetben igyekeztünk magyar szakkifejezéseket használni, de mivel a szövegbányászat nyelve az angol, mindig megadtuk, azok angol megfelelőjét is. Kivételt képeznek azok az esetek, ahol nincs használatban megfelelő magyar terminológia, ezeknél megtartottuk az angol kifejezéseket, de magyarázattal láttuk el azokat.</p>
 <p>Az olvasó a két kötet együttes használatával olyan ismeretek birtokába jut, melyek révén képes lesz alkalmazni a kvantitatív szövegelemzés és szövegbányászat legalapvetőbb eljárásait saját kutatásaiban. Deduktív vagy induktív felfedező logikája szerint dönthet az adatelemzés módjáról, és a felkínált menüből kiválaszthatja a kutatási tervéhez legjobban illeszkedő megoldásokat. A bemutatott konkrét példák segítségével pedig akár reprodukálhatja is ezen eljárásokat saját kutatásában. Mindezt a kötet fejezeteiben bőséggel tárgyalt <em>R-scriptek</em> (kódok) részletes leírása is segíti. Ennek alapján a kötet két fő célcsoportja a társadalomtudományi kutatói és felsőoktatási hallgatói-oktatói közösség. Az oktatási alkalmazást segítheti a fontosabb fogalmak magyar és angol nyelvű tárgymutatója, valamint több helyen a további olvasásra ajánlott szakirodalom felsorolása. A kötet honlapján (<a href="https://tankonyv.poltextlab.com">https://tankonyv.poltextlab.com</a>) közvetlenül is elérhetőek a felhasznált adatbázisok és kódok.</p>
 <p>Kötetünk négy logikai egységből épül fel. Az első négy fejezet bemutatja azokat a fogalmakat és eljárásokat, amelyek elengedhetetlenek egy szövegbányászati kutatás során, valamint itt kerül sor a szöveges adatforrásokkal való munkafolyamat ismertetésére, a szövegelőkészítés és a korpuszépítés technikáinak bemutatására. A második blokkban az egyszerűbb elemzési módszereket tárgyaljuk, így a leíró statisztikák készítését, a szótár alapú elemzést, valamint érzelemelemzést. A kötet harmadik blokkját a mesterséges intelligencia alapú megközelítéseknek szenteljük, melynek során az olvasó a felügyelt és felügyelet nélküli tanulás fogalmával ismerkedhet meg. A felügyelet nélküli módszerek közül a topik-modellezést, szóbeágyazást és a szövegskálázás wordfish módszerét mutatjuk be, a felügyelt elemzések közül pedig az osztályozással foglalkozunk részletesebben. Végezetül kötetünket egy függelék zárja, melyben a kezdő RStudió felhasználóknak adunk gyakorlati iránymutatást a programfelülettel való megismerkedéshez, használatának elsajátításához.</p>
 </div>
-<div id="használati-utasítás" class="section level2" number="1.2">
-<h2><span class="header-section-number">1.2</span> Használati utasítás</h2>
+<div id="használati-utasítás" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> Használati utasítás<a href="intro.html#használati-utasítás" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>A könyv célja, hogy keresztmetszeti képet adjon a szövegbányászat R programnyelven használatos eszközeiről. A fejezetekben ezért a magyarázó szövegben maga az R kód is megtalálható, illetve láthatóak a lefuttatott kód eredményei. Az alábbi példában a sötét háttér az R környezetet jelöli, ahol az R kód betűtípusa is eltérő a főszövegétől. A kód eredményét pedig a <code>#&gt;</code> kezdetű sorokba szedtük, ezzel szimulálva az R console ablakát.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="intro.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># példa R kód</span></span>
-<span id="cb2-2"><a href="intro.html#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb2-3"><a href="intro.html#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 2</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="intro.html#cb2-1" tabindex="-1"></a><span class="co"># példa R kód</span></span>
+<span id="cb2-2"><a href="intro.html#cb2-2" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb2-3"><a href="intro.html#cb2-3" tabindex="-1"></a><span class="co">#&gt; [1] 2</span></span></code></pre></div>
 <p>Az egyes fejezetekben szereplő kódrészleteket egymás utáni sorrendben bemásolva és lefuttatva a saját R környezetünkben tudjuk reprodukálni a könyvben szereplő technikákat. A <a href="#fuggelek">Függelékben</a> részletesebben is foglalkozunk az R és az RStudio beállításaival, használatával. Az ajánlott R minimum verzió a 4.0.0, illetve az ajánlott minimum RStudio verzió az 1.4.0000.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
 <p>A könyvhöz tartozik egy <code>HunMineR</code> nevű R csomag is, amely tartalmazza az egyes fejezetekben használt összes adatbázist, így az adatbeviteli problémákat elkerülve lehet gyakorolni a szövegbányászatot. A könyv megjelenésekor a csomag még nem került be a központi R CRAN csomag repozitóriumába, hanem a poltextLAB GitHub repozitóriumából tölthető le.</p>
 <p>A könyvben szereplő ábrák nagy része a <code>ggplot2</code> csomaggal készült a <code>theme_set(theme_light())</code> opció beállításával a háttérben. Ez azt jelenti, hogy az ábrákat előállító kódok a <code>theme_light()</code> sort nem tartalmazzák, de a tényleges ábrán már megjelennek a tematikus elemek.</p>
 <p>Az egyes fejezetekben használt R csomagok listája és verziószáma a lenti táblázatban található. Fontos tudni, hogy a használt R csomagokat folyamatosan fejlesztik, ezért elképzelhető hogy eltérő verziószámú változatok esetén változhat a kód szintaxis.</p>
-<!-- html table generated in R 4.1.2 by xtable 1.8-4 package -->
-<!-- Wed Nov 10 22:15:25 2021 -->
+<!-- html table generated in R 4.2.2 by xtable 1.8-4 package -->
+<!-- Wed Sep 13 13:15:26 2023 -->
 <table border="1">
 <caption align="bottom">
 A könyvben használt R csomagok
@@ -593,92 +597,129 @@ topicmodels
 </tr>
 </table>
 </div>
-<div id="a-hunminer-használata" class="section level2" number="1.3">
-<h2><span class="header-section-number">1.3</span> A HunMineR használata</h2>
+<div id="a-hunminer-használata" class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> A HunMineR használata<a href="intro.html#a-hunminer-használata" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>A Windows rendszert használóknak először az <code>installr</code> csomagot kell telepíteni, majd annak segítségével letölteni az Rtools nevű programot (az OS X és Linux rendszerek esetében erre a lépésre nincs szükség). A lenti kód futtatásával ezek a lépések automatikusan megtörténnek.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="intro.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># az installr csomag letöltése és installálása</span></span>
-<span id="cb3-2"><a href="intro.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;installr&quot;</span>)</span>
-<span id="cb3-3"><a href="intro.html#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># az Rtools.exe fájl letöltése és installálása</span></span>
-<span id="cb3-4"><a href="intro.html#cb3-4" aria-hidden="true" tabindex="-1"></a>installr<span class="sc">::</span><span class="fu">install.Rtools</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="intro.html#cb3-1" tabindex="-1"></a><span class="co"># az installr csomag letöltése és installálása</span></span>
+<span id="cb3-2"><a href="intro.html#cb3-2" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;installr&quot;</span>)</span>
+<span id="cb3-3"><a href="intro.html#cb3-3" tabindex="-1"></a><span class="co"># az Rtools.exe fájl letöltése és installálása</span></span>
+<span id="cb3-4"><a href="intro.html#cb3-4" tabindex="-1"></a>installr<span class="sc">::</span><span class="fu">install.Rtools</span>()</span></code></pre></div>
 <p>Ezt követően a <code>devtools</code> csomagban található <code>install_github</code> paranccsal tudjuk telepíteni a <code>HunMineR</code> csomagot, a lenti kód lefuttatásával.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="intro.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A devtools csomag letöltése és installálása</span></span>
-<span id="cb4-2"><a href="intro.html#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;devtools&quot;</span>)</span>
-<span id="cb4-3"><a href="intro.html#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># A HunMineR csomag letöltése és installálása</span></span>
-<span id="cb4-4"><a href="intro.html#cb4-4" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;poltextlab/HunMineR&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="intro.html#cb4-1" tabindex="-1"></a><span class="co"># A devtools csomag letöltése és installálása</span></span>
+<span id="cb4-2"><a href="intro.html#cb4-2" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;devtools&quot;</span>)</span>
+<span id="cb4-3"><a href="intro.html#cb4-3" tabindex="-1"></a><span class="co"># A HunMineR csomag letöltése és installálása</span></span>
+<span id="cb4-4"><a href="intro.html#cb4-4" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;poltextlab/HunMineR&quot;</span>)</span></code></pre></div>
 <p>Ebben a fázisban a <code>data</code> függvénnyel tudjuk megnézni, hogy pontosan milyen adatbázisok szerepelnek a csomagban, illetve ugyanitt megtalálható az egyes adatbázisok részletes leírása. Ha egy adatbázisról szeretnénk többet megtudni, akkor a kiegészítő információkat <code>?adatbazis_neve</code> megoldással tudjuk megnézni.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="intro.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A HunMineR csomag betöltése</span></span>
-<span id="cb5-2"><a href="intro.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(HunMineR)</span>
-<span id="cb5-3"><a href="intro.html#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># csomagban lévő adatok listázása</span></span>
-<span id="cb5-4"><a href="intro.html#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="at">package =</span> <span class="st">&quot;HunMineR&quot;</span>)</span>
-<span id="cb5-5"><a href="intro.html#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># A miniszterelnöki beszédek minta adatbázisának részletei</span></span>
-<span id="cb5-6"><a href="intro.html#cb5-6" aria-hidden="true" tabindex="-1"></a>?data_miniszterelnokok</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="intro.html#cb5-1" tabindex="-1"></a><span class="co"># A HunMineR csomag betöltése</span></span>
+<span id="cb5-2"><a href="intro.html#cb5-2" tabindex="-1"></a><span class="fu">library</span>(HunMineR)</span>
+<span id="cb5-3"><a href="intro.html#cb5-3" tabindex="-1"></a><span class="co"># csomagban lévő adatok listázása</span></span>
+<span id="cb5-4"><a href="intro.html#cb5-4" tabindex="-1"></a><span class="fu">data</span>(<span class="at">package =</span> <span class="st">&quot;HunMineR&quot;</span>)</span>
+<span id="cb5-5"><a href="intro.html#cb5-5" tabindex="-1"></a><span class="co"># A miniszterelnöki beszédek minta adatbázisának részletei</span></span>
+<span id="cb5-6"><a href="intro.html#cb5-6" tabindex="-1"></a>?data_miniszterelnokok</span></code></pre></div>
 </div>
-<div id="handson" class="section level2" number="1.4">
-<h2><span class="header-section-number">1.4</span> Egy gyakorlati példa az R programmal való szövegbányászatra</h2>
+<div id="handson" class="section level2 hasAnchor" number="1.4">
+<h2><span class="header-section-number">1.4</span> Egy bevezető példa<a href="intro.html#handson" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>A következőkben egy példát mutatunk be a szövegbányászat gyakorlati alkalmazására vonatkozóan, amely során Ady Endre és Petőfi Sándor összes verseinek szóhasználatát hasonlítjuk össze, az eredményekhez pedig szemléletes ábrázolást is készítünk. A jelen példában alkalmazott eljárásokat a későbbi fejezetekben részletesen is kifejtjük itt csupán szemléltetni kívánjuk velük, hogy milyen jellegű elemzéseket sajátíthat majd el az olvasó a könyv segítségével.</p>
 <p>Az R számos kiegészítő csomaggal rendelkezik, amelyek hasznos funkcióit úgy érhetjük el, ha telepítjük az őket tartalmazó csomagot. Ezt az <code>install.packages</code> paranccsal tehetjük meg, ha már korábban egyszer elvégeztük, akkor nem szükséges egy csomaggal megismételni. A lenti kódsorral a példánkhoz szükséges csomagokat telepíthetjük, de a könyvben használt többi csomagot is ezzel a módszerrel telepíthetjük.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="intro.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;readtext&quot;</span>)</span>
-<span id="cb6-2"><a href="intro.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;quanteda&quot;</span>)</span>
-<span id="cb6-3"><a href="intro.html#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;quanteda.textstats&quot;</span>)</span>
-<span id="cb6-4"><a href="intro.html#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;quanteda.textplots&quot;</span>)</span>
-<span id="cb6-5"><a href="intro.html#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;ggplot2&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="intro.html#cb6-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;readtext&quot;</span>)</span>
+<span id="cb6-2"><a href="intro.html#cb6-2" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;readr&quot;</span>)</span>
+<span id="cb6-3"><a href="intro.html#cb6-3" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;quanteda&quot;</span>)</span>
+<span id="cb6-4"><a href="intro.html#cb6-4" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;quanteda.textstats&quot;</span>)</span>
+<span id="cb6-5"><a href="intro.html#cb6-5" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;quanteda.textplots&quot;</span>)</span>
+<span id="cb6-6"><a href="intro.html#cb6-6" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;ggplot2&quot;</span>)</span>
+<span id="cb6-7"><a href="intro.html#cb6-7" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;dplyr&quot;</span>)</span></code></pre></div>
 <p>A <code>library()</code> paranccsal pedig betölteni tudjuk a már telepített csomagjainkat, ezt minden alkalommal el kell, hogy végezzük, hogyha ezek egy funkcióját kívánjuk használni. Itt láthatjuk, hogy a két csomag után a HunMineR betöltése is szükséges, viszont annak ellenére, hogy ugyanazzal a funkcióval hívjuk elő a HunMiner nem egy csomag, hanem egy <code>repository</code> (adattár) így a telepítése egy eltérő eljárással zajlik az előző alfejezetben leírtaknak megfelelően.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="intro.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readtext)</span>
-<span id="cb7-2"><a href="intro.html#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb7-3"><a href="intro.html#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quanteda)</span>
-<span id="cb7-4"><a href="intro.html#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quanteda.textstats)</span>
-<span id="cb7-5"><a href="intro.html#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quanteda.textplots)</span>
-<span id="cb7-6"><a href="intro.html#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb7-7"><a href="intro.html#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(HunMineR)</span>
-<span id="cb7-8"><a href="intro.html#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="intro.html#cb7-1" tabindex="-1"></a><span class="fu">library</span>(readtext)</span>
+<span id="cb7-2"><a href="intro.html#cb7-2" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb7-3"><a href="intro.html#cb7-3" tabindex="-1"></a><span class="fu">library</span>(quanteda)</span>
+<span id="cb7-4"><a href="intro.html#cb7-4" tabindex="-1"></a><span class="fu">library</span>(quanteda.textstats)</span>
+<span id="cb7-5"><a href="intro.html#cb7-5" tabindex="-1"></a><span class="fu">library</span>(quanteda.textplots)</span>
+<span id="cb7-6"><a href="intro.html#cb7-6" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb7-7"><a href="intro.html#cb7-7" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb7-8"><a href="intro.html#cb7-8" tabindex="-1"></a><span class="fu">library</span>(HunMineR)</span></code></pre></div>
 <p>Ezt követően betöltjük a szükséges adatokat, jelen esetben a HunMiner adattárából.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="intro.html#cb8-1" aria-hidden="true" tabindex="-1"></a>ady <span class="ot">&lt;-</span> HunMineR<span class="sc">::</span>data_ady</span>
-<span id="cb8-2"><a href="intro.html#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="intro.html#cb8-3" aria-hidden="true" tabindex="-1"></a>petofi <span class="ot">&lt;-</span> HunMineR<span class="sc">::</span>data_petofi</span></code></pre></div>
-<p>Ahhoz, hogy adatokat használni tudjunk azokon először mindig úgynevezett tisztítási folyamatokat kell elvégeznünk, valamint át kell alakítanunk az adataink formátumát is. Az úgynevezett szövegtisztítási folyamatok a szövegeink előkészítését jelentik, ha kihagyjuk őket vagy nem végezzük el őket kellő alapossággal, akkor az eredményeink félrevezetőek lesznek. Az R-rel való kódolás során többféle formátumban is tárolhatjuk az adatainkat, illetve az adataink egyik formátumból másikba való átalakítására is van lehetőségünk. Az egyes formátumok az adatokat különböző elrendezésben tárolják, azért van szükségünk gyakran az adataink átalakítására, mivel az R-n belüli funkciókat, amelyekre szükségünk lesz csak specifikus formátumokon hajthatjuk végre.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="intro.html#cb8-1" tabindex="-1"></a>ady <span class="ot">&lt;-</span> HunMineR<span class="sc">::</span>data_ady</span>
+<span id="cb8-2"><a href="intro.html#cb8-2" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="intro.html#cb8-3" tabindex="-1"></a>petofi <span class="ot">&lt;-</span> HunMineR<span class="sc">::</span>data_petofi</span></code></pre></div>
+<p>A betöltött adattáblák megjelennek az Rstudio environemnt fülében, ahol azt is láthatjuk, hogy 619 megfigyelésünk vagyis versünk van a Petőfi táblában, Ady esetében pedig 1309. Ahhoz, hogy adatokat használni tudjunk azokon először mindig úgynevezett tisztítási folyamatokat kell elvégeznünk, valamint át kell alakítanunk az adataink formátumát is. Az úgynevezett szövegtisztítási folyamatok a szövegeink előkészítését jelentik, ha kihagyjuk őket vagy nem végezzük el őket kellő alapossággal, akkor az eredményeink félrevezetőek lesznek. Az R-rel való kódolás során többféle formátumban is tárolhatjuk az adatainkat, illetve az adataink egyik formátumból másikba való átalakítására is van lehetőségünk. Az egyes formátumok az adatokat különböző elrendezésben tárolják, azért van szükségünk gyakran az adataink átalakítására, mivel az R-n belüli funkciókat, amelyekre szükségünk lesz csak specifikus formátumokon hajthatjuk végre.</p>
 <p>Első lépésként korpusz formátumba helyezzük az adatainkat, erre csupán azért van szükség mert a későbbiekben ebből a formátumból tudjuk majd őket, token formátumba helyezni.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="intro.html#cb9-1" aria-hidden="true" tabindex="-1"></a>ady_corpus <span class="ot">&lt;-</span> <span class="fu">corpus</span>(ady)</span>
-<span id="cb9-2"><a href="intro.html#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="intro.html#cb9-3" aria-hidden="true" tabindex="-1"></a>petofi_corpus <span class="ot">&lt;-</span> <span class="fu">corpus</span>(petofi)</span></code></pre></div>
-<p>Ezt követően nem csak token formátumba helyezzük az adatokat a lenti kódsorokkal, hanem több szövegtisztító lépést is elvégzünk velük. A <code>remove_punct</code> opció segítségével eltávolítjuk a mondatvégi írásjeleket, veszőket. A <code>tokens_tolower()</code> parancs segítségével minden szavunk betűjét kisbetűvé alakítjuk így a kódunk nem tesz különbséget ugyanazon szó két megjelenése között csupán azért, mert az egyik a mondat elején helyezkedik el. A <code>tokens_remove()</code> parancs segítségével egyes szavakat eltávolíthatunk két kódsorban is megjelenik ez a parancs, először a <code>quanteda</code> csomag magyar stopszó listájának elemeit távolítjuk el, majd másodjára általunk felsorolt kifejezések eltávolítására használjuk fel. Végül pedig a <code>tokens_wordstem()</code> parancs segítségével úgynevezett szótövezést hajtunk végre. Ez azt jelenti, hogy a szótövekről levágjuk a ragokat így például a házban és a házhoz kifejezések egységesen ház kifejezésként fognak megjelenni a vizsgálatunkban.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="intro.html#cb10-1" aria-hidden="true" tabindex="-1"></a>ady_tok <span class="ot">&lt;-</span> <span class="fu">tokens</span>(ady_corpus, <span class="at">remove_punct =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb10-2"><a href="intro.html#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tokens_tolower</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb10-3"><a href="intro.html#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tokens_remove</span>(<span class="fu">stopwords</span>(<span class="st">&quot;hungarian&quot;</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb10-4"><a href="intro.html#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tokens_remove</span> (<span class="fu">c</span>(<span class="st">&quot;is&quot;</span>, <span class="st">&quot;ha&quot;</span>, <span class="st">&quot;te&quot;</span>, <span class="st">&quot;föl&quot;</span>, <span class="st">&quot;kis&quot;</span>, <span class="st">&quot;előtt&quot;</span>, <span class="st">&quot;oli&quot;</span>, <span class="st">&quot;ő&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;txt&quot;</span>, <span class="st">&quot;se&quot;</span>))</span>
-<span id="cb10-5"><a href="intro.html#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-6"><a href="intro.html#cb10-6" aria-hidden="true" tabindex="-1"></a>petofi_tok <span class="ot">&lt;-</span> <span class="fu">tokens</span>(petofi_corpus, <span class="at">remove_punct =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb10-7"><a href="intro.html#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tokens_tolower</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb10-8"><a href="intro.html#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tokens_remove</span>(<span class="fu">stopwords</span>(<span class="st">&quot;hungarian&quot;</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb10-9"><a href="intro.html#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tokens_remove</span> (<span class="fu">c</span>(<span class="st">&quot;is&quot;</span>, <span class="st">&quot;ha&quot;</span>, <span class="st">&quot;te&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;txt&quot;</span>, <span class="st">&quot;se&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="intro.html#cb9-1" tabindex="-1"></a>ady_corpus <span class="ot">&lt;-</span> <span class="fu">corpus</span>(ady)</span>
+<span id="cb9-2"><a href="intro.html#cb9-2" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="intro.html#cb9-3" tabindex="-1"></a>petofi_corpus <span class="ot">&lt;-</span> <span class="fu">corpus</span>(petofi)</span></code></pre></div>
+<p>Ezt követően betölthetjük a HunMiner csomagból a stop szavainkat, ez egy szó lista, amelyet a szövegelőkészítés során elfogunk távolítani a korpuszból.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="intro.html#cb10-1" tabindex="-1"></a>stopszavak <span class="ot">&lt;-</span> HunMineR<span class="sc">::</span>data_stopwords_extra</span></code></pre></div>
+<p>A corpus formátumban lévő szövegeket nem csak token formátumba helyezzük a lenti kódsorokkal, hanem több szövegtisztító lépést is elvégzünk velük. A <code>remove_punct</code> funkció segítségével eltávolítjuk a mondatvégi írásjeleket, veszőket. A <code>tokens_tolower()</code> parancs segítségével minden szavunk betűjét kisbetűvé alakítjuk így a kódunk nem tesz különbséget ugyanazon szó két alternatív megjelenése között csupán azért, mert az egyik a mondat elején helyezkedik el. Végül pedig a <code>tokens_remove()</code> parancs segítségével eltávolíthatjuk a korábban betöltött stopszavakat a szövegeinkből.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="intro.html#cb11-1" tabindex="-1"></a>ady_tok <span class="ot">&lt;-</span> <span class="fu">tokens</span>(ady_corpus, <span class="at">remove_punct =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-2"><a href="intro.html#cb11-2" tabindex="-1"></a>  <span class="fu">tokens_tolower</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb11-3"><a href="intro.html#cb11-3" tabindex="-1"></a>  <span class="fu">tokens_remove</span>(stopszavak)</span>
+<span id="cb11-4"><a href="intro.html#cb11-4" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="intro.html#cb11-5" tabindex="-1"></a>petofi_tok <span class="ot">&lt;-</span> <span class="fu">tokens</span>(petofi_corpus, <span class="at">remove_punct =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-6"><a href="intro.html#cb11-6" tabindex="-1"></a>  <span class="fu">tokens_tolower</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb11-7"><a href="intro.html#cb11-7" tabindex="-1"></a>  <span class="fu">tokens_remove</span>(stopszavak)</span></code></pre></div>
 <p>Ezt követően a token formátumban lévő adatainkat dfm formátumba helyezzük.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="intro.html#cb11-1" aria-hidden="true" tabindex="-1"></a>ady_dfm <span class="ot">&lt;-</span> <span class="fu">dfm</span>(ady_tok)</span>
-<span id="cb11-2"><a href="intro.html#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="intro.html#cb11-3" aria-hidden="true" tabindex="-1"></a>petofi_dfm <span class="ot">&lt;-</span> <span class="fu">dfm</span>(petofi_tok)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="intro.html#cb12-1" tabindex="-1"></a>ady_dfm <span class="ot">&lt;-</span> <span class="fu">dfm</span>(ady_tok)</span>
+<span id="cb12-2"><a href="intro.html#cb12-2" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="intro.html#cb12-3" tabindex="-1"></a>petofi_dfm <span class="ot">&lt;-</span> <span class="fu">dfm</span>(petofi_tok)</span></code></pre></div>
 <p>Majd megnyírbáljuk a szavaink listáját: a <code>dfm_trim()</code> parancs segítségével beállíthatjuk, hogy milyen gyakorisággal megjelenő szavakat hagyjunk az adataink között. Vannak jó okok mind a túlságosan gyakran megjelenő és a túlságosan kevésszer megejelenő szavak eltávolítására is. Ha egy szó nagyon gyakran jelenik meg, akkor feltételezhető, hogy az nem segít a számunkra értelmezni az egyes dokumentumaink közötti különbséget, mivel nem különbözteti meg azokat. Ha pedig egy szó túlságosan kevésszer jelenik meg, akkor az lehet, hogy egy egyedülálló eset, amely nem adhat a dokumentumainkra általánosítható információt a számunkra. Jelen kód előírja, hogy ahhoz, hogy egy szó bekerüljün az összehasonlításunkba legalább 25-ször meg kell jelenie a szövegben.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="intro.html#cb12-1" aria-hidden="true" tabindex="-1"></a>ady_dfm <span class="ot">&lt;-</span> <span class="fu">dfm_trim</span>(ady_dfm, <span class="at">min_termfreq =</span> <span class="dv">25</span>)</span>
-<span id="cb12-2"><a href="intro.html#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-3"><a href="intro.html#cb12-3" aria-hidden="true" tabindex="-1"></a>petofi_dfm <span class="ot">&lt;-</span> <span class="fu">dfm_trim</span>(petofi_dfm, <span class="at">min_termfreq =</span> <span class="dv">25</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="intro.html#cb13-1" tabindex="-1"></a>ady_dfm <span class="ot">&lt;-</span> <span class="fu">dfm_trim</span>(ady_dfm, <span class="at">min_termfreq =</span> <span class="dv">25</span>)</span>
+<span id="cb13-2"><a href="intro.html#cb13-2" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="intro.html#cb13-3" tabindex="-1"></a>petofi_dfm <span class="ot">&lt;-</span> <span class="fu">dfm_trim</span>(petofi_dfm, <span class="at">min_termfreq =</span> <span class="dv">25</span>)</span></code></pre></div>
 <p>Végül pedig az R programon belül ábrázolhatjuk is az eredményeinket. Jelen esetben nem végeztünk el számítást, hanem a megtisztított szövegeink szavaiból generáltunk szófelhőket.</p>
 <p>A Petőfi versekből készült szófelhő:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="intro.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">textplot_wordcloud</span>(petofi_dfm, <span class="at">min_count =</span> <span class="dv">50</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-15"></span>
-<p class="caption">
-Ábra 1.1: Petofi szófelho
-</p>
-<img src="_main_files/figure-html/unnamed-chunk-15-1.png" alt="Petofi szófelho" width="90%" />
-</div>
-<p>Az Ady versekből készült szófelhő:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="intro.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">textplot_wordcloud</span>(ady_dfm, <span class="at">min_count =</span> <span class="dv">50</span>, <span class="at">color =</span> <span class="st">&quot;orange&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="intro.html#cb14-1" tabindex="-1"></a><span class="fu">textplot_wordcloud</span>(petofi_dfm, <span class="at">min_count =</span> <span class="dv">25</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-16"></span>
 <p class="caption">
-Ábra 1.2: Ady szófelho
+Ábra 1.1: Petőfi szófelhő
 </p>
-<img src="_main_files/figure-html/unnamed-chunk-16-1.png" alt="Ady szófelho" width="90%" />
+<img src="_main_files/figure-html/unnamed-chunk-16-1.png" alt="Petőfi szófelhő" width="90%" />
 </div>
-<p>Az így kapott ábrákon az Ady és Petőfi versek szavait láthatjuk egy úgynevezett szófelhőben összegyűjtve. Annál nagyobb méretben jelenít meg az ábránk egy kifejezést, minél gyakrabban fordul az elő a szövegünkben, amely jelen esetben a két költő összes verse. Ugyan a szófelhő nem egy statisztikai számítás, amely alapján következtetéseket vonhatnánk le a vizsgált szövegekről, de egy hasznos és látványos ábrázolási módszer, illetve jelen esetben jól példázza az R egy jelentős előnyét, hogy a segítségével az eredményeinket gyorsan és egyszerűen tudjuk ábrázolni.</p>
+<p>Az Ady versekből készült szófelhő:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="intro.html#cb15-1" tabindex="-1"></a><span class="fu">textplot_wordcloud</span>(ady_dfm, <span class="at">min_count =</span> <span class="dv">25</span>, <span class="at">color =</span> <span class="st">&quot;orange&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-17"></span>
+<p class="caption">
+Ábra 1.2: Ady szófelhő
+</p>
+<img src="_main_files/figure-html/unnamed-chunk-17-1.png" alt="Ady szófelhő" width="90%" />
 </div>
-<div id="köszönetnyilvánítás" class="section level2" number="1.5">
-<h2><span class="header-section-number">1.5</span> Köszönetnyilvánítás</h2>
+<p>Az így kapott ábrákon az Ady és Petőfi versek szavait láthatjuk egy úgynevezett szófelhőben összegyűjtve. Annál nagyobb méretben jelenít meg az ábránk egy kifejezést, minél gyakrabban fordul az elő a szövegünkben, amely jelen esetben a két költő összes verse. A két szófelhőn látszódik, hogy jelentős az átfedés a felhasznált szavakkal, úgyhogy a folyamatot megismételhetjük, azzal a kiegészítéssel, hogy a szófelhő létrehozása előtt eltávolíjuk mindazokat a szavakat, amelyek jelen vannak a másik korpuszban, így jobban láthatjuk, hogy mely kifejezések különböztetik meg a költőket. Ehhez először kigyűjtjük a <code>featnames()</code> funkció segítségével a két dfm egyegedi szavait.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="intro.html#cb16-1" tabindex="-1"></a>ady_szavak <span class="ot">&lt;-</span> <span class="fu">featnames</span>(ady_dfm)</span>
+<span id="cb16-2"><a href="intro.html#cb16-2" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="intro.html#cb16-3" tabindex="-1"></a>petofi_szavak <span class="ot">&lt;-</span> <span class="fu">featnames</span>(petofi_dfm)</span></code></pre></div>
+<p>Ezt követően pedig megismételjük a korábbi előkészítő műveleteket azzal a kiegészítéssel, hogy eltávolítjuk az előbb létrehozott két szólistát is.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="intro.html#cb17-1" tabindex="-1"></a>ady_tok <span class="ot">&lt;-</span> <span class="fu">tokens</span>(ady_corpus, <span class="at">remove_punct =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-2"><a href="intro.html#cb17-2" tabindex="-1"></a>  <span class="fu">tokens_tolower</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb17-3"><a href="intro.html#cb17-3" tabindex="-1"></a>  <span class="fu">tokens_remove</span>(stopszavak) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-4"><a href="intro.html#cb17-4" tabindex="-1"></a>  <span class="fu">tokens_remove</span>(petofi_szavak)</span>
+<span id="cb17-5"><a href="intro.html#cb17-5" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="intro.html#cb17-6" tabindex="-1"></a>petofi_tok <span class="ot">&lt;-</span> <span class="fu">tokens</span>(petofi_corpus, <span class="at">remove_punct =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb17-7"><a href="intro.html#cb17-7" tabindex="-1"></a>  <span class="fu">tokens_tolower</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb17-8"><a href="intro.html#cb17-8" tabindex="-1"></a>  <span class="fu">tokens_remove</span>(stopszavak) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-9"><a href="intro.html#cb17-9" tabindex="-1"></a>  <span class="fu">tokens_remove</span>(ady_szavak)</span>
+<span id="cb17-10"><a href="intro.html#cb17-10" tabindex="-1"></a></span>
+<span id="cb17-11"><a href="intro.html#cb17-11" tabindex="-1"></a>ady_dfm <span class="ot">&lt;-</span> <span class="fu">dfm</span>(ady_tok) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-12"><a href="intro.html#cb17-12" tabindex="-1"></a>  <span class="fu">dfm_trim</span>(<span class="at">min_termfreq =</span> <span class="dv">25</span>)</span>
+<span id="cb17-13"><a href="intro.html#cb17-13" tabindex="-1"></a></span>
+<span id="cb17-14"><a href="intro.html#cb17-14" tabindex="-1"></a>petofi_dfm <span class="ot">&lt;-</span> <span class="fu">dfm</span>(petofi_tok) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-15"><a href="intro.html#cb17-15" tabindex="-1"></a>  <span class="fu">dfm_trim</span>(<span class="at">min_termfreq =</span> <span class="dv">25</span>)</span></code></pre></div>
+<p>Ha ezzel végeztünk, akkor ismét létrehozhatjuk a két szófelhőnket.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="intro.html#cb18-1" tabindex="-1"></a><span class="fu">textplot_wordcloud</span>(petofi_dfm, <span class="at">min_count =</span> <span class="dv">25</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-20"></span>
+<p class="caption">
+Ábra 1.3: Petőfi szófelhő
+</p>
+<img src="_main_files/figure-html/unnamed-chunk-20-1.png" alt="Petőfi szófelhő" width="90%" />
+</div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="intro.html#cb19-1" tabindex="-1"></a><span class="fu">textplot_wordcloud</span>(ady_dfm, <span class="at">min_count =</span> <span class="dv">25</span>, <span class="at">color =</span> <span class="st">&quot;orange&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-21"></span>
+<p class="caption">
+Ábra 1.4: Ady szófelhő
+</p>
+<img src="_main_files/figure-html/unnamed-chunk-21-1.png" alt="Ady szófelhő" width="90%" />
+</div>
+<p>Ugyan a szófelhő nem egy statisztikai számítás, amely alapján következtetéseket vonhatnánk le a vizsgált szövegekről, de egy hasznos és látványos ábrázolási módszer, illetve jelen esetben jól példázza az R egy jelentős előnyét, hogy a segítségével az eredményeinket gyorsan és egyszerűen tudjuk ábrázolni.</p>
+</div>
+<div id="köszönetnyilvánítás" class="section level2 hasAnchor" number="1.5">
+<h2><span class="header-section-number">1.5</span> Köszönetnyilvánítás<a href="intro.html#köszönetnyilvánítás" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Jelen kötet az ELKH Társadalomtudományi Kutatóközpont poltextLAB szövegbányászati kutatócsoportja (<a href="http://poltextlab.com/" class="uri">http://poltextlab.com/</a>) műhelyében készült. A kötet fejezetei Sebők Miklós, Ring Orsolya és Máté Ákos közös munkájának eredményei. Az <em>Alapfogalmak</em>, illetve a <em>Szövegösszehasonlítás</em> fejezetekben társszerző volt Székely Anna. A <em>Bevezetésben</em>, a <em>Függelékben</em>, és az <em>Adatkezelés R-ben</em>, az <em>Osztályozás és felügyelt tanulás</em> című fejezetekben Gelányi Péter hajtott végre nagyobb frissítéseket, valamint alakította ki a könyv interaktív ábráit. A kézirat a szerzők többéves oktatási gyakorlatára, a hallgatóktól kapott visszajelzésekre építve készült el. Köszönjük a Bibó Szakkollégiumban (2021), a Rajk Szakkollégiumban (2019–2021), valamint a Széchenyi Szakkollégiumban (2019) tartott féléves, valamint a Corvinus Egyetemen és a Társadalomtudományi Kutatóközpontban tartott rövidebb képzési alkalmak résztvevőinek visszajelzéseit. Köszönjük a projekt gyakornokainak, Czene-Joó Máténak, Kaló Eszternek, Meleg Andrásnak, Lovász Dorottyának, Nagy Orsolyának, valamint kutatás asszisztenseinek, Balázs Gergőnek, Gelányi Péternek és Lancsár Eszternek a kézirat végleges formába öntése sorn nyújtott segítséget.</p>
 <p>Külön köszönet illeti a Társadalomtudományi Kutatóközpont Comparative Agendas Project (<a href="https://cap.tk.hu/hu" class="uri">https://cap.tk.hu/hu</a>) kutatócsoportjának tagjait, kiemelten Boda Zsoltot, Molnár Csabát és Pokornyi Zsanettet a kötetben használt korpuszok sokéves előkészítéséért. Köszönettel tartozunk az egyes fejezetek alapjául szolgáló elemzések és publikációk társszerzőinek, Barczikay Tamásnak, Berki Tamásnak, Kacsuk Zoltánnak, Kubik Bálintnak, Molnár Csabának és Szabó Martina Katalinnak.</p>
 <p>Köszönjük Ballabás Dániel szakmai lektor hasznos megjegyzéseit, Fedinec Csilla nyelvi lektor alapos munkáját, valamint a Typotex Kiadó rugalmasságát és színvonalas közreműködését a könyv kiadásában! Végül, de nem utolsósorban hálásak vagyunk a kötet megvalósulásához támogatást nyújtó szervezeteknek és ösztöndíjaknak: az MTA Könyvkiadási Alapjának, a Társadalomtudományi Kutatóközpont Könyvtámogatási Alapjának, a Nemzeti Kutatási, Fejlesztési és Innovációs Hivatalnak (NKFIH FK 123907, NKFIH FK 129018), az MTA Bolyai János Kutatási Ösztöndíjának.</p>
@@ -759,7 +800,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

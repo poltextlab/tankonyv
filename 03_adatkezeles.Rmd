@@ -22,10 +22,10 @@ library(readtext)
 df <- readr::read_csv("data/adatfile.csv")
 ```
 
-Az R képes linkről letölteni fájlokat, elég megadnunk egy működő elérési útvonalat.
+Az R képes linkről letölteni fájlokat, elég megadnunk egy működő elérési útvonalat (lenti kódrészlet nem egy valódi linkre mutat, csupán egy példa).
 
 ```{r, eval=FALSE}
-df_online <- read_csv("https://www.qta.tk.mta.hu/adatok/adatfile.csv")
+df_online <- read_csv("https://www.pelda_link.hu/adatok/pelda_file.csv")
 ```
 
 Az R csomag ökoszisztémája kellően változatos ahhoz, hogy gyakorlatilag bármilyen inputtal meg tudjon birkózni. Az Excel fájlokat a readxl csomagot használva tudjuk betölteni a `read_excel()` függvény használatával.[lásd ehhez a *Függeléket*](#packages) A leggyakoribb statisztikai programok formátumait pedig a `haven` csomag tudja kezelni (például Stata, Spss, SAS). A szintaxis itt is hasonló: `read_stata()`, `read_spss()`, `read_sas()`.
@@ -47,7 +47,7 @@ Az adatainkat R-ből a `write.csv()`-vel exportálhatjuk a kívánt helyre, `.cs
 
 ## A pipe operátor
 
-Az úgynevezett `pipe` operátor alapjaiban határozta meg a modern R fejlődését és a népszerű csomag ökoszisztéma, a `tidyverse`, egyik alapköve. Úgy gondoljuk, hogy a `tidyverse` és a `pipe` egyszerűbbé teszi az R használatának elsajátítását, ezért mi is erre helyezzük a hangsúlyt.[^data1] Vizuálisan a pipe operátor így néz ki: `%>%`, és arra szolgál, hogy a kódban több egymáshoz kapcsolódó műveletet egybefűzzünk.[^data2] Technikailag a `pipe` a bal oldali elemet adja meg a jobb oldali függvény első argumentumának. A lenti példa ugyanazt a folyamatot írja le az alap R (*base R*), illetve a `pipe` használatával. [^data3] Miközben a kódot olvassuk, érdemes a `pipe`-ot „*és aztán*”-nak fordítani.
+Az úgynevezett `pipe` operátor alapjaiban határozta meg a modern R fejlődését és a népszerű csomag ökoszisztéma, a `tidyverse`, egyik alapköve. Úgy gondoljuk, hogy a `tidyverse` és a `pipe` egyszerűbbé teszi az R használatának elsajátítását, ezért mi is erre helyezzük a hangsúlyt.[^data1] Vizuálisan a pipe operátor így néz ki: `%>%` (a pipe operátor a `Ctrl + Shift + M` billentyúk kombinációjával könnyedén kiírható) és arra szolgál, hogy a kódban több egymáshoz kapcsolódó műveletet egybefűzzünk.[^data2] Technikailag a `pipe` a bal oldali elemet adja meg a jobb oldali függvény első argumentumának. A lenti példa, amely nem tartalmaz igazi kódot, csupán a logikát kívánja szemlélteni ugyanazt a folyamatot írja le az alap R (*base R*), illetve a `pipe` használatával. [^data3] Miközben a kódot olvassuk, érdemes a `pipe`-ot „*és aztán*”-nak fordítani.
 
 [^data1]: A *tidyverse* megközelítés miatt a kötetben szereplő R kód követi a "The tidyverse style guide" dokumentációt (<https://style.tidyverse.org/>)
 
@@ -65,7 +65,13 @@ en %>%
   reggeli()
 ```
 
-A fenti példa is jól mutatja, hogy a `pipe` a bal oldali elemet fogja a jobb oldali függvény első elemének berakni. A fejezet további részeiben még bőven fogunk gyakorlati példát találni a `pipe` használatára. Mivel az itt bemutatott példák az alkalmazásoknak csak egy relatíve szűk körét mutatják be, érdemes átolvasni a csomagokhoz tartozó dokumentációt, illetve ha van, akkor tanulmányozni a működést demonstráló bemutató oldalakat is.
+A fenti példa is jól mutatja, hogy a `pipe` a bal oldali elemet fogja a jobb oldali függvény első elemének berakni. A pipe operátor működését még egy soron demonstrálhatjuk ez alkalommal valódi kódsorokkal és funkciókkal. Láthatjuk, hogy a `pipe` baloldalán elhelyezkedő kiindulópont egy számsor, ezt először a `sum()` funkcióba helyezzük, az így kapott eredmény 16 lesz, amelynek a gyökét vesszük az `sqrt()` az operátor alkalmazásával ezt a két műveletet egyetlen kódsorban könnyen olvasható módon végezzük el és megkapjuk a teljes folyamat eredeményét vagyis négyet.
+
+```{r}
+c(3, 5, 8) %>% sum() %>% sqrt()
+```
+
+A fejezet további részeiben még bőven fogunk gyakorlati példát találni a `pipe` használatára. Mivel az itt bemutatott példák az alkalmazásoknak csak egy relatíve szűk körét mutatják be, érdemes átolvasni a csomagokhoz tartozó dokumentációt, illetve ha van, akkor tanulmányozni a működést demonstráló bemutató oldalakat is.
 
 ## Műveletek adattáblákkal
 
@@ -145,7 +151,6 @@ szoveg <- c("gitar", "ukulele", "nagybogo")
 stringr::str_view(szoveg, pattern = "ar")
 ```
 
-
 Reguláris kifejezésekkel rákereshetünk nem csak egyes elemekre (pl.: szavak, szótagok, betűk) hanem olyan konkrét esetekre is, amikor ezek egymás után fordulnak elő. Ilyenkor úgynevezett ngrammokat használunk, amelyek egy karakterláncban szereplő n-számú elem szekvenciája. A lenti példban ezeke működését egy úgynevezett bigrammal tehát egy n=2 értékű ngrammal mutatjuk be. Az ngrammok segítenek kezelni olyan eseteket, amikor két egymást követő elem eltérő jelentéssel bír, egymás mellett, mint külön-külön.
 
 ```{r}
@@ -170,10 +175,22 @@ Továbbá azt is meghatározhatjuk, hogy egy adott karakter, vagy karakter kombi
 str_view("Dr. Doktor Dr.", pattern = ".k.")
 ```
 
-Egy másik jellemző probléma, hogy olyan speciális karaktert akarunk leírni a regex kifejezésünkkel, ami amúgy a regex szintaxisban használt. Ilyen eset például a `.`, ami mint írásjel sokszor csak zaj, ám a regex kontextusban a „bármilyen karakter„ megfelelője.  Ahhoz, hogy magát az írásjelet jelöljük, a `\\` -t kell elé rakni.
+Egy másik jellemző probléma, hogy olyan speciális karaktert akarunk leírni a regex kifejezésünkkel, ami amúgy a regex szintaxisban használt. Ilyen eset például a `.`, ami mint írásjel sokszor csak zaj, ám a regex kontextusban a „bármilyen karakter„ megfelelője.  Ahhoz, hogy magát az írásjelet jelöljük, a `\\` -t kell elé rakni, ennek egy alternatívája, hogy a keresett szóláncot a `fixed()` funkcióba helyezzük, így pedig a szóláncban lévő karakterek különleges jelentéseit figyelmen kívül hagyja és csak a magára az egzakt szóláncra keres rá. Ha rákeresünk a `.` karakterre, akkor látható, hogy a szólánc mindegyik karakterét kijelöltük, hiszen a `.` jelentése "bármilyen karakter".
+
+```{r}
+str_view("Dr. Doktor Dr.", pattern = ".")
+```
+
+A `\\` jel segítségével már csak a szövegben lévő tényleges pontokra keresünk rá.
 
 ```{r}
 str_view("Dr. Doktor Dr.", pattern = "\\.")
+```
+
+Ugyanúgy a `fixed()` funkció segítségével szintén csak a tényleges pontokra keresünk rá.
+
+```{r}
+str_view("Dr. Doktor Dr.", pattern = fixed("."))
 ```
 
 Néhány hasznos regex kifejezés:

@@ -9,9 +9,19 @@ source("_common.R")
 
 A mesterséges intelligencia két fontos társadalomtudományi alkalmazási területe a felügyelet nélküli és a felügyelt tanulás. Míg az első esetben -- ahogy azt a *[Felügyelet nélküli tanulás](#lda_ch)* fejezetben bemutattuk -- az emberi beavatkozás néhány kulcsparaméter megadására (így pl. a kívánt topikok számának meghatározására) szorítkozik, addig a felügyelt tanulás esetében a kutatónak nagyobb mozgástere van "tanítani" a gépet. Ennyiben a felügyelt tanulás alkalmasabb hipotézisek tesztelésére, mint az adatok rejtett mintázatait felfedező felügyelet nélküli tanulás. 
 
-A felügyelt tanulási feladat megoldása egy úgynevezett tanító halmaz (*training set*) meghatározásával kezdődik, melynek során a kutatók saját maguk végzik el kézzel azt a feladatot melyet a továbbiakban gépi közreműködéssel szeretnének nagyobb nagyságrendben, de egyben érvényesen (*validity*) és megbízhatóan (*reliability*) kivitelezni. Eredményeinket az ugyanúgy eredetileg kézzel lekódolt, de a modell-építés során félretett teszthalmazunkon (*test set*) értékelhetjük. Ennek során négy kategóriába rendezzük modellünk előrejelzéseit. Egy, a politikusi beszédeket a pozitív hangulatuk alapján osztályozó példát véve ezek a következők: azok a beszédek amelyeket a modell helyesen sorolt be pozitívba (valódi pozitív), vagy negatívba (valódi negatív), illetve azok, amelyek hibásan szerepelnek a pozitív (ál-pozitív), vagy a negatív kategóriában (ál-negatív). Mindezek együttesen egy ún. tévesztési táblát (*confusion matrix*) adnak, melynek további elemzésével ítéletet alkothatunk modellépítésünk eredményességéről.
+A felügyelt tanulási feladat megoldása egy úgynevezett tanító halmaz (*training set*) meghatározásával kezdődik, melynek során a kutatók saját maguk végzik el kézzel azt a feladatot melyet a továbbiakban gépi közreműködéssel szeretnének nagyobb nagyságrendben, de egyben érvényesen (*validity*) és megbízhatóan (*reliability*) kivitelezni. Eredményeinket az ugyanúgy eredetileg kézzel lekódolt, de a modell-építés során félretett teszthalmazunkon (*test set*) értékelhetjük. Ennek során négy kategóriába rendezzük modellünk előrejelzéseit. Egy, a politikusi beszédeket a pozitív hangulatuk alapján osztályozó példát véve ezek a következők: azok a beszédek amelyeket a modell helyesen sorolt be pozitívba (valódi pozitív), vagy negatívba (valódi negatív), illetve azok, amelyek hibásan szerepelnek a pozitív (hamis-pozitív), vagy a negatív kategóriában (hamis-negatív). Mindezek együttesen egy ún. tévesztési táblát (*confusion matrix*) adnak, melynek további elemzésével ítéletet alkothatunk modellépítésünk eredményességéről.
 
-A felügyelt tanulás számos kutatási feladat megoldására alkalmazhatjuk, melyek közül a leggyakoribbak a különböző osztályozási (*classification*) feladatok. Miközben ezek – így pl. a véleményelemzés – szótáralapú módszertannal is megoldhatóak (lásd a *[Szótárak és érzelemelemzés](#sentiment)* fejezetet), a felügyelt tanulás a nagyobb élőmunkaigényt rendszerint jobb eredményekkel és rugalmasabb felhasználhatósággal hálálja meg (gondoljunk csak a szótárak domain-függőségére). A felügyelt tanulás egyben a mesterséges intelligencia kutatásának gyorsan fejlődő területe, mely az e fejezetben tárgyalt algoritmus-központú gépi tanuláson túl az ún. mélytanulás (*deep learning*) és a neurális hálók területén is zajlik egyre látványosabb sikerekkel.
+A felügyelt tanulás számos kutatási feladat megoldására alkalmazhatjuk, melyek közül a leggyakoribbak a különböző osztályozási (*classification*) feladatok. Miközben ezek – így pl. a véleményelemzés – szótáralapú módszertannal is megoldhatóak (lásd a *[Szótárak és érzelemelemzés](#sentiment)* fejezetet), a felügyelt tanulás a nagyobb előkészítési igényt rendszerint jobb eredményekkel és rugalmasabb felhasználhatósággal hálálja meg (gondoljunk csak a szótárak domain-függőségére). A felügyelt tanulás egyben a mesterséges intelligencia kutatásának gyorsan fejlődő területe, mely az e fejezetben tárgyalt algoritmus-központú gépi tanuláson túl az ún. mélytanulás (*deep learning*) és a neurális hálók területén is zajlik egyre látványosabb sikerekkel.
+
+Az egyes modellek pontosságának kiértékelésére általában az F értéket használjuk. Az F érték két másik mérőszám keresztezésével jön létre a *precision* és a *recall*, előbbi a helyes találatok száma az összes találat között. Az utóbbi pedig a megtalált helyes értékek aránya.
+
+![A precision érték képlete](figures/precision.jpg)
+
+![A recall érték képlete](figures/recall.jpg)
+
+Ebből a két mérőszámból áll az *F* érték vagy *F1*, amely a két mérőszám harmonikus átlaga.
+
+![Az F1 érték képlete](figures/F1.jpg)
 
 Jelen fejezetben két modell fajtát mutatunk be egyazon korpuszon az Support Vector Machine (SVM) és a Naïve Bayes (NB). Mindkettő a fentiekben leírt klasszifikációs feladatot végzi el, viszont eltérő módon működnek. Az SVM a tanító halmazunk dokumentumait vektorként reprezentálja, ami annyit jelent, hogy hozzájuk rendel egy számsort, amely egy közös térben betöltött pozíciójukat reprezentálja.
 
@@ -25,7 +35,7 @@ Innentől kezdve pedig a modellnek nincs más dolga, mint a tanító halmazon k�
 
 ## Osztályozás felügyelt tanulással
 
-Az alábbi fejezetben a CAP magyar média gyűjteményéből a napilap címlapokat tartalmazó modult használjuk.[^sml-1] Az induló adatbázis 61 835 cikk szövegét és metaadatait (összesen öt változót: sorszám, fájlnév, a közpolitikai osztály kódja, szöveg, illetve a korpusz forrása -- *Magyar Nemzet* vagy *Népszabadság*) tartalmazza. Az a célunk, hogy az egyes cikkekhez kézzel, jó minőségben (két, egymástól függetlenül dolgozó kódoló által) kiosztott és egyeztetett közpolitikai kódokat -- ez a tanítóhalmaz -- arra használjuk, hogy meghatározzuk egy kiválasztott cikkcsoport hasonló kódjait. Az osztályozási feladathoz a CAP közpolitikai kódrendszerét használjuk, mely 21 közpolitikai kategóriát határoz meg az oktatástól az egészségügyön át a honvédelemig. [^sml-2]
+Az alábbi fejezetben a CAP magyar média gyűjteményéből a napilap címlapokat tartalmazó modult használjuk.[^sml-1] Az induló adatbázis 71875 cikk szövegét és metaadatait (összesen öt változót: sorszám, fájlnév, a közpolitikai osztály kódja, szöveg, illetve a korpusz forrása -- *Magyar Nemzet* vagy *Népszabadság*) tartalmazza. Az a célunk, hogy az egyes cikkekhez kézzel, jó minőségben (két, egymástól függetlenül dolgozó kódoló által) kiosztott és egyeztetett közpolitikai kódokat -- ez a tanítóhalmaz -- arra használjuk, hogy meghatározzuk egy kiválasztott cikkcsoport hasonló kódjait. Az osztályozási feladathoz a CAP közpolitikai kódrendszerét használjuk, mely 21 közpolitikai kategóriát határoz meg az oktatástól az egészségügyön át a honvédelemig. [^sml-2]
 
 [^sml-1]: A korpusz regisztációt követően elérhető az alábbi linken: <https://cap.tk.hu/a-media-es-a-kozvelemeny-napirendje>
 
@@ -53,14 +63,14 @@ Data_NOL_MNO <- HunMineR::data_nol_mno_clean
 glimpse(Data_NOL_MNO)
 ```
 
-Majd pár kissebb átalakítást hajtunk végre az adatainkon. Először is ehhez a modellhez most csak a Népszabadság cikkeket fogjuk alkalmazni a Magyar Nemzet cikkeit kiszedjük az adataink közül. Ezután leegyszerűsítjük a kódolást. Összesen 21 témakört lefed a cikkek kézi kódolása most viszont ezekből egy bináris változót készítünk, amelynek 1 lesz az értéke, ha a cikk makrogazdaságról szól, ha pedig bármilyne más témakörről, akkor 0 lesz az értéke.  Így két hasonló méretű csoportot hozunk létre. A modellek pedig az ide történő besorolálst próbálják majd megállapítani a cikkek szövege alapján vagyis, hogy makrogazdasági témáról szól-e az adott cikk, vagy valamilyen más témáról. Majd kiválasztjuk a táblából a két változó, amelyekre szükségünk lesz a cikkek szövegét `text` és a cikkekhez kézzel hozzárendelt téműt `label` a többit pedig elvetjük.
+Majd pár kissebb átalakítást hajtunk végre az adatainkon. Először is ehhez a modellhez most csak a Népszabadság cikkeket fogjuk alkalmazni a Magyar Nemzet cikkeit kiszedjük az adataink közül. Ezután leegyszerűsítjük a kódolást. Összesen 21 témakört lefed a cikkek kézi kódolása most viszont ezekből egy bináris változót készítünk, amelynek 1 lesz az értéke, ha a cikk makrogazdaságról szól, ha pedig bármilyne más témakörről, akkor 0 lesz az értéke. A két fajta cikkből összesen 10000 db-os mintat veszunk, amelyben a két típus egyenlő arányban van jelen. A modellek pedig az ide történő besorolálst próbálják majd megállapítani a cikkek szövege alapján vagyis, hogy makrogazdasági témáról szól-e az adott cikk, vagy valamilyen más témáról. Majd kiválasztjuk a táblából a két változó, amelyekre szükségünk lesz a cikkek szövegét `text` és a cikkekhez kézzel hozzárendelt téműt `label` a többit pedig elvetjük.
 
 ```{r include = TRUE}
 Data_NOL <- Data_NOL_MNO %>% 
-  filter(text != " " | text != "", corpus == "NOL") %>% 
+  subset(corpus == "NOL" & is.na(text) == F) %>% 
   mutate(label = if_else(majortopic_code == 1, 1, 0)) %>% 
   group_by(label) %>% 
-  sample_n(2250) %>% 
+  sample_n(5000) %>% 
   ungroup() %>% 
   select(text, label)
 ``` 
@@ -74,15 +84,17 @@ nol_corpus <- corpus(Data_NOL)
 Majd létrehozunk egy új objektumot id_train néven amely 1 és 4500 között 3600 különböző a `sample()` funkció segítségével véletlenszerűen kiválogatott számot tartalmaz. Utána pedig a korpuszunkhoz hozzá adunk egy új id_numeric elnevezésű változót, amely csupán a megszámozza az egyes cikkeket. Ezeket a késöbbiekben arra fogjuk felhasználni, hogy kialakítsuk a tanító és teszt halmazokat
 
 ```{r include = TRUE}
-id_train <- sample(1:4500, 3600, replace = FALSE)
+id_train <- sample(1:10000, 2500, replace = FALSE)
 nol_corpus$id_numeric <- 1:ndoc(nol_corpus)
 ``` 
 
-Ezt követően a korpuszunkat egy tokenekké alakítjuk és ezzel egyidejűleg eltávolítjuk a quanteda beépített magyar stopszó szótárát, valamint sztemmelést is végrehajtunk. 
+Ezt követően a korpuszunkat egy tokenekké alakítjuk és ezzel egyidejűleg eltávolítjuk a HunMiner beépített magyar stopszó szótárát, valamint szótövesítést is végrehajtunk. 
 
 ```{r include = TRUE}
+stopszavak <- HunMineR::data_stopwords_extra
+
 nol_toks <- tokens(nol_corpus, remove_punct = TRUE, remove_number = TRUE) %>% 
-  tokens_remove(pattern = stopwords("hungarian")) %>% 
+  tokens_remove(pattern = stopszavak) %>% 
   tokens_wordstem()
 ``` 
 
@@ -137,7 +149,14 @@ Ezt létrehozhatjuk a  `caret ` csomag funkciójával is, amely a tévesztési t
 confusionMatrix(eredmeny_tabla, mode = "everything")
 ``` 
 
-Az eredményeken pedig láthatjuk, hogy még az egyszerűség kedvéért lecsökkentett méretű tanítási halmaz ellenére is egy kifejezett magas 84.78%-os pontossági értéket kapunk, amely többé-kevésbé megfeletethető egy kizárólag kézikódolással végzett vizsgálat pontosságának
+Az eredményeken pedig láthatjuk, hogy még az egyszerűség kedvéért lecsökkentett méretű tanítási halmaz ellenére is egy kifejezett magas 83.25%-os pontossági értéket kapunk, amely többé-kevésbé megfeletethető egy kizárólag kézikódolással végzett vizsgálat pontosságának. Ezt követően a kapott eredményeket a mérésünk minőségéről egy táblázatba rendezzük, későbbi összehasonlítás céljából.
+
+```{r include = TRUE}
+nb_eredmenyek <- data.frame(confusionMatrix(eredmeny_tabla, mode = "prec_recall")[4])
+nb_eredmenyek$meres <- row.names(nb_eredmenyek)
+nb_eredmenyek$modszer <- "Naïve Bayes"
+row.names(nb_eredmenyek) <- 1:nrow(nb_eredmenyek)
+``` 
 
 ### Support-vector machine
 
@@ -167,4 +186,25 @@ Valamint jelen esetben is használhatjuk a `caret ` csomagban található funkci
 confusionMatrix(eredmeny_tabla_svm, mode = "everything")
 ``` 
 
-Itt ismét azt találjuk, hogy a csökkentett méretű korpusz ellenére is egy kifejezetten magas pontossági értéket 85.33%-ot kapunk.
+Itt ismét azt találjuk, hogy a csökkentett méretű korpusz ellenére is egy kifejezetten magas pontossági értéket 82.83%-ot kapunk. Az eredményeinket ismét egy adattáblába rendezzük, amelyet végül összekötünk az első táblánnkkal, hogy a két módszert a korábban tárgyalt három mérőszám alapján is összehasonlítsuk.
+
+```{r include = TRUE}
+svm_eredmenyek <- data.frame(confusionMatrix(eredmeny_tabla_svm, mode = "prec_recall")[4])
+svm_eredmenyek$meres <- row.names(svm_eredmenyek)
+svm_eredmenyek$modszer <- "Support-vector machine"
+row.names(svm_eredmenyek) <- 1:nrow(svm_eredmenyek)
+
+eredmenyek <- rbind(svm_eredmenyek, nb_eredmenyek) %>% 
+  subset(meres %in% c("Precision", "Recall", "F1"))
+
+names(eredmenyek)[1] <- "ertek"
+``` 
+
+Végül egy ábrával szemléltetjük a kapott eredményeinket, amelyen látható, hogy jelen esetben a két módszer közötti különbség minimális. Jelen esetben a Naïve Bayes jobban teljesített, mint a Support-vector machine az *F1* és *Precision* tekintetében, viszont utóbbi a *Recall* tekintetében.
+
+```{r include = TRUE}
+ggplot(eredmenyek, aes(x = modszer, y = ertek, fill = modszer)) +
+  geom_bar(stat = "identity", width = 0.1) +
+  facet_wrap(~meres, ncol=1)
+``` 
+

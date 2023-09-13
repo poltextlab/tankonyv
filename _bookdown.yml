@@ -9,7 +9,7 @@ rmd_files: [
   "02_kulcsfogalmak.Rmd",
   "03_adatkezeles.Rmd",
   "04_korpuszepites_szovegelokeszites.Rmd",
-   "05_leiro_statisztika.Rmd",
+  "05_leiro_statisztika.Rmd",
   "06_szentiment_elemzes.Rmd",
   "07_klasztering_topicmodellek.Rmd",
   "08_szobeagyazas.Rmd",

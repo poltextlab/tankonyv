@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>11 NLP és névelemfelismerés | Szövegbányászat és mesterséges intelligencia R-ben</title>
   <meta name="description" content="11 NLP és névelemfelismerés | Szövegbányászat és mesterséges intelligencia R-ben" />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
   <meta property="og:title" content="11 NLP és névelemfelismerés | Szövegbányászat és mesterséges intelligencia R-ben" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="11 NLP és névelemfelismerés | Szövegbányászat és mesterséges intelligencia R-ben" />
   
@@ -33,7 +32,6 @@
   
 <link rel="prev" href="similarity.html"/>
 <link rel="next" href="felugyelt.html"/>
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -51,19 +49,18 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
-<link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
-<script src="libs/str_view-binding-1.4.0/str_view.js"></script>
-<script src="libs/plotly-binding-4.10.0/plotly.js"></script>
+<script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.1/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -104,7 +101,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -117,7 +114,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -131,6 +128,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 <style type="text/css">
 /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
 div.csl-bib-body { }
@@ -179,7 +180,7 @@ div.csl-indent {
 <li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#a-kötet-témái"><i class="fa fa-check"></i><b>1.1</b> A kötet témái</a></li>
 <li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#használati-utasítás"><i class="fa fa-check"></i><b>1.2</b> Használati utasítás</a></li>
 <li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#a-hunminer-használata"><i class="fa fa-check"></i><b>1.3</b> A HunMineR használata</a></li>
-<li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#handson"><i class="fa fa-check"></i><b>1.4</b> Egy gyakorlati példa az R programmal való szövegbányászatra</a></li>
+<li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#handson"><i class="fa fa-check"></i><b>1.4</b> Egy bevezető példa</a></li>
 <li class="chapter" data-level="1.5" data-path="intro.html"><a href="intro.html#köszönetnyilvánítás"><i class="fa fa-check"></i><b>1.5</b> Köszönetnyilvánítás</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="alapfogalmak.html"><a href="alapfogalmak.html"><i class="fa fa-check"></i><b>2</b> Kulcsfogalmak</a>
@@ -221,7 +222,7 @@ div.csl-indent {
 <li class="chapter" data-level="6.3" data-path="sentiment.html"><a href="sentiment.html#a-magyar-nemzet-elemzése"><i class="fa fa-check"></i><b>6.3</b> A <em>Magyar Nemzet</em> elemzése</a></li>
 <li class="chapter" data-level="6.4" data-path="sentiment.html"><a href="sentiment.html#mnb-sajtóközlemények"><i class="fa fa-check"></i><b>6.4</b> MNB sajtóközlemények</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="lda_ch.html"><a href="lda_ch.html"><i class="fa fa-check"></i><b>7</b> Felügyelet nélküli tanulás - Topikmodellezés</a>
+<li class="chapter" data-level="7" data-path="lda_ch.html"><a href="lda_ch.html"><i class="fa fa-check"></i><b>7</b> Felügyelet nélküli tanulás</a>
 <ul>
 <li class="chapter" data-level="7.1" data-path="lda_ch.html"><a href="lda_ch.html#fogalmi-alapok-2"><i class="fa fa-check"></i><b>7.1</b> Fogalmi alapok</a></li>
 <li class="chapter" data-level="7.2" data-path="lda_ch.html"><a href="lda_ch.html#k-közép-klaszterezés"><i class="fa fa-check"></i><b>7.2</b> K-közép klaszterezés</a></li>
@@ -243,8 +244,8 @@ div.csl-indent {
 <li class="chapter" data-level="9" data-path="scaling.html"><a href="scaling.html"><i class="fa fa-check"></i><b>9</b> Szövegskálázás</a>
 <ul>
 <li class="chapter" data-level="9.1" data-path="scaling.html"><a href="scaling.html#fogalmi-alapok-3"><i class="fa fa-check"></i><b>9.1</b> Fogalmi alapok</a></li>
-<li class="chapter" data-level="9.2" data-path="scaling.html"><a href="scaling.html#wordfish"><i class="fa fa-check"></i><b>9.2</b> Wordfish</a></li>
-<li class="chapter" data-level="9.3" data-path="scaling.html"><a href="scaling.html#wordscores"><i class="fa fa-check"></i><b>9.3</b> Wordscores</a></li>
+<li class="chapter" data-level="9.2" data-path="scaling.html"><a href="scaling.html#wordscores"><i class="fa fa-check"></i><b>9.2</b> Wordscores</a></li>
+<li class="chapter" data-level="9.3" data-path="scaling.html"><a href="scaling.html#wordfish"><i class="fa fa-check"></i><b>9.3</b> Wordfish</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="similarity.html"><a href="similarity.html"><i class="fa fa-check"></i><b>10</b> Szövegösszehasonlítás</a>
 <ul>
@@ -263,9 +264,12 @@ div.csl-indent {
 <li class="chapter" data-level="11" data-path="nlp_ch.html"><a href="nlp_ch.html"><i class="fa fa-check"></i><b>11</b> NLP és névelemfelismerés</a>
 <ul>
 <li class="chapter" data-level="11.1" data-path="nlp_ch.html"><a href="nlp_ch.html#fogalmi-alapok-4"><i class="fa fa-check"></i><b>11.1</b> Fogalmi alapok</a></li>
-<li class="chapter" data-level="11.2" data-path="nlp_ch.html"><a href="nlp_ch.html#a-magyarlanc"><i class="fa fa-check"></i><b>11.2</b> A <code>magyarlanc</code></a></li>
-<li class="chapter" data-level="11.3" data-path="nlp_ch.html"><a href="nlp_ch.html#a-szeged-ner"><i class="fa fa-check"></i><b>11.3</b> A <code>szeged ner</code></a></li>
-<li class="chapter" data-level="11.4" data-path="nlp_ch.html"><a href="nlp_ch.html#angol-nyelvű-szövegek-névelemfelismerése"><i class="fa fa-check"></i><b>11.4</b> Angol nyelvű szövegek névelemfelismerése</a></li>
+<li class="chapter" data-level="11.2" data-path="nlp_ch.html"><a href="nlp_ch.html#a-spacyr-használata"><i class="fa fa-check"></i><b>11.2</b> A <code>spacyr</code> használata</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="nlp_ch.html"><a href="nlp_ch.html#lemmatizálás-tokenizálás-szófaji-egyértelműsítés"><i class="fa fa-check"></i><b>11.2.1</b> Lemmatizálás, tokenizálás, szófaji egyértelműsítés</a></li>
+<li class="chapter" data-level="11.2.2" data-path="nlp_ch.html"><a href="nlp_ch.html#saját-.txt-vagy-.csv-fájlokban-elmentett-szövegek-lemmatizálása"><i class="fa fa-check"></i><b>11.2.2</b> Saját <code>.txt</code> vagy <code>.csv</code> fájlokban elmentett szövegek lemmatizálása</a></li>
+<li class="chapter" data-level="11.2.3" data-path="nlp_ch.html"><a href="nlp_ch.html#névelemfelismerés-és-eredményeinek-vizualizálása"><i class="fa fa-check"></i><b>11.2.3</b> Névelemfelismerés és eredményeinek vizualizálása</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="felugyelt.html"><a href="felugyelt.html"><i class="fa fa-check"></i><b>12</b> Osztályozás és felügyelt tanulás</a>
 <ul>
@@ -312,271 +316,498 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="nlp_ch" class="section level1" number="11">
-<h1><span class="header-section-number">11</span> NLP és névelemfelismerés</h1>
-<div id="fogalmi-alapok-4" class="section level2" number="11.1">
-<h2><span class="header-section-number">11.1</span> Fogalmi alapok</h2>
-<p>A természetes-nyelv feldolgozása (<em>Natural Language Processing – NLP</em>) a nyelvészet és a mesterséges intelligencia közös területe, amely a számítógépes módszerek segítségével elemzi az emberek által használt (természetes) nyelveket. Azaz képes feldolgozni különböző szöveges dokumentumok tartalmát, kinyerni a bennük található információkat, kategorizálni és rendszerezni azokat.</p>
-<p>Angol nyelvű szövegek NLP elemzésére több R csomag is rendelkezésünre áll, ezek közül kettőt mutatunk be röviden. Mivel magyar nyelvű szövegek NLP elemzésére ezek a csomagok jelenleg nem alkalmasak, azt mutatjuk be, hogyan végezhetjük el a magyar nyelvű szövegek mondatra és szavakra bontását, szófaji egyértelműsítését, morfológiai és szintaktikai elemzését az R program használata nélkül és azután a kapott fájlokkal hogyan végezhetünk az R program segítségével további elemzéseket.<a href="#fn52" class="footnote-ref" id="fnref52"><sup>52</sup></a></p>
-<p>A fejezetben részletesen foglalkozunk a névelem-felismeréssel (<em>Named Entity Recognition – NER</em>). Névelemnek azokat a tokensorozatokat nevezzük, amelyek valamely entitást egyedi módon jelölnek. A névelem-felismerés az infomációkinyerés részterülete, melynek lényege, hogy automatikusan felismerjük a strukturálátlan szövegben szereplő tulajdonneveket, majd azokat kigyűjtsük, és típusonként (például személynév, földrajzi név, márkanév, stb.) csoportosítsuk. Bár a tulajdonnevek mellett névelemnek tekinthetők még például a telefonszámok vagy az e-mail címek is, a névelem-felismerés leginkább mégis a tulajdonnevek felismerésére irányul. A névelem-felismerés a számítógépes nyelvészetben a korai 1990-es évektől kezdve fontos feladatnak és megoldandó problémának számít.</p>
-<p>A névelem-felismerés többféle módon is megoldható, így például felügyelt tanulással, szótár alapú módszerekkel vagy kollokációk elemzésével. A névelem-felismerés körében két alapvető módszer alkalmazására van lehetőség. A szabályalapú módszer alkalmazása során előre megadott adatok alapján kerül kinyerésre az információ (ilyen szabály például a mondatközi nagybetű mint a tulajdonnév kezdete). A másik módszer a statisztikai tanulás, amikor a gép alkot szabályokat a kutató előzetes mintakódolása alapján. A névelemfelismerés során nehézséget okozhat a különböző névelemosztályok közötti gyakori átfedés, így például ha egy adott szó településnév és vezetéknév is lehet.</p>
-<p>A magyar nyelvű szövegekben a tulajdonnevek automatikus annotációjára jelenleg három módon van lehetőség: tulajdonnév-felismerő algoritmussal, szófaji címke szintjén történő megkülönböztetéssel, valamint szintaktikai szintű címkézéssel. Utóbbi kettőre példa a fejezetben is bemutatásra kerülő <code>magyarlanc</code> elemző, ami szófaji szinten megkülönbözteti a tulajdonneveket, a szintaxis szintjén pedig jelöli a többtagúakat.<span class="citation">(<a href="irodalomjegyzék.html#ref-zsibritaMagyarlancToolMorphological2013" role="doc-biblioref">Zsibrita, Vincze, and Farkas 2013</a>)</span></p>
-<p>A tulajdonnév-felismerő algoritmusok megkeresik az adott szövegben a tulajdonneveket, majd azokat valamilyen kategóriába sorolják, ilyen magyar nyelvű algoritmus a <code>szeged ner</code>, melynek alkalmazását szintén bemutatjuk.<span class="citation">(<a href="irodalomjegyzék.html#ref-szarvasMultilingualNamedEntity2006" role="doc-biblioref">Szarvas, Farkas, and Kocsor 2006</a>)</span> Fontos különbséget tenni a névelem-felismerés és a tulajdonnév-felismerés között. A névelem-felismerésbe beletartozik minden olyan kifejezés, amely a világ valamely entitására egyedi módon (unikálisan) referál. Ezzel szemben a tulajdonnév-felismerés, kizárólag a tulajdonnevekre koncentrál.<span class="citation">(<a href="irodalomjegyzék.html#ref-uvegesNamedEntityRecognition2019" role="doc-biblioref">Üveges 2019</a>; <a href="irodalomjegyzék.html#ref-vinczeBeszedEsNyelvelemzo2019" role="doc-biblioref">Vincze 2019</a>)</span></p>
-<p>A <code>magyarlanc</code>nyelvi előfeldolgozó eszköz a Szegedi Tudományegyetem fejlesztése,<span class="citation">(<a href="irodalomjegyzék.html#ref-zsibritaMagyarlancToolMorphological2013" role="doc-biblioref">Zsibrita, Vincze, and Farkas 2013</a>)</span> ami magyar nyelvű <code>txt</code> formátumú fájlokat feldolgozva képes egy szöveg mondatokra és szavakra bontására, a szavak morfológiai elemzésére, szófaji egyértelműsítésére, emellett kétféle szintaktikai elemzést is képes hozzárendelni a mondatokhoz.<a href="#fn53" class="footnote-ref" id="fnref53"><sup>53</sup></a></p>
-<p>A magyarlanchoz hasonlóan az UDPipe nevű elemző szintén képes magyar nyelvű nyers szövegek mondatra és szavakra bontására és szófaji elemzésére, azaz POS-taggelésére (<em>Part of Speech-tagging</em>) továbbá a mondatok függőségi elemzésére. Ez az elemző a nemzetközileg elismert Universal Dependencies annotációs sémán alapul. <span class="citation">(<a href="irodalomjegyzék.html#ref-strakaTokenizingPosTagging2017" role="doc-biblioref">Straka and Straková 2017</a>)</span> A két nyelvi elemző hasonló funkcionalitásokkal rendelkezik, ugyanakkor az UDPipe technikailag könnyebben kezelhető, azonban kevésbé pontos elemzési eredményt ad, mivel jóval kisebb tanító anyagon lett betanítva, mint a <code>magyarlanc</code>.<a href="#fn54" class="footnote-ref" id="fnref54"><sup>54</sup></a></p>
-<p>Az alábbiakban a <code>magyarlanc</code> és a <code>szeged ner</code> működését és az általuk létrehozott fájlokkal R-ben végezhető elemzésekre mutatunk példákat.</p>
+<div id="nlp_ch" class="section level1 hasAnchor" number="11">
+<h1><span class="header-section-number">11</span> NLP és névelemfelismerés<a href="nlp_ch.html#nlp_ch" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="fogalmi-alapok-4" class="section level2 hasAnchor" number="11.1">
+<h2><span class="header-section-number">11.1</span> Fogalmi alapok<a href="nlp_ch.html#fogalmi-alapok-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A természetes-nyelv feldolgozása (<em>Natural Language Processing – NLP</em>) a nyelvészet és a mesterséges intelligencia közös területe, amely a számítógépes módszerek segítségével elemzi az emberek által használt (természetes) nyelveket. Azaz képes feldolgozni különböző szöveges dokumentumok tartalmát, kinyerni a bennük található információkat, kategorizálni és rendszerezni azokat. A névelem-felismerés többféle módon is megoldható, így például felügyelt tanulással, szótár alapú módszerekkel vagy kollokációk elemzésével. A névelem-felismerés körében két alapvető módszer alkalmazására van lehetőség. A szabályalapú módszer alkalmazása során előre megadott adatok alapján kerül kinyerésre az információ (ilyen szabály például a mondatközi nagybetű mint a tulajdonnév kezdete). A másik módszer a statisztikai tanulás, amikor a gép alkot szabályokat a kutató előzetes mintakódolása alapján. A névelemfelismerés során nehézséget okozhat a különböző névelemosztályok közötti gyakori átfedés, így például ha egy adott szó településnév és vezetéknév is lehet. Fontos különbséget tenni a névelem-felismerés és a tulajdonnév-felismerés között. A névelem-felismerésbe beletartozik minden olyan kifejezés, amely a világ valamely entitására egyedi módon (unikálisan) referál. Ezzel szemben a tulajdonnév-felismerés, kizárólag a tulajdonnevekre koncentrál.<span class="citation">(<a href="irodalomjegyzék.html#ref-uvegesNamedEntityRecognition2019">Üveges 2019</a>; <a href="irodalomjegyzék.html#ref-vinczeBeszedEsNyelvelemzo2019">Vincze 2019</a>)</span></p>
+<p>A fejezetben részletesen foglalkozunk a lemmatizálással, ami a magyar nyelvű szövegek szövegelőkészítésnek fontos eleme (erről lásd bővebben a <em>Korpuszépítés és szövegelőkészítés</em> fejezetet), és a névelem-felismeréssel (<em>Named Entity Recognition – NER</em>).
+Névelemnek azokat a tokensorozatokat nevezzük, amelyek valamely entitást egyedi módon jelölnek. A névelem-felismerés az infomációkinyerés részterülete, melynek lényege, hogy automatikusan felismerjük a strukturálátlan szövegben szereplő tulajdonneveket, majd azokat kigyűjtsük, és típusonként (például személynév, földrajzi név, márkanév, stb.) csoportosítsuk. Bár a tulajdonnevek mellett névelemnek tekinthetők még például a telefonszámok vagy az e-mail címek is, a névelem-felismerés leginkább mégis a tulajdonnevek felismerésére irányul. A névelem-felismerés a számítógépes nyelvészetben a korai 1990-es évektől kezdve fontos feladatnak és megoldandó problémának számít.</p>
+<p>A magyar nyelvű szövegekben a tulajdonnevek automatikus felismerésére jelen kötetben a <code>huSpaCy</code> [^11_nlp-1] elemző használatát mutatjuk be, amely képes mondatok teljes nyelvi elemzésére (szótő, szófajok, stb.) illetve névelemek (például személynevek, helységek) azonosítására is folyó szövegben, emellett alkalmas a magyar nyelvű szövegek lemmatizálására, ami amint azt korábban bemutattuk, a magyar nyelvű szövegek előfeldolgozásának fontos lépése. Bár magyar nyelven más elemzők [^11_nlp-2] is képesek a nyers szövegek mondatra és szavakra bontására és szófaji elemzésére, azaz POS-taggelésére (<em>Part of Speech-tagging</em>) továbbá a mondatok függőségi elemzésére, két okból döntöttünk a <code>huSpaCy</code> használata mellett. Egyrészt ez a illeszkedik a nemzetközi akadémia és ipari szférában legszélesebb körben használt <code>SpaCy</code> <a href="#fn51" class="footnote-ref" id="fnref51"><sup>51</sup></a> keretrendszerbe, másrészt a <code>reticulate</code> <a href="#fn52" class="footnote-ref" id="fnref52"><sup>52</sup></a> csomag segítségével viszonylag egyszerűen használható <code>R</code> környezetben is, és nagyon jól együttműködik a kötetben rendszeresen használt <code>quanteda</code> csomaggal.</p>
+<p>[^11_nlp-1] <a href="https://github.com/huspacy/huspacy" class="uri">https://github.com/huspacy/huspacy</a></p>
 </div>
-<div id="a-magyarlanc" class="section level2" number="11.2">
-<h2><span class="header-section-number">11.2</span> A <code>magyarlanc</code></h2>
-<p>Az elemző használatának részletes leírás megtalálható a már jelzett honlapon, itt most csak vázlatosan ismeretetjük. Fontos kiemelni, hogy a <code>magyarlanc</code> JAVA modulokból áll, így használatához szükséges, hogy a számítógépen megfelelő JAVA környezet legyen telepítve. Először fenti oldalról le kell töltenünk a <code>magyarlanc-3.0.jar</code> fájlt, majd bemásolni azt abba a mappába, ahol az elemezni kívánt <code>txt</code> található. A parancssort Windows operációs rendszer alatt a számítógép kereső mezőjébe a <code>cmd</code> parancs beírásával tudjuk megnyitni. Ezután a parancsorban belépve abba a könyvtárba, ahol az elemezni kíván txt és a <code>magyarlanc-3.0.jar</code> elemző van, az alábbi parancs segítségével végezhetjük el az elemzést: <code>java -Xmx1G -jar magyarlanc-3.0.jar -mode morphparse -input in.txt -output out.txt</code>, ahol az <code>in.txt</code> helyébe az elemezni kívánt <code>txt</code> nevét, az <code>out.txt</code> helyébe, pedig az elemzés eredményeként létrejövő fájl nevét kell megadni.</p>
-<p>Példánkban az Országgyűlésben 2014 és 2018 között elhangzott véletlenszerűen kiválasztott 25 napirend előtti felszólalás korpuszán szemléltetjük az elemző működését.<a href="#fn55" class="footnote-ref" id="fnref55"><sup>55</sup></a> A 25 fájlt elemezhetjük egyesével, de ha ez a későbbi elemzéshez nem szükséges, a parancsorban a <code>copy *.txt eredmeny.txt</code> paranccsal egyesíthetjük azokat egy fájlba. Majd ezen az <code>eredmeny.txt</code>-n végezzük el az elemzést az alábbi paranccsal: <code>java -Xmx1G -jar magyarlanc-3.0.jar -mode morphparse -input eredmeny.txt -output eredmeny_out.txt</code></p>
-<p>Az elemzés eredményéül kapott <code>txt</code> fájlban láthatjuk, hogy az elemző elvégezte a szövegek mondatokra bontását, tokenizálását, szótári alakra hozását és POS-taggelését, azaz meghatározta a szavak szófaját.</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-207"></span>
-<p class="caption">
-Ábra 11.1: A magyarlánc elemzo nyers eredménye
-</p>
-<img src="figures/11-01_magyarlanc_kimenet.png" alt="A magyarlánc elemzo nyers eredménye" width="90%" />
+<div id="a-spacyr-használata" class="section level2 hasAnchor" number="11.2">
+<h2><span class="header-section-number">11.2</span> A <code>spacyr</code> használata<a href="nlp_ch.html#a-spacyr-használata" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="nlp_ch.html#cb222-1" tabindex="-1"></a><span class="fu">library</span>(reticulate)</span>
+<span id="cb222-2"><a href="nlp_ch.html#cb222-2" tabindex="-1"></a><span class="fu">library</span>(spacyr)</span>
+<span id="cb222-3"><a href="nlp_ch.html#cb222-3" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb222-4"><a href="nlp_ch.html#cb222-4" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb222-5"><a href="nlp_ch.html#cb222-5" tabindex="-1"></a><span class="fu">library</span>(quanteda)</span>
+<span id="cb222-6"><a href="nlp_ch.html#cb222-6" tabindex="-1"></a><span class="fu">library</span>(quanteda.textplots)</span>
+<span id="cb222-7"><a href="nlp_ch.html#cb222-7" tabindex="-1"></a><span class="fu">library</span>(HunMineR)</span></code></pre></div>
+<p>A <code>spaCy</code> használatához <code>Python</code> környezet szükséges, az első használat előtt telepíteni kell a számítógépünkre egy <code>Anaconda</code> alkalmazást: <a href="https://www.anaconda.com/" class="uri">https://www.anaconda.com/</a>. Majd az <code>RStudio/Tools/Global Options</code> menüjében be kell állítanunk a <code>Pyton</code> interpretert, azaz meg kell adnunk, hogy a gépünkön hol található a feltelepített <code>Anaconda</code>. Ezt csak az első használat előtt kell megtennünk, a későbbiekben innen folytathatjuk a modell betöltését.</p>
+<p>Ezt követően a már megszokott módon installálnunk kell a <code>reticulate</code> és a <code>spacyr</code> <a href="#fn53" class="footnote-ref" id="fnref53"><sup>53</sup></a> csomagot és telepítenünk a magyar nyelvi modellt. A Pythonban készült <code>spacy</code>-t a <code>spacyr::spacy_install()</code> paranccsal kell telepíteni. A következő lépésben létre kell hoznunk egy <code>conda</code> környezetet, és a <code>huggingface</code>-ről be kell töltenünk a magyar modellt.</p>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="nlp_ch.html#cb223-1" tabindex="-1"></a><span class="fu">conda_install</span>(<span class="at">envname =</span> <span class="st">&quot;spacyr&quot;</span>, <span class="st">&quot;https://huggingface.co/huspacy/hu_core_news_lg/resolve/v3.5.2/hu_core_news_lg-any-py3-none-any.whl&quot;</span> , <span class="at">pip =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="nlp_ch.html#cb224-1" tabindex="-1"></a><span class="fu">spacy_initialize</span>(<span class="at">model =</span> <span class="st">&quot;hu_core_news_lg&quot;</span>, <span class="at">condaenv=</span><span class="st">&quot;spacyr&quot;</span>)</span>
+<span id="cb224-2"><a href="nlp_ch.html#cb224-2" tabindex="-1"></a><span class="co">#&gt; NULL</span></span></code></pre></div>
+<div id="lemmatizálás-tokenizálás-szófaji-egyértelműsítés" class="section level3 hasAnchor" number="11.2.1">
+<h3><span class="header-section-number">11.2.1</span> Lemmatizálás, tokenizálás, szófaji egyértelműsítés<a href="nlp_ch.html#lemmatizálás-tokenizálás-szófaji-egyértelműsítés" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Ezután a <code>spacy_parse()</code> függvény segítségével lehetőségünk van a szövegek tokenizálására, szótári alakra hozására (lemmatizálására) és szófaji egyértelműsítésére.</p>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="nlp_ch.html#cb225-1" tabindex="-1"></a>txt <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">d1 =</span> <span class="st">&quot;Budapesten süt a nap.&quot;</span>,</span>
+<span id="cb225-2"><a href="nlp_ch.html#cb225-2" tabindex="-1"></a>         <span class="at">d2 =</span> <span class="st">&quot;Tájékoztatom önöket, hogy az ülés vezetésében Hegedűs Lorántné és Szűcs Lajos jegyzők lesznek segítségemre.&quot;</span>)</span>
+<span id="cb225-3"><a href="nlp_ch.html#cb225-3" tabindex="-1"></a></span>
+<span id="cb225-4"><a href="nlp_ch.html#cb225-4" tabindex="-1"></a>parsedtxt <span class="ot">&lt;-</span> <span class="fu">spacy_parse</span>(txt)</span>
+<span id="cb225-5"><a href="nlp_ch.html#cb225-5" tabindex="-1"></a></span>
+<span id="cb225-6"><a href="nlp_ch.html#cb225-6" tabindex="-1"></a><span class="fu">print</span>(parsedtxt)</span>
+<span id="cb225-7"><a href="nlp_ch.html#cb225-7" tabindex="-1"></a><span class="co">#&gt;    doc_id sentence_id token_id        token      lemma   pos entity</span></span>
+<span id="cb225-8"><a href="nlp_ch.html#cb225-8" tabindex="-1"></a><span class="co">#&gt; 1      d1           1        1   Budapesten   Budapest PROPN  LOC_B</span></span>
+<span id="cb225-9"><a href="nlp_ch.html#cb225-9" tabindex="-1"></a><span class="co">#&gt; 2      d1           1        2          süt        süt  VERB       </span></span>
+<span id="cb225-10"><a href="nlp_ch.html#cb225-10" tabindex="-1"></a><span class="co">#&gt; 3      d1           1        3            a          a   DET       </span></span>
+<span id="cb225-11"><a href="nlp_ch.html#cb225-11" tabindex="-1"></a><span class="co">#&gt; 4      d1           1        4          nap        nap  NOUN       </span></span>
+<span id="cb225-12"><a href="nlp_ch.html#cb225-12" tabindex="-1"></a><span class="co">#&gt; 5      d1           1        5            .          . PUNCT       </span></span>
+<span id="cb225-13"><a href="nlp_ch.html#cb225-13" tabindex="-1"></a><span class="co">#&gt; 6      d2           1        1 Tájékoztatom tájékoztat  VERB       </span></span>
+<span id="cb225-14"><a href="nlp_ch.html#cb225-14" tabindex="-1"></a><span class="co">#&gt; 7      d2           1        2       önöket         ön  NOUN       </span></span>
+<span id="cb225-15"><a href="nlp_ch.html#cb225-15" tabindex="-1"></a><span class="co">#&gt; 8      d2           1        3            ,          , PUNCT       </span></span>
+<span id="cb225-16"><a href="nlp_ch.html#cb225-16" tabindex="-1"></a><span class="co">#&gt; 9      d2           1        4         hogy       hogy SCONJ       </span></span>
+<span id="cb225-17"><a href="nlp_ch.html#cb225-17" tabindex="-1"></a><span class="co">#&gt; 10     d2           1        5           az         az   DET       </span></span>
+<span id="cb225-18"><a href="nlp_ch.html#cb225-18" tabindex="-1"></a><span class="co">#&gt; 11     d2           1        6         ülés       ülés  NOUN       </span></span>
+<span id="cb225-19"><a href="nlp_ch.html#cb225-19" tabindex="-1"></a><span class="co">#&gt; 12     d2           1        7  vezetésében    vezetés  NOUN       </span></span>
+<span id="cb225-20"><a href="nlp_ch.html#cb225-20" tabindex="-1"></a><span class="co">#&gt; 13     d2           1        8      Hegedűs    Hegedűs PROPN  PER_B</span></span>
+<span id="cb225-21"><a href="nlp_ch.html#cb225-21" tabindex="-1"></a><span class="co">#&gt; 14     d2           1        9     Lorántné   Lorántné PROPN  PER_I</span></span>
+<span id="cb225-22"><a href="nlp_ch.html#cb225-22" tabindex="-1"></a><span class="co">#&gt; 15     d2           1       10           és         és CCONJ       </span></span>
+<span id="cb225-23"><a href="nlp_ch.html#cb225-23" tabindex="-1"></a><span class="co">#&gt; 16     d2           1       11        Szűcs      Szűcs PROPN  PER_B</span></span>
+<span id="cb225-24"><a href="nlp_ch.html#cb225-24" tabindex="-1"></a><span class="co">#&gt; 17     d2           1       12        Lajos      Lajos PROPN  PER_I</span></span>
+<span id="cb225-25"><a href="nlp_ch.html#cb225-25" tabindex="-1"></a><span class="co">#&gt; 18     d2           1       13      jegyzők     jegyző  NOUN       </span></span>
+<span id="cb225-26"><a href="nlp_ch.html#cb225-26" tabindex="-1"></a><span class="co">#&gt; 19     d2           1       14      lesznek       lesz   AUX       </span></span>
+<span id="cb225-27"><a href="nlp_ch.html#cb225-27" tabindex="-1"></a><span class="co">#&gt; 20     d2           1       15 segítségemre   segítség  NOUN       </span></span>
+<span id="cb225-28"><a href="nlp_ch.html#cb225-28" tabindex="-1"></a><span class="co">#&gt; 21     d2           1       16            .          . PUNCT</span></span></code></pre></div>
+<p>Láthatjuk, hogy az eredmény egy olyan tábla, amely soronként tartalmazza a lemmákat. Mivel az elemzések során legtöbbször arra van szükségünk, hogy egy teljes szöveg lemmáit egy egységként kezeljük, a kapott táblán el kell végeznünk néhány átlakítást. Mivel nekünk a lemmákra van szükségünk, először is töröljük az összes oszlopot a <code>doc_id</code> és a <code>lemma</code> kivételével.</p>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="nlp_ch.html#cb226-1" tabindex="-1"></a>parsedtxt<span class="sc">$</span>sentence_id <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb226-2"><a href="nlp_ch.html#cb226-2" tabindex="-1"></a>parsedtxt<span class="sc">$</span>token_id <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb226-3"><a href="nlp_ch.html#cb226-3" tabindex="-1"></a>parsedtxt<span class="sc">$</span>token <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb226-4"><a href="nlp_ch.html#cb226-4" tabindex="-1"></a>parsedtxt<span class="sc">$</span>pos <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb226-5"><a href="nlp_ch.html#cb226-5" tabindex="-1"></a>parsedtxt<span class="sc">$</span>entity <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb226-6"><a href="nlp_ch.html#cb226-6" tabindex="-1"></a></span>
+<span id="cb226-7"><a href="nlp_ch.html#cb226-7" tabindex="-1"></a>parsedtxt</span>
+<span id="cb226-8"><a href="nlp_ch.html#cb226-8" tabindex="-1"></a><span class="co">#&gt;    doc_id      lemma</span></span>
+<span id="cb226-9"><a href="nlp_ch.html#cb226-9" tabindex="-1"></a><span class="co">#&gt; 1      d1   Budapest</span></span>
+<span id="cb226-10"><a href="nlp_ch.html#cb226-10" tabindex="-1"></a><span class="co">#&gt; 2      d1        süt</span></span>
+<span id="cb226-11"><a href="nlp_ch.html#cb226-11" tabindex="-1"></a><span class="co">#&gt; 3      d1          a</span></span>
+<span id="cb226-12"><a href="nlp_ch.html#cb226-12" tabindex="-1"></a><span class="co">#&gt; 4      d1        nap</span></span>
+<span id="cb226-13"><a href="nlp_ch.html#cb226-13" tabindex="-1"></a><span class="co">#&gt; 5      d1          .</span></span>
+<span id="cb226-14"><a href="nlp_ch.html#cb226-14" tabindex="-1"></a><span class="co">#&gt; 6      d2 tájékoztat</span></span>
+<span id="cb226-15"><a href="nlp_ch.html#cb226-15" tabindex="-1"></a><span class="co">#&gt; 7      d2         ön</span></span>
+<span id="cb226-16"><a href="nlp_ch.html#cb226-16" tabindex="-1"></a><span class="co">#&gt; 8      d2          ,</span></span>
+<span id="cb226-17"><a href="nlp_ch.html#cb226-17" tabindex="-1"></a><span class="co">#&gt; 9      d2       hogy</span></span>
+<span id="cb226-18"><a href="nlp_ch.html#cb226-18" tabindex="-1"></a><span class="co">#&gt; 10     d2         az</span></span>
+<span id="cb226-19"><a href="nlp_ch.html#cb226-19" tabindex="-1"></a><span class="co">#&gt; 11     d2       ülés</span></span>
+<span id="cb226-20"><a href="nlp_ch.html#cb226-20" tabindex="-1"></a><span class="co">#&gt; 12     d2    vezetés</span></span>
+<span id="cb226-21"><a href="nlp_ch.html#cb226-21" tabindex="-1"></a><span class="co">#&gt; 13     d2    Hegedűs</span></span>
+<span id="cb226-22"><a href="nlp_ch.html#cb226-22" tabindex="-1"></a><span class="co">#&gt; 14     d2   Lorántné</span></span>
+<span id="cb226-23"><a href="nlp_ch.html#cb226-23" tabindex="-1"></a><span class="co">#&gt; 15     d2         és</span></span>
+<span id="cb226-24"><a href="nlp_ch.html#cb226-24" tabindex="-1"></a><span class="co">#&gt; 16     d2      Szűcs</span></span>
+<span id="cb226-25"><a href="nlp_ch.html#cb226-25" tabindex="-1"></a><span class="co">#&gt; 17     d2      Lajos</span></span>
+<span id="cb226-26"><a href="nlp_ch.html#cb226-26" tabindex="-1"></a><span class="co">#&gt; 18     d2     jegyző</span></span>
+<span id="cb226-27"><a href="nlp_ch.html#cb226-27" tabindex="-1"></a><span class="co">#&gt; 19     d2       lesz</span></span>
+<span id="cb226-28"><a href="nlp_ch.html#cb226-28" tabindex="-1"></a><span class="co">#&gt; 20     d2   segítség</span></span>
+<span id="cb226-29"><a href="nlp_ch.html#cb226-29" tabindex="-1"></a><span class="co">#&gt; 21     d2          .</span></span></code></pre></div>
+<p>Majd a <code>doc_id</code> segítségével összakapcsoljuk azokat a lemmákat, amelyek egy dokumentumhoz tartoznak és az egyes lemmákat <code>;</code> segítsével elválasztjuk elmástól.</p>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="nlp_ch.html#cb227-1" tabindex="-1"></a>parsedtxt_2<span class="ot">&lt;-</span> parsedtxt <span class="sc">%&gt;%</span> </span>
+<span id="cb227-2"><a href="nlp_ch.html#cb227-2" tabindex="-1"></a>  <span class="fu">group_by</span>(doc_id) <span class="sc">%&gt;%</span> </span>
+<span id="cb227-3"><a href="nlp_ch.html#cb227-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">text =</span> <span class="fu">str_c</span>(lemma, <span class="at">collapse =</span> <span class="st">&quot;;&quot;</span>))</span>
+<span id="cb227-4"><a href="nlp_ch.html#cb227-4" tabindex="-1"></a></span>
+<span id="cb227-5"><a href="nlp_ch.html#cb227-5" tabindex="-1"></a>parsedtxt_2</span>
+<span id="cb227-6"><a href="nlp_ch.html#cb227-6" tabindex="-1"></a><span class="co">#&gt; # A tibble: 21 × 3</span></span>
+<span id="cb227-7"><a href="nlp_ch.html#cb227-7" tabindex="-1"></a><span class="co">#&gt; # Groups:   doc_id [2]</span></span>
+<span id="cb227-8"><a href="nlp_ch.html#cb227-8" tabindex="-1"></a><span class="co">#&gt;   doc_id lemma      text                                                  </span></span>
+<span id="cb227-9"><a href="nlp_ch.html#cb227-9" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;      &lt;chr&gt;                                                 </span></span>
+<span id="cb227-10"><a href="nlp_ch.html#cb227-10" tabindex="-1"></a><span class="co">#&gt; 1 d1     Budapest   Budapest;süt;a;nap;.                                  </span></span>
+<span id="cb227-11"><a href="nlp_ch.html#cb227-11" tabindex="-1"></a><span class="co">#&gt; 2 d1     süt        Budapest;süt;a;nap;.                                  </span></span>
+<span id="cb227-12"><a href="nlp_ch.html#cb227-12" tabindex="-1"></a><span class="co">#&gt; 3 d1     a          Budapest;süt;a;nap;.                                  </span></span>
+<span id="cb227-13"><a href="nlp_ch.html#cb227-13" tabindex="-1"></a><span class="co">#&gt; 4 d1     nap        Budapest;süt;a;nap;.                                  </span></span>
+<span id="cb227-14"><a href="nlp_ch.html#cb227-14" tabindex="-1"></a><span class="co">#&gt; 5 d1     .          Budapest;süt;a;nap;.                                  </span></span>
+<span id="cb227-15"><a href="nlp_ch.html#cb227-15" tabindex="-1"></a><span class="co">#&gt; 6 d2     tájékoztat tájékoztat;ön;,;hogy;az;ülés;vezetés;Hegedűs;Lorántné…</span></span>
+<span id="cb227-16"><a href="nlp_ch.html#cb227-16" tabindex="-1"></a><span class="co">#&gt; # ℹ 15 more rows</span></span></code></pre></div>
+<p>Mivel az eredeti táblában minden lemma az eredeti az azt tartalmazó dokumentum id-jét kapta meg, az így létrehozott táblánkban a szövegek annyiszor ismétlődnek, ahány lemmából álltak. Ezért egy következő lépésben ki kell törtölnünk a feleslegesen ismétlődő sorokat. Ehhez először töröljük a <code>lemma</code> oszlopot, hogy a sorok tökéletesen egyezzenek.</p>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="nlp_ch.html#cb228-1" tabindex="-1"></a>parsedtxt_2<span class="sc">$</span>lemma <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb228-2"><a href="nlp_ch.html#cb228-2" tabindex="-1"></a>parsedtxt_2</span>
+<span id="cb228-3"><a href="nlp_ch.html#cb228-3" tabindex="-1"></a><span class="co">#&gt; # A tibble: 21 × 2</span></span>
+<span id="cb228-4"><a href="nlp_ch.html#cb228-4" tabindex="-1"></a><span class="co">#&gt; # Groups:   doc_id [2]</span></span>
+<span id="cb228-5"><a href="nlp_ch.html#cb228-5" tabindex="-1"></a><span class="co">#&gt;   doc_id text                                                             </span></span>
+<span id="cb228-6"><a href="nlp_ch.html#cb228-6" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;                                                            </span></span>
+<span id="cb228-7"><a href="nlp_ch.html#cb228-7" tabindex="-1"></a><span class="co">#&gt; 1 d1     Budapest;süt;a;nap;.                                             </span></span>
+<span id="cb228-8"><a href="nlp_ch.html#cb228-8" tabindex="-1"></a><span class="co">#&gt; 2 d1     Budapest;süt;a;nap;.                                             </span></span>
+<span id="cb228-9"><a href="nlp_ch.html#cb228-9" tabindex="-1"></a><span class="co">#&gt; 3 d1     Budapest;süt;a;nap;.                                             </span></span>
+<span id="cb228-10"><a href="nlp_ch.html#cb228-10" tabindex="-1"></a><span class="co">#&gt; 4 d1     Budapest;süt;a;nap;.                                             </span></span>
+<span id="cb228-11"><a href="nlp_ch.html#cb228-11" tabindex="-1"></a><span class="co">#&gt; 5 d1     Budapest;süt;a;nap;.                                             </span></span>
+<span id="cb228-12"><a href="nlp_ch.html#cb228-12" tabindex="-1"></a><span class="co">#&gt; 6 d2     tájékoztat;ön;,;hogy;az;ülés;vezetés;Hegedűs;Lorántné;és;Szűcs;L…</span></span>
+<span id="cb228-13"><a href="nlp_ch.html#cb228-13" tabindex="-1"></a><span class="co">#&gt; # ℹ 15 more rows</span></span></code></pre></div>
+<p>Majd a következő lépésben a <code>dplyr</code> csomag <code>distinct</code> függvénye segítségével - amely mindig csak egy-egy egyedi sort tart meg az adattáblában - kitöröljük a felesleges sorokat.</p>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="nlp_ch.html#cb229-1" tabindex="-1"></a></span>
+<span id="cb229-2"><a href="nlp_ch.html#cb229-2" tabindex="-1"></a>parsedtxt_3 <span class="ot">&lt;-</span><span class="fu">distinct</span>(parsedtxt_2)</span>
+<span id="cb229-3"><a href="nlp_ch.html#cb229-3" tabindex="-1"></a></span>
+<span id="cb229-4"><a href="nlp_ch.html#cb229-4" tabindex="-1"></a>parsedtxt_3</span>
+<span id="cb229-5"><a href="nlp_ch.html#cb229-5" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2 × 2</span></span>
+<span id="cb229-6"><a href="nlp_ch.html#cb229-6" tabindex="-1"></a><span class="co">#&gt; # Groups:   doc_id [2]</span></span>
+<span id="cb229-7"><a href="nlp_ch.html#cb229-7" tabindex="-1"></a><span class="co">#&gt;   doc_id text                                                             </span></span>
+<span id="cb229-8"><a href="nlp_ch.html#cb229-8" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;                                                            </span></span>
+<span id="cb229-9"><a href="nlp_ch.html#cb229-9" tabindex="-1"></a><span class="co">#&gt; 1 d1     Budapest;süt;a;nap;.                                             </span></span>
+<span id="cb229-10"><a href="nlp_ch.html#cb229-10" tabindex="-1"></a><span class="co">#&gt; 2 d2     tájékoztat;ön;,;hogy;az;ülés;vezetés;Hegedűs;Lorántné;és;Szűcs;L…</span></span></code></pre></div>
+<p>Az így létrejött adattáblában a <code>text</code> mezőben már nem az eredeti szöveg, hanem annak lemmái szerepelnek. Ha az adattáblát elmentjük, a lemmákon végezhetjük tovább az elemzéseket.</p>
 </div>
-<p>Ezt követően célszerű a <code>txt</code> fájlt excelbe beolvasva oszlopokra tagolni, az oszlopokat fejléccel ellátni, majd <code>csv</code> fájlként elmenteni.</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-208"></span>
-<p class="caption">
-Ábra 11.2: Az Excelben megnyitott magyarlánc eredmény
-</p>
-<img src="figures/11-02_napirend_elotti_magyarlanc.png" alt="Az Excelben megnyitott magyarlánc eredmény" width="90%" />
+<div id="saját-.txt-vagy-.csv-fájlokban-elmentett-szövegek-lemmatizálása" class="section level3 hasAnchor" number="11.2.2">
+<h3><span class="header-section-number">11.2.2</span> Saját <code>.txt</code> vagy <code>.csv</code> fájlokban elmentett szövegek lemmatizálása<a href="nlp_ch.html#saját-.txt-vagy-.csv-fájlokban-elmentett-szövegek-lemmatizálása" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Saját <code>.txt</code> vagy <code>.csv</code> fájlok lemmatizálásához a fájlokat a kötetben bemutatott módon olvassuk be egy adattáblába. (ehhez lásd a <em>Függelék, Munka saját adatokkal</em> alfejezetét) Az alábbi példában egy, a <code>HunMineR</code> csomagban lévő kisebb korpuszon mutatjuk be az ilyen fájlok lemmatizálását. Fontos kiemelni, hogy a nagyobb fájlok feldolgozása elég sok időt (akár több órát) is igénybe vehet.</p>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="nlp_ch.html#cb230-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> HunMineR<span class="sc">::</span>data_parlspeakers_small</span></code></pre></div>
+<p>A beolvasott szövegeket először <code>quanteda</code> korpusszá alakítjuk. Majd a <code>spacy_parsed()</code> függvény segítségével a fentebb bemutatottak szerint elvégezzük a lemmatizálást.</p>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="nlp_ch.html#cb231-1" tabindex="-1"></a>df_corpus <span class="ot">&lt;-</span> <span class="fu">corpus</span>(df)</span>
+<span id="cb231-2"><a href="nlp_ch.html#cb231-2" tabindex="-1"></a></span>
+<span id="cb231-3"><a href="nlp_ch.html#cb231-3" tabindex="-1"></a>parsed_df <span class="ot">&lt;-</span> <span class="fu">spacy_parse</span>(df_corpus)</span>
+<span id="cb231-4"><a href="nlp_ch.html#cb231-4" tabindex="-1"></a></span>
+<span id="cb231-5"><a href="nlp_ch.html#cb231-5" tabindex="-1"></a><span class="fu">head</span>(parsed_df, <span class="dv">5</span>)</span>
+<span id="cb231-6"><a href="nlp_ch.html#cb231-6" tabindex="-1"></a><span class="co">#&gt;   doc_id sentence_id token_id  token  lemma   pos entity</span></span>
+<span id="cb231-7"><a href="nlp_ch.html#cb231-7" tabindex="-1"></a><span class="co">#&gt; 1  text1           1        1   VONA   VONA PROPN       </span></span>
+<span id="cb231-8"><a href="nlp_ch.html#cb231-8" tabindex="-1"></a><span class="co">#&gt; 2  text1           1        2  GÁBOR  GÁBOR PROPN       </span></span>
+<span id="cb231-9"><a href="nlp_ch.html#cb231-9" tabindex="-1"></a><span class="co">#&gt; 3  text1           1        3      (      ( PUNCT       </span></span>
+<span id="cb231-10"><a href="nlp_ch.html#cb231-10" tabindex="-1"></a><span class="co">#&gt; 4  text1           1        4 Jobbik Jobbik PROPN  PER_B</span></span>
+<span id="cb231-11"><a href="nlp_ch.html#cb231-11" tabindex="-1"></a><span class="co">#&gt; 5  text1           1        5     ):     ): PUNCT</span></span></code></pre></div>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="nlp_ch.html#cb232-1" tabindex="-1"></a>parsed_df<span class="sc">$</span>sentence_id <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb232-2"><a href="nlp_ch.html#cb232-2" tabindex="-1"></a>parsed_df<span class="sc">$</span>token_id <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb232-3"><a href="nlp_ch.html#cb232-3" tabindex="-1"></a>parsed_df<span class="sc">$</span>token <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb232-4"><a href="nlp_ch.html#cb232-4" tabindex="-1"></a>parsed_df<span class="sc">$</span>pos <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb232-5"><a href="nlp_ch.html#cb232-5" tabindex="-1"></a>parsed_df<span class="sc">$</span>entity <span class="ot">&lt;-</span> <span class="cn">NULL</span></span></code></pre></div>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="nlp_ch.html#cb233-1" tabindex="-1"></a>parsed_df_2<span class="ot">&lt;-</span> parsed_df <span class="sc">%&gt;%</span> </span>
+<span id="cb233-2"><a href="nlp_ch.html#cb233-2" tabindex="-1"></a>  <span class="fu">group_by</span>(doc_id) <span class="sc">%&gt;%</span> </span>
+<span id="cb233-3"><a href="nlp_ch.html#cb233-3" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb233-4"><a href="nlp_ch.html#cb233-4" tabindex="-1"></a>        <span class="at">text =</span> <span class="fu">str_c</span>(lemma, <span class="at">collapse =</span> <span class="st">&quot; &quot;</span>))</span>
+<span id="cb233-5"><a href="nlp_ch.html#cb233-5" tabindex="-1"></a></span>
+<span id="cb233-6"><a href="nlp_ch.html#cb233-6" tabindex="-1"></a>parsed_df_2<span class="sc">$</span>lemma <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb233-7"><a href="nlp_ch.html#cb233-7" tabindex="-1"></a></span>
+<span id="cb233-8"><a href="nlp_ch.html#cb233-8" tabindex="-1"></a>parsed_df_3 <span class="ot">&lt;-</span><span class="fu">distinct</span>(parsed_df_2)</span>
+<span id="cb233-9"><a href="nlp_ch.html#cb233-9" tabindex="-1"></a></span>
+<span id="cb233-10"><a href="nlp_ch.html#cb233-10" tabindex="-1"></a><span class="fu">head</span>(parsed_df_3, <span class="dv">5</span>)</span>
+<span id="cb233-11"><a href="nlp_ch.html#cb233-11" tabindex="-1"></a><span class="co">#&gt; # A tibble: 5 × 2</span></span>
+<span id="cb233-12"><a href="nlp_ch.html#cb233-12" tabindex="-1"></a><span class="co">#&gt; # Groups:   doc_id [5]</span></span>
+<span id="cb233-13"><a href="nlp_ch.html#cb233-13" tabindex="-1"></a><span class="co">#&gt;   doc_id text                                                             </span></span>
+<span id="cb233-14"><a href="nlp_ch.html#cb233-14" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;                                                            </span></span>
+<span id="cb233-15"><a href="nlp_ch.html#cb233-15" tabindex="-1"></a><span class="co">#&gt; 1 text1  &quot;VONA GÁBOR ( Jobbik ): Tisztelt Elnök Úr ! tisztelt Országgyűlé…</span></span>
+<span id="cb233-16"><a href="nlp_ch.html#cb233-16" tabindex="-1"></a><span class="co">#&gt; 2 text2  &quot;dr. SCHIFFER ANDRÁS ( LMP ): Köszön a szó , elnök úr . tisztelt…</span></span>
+<span id="cb233-17"><a href="nlp_ch.html#cb233-17" tabindex="-1"></a><span class="co">#&gt; 3 text3  &quot;dr. SZÉL BERNADETT ( LMP ): Köszön a szó , elnök úr . tisztelt …</span></span>
+<span id="cb233-18"><a href="nlp_ch.html#cb233-18" tabindex="-1"></a><span class="co">#&gt; 4 text4  &quot;TÓBIÁS JÓZSEF ( MSZP ): Köszön a szó , elnök úr . tisztelt Ház …</span></span>
+<span id="cb233-19"><a href="nlp_ch.html#cb233-19" tabindex="-1"></a><span class="co">#&gt; 5 text5  &quot;SCHMUCK ERZSÉBET ( LMP ): Köszön a szó , elnök úr . tisztelt Or…</span></span></code></pre></div>
+<p>A nagyobb fájlok lemmatizálásának eredményét célszerű elmenteni a kötetben ismert módok egyikén például <code>RDS</code> vagy <code>.csv</code> fájlba.</p>
 </div>
-<p>Az így létrehozott <code>.csv</code> fájllal megyegyező adattáblát be tudjuk tölteni a <code>HunMineR</code> segítségével.</p>
-<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="nlp_ch.html#cb214-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb214-2"><a href="nlp_ch.html#cb214-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(HunMineR)</span></code></pre></div>
-<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="nlp_ch.html#cb215-1" aria-hidden="true" tabindex="-1"></a>napirend_elotti <span class="ot">&lt;-</span> HunMineR<span class="sc">::</span>data_parlspeech_magyarlanc</span></code></pre></div>
-<p>Az így létrehozott objektummal, mely esetünkben 17870 megfigyelést és 4 változót tartalmaz, ezután különböző műveleteket végezhetünk, a korábban már bemutatottak szerint, például <code>dplyr</code> csomag <code>filter</code> függvénye segítségével kiválogathatjuk az igéket, és elmenthetjük azokat egy újabb 1769 megfigyelést és 4 változót tartalmazó objektumba.</p>
-<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="nlp_ch.html#cb216-1" aria-hidden="true" tabindex="-1"></a>verb_napirend_elotti <span class="ot">&lt;-</span> napirend_elotti <span class="sc">%&gt;%</span></span>
-<span id="cb216-2"><a href="nlp_ch.html#cb216-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(POS_tag <span class="sc">==</span> <span class="st">&quot;VERB&quot;</span>)</span></code></pre></div>
-</div>
-<div id="a-szeged-ner" class="section level2" number="11.3">
-<h2><span class="header-section-number">11.3</span> A <code>szeged ner</code></h2>
-<p>A <code>magyarlanc</code> nyelvi elemzőhöz hasonlóan használhatjuk a <code>szeged ner</code> elemzőt is, melynek részletes leírása és maga a <code>ner.jar</code> elemző is megtalálható az alábbi oldalon: <a href="https://rgai.inf.u-szeged.hu/node/109" class="uri">https://rgai.inf.u-szeged.hu/node/109</a>. Az elemző a fent bemutatott módon szintén parancssorból indítható az alábbi parancs használatával: <code>java -Xmx3G -jar ner.jar -mode predicate -input input.txt -output output.txt</code>. Az elemző PER (személynév), LOC (hely(szín)), ORG (szervezet) és MISC (vegyes) címkét ad az egyes névelemeknek.</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-212"></span>
-<p class="caption">
-Ábra 11.3: A szeged ner elemzo eredménye
-</p>
-<img src="figures/11-03_ner.png" alt="A szeged ner elemzo eredménye" width="90%" />
-</div>
-<p>A fentiekhez hasonlóan ezt a txt-t is átalakíthatjuk táblázattá, majd ezt a <code>csv</code> fájlt beolvashatjuk (a <code>HunMineR</code> csomag szintén tartalmazza ezt a data frame-et).</p>
-<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="nlp_ch.html#cb217-1" aria-hidden="true" tabindex="-1"></a>napirend_elotti_ner <span class="ot">&lt;-</span> HunMineR<span class="sc">::</span>data_parlspeech_szner</span></code></pre></div>
-<p>Ezután tetszőlegesen kiválogathatjuk például a helyek neveit. A filterezés eredményeként láthatjuk, hogy az elemző korpuszunkban 175 szót azonosított és címkézett fel helynévként.</p>
-<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="nlp_ch.html#cb218-1" aria-hidden="true" tabindex="-1"></a>loc_napirend_elotti <span class="ot">&lt;-</span> napirend_elotti_ner <span class="sc">%&gt;%</span></span>
-<span id="cb218-2"><a href="nlp_ch.html#cb218-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ner <span class="sc">==</span> <span class="st">&quot;I-LOC&quot;</span>)</span></code></pre></div>
-<p>De ugyanígy kiváogathatjuk a személyneveket is, azonban itt figyelembe kell vennünk, hogy az elemző külön névelemként jelöli a vezeték- és keresztneveket, a további elemzés szükségletei szerint ezeket utólag kell összevonnunk.</p>
-<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="nlp_ch.html#cb219-1" aria-hidden="true" tabindex="-1"></a>pers_napirend_elotti <span class="ot">&lt;-</span> napirend_elotti_ner <span class="sc">%&gt;%</span></span>
-<span id="cb219-2"><a href="nlp_ch.html#cb219-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ner <span class="sc">==</span> <span class="st">&quot;I-PER&quot;</span>)</span></code></pre></div>
-<p>Az így kiválogatott különböző névelemekkel azután további elemzéseket végezhetünk.</p>
-</div>
-<div id="angol-nyelvű-szövegek-névelemfelismerése" class="section level2" number="11.4">
-<h2><span class="header-section-number">11.4</span> Angol nyelvű szövegek névelemfelismerése</h2>
-<p>Amennyiben angol nyelvű korpusszal dolgozunk több lehetőség is a rendelkezésünkre áll a névelemfelismerés elvégzésére.<a href="#fn56" class="footnote-ref" id="fnref56"><sup>56</sup></a> Ezek közül most röviden a <code>spacyr</code> használatát mutatjuk be.<a href="#fn57" class="footnote-ref" id="fnref57"><sup>57</sup></a> A <code>spaCy</code> nem egy <code>R</code>, hanem egy <code>Phyton</code> csomag,<a href="#fn58" class="footnote-ref" id="fnref58"><sup>58</sup></a> amely azonban az R <code>reticulate</code> csomag segítségével nagyon jól együttműködik a kötetben rendszeresen használt <code>quanteda</code> csomaggal. Használatához a már megszokott módon installálnunk kell a spacyr csomagot, majd beolvasnunk és telepítenünk az angol nyelvi modellt. A Pythonban készült <code>spacy</code>-t a <code>spacyr::spacy_install()</code> paranccsal kell telepíteni (ezt elég egyszer megtenni, amikor először használjuk a csomagot).</p>
-<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="nlp_ch.html#cb220-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(spacyr)</span>
-<span id="cb220-2"><a href="nlp_ch.html#cb220-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quanteda)</span>
-<span id="cb220-3"><a href="nlp_ch.html#cb220-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb220-4"><a href="nlp_ch.html#cb220-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb220-5"><a href="nlp_ch.html#cb220-5" aria-hidden="true" tabindex="-1"></a><span class="fu">spacy_initialize</span>(<span class="at">model =</span> <span class="st">&quot;en_core_web_sm&quot;</span>)</span></code></pre></div>
-<p>A <code>spacy_parse()</code> függvény segítségével lehetőségünk van a szövegek tokenizálására, szótári alakra hozására és szófaji egyértelműsítésére.</p>
-<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="nlp_ch.html#cb221-1" aria-hidden="true" tabindex="-1"></a>txt <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">d1 =</span> <span class="st">&quot;spaCy is great at fast natural language processing.&quot;</span>,</span>
-<span id="cb221-2"><a href="nlp_ch.html#cb221-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">d2 =</span> <span class="st">&quot;Mr. Smith spent two years in North Carolina.&quot;</span>)</span>
-<span id="cb221-3"><a href="nlp_ch.html#cb221-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb221-4"><a href="nlp_ch.html#cb221-4" aria-hidden="true" tabindex="-1"></a><span class="co"># process documents and obtain a data.table</span></span>
-<span id="cb221-5"><a href="nlp_ch.html#cb221-5" aria-hidden="true" tabindex="-1"></a>parsedtxt <span class="ot">&lt;-</span> <span class="fu">spacy_parse</span>(txt)</span>
-<span id="cb221-6"><a href="nlp_ch.html#cb221-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb221-7"><a href="nlp_ch.html#cb221-7" aria-hidden="true" tabindex="-1"></a>parsedtxt</span>
-<span id="cb221-8"><a href="nlp_ch.html#cb221-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    doc_id sentence_id token_id      token      lemma   pos   entity</span></span>
-<span id="cb221-9"><a href="nlp_ch.html#cb221-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1      d1           1        1      spaCy      spacy  INTJ         </span></span>
-<span id="cb221-10"><a href="nlp_ch.html#cb221-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2      d1           1        2         is         be   AUX         </span></span>
-<span id="cb221-11"><a href="nlp_ch.html#cb221-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3      d1           1        3      great      great   ADJ         </span></span>
-<span id="cb221-12"><a href="nlp_ch.html#cb221-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4      d1           1        4         at         at   ADP         </span></span>
-<span id="cb221-13"><a href="nlp_ch.html#cb221-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5      d1           1        5       fast       fast   ADJ         </span></span>
-<span id="cb221-14"><a href="nlp_ch.html#cb221-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6      d1           1        6    natural    natural   ADJ         </span></span>
-<span id="cb221-15"><a href="nlp_ch.html#cb221-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7      d1           1        7   language   language  NOUN         </span></span>
-<span id="cb221-16"><a href="nlp_ch.html#cb221-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8      d1           1        8 processing processing  NOUN         </span></span>
-<span id="cb221-17"><a href="nlp_ch.html#cb221-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9      d1           1        9          .          . PUNCT         </span></span>
-<span id="cb221-18"><a href="nlp_ch.html#cb221-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10     d2           1        1        Mr.        Mr. PROPN         </span></span>
-<span id="cb221-19"><a href="nlp_ch.html#cb221-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11     d2           1        2      Smith      Smith PROPN PERSON_B</span></span>
-<span id="cb221-20"><a href="nlp_ch.html#cb221-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 12     d2           1        3      spent      spend  VERB         </span></span>
-<span id="cb221-21"><a href="nlp_ch.html#cb221-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 13     d2           1        4        two        two   NUM   DATE_B</span></span>
-<span id="cb221-22"><a href="nlp_ch.html#cb221-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 14     d2           1        5      years       year  NOUN   DATE_I</span></span>
-<span id="cb221-23"><a href="nlp_ch.html#cb221-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 15     d2           1        6         in         in   ADP         </span></span>
-<span id="cb221-24"><a href="nlp_ch.html#cb221-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 16     d2           1        7      North      North PROPN    GPE_B</span></span>
-<span id="cb221-25"><a href="nlp_ch.html#cb221-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 17     d2           1        8   Carolina   Carolina PROPN    GPE_I</span></span>
-<span id="cb221-26"><a href="nlp_ch.html#cb221-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 18     d2           1        9          .          . PUNCT</span></span></code></pre></div>
-<p>Az elvégzett tokenizálás eredményéből adattáblát készíthetünk.</p>
-<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="nlp_ch.html#cb222-1" aria-hidden="true" tabindex="-1"></a><span class="fu">spacy_tokenize</span>(txt, <span class="at">remove_punct =</span> <span class="cn">TRUE</span>, <span class="at">output =</span> <span class="st">&quot;data.frame&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb222-2"><a href="nlp_ch.html#cb222-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tail</span>()</span>
-<span id="cb222-3"><a href="nlp_ch.html#cb222-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    doc_id    token</span></span>
-<span id="cb222-4"><a href="nlp_ch.html#cb222-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11     d2    spent</span></span>
-<span id="cb222-5"><a href="nlp_ch.html#cb222-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 12     d2      two</span></span>
-<span id="cb222-6"><a href="nlp_ch.html#cb222-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 13     d2    years</span></span>
-<span id="cb222-7"><a href="nlp_ch.html#cb222-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 14     d2       in</span></span>
-<span id="cb222-8"><a href="nlp_ch.html#cb222-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 15     d2    North</span></span>
-<span id="cb222-9"><a href="nlp_ch.html#cb222-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 16     d2 Carolina</span></span></code></pre></div>
-<p>Ugyancsak lehetőségünk van a különböző entitások, így például a tulajdonnevek kinyerésére.</p>
-<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="nlp_ch.html#cb223-1" aria-hidden="true" tabindex="-1"></a>parsedtxt <span class="ot">&lt;-</span> <span class="fu">spacy_parse</span>(txt, <span class="at">lemma =</span> <span class="cn">FALSE</span>, <span class="at">entity =</span> <span class="cn">TRUE</span>, <span class="at">nounphrase =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb223-2"><a href="nlp_ch.html#cb223-2" aria-hidden="true" tabindex="-1"></a><span class="fu">entity_extract</span>(parsedtxt)</span>
-<span id="cb223-3"><a href="nlp_ch.html#cb223-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   doc_id sentence_id         entity entity_type</span></span>
-<span id="cb223-4"><a href="nlp_ch.html#cb223-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     d2           1          Smith      PERSON</span></span>
-<span id="cb223-5"><a href="nlp_ch.html#cb223-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2     d2           1 North_Carolina         GPE</span></span></code></pre></div>
-<p>A tulajdonneveken túl felcímkézhetjük a dátumokat, eseményeket is.</p>
-<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="nlp_ch.html#cb224-1" aria-hidden="true" tabindex="-1"></a><span class="fu">entity_extract</span>(parsedtxt, <span class="at">type =</span> <span class="st">&quot;all&quot;</span>)</span>
-<span id="cb224-2"><a href="nlp_ch.html#cb224-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   doc_id sentence_id         entity entity_type</span></span>
-<span id="cb224-3"><a href="nlp_ch.html#cb224-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     d2           1          Smith      PERSON</span></span>
-<span id="cb224-4"><a href="nlp_ch.html#cb224-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2     d2           1      two_years        DATE</span></span>
-<span id="cb224-5"><a href="nlp_ch.html#cb224-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3     d2           1 North_Carolina         GPE</span></span></code></pre></div>
-<p>Az <code>entity_consolidate()</code> függvény segítségével arra is lehetőségünk van, hogy a több szóból álló entitásokat egy tokenként kezeljük.</p>
-<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="nlp_ch.html#cb225-1" aria-hidden="true" tabindex="-1"></a><span class="fu">entity_consolidate</span>(parsedtxt) <span class="sc">%&gt;%</span></span>
-<span id="cb225-2"><a href="nlp_ch.html#cb225-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tail</span>()</span>
-<span id="cb225-3"><a href="nlp_ch.html#cb225-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    doc_id sentence_id token_id          token    pos entity_type</span></span>
-<span id="cb225-4"><a href="nlp_ch.html#cb225-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11     d2           1        2          Smith ENTITY      PERSON</span></span>
-<span id="cb225-5"><a href="nlp_ch.html#cb225-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 12     d2           1        3          spent   VERB            </span></span>
-<span id="cb225-6"><a href="nlp_ch.html#cb225-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 13     d2           1        4      two_years ENTITY        DATE</span></span>
-<span id="cb225-7"><a href="nlp_ch.html#cb225-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 14     d2           1        5             in    ADP            </span></span>
-<span id="cb225-8"><a href="nlp_ch.html#cb225-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 15     d2           1        6 North_Carolina ENTITY         GPE</span></span>
-<span id="cb225-9"><a href="nlp_ch.html#cb225-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 16     d2           1        7              .  PUNCT</span></span></code></pre></div>
-<p>A <code>nounphrase_extract()</code> függvény lehetőséget ad az összetartozó kifejezések összefűzésére.</p>
-<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="nlp_ch.html#cb226-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nounphrase_extract</span>(parsedtxt)</span>
-<span id="cb226-2"><a href="nlp_ch.html#cb226-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   doc_id sentence_id                       nounphrase</span></span>
-<span id="cb226-3"><a href="nlp_ch.html#cb226-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     d1           1 fast_natural_language_processing</span></span>
-<span id="cb226-4"><a href="nlp_ch.html#cb226-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2     d2           1                        Mr._Smith</span></span>
-<span id="cb226-5"><a href="nlp_ch.html#cb226-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3     d2           1                        two_years</span></span>
-<span id="cb226-6"><a href="nlp_ch.html#cb226-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4     d2           1                   North_Carolina</span></span></code></pre></div>
-<p>Majd képes arra, hogy ezeket az összetartozó kifejezéseket egyben kezelje.</p>
-<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="nlp_ch.html#cb227-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nounphrase_consolidate</span>(parsedtxt)</span>
-<span id="cb227-2"><a href="nlp_ch.html#cb227-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    doc_id sentence_id token_id                            token</span></span>
-<span id="cb227-3"><a href="nlp_ch.html#cb227-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1      d1           1        1                            spaCy</span></span>
-<span id="cb227-4"><a href="nlp_ch.html#cb227-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2      d1           1        2                               is</span></span>
-<span id="cb227-5"><a href="nlp_ch.html#cb227-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3      d1           1        3                            great</span></span>
-<span id="cb227-6"><a href="nlp_ch.html#cb227-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4      d1           1        4                               at</span></span>
-<span id="cb227-7"><a href="nlp_ch.html#cb227-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5      d1           1        5 fast_natural_language_processing</span></span>
-<span id="cb227-8"><a href="nlp_ch.html#cb227-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6      d1           1        6                                .</span></span>
-<span id="cb227-9"><a href="nlp_ch.html#cb227-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7      d2           1        1                        Mr._Smith</span></span>
-<span id="cb227-10"><a href="nlp_ch.html#cb227-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8      d2           1        2                            spent</span></span>
-<span id="cb227-11"><a href="nlp_ch.html#cb227-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9      d2           1        3                        two_years</span></span>
-<span id="cb227-12"><a href="nlp_ch.html#cb227-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10     d2           1        4                               in</span></span>
-<span id="cb227-13"><a href="nlp_ch.html#cb227-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11     d2           1        5                   North_Carolina</span></span>
-<span id="cb227-14"><a href="nlp_ch.html#cb227-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 12     d2           1        6                                .</span></span>
-<span id="cb227-15"><a href="nlp_ch.html#cb227-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           pos</span></span>
-<span id="cb227-16"><a href="nlp_ch.html#cb227-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1        INTJ</span></span>
-<span id="cb227-17"><a href="nlp_ch.html#cb227-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2         AUX</span></span>
-<span id="cb227-18"><a href="nlp_ch.html#cb227-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3         ADJ</span></span>
-<span id="cb227-19"><a href="nlp_ch.html#cb227-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4         ADP</span></span>
-<span id="cb227-20"><a href="nlp_ch.html#cb227-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5  nounphrase</span></span>
-<span id="cb227-21"><a href="nlp_ch.html#cb227-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6       PUNCT</span></span>
-<span id="cb227-22"><a href="nlp_ch.html#cb227-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7  nounphrase</span></span>
-<span id="cb227-23"><a href="nlp_ch.html#cb227-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8        VERB</span></span>
-<span id="cb227-24"><a href="nlp_ch.html#cb227-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9  nounphrase</span></span>
-<span id="cb227-25"><a href="nlp_ch.html#cb227-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10        ADP</span></span>
-<span id="cb227-26"><a href="nlp_ch.html#cb227-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11 nounphrase</span></span>
-<span id="cb227-27"><a href="nlp_ch.html#cb227-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 12      PUNCT</span></span></code></pre></div>
-<p>Arra is lehetőség van, hogy az egyes kifejezések közötti függőségeket vizsgáljuk.</p>
-<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="nlp_ch.html#cb228-1" aria-hidden="true" tabindex="-1"></a><span class="fu">spacy_parse</span>(txt, <span class="at">dependency =</span> <span class="cn">TRUE</span>, <span class="at">lemma =</span> <span class="cn">FALSE</span>, <span class="at">pos =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb228-2"><a href="nlp_ch.html#cb228-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    doc_id sentence_id token_id      token head_token_id  dep_rel</span></span>
-<span id="cb228-3"><a href="nlp_ch.html#cb228-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1      d1           1        1      spaCy             2     intj</span></span>
-<span id="cb228-4"><a href="nlp_ch.html#cb228-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2      d1           1        2         is             2     ROOT</span></span>
-<span id="cb228-5"><a href="nlp_ch.html#cb228-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3      d1           1        3      great             2    acomp</span></span>
-<span id="cb228-6"><a href="nlp_ch.html#cb228-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4      d1           1        4         at             2     prep</span></span>
-<span id="cb228-7"><a href="nlp_ch.html#cb228-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5      d1           1        5       fast             8     amod</span></span>
-<span id="cb228-8"><a href="nlp_ch.html#cb228-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6      d1           1        6    natural             7     amod</span></span>
-<span id="cb228-9"><a href="nlp_ch.html#cb228-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7      d1           1        7   language             8 compound</span></span>
-<span id="cb228-10"><a href="nlp_ch.html#cb228-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8      d1           1        8 processing             4     pobj</span></span>
-<span id="cb228-11"><a href="nlp_ch.html#cb228-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9      d1           1        9          .             2    punct</span></span>
-<span id="cb228-12"><a href="nlp_ch.html#cb228-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10     d2           1        1        Mr.             2 compound</span></span>
-<span id="cb228-13"><a href="nlp_ch.html#cb228-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11     d2           1        2      Smith             3    nsubj</span></span>
-<span id="cb228-14"><a href="nlp_ch.html#cb228-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 12     d2           1        3      spent             3     ROOT</span></span>
-<span id="cb228-15"><a href="nlp_ch.html#cb228-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 13     d2           1        4        two             5   nummod</span></span>
-<span id="cb228-16"><a href="nlp_ch.html#cb228-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 14     d2           1        5      years             3     dobj</span></span>
-<span id="cb228-17"><a href="nlp_ch.html#cb228-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 15     d2           1        6         in             3     prep</span></span>
-<span id="cb228-18"><a href="nlp_ch.html#cb228-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 16     d2           1        7      North             8 compound</span></span>
-<span id="cb228-19"><a href="nlp_ch.html#cb228-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 17     d2           1        8   Carolina             6     pobj</span></span>
-<span id="cb228-20"><a href="nlp_ch.html#cb228-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 18     d2           1        9          .             3    punct</span></span>
-<span id="cb228-21"><a href="nlp_ch.html#cb228-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      entity</span></span>
-<span id="cb228-22"><a href="nlp_ch.html#cb228-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1          </span></span>
-<span id="cb228-23"><a href="nlp_ch.html#cb228-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2          </span></span>
-<span id="cb228-24"><a href="nlp_ch.html#cb228-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3          </span></span>
-<span id="cb228-25"><a href="nlp_ch.html#cb228-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4          </span></span>
-<span id="cb228-26"><a href="nlp_ch.html#cb228-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5          </span></span>
-<span id="cb228-27"><a href="nlp_ch.html#cb228-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6          </span></span>
-<span id="cb228-28"><a href="nlp_ch.html#cb228-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7          </span></span>
-<span id="cb228-29"><a href="nlp_ch.html#cb228-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8          </span></span>
-<span id="cb228-30"><a href="nlp_ch.html#cb228-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9          </span></span>
-<span id="cb228-31"><a href="nlp_ch.html#cb228-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10         </span></span>
-<span id="cb228-32"><a href="nlp_ch.html#cb228-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11 PERSON_B</span></span>
-<span id="cb228-33"><a href="nlp_ch.html#cb228-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 12         </span></span>
-<span id="cb228-34"><a href="nlp_ch.html#cb228-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 13   DATE_B</span></span>
-<span id="cb228-35"><a href="nlp_ch.html#cb228-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 14   DATE_I</span></span>
-<span id="cb228-36"><a href="nlp_ch.html#cb228-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 15         </span></span>
-<span id="cb228-37"><a href="nlp_ch.html#cb228-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 16    GPE_B</span></span>
-<span id="cb228-38"><a href="nlp_ch.html#cb228-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 17    GPE_I</span></span>
-<span id="cb228-39"><a href="nlp_ch.html#cb228-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 18</span></span></code></pre></div>
-<p>A következőkben a <a href="sentiment.html#sentiment">Szótáralapú elemzések, érzelem-elemzés</a> fejezetben is használt Magyar Nemzeti Bank kamatdöntéseit kísérő nemzetközi sajtóközleményei korpuszán mutatunk be egy példát a névelemfelismerésre és az eredmények vizualizálására.</p>
-<p>Első lépésként beolvassuk a szövegeket, majd a már megismert <code>quanteda</code> csomag segítségével korpuszt készítünk belőlük.</p>
-<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="nlp_ch.html#cb229-1" aria-hidden="true" tabindex="-1"></a>mnb_df <span class="ot">&lt;-</span> HunMineR<span class="sc">::</span>data_mnb_pr</span>
-<span id="cb229-2"><a href="nlp_ch.html#cb229-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb229-3"><a href="nlp_ch.html#cb229-3" aria-hidden="true" tabindex="-1"></a>corpus_mnb <span class="ot">&lt;-</span><span class="fu">corpus</span>(mnb_df)</span></code></pre></div>
-<p>Ezután a <code>spacy_extract_entity()</code> függvénye segítségévek elvégezzük a névelemfelismerést, a függvény argumentumában megadva, hogy milyen tipusú névelemeket szeretnénk kigyűjteni a korpuszból. A lehetséges típusok a <em>named</em>, <em>extended</em>, vagy <em>all</em>.<a href="#fn59" class="footnote-ref" id="fnref59"><sup>59</sup></a> Az elemzés eredménye pedig készülhet listában, vagy készülhet belőle adattábla. Példánkban mi kimenetként listát állítottunk be.</p>
-<p>A névelemek tokenjeit ezután megritkítottuk, és csak azokat hagytuk meg, amelyek legalább nyolc alkalommal szerepeltek a korpuszban.</p>
-<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="nlp_ch.html#cb230-1" aria-hidden="true" tabindex="-1"></a>mnb_ner <span class="ot">&lt;-</span> <span class="fu">spacy_extract_entity</span>(</span>
-<span id="cb230-2"><a href="nlp_ch.html#cb230-2" aria-hidden="true" tabindex="-1"></a>  corpus_mnb,</span>
-<span id="cb230-3"><a href="nlp_ch.html#cb230-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">output =</span> <span class="fu">c</span>(<span class="st">&quot;list&quot;</span>),</span>
-<span id="cb230-4"><a href="nlp_ch.html#cb230-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> (<span class="st">&quot;named&quot;</span>),</span>
-<span id="cb230-5"><a href="nlp_ch.html#cb230-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">multithread =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb230-6"><a href="nlp_ch.html#cb230-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb230-7"><a href="nlp_ch.html#cb230-7" aria-hidden="true" tabindex="-1"></a>mnb_tokens <span class="ot">&lt;-</span> <span class="fu">tokens</span>(mnb_ner)</span>
-<span id="cb230-8"><a href="nlp_ch.html#cb230-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb230-9"><a href="nlp_ch.html#cb230-9" aria-hidden="true" tabindex="-1"></a>features <span class="ot">&lt;-</span> <span class="fu">dfm</span>(mnb_tokens) <span class="sc">%&gt;%</span></span>
-<span id="cb230-10"><a href="nlp_ch.html#cb230-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dfm_trim</span>(<span class="at">min_termfreq =</span> <span class="dv">8</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb230-11"><a href="nlp_ch.html#cb230-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">featnames</span>()</span>
-<span id="cb230-12"><a href="nlp_ch.html#cb230-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb230-13"><a href="nlp_ch.html#cb230-13" aria-hidden="true" tabindex="-1"></a>mnb_tokens <span class="ot">&lt;-</span> <span class="fu">tokens_select</span>(mnb_tokens, features, <span class="at">padding =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div id="névelemfelismerés-és-eredményeinek-vizualizálása" class="section level3 hasAnchor" number="11.2.3">
+<h3><span class="header-section-number">11.2.3</span> Névelemfelismerés és eredményeinek vizualizálása<a href="nlp_ch.html#névelemfelismerés-és-eredményeinek-vizualizálása" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A szövegekből történő névelemfelismeréshez ugyancsak egy adattáblára és egy belőle kialakított <code>quanteda</code> korpuszra van szükségünk. A következő példában mi az előzőleg léterhozott lemmatizált adattáblával dolgozunk, de a névelemfelismerés működik nyers szövegeken is.</p>
+<p>A léterhozott korpuszon a <code>spacy_parse()</code> függvény argumentumában kell jeleznünk, hogy az entitások felismerését szeretnénk elvégezni (<code>entity = TRUE</code>). Az eredménytáblában láthatjuk, hogy egy új oszlopban minden névelem mellett megkaptuk annak típusát (<code>PER</code> = személynév, <code>LOC</code> = helynév, <code>ORG</code> = szervezet, <code>MISC</code> = egyéb).</p>
+<p>A <code>corpus()</code> függvény egyedi dokumentum neveket vár, ezért átnevezzük először a <code>doc_id</code> értékeit.</p>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="nlp_ch.html#cb234-1" tabindex="-1"></a>parsed_df_3 <span class="ot">&lt;-</span> parsed_df_3 <span class="sc">%&gt;%</span> </span>
+<span id="cb234-2"><a href="nlp_ch.html#cb234-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">doc_id =</span> <span class="fu">paste</span>(doc_id, <span class="fu">row_number</span>(), <span class="at">sep =</span> <span class="st">&quot;-&quot;</span>))</span>
+<span id="cb234-3"><a href="nlp_ch.html#cb234-3" tabindex="-1"></a></span>
+<span id="cb234-4"><a href="nlp_ch.html#cb234-4" tabindex="-1"></a>lemma_corpus <span class="ot">&lt;-</span> <span class="fu">corpus</span>(parsed_df_3)</span>
+<span id="cb234-5"><a href="nlp_ch.html#cb234-5" tabindex="-1"></a></span>
+<span id="cb234-6"><a href="nlp_ch.html#cb234-6" tabindex="-1"></a>parsedtxt <span class="ot">&lt;-</span> <span class="fu">spacy_parse</span>(lemma_corpus, <span class="at">entity =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb234-7"><a href="nlp_ch.html#cb234-7" tabindex="-1"></a></span>
+<span id="cb234-8"><a href="nlp_ch.html#cb234-8" tabindex="-1"></a><span class="fu">entity_extract</span>(parsedtxt, <span class="at">type =</span> <span class="st">&quot;all&quot;</span>)</span>
+<span id="cb234-9"><a href="nlp_ch.html#cb234-9" tabindex="-1"></a><span class="co">#&gt;       doc_id sentence_id                      entity entity_type</span></span>
+<span id="cb234-10"><a href="nlp_ch.html#cb234-10" tabindex="-1"></a><span class="co">#&gt; 1    text1-1           1                      Jobbik         PER</span></span>
+<span id="cb234-11"><a href="nlp_ch.html#cb234-11" tabindex="-1"></a><span class="co">#&gt; 2    text1-1           1                          Úr         PER</span></span>
+<span id="cb234-12"><a href="nlp_ch.html#cb234-12" tabindex="-1"></a><span class="co">#&gt; 3    text1-1           1                Országgyűlés         PER</span></span>
+<span id="cb234-13"><a href="nlp_ch.html#cb234-13" tabindex="-1"></a><span class="co">#&gt; 4    text1-1           3                      Jobbik         ORG</span></span>
+<span id="cb234-14"><a href="nlp_ch.html#cb234-14" tabindex="-1"></a><span class="co">#&gt; 5    text1-1           3                     Recsken         LOC</span></span>
+<span id="cb234-15"><a href="nlp_ch.html#cb234-15" tabindex="-1"></a><span class="co">#&gt; 6    text1-1           3                         Ózd         LOC</span></span>
+<span id="cb234-16"><a href="nlp_ch.html#cb234-16" tabindex="-1"></a><span class="co">#&gt; 7    text1-1           7                     Recsken         LOC</span></span>
+<span id="cb234-17"><a href="nlp_ch.html#cb234-17" tabindex="-1"></a><span class="co">#&gt; 8    text1-1           7                      Fidesz         ORG</span></span>
+<span id="cb234-18"><a href="nlp_ch.html#cb234-18" tabindex="-1"></a><span class="co">#&gt; 9    text1-1           8          Ózd_Janiczak_Dávid         PER</span></span>
+<span id="cb234-19"><a href="nlp_ch.html#cb234-19" tabindex="-1"></a><span class="co">#&gt; 10   text1-1           9                      Jobbik         ORG</span></span>
+<span id="cb234-20"><a href="nlp_ch.html#cb234-20" tabindex="-1"></a><span class="co">#&gt; 11   text1-1          11              Janiczak_Dávid         PER</span></span>
+<span id="cb234-21"><a href="nlp_ch.html#cb234-21" tabindex="-1"></a><span class="co">#&gt; 12   text1-1          11                      Jobbik         ORG</span></span>
+<span id="cb234-22"><a href="nlp_ch.html#cb234-22" tabindex="-1"></a><span class="co">#&gt; 13   text1-1          12                         Ózd         LOC</span></span>
+<span id="cb234-23"><a href="nlp_ch.html#cb234-23" tabindex="-1"></a><span class="co">#&gt; 14   text1-1          14                 Vida_Ildikó         PER</span></span>
+<span id="cb234-24"><a href="nlp_ch.html#cb234-24" tabindex="-1"></a><span class="co">#&gt; 15   text1-1          15          Dr._Répássy_Róbert         PER</span></span>
+<span id="cb234-25"><a href="nlp_ch.html#cb234-25" tabindex="-1"></a><span class="co">#&gt; 16   text1-1          21                 Oroszország         LOC</span></span>
+<span id="cb234-26"><a href="nlp_ch.html#cb234-26" tabindex="-1"></a><span class="co">#&gt; 17   text1-1          21            Egyesült_Államok         LOC</span></span>
+<span id="cb234-27"><a href="nlp_ch.html#cb234-27" tabindex="-1"></a><span class="co">#&gt; 18   text1-1          21                     Ukrajna         LOC</span></span>
+<span id="cb234-28"><a href="nlp_ch.html#cb234-28" tabindex="-1"></a><span class="co">#&gt; 19   text1-1          22                   Gorbacsov         PER</span></span>
+<span id="cb234-29"><a href="nlp_ch.html#cb234-29" tabindex="-1"></a><span class="co">#&gt; 20   text1-1          23                Magyarország         ORG</span></span>
+<span id="cb234-30"><a href="nlp_ch.html#cb234-30" tabindex="-1"></a><span class="co">#&gt; 21   text1-1          23                Magyarország         LOC</span></span>
+<span id="cb234-31"><a href="nlp_ch.html#cb234-31" tabindex="-1"></a><span class="co">#&gt; 22   text1-1          25            Gyurcsány_Ferenc         PER</span></span>
+<span id="cb234-32"><a href="nlp_ch.html#cb234-32" tabindex="-1"></a><span class="co">#&gt; 23   text1-1          26           Dr._Rétvári_Bence         PER</span></span>
+<span id="cb234-33"><a href="nlp_ch.html#cb234-33" tabindex="-1"></a><span class="co">#&gt; 24   text1-1          27                      Jobbik         ORG</span></span>
+<span id="cb234-34"><a href="nlp_ch.html#cb234-34" tabindex="-1"></a><span class="co">#&gt; 25   text1-1          29                 Fidesz-KDNP         ORG</span></span>
+<span id="cb234-35"><a href="nlp_ch.html#cb234-35" tabindex="-1"></a><span class="co">#&gt; 26   text1-1          29                 Vida_Ildikó         PER</span></span>
+<span id="cb234-36"><a href="nlp_ch.html#cb234-36" tabindex="-1"></a><span class="co">#&gt; 27   text1-1          31                 Kovács_Béla         PER</span></span>
+<span id="cb234-37"><a href="nlp_ch.html#cb234-37" tabindex="-1"></a><span class="co">#&gt; 28   text1-1          32                 Kovács_Béla         PER</span></span>
+<span id="cb234-38"><a href="nlp_ch.html#cb234-38" tabindex="-1"></a><span class="co">#&gt; 29   text1-1          34                       Isten         PER</span></span>
+<span id="cb234-39"><a href="nlp_ch.html#cb234-39" tabindex="-1"></a><span class="co">#&gt; 30   text1-1          36                Magyarország         LOC</span></span>
+<span id="cb234-40"><a href="nlp_ch.html#cb234-40" tabindex="-1"></a><span class="co">#&gt; 31   text1-1          37                Magyarország         LOC</span></span>
+<span id="cb234-41"><a href="nlp_ch.html#cb234-41" tabindex="-1"></a><span class="co">#&gt; 32   text1-1          42                Magyarország         ORG</span></span>
+<span id="cb234-42"><a href="nlp_ch.html#cb234-42" tabindex="-1"></a><span class="co">#&gt; 33   text1-1          44                Magyarország         LOC</span></span>
+<span id="cb234-43"><a href="nlp_ch.html#cb234-43" tabindex="-1"></a><span class="co">#&gt; 34   text1-1          48                      Jobbik         ORG</span></span>
+<span id="cb234-44"><a href="nlp_ch.html#cb234-44" tabindex="-1"></a><span class="co">#&gt; 35   text2-1           1         dr._SCHIFFER_ANDRÁS         ORG</span></span>
+<span id="cb234-45"><a href="nlp_ch.html#cb234-45" tabindex="-1"></a><span class="co">#&gt; 36   text2-1           1                         LMP         ORG</span></span>
+<span id="cb234-46"><a href="nlp_ch.html#cb234-46" tabindex="-1"></a><span class="co">#&gt; 37   text2-1           2                Országgyűlés         PER</span></span>
+<span id="cb234-47"><a href="nlp_ch.html#cb234-47" tabindex="-1"></a><span class="co">#&gt; 38   text2-1           2                       Eurat        MISC</span></span>
+<span id="cb234-48"><a href="nlp_ch.html#cb234-48" tabindex="-1"></a><span class="co">#&gt; 39   text2-1           2         Orbán-Putyin-paktum        MISC</span></span>
+<span id="cb234-49"><a href="nlp_ch.html#cb234-49" tabindex="-1"></a><span class="co">#&gt; 40   text2-1           3             L._Simon_László         PER</span></span>
+<span id="cb234-50"><a href="nlp_ch.html#cb234-50" tabindex="-1"></a><span class="co">#&gt; 41   text2-1           5                        Paks         LOC</span></span>
+<span id="cb234-51"><a href="nlp_ch.html#cb234-51" tabindex="-1"></a><span class="co">#&gt; 42   text2-1          11                        Paks         ORG</span></span>
+<span id="cb234-52"><a href="nlp_ch.html#cb234-52" tabindex="-1"></a><span class="co">#&gt; 43   text2-1          12                Magyarország         LOC</span></span>
+<span id="cb234-53"><a href="nlp_ch.html#cb234-53" tabindex="-1"></a><span class="co">#&gt; 44   text2-1          13                Westinghouse        MISC</span></span>
+<span id="cb234-54"><a href="nlp_ch.html#cb234-54" tabindex="-1"></a><span class="co">#&gt; 45   text2-1          14           Paksi_Atomerőműbe         ORG</span></span>
+<span id="cb234-55"><a href="nlp_ch.html#cb234-55" tabindex="-1"></a><span class="co">#&gt; 46   text2-1          15                     Ukrajna         LOC</span></span>
+<span id="cb234-56"><a href="nlp_ch.html#cb234-56" tabindex="-1"></a><span class="co">#&gt; 47   text2-1          17                Magyarország         LOC</span></span>
+<span id="cb234-57"><a href="nlp_ch.html#cb234-57" tabindex="-1"></a><span class="co">#&gt; 48   text2-1          17                  Európa-USA         ORG</span></span>
+<span id="cb234-58"><a href="nlp_ch.html#cb234-58" tabindex="-1"></a><span class="co">#&gt; 49   text2-1          18                Magyarország         LOC</span></span>
+<span id="cb234-59"><a href="nlp_ch.html#cb234-59" tabindex="-1"></a><span class="co">#&gt; 50   text2-1          18                Magyarország         LOC</span></span>
+<span id="cb234-60"><a href="nlp_ch.html#cb234-60" tabindex="-1"></a><span class="co">#&gt; 51   text2-1          19                Magyarország         LOC</span></span>
+<span id="cb234-61"><a href="nlp_ch.html#cb234-61" tabindex="-1"></a><span class="co">#&gt; 52   text2-1          20                Magyarország         LOC</span></span>
+<span id="cb234-62"><a href="nlp_ch.html#cb234-62" tabindex="-1"></a><span class="co">#&gt; 53   text2-1          21                Magyarország         LOC</span></span>
+<span id="cb234-63"><a href="nlp_ch.html#cb234-63" tabindex="-1"></a><span class="co">#&gt; 54   text2-1          23                Magyarország         LOC</span></span>
+<span id="cb234-64"><a href="nlp_ch.html#cb234-64" tabindex="-1"></a><span class="co">#&gt; 55   text2-1          25                Európai_Unió         ORG</span></span>
+<span id="cb234-65"><a href="nlp_ch.html#cb234-65" tabindex="-1"></a><span class="co">#&gt; 56   text2-1          25                     Amerika         LOC</span></span>
+<span id="cb234-66"><a href="nlp_ch.html#cb234-66" tabindex="-1"></a><span class="co">#&gt; 57   text2-1          29                         LMP         ORG</span></span>
+<span id="cb234-67"><a href="nlp_ch.html#cb234-67" tabindex="-1"></a><span class="co">#&gt; 58   text3-1           1          dr._SZÉL_BERNADETT         ORG</span></span>
+<span id="cb234-68"><a href="nlp_ch.html#cb234-68" tabindex="-1"></a><span class="co">#&gt; 59   text3-1           1                         LMP         PER</span></span>
+<span id="cb234-69"><a href="nlp_ch.html#cb234-69" tabindex="-1"></a><span class="co">#&gt; 60   text3-1           2              Államtitkár_Úr         PER</span></span>
+<span id="cb234-70"><a href="nlp_ch.html#cb234-70" tabindex="-1"></a><span class="co">#&gt; 61   text3-1           2                      Európa         LOC</span></span>
+<span id="cb234-71"><a href="nlp_ch.html#cb234-71" tabindex="-1"></a><span class="co">#&gt; 62   text3-1           3               Nyugat-Európa         LOC</span></span>
+<span id="cb234-72"><a href="nlp_ch.html#cb234-72" tabindex="-1"></a><span class="co">#&gt; 63   text3-1           9                Magyarország         LOC</span></span>
+<span id="cb234-73"><a href="nlp_ch.html#cb234-73" tabindex="-1"></a><span class="co">#&gt; 64   text3-1          16                 Németország         LOC</span></span>
+<span id="cb234-74"><a href="nlp_ch.html#cb234-74" tabindex="-1"></a><span class="co">#&gt; 65   text3-1          20                Magyarország         LOC</span></span>
+<span id="cb234-75"><a href="nlp_ch.html#cb234-75" tabindex="-1"></a><span class="co">#&gt; 66   text3-1          30                         LMP         ORG</span></span>
+<span id="cb234-76"><a href="nlp_ch.html#cb234-76" tabindex="-1"></a><span class="co">#&gt; 67   text3-1          35                         LMP         ORG</span></span>
+<span id="cb234-77"><a href="nlp_ch.html#cb234-77" tabindex="-1"></a><span class="co">#&gt; 68   text3-1          36                         LMP         ORG</span></span>
+<span id="cb234-78"><a href="nlp_ch.html#cb234-78" tabindex="-1"></a><span class="co">#&gt; 69   text3-1          41                         LMP         ORG</span></span>
+<span id="cb234-79"><a href="nlp_ch.html#cb234-79" tabindex="-1"></a><span class="co">#&gt; 70   text3-1          41                Országgyűlés         ORG</span></span>
+<span id="cb234-80"><a href="nlp_ch.html#cb234-80" tabindex="-1"></a><span class="co">#&gt; 71   text3-1          45                         Ház         ORG</span></span>
+<span id="cb234-81"><a href="nlp_ch.html#cb234-81" tabindex="-1"></a><span class="co">#&gt; 72   text3-1          46                         LMP         ORG</span></span>
+<span id="cb234-82"><a href="nlp_ch.html#cb234-82" tabindex="-1"></a><span class="co">#&gt; 73   text4-1           1               TÓBIÁS_JÓZSEF         PER</span></span>
+<span id="cb234-83"><a href="nlp_ch.html#cb234-83" tabindex="-1"></a><span class="co">#&gt; 74   text4-1           1                        MSZP         PER</span></span>
+<span id="cb234-84"><a href="nlp_ch.html#cb234-84" tabindex="-1"></a><span class="co">#&gt; 75   text4-1           2                         Ház         PER</span></span>
+<span id="cb234-85"><a href="nlp_ch.html#cb234-85" tabindex="-1"></a><span class="co">#&gt; 76   text4-1           2               Képviselőtárs         PER</span></span>
+<span id="cb234-86"><a href="nlp_ch.html#cb234-86" tabindex="-1"></a><span class="co">#&gt; 77   text4-1           4                Magyarország         LOC</span></span>
+<span id="cb234-87"><a href="nlp_ch.html#cb234-87" tabindex="-1"></a><span class="co">#&gt; 78   text4-1           5  Magyar_Tudományos_Akadémia         ORG</span></span>
+<span id="cb234-88"><a href="nlp_ch.html#cb234-88" tabindex="-1"></a><span class="co">#&gt; 79   text4-1           5                Magyarország         LOC</span></span>
+<span id="cb234-89"><a href="nlp_ch.html#cb234-89" tabindex="-1"></a><span class="co">#&gt; 80   text4-1          10                       Ázsia         LOC</span></span>
+<span id="cb234-90"><a href="nlp_ch.html#cb234-90" tabindex="-1"></a><span class="co">#&gt; 81   text4-1          10                      Európa         LOC</span></span>
+<span id="cb234-91"><a href="nlp_ch.html#cb234-91" tabindex="-1"></a><span class="co">#&gt; 82   text4-1          10                      Európa         LOC</span></span>
+<span id="cb234-92"><a href="nlp_ch.html#cb234-92" tabindex="-1"></a><span class="co">#&gt; 83   text4-1          12                Balog_Zoltán         PER</span></span>
+<span id="cb234-93"><a href="nlp_ch.html#cb234-93" tabindex="-1"></a><span class="co">#&gt; 84   text4-1          13                Magyarország         LOC</span></span>
+<span id="cb234-94"><a href="nlp_ch.html#cb234-94" tabindex="-1"></a><span class="co">#&gt; 85   text4-1          16                Magyarország         LOC</span></span>
+<span id="cb234-95"><a href="nlp_ch.html#cb234-95" tabindex="-1"></a><span class="co">#&gt; 86   text4-1          19                Országgyűlés         ORG</span></span>
+<span id="cb234-96"><a href="nlp_ch.html#cb234-96" tabindex="-1"></a><span class="co">#&gt; 87   text4-1          23                        MSZP         ORG</span></span>
+<span id="cb234-97"><a href="nlp_ch.html#cb234-97" tabindex="-1"></a><span class="co">#&gt; 88   text5-1           1                         LMP         PER</span></span>
+<span id="cb234-98"><a href="nlp_ch.html#cb234-98" tabindex="-1"></a><span class="co">#&gt; 89   text5-1           2                Országgyűlés         PER</span></span>
+<span id="cb234-99"><a href="nlp_ch.html#cb234-99" tabindex="-1"></a><span class="co">#&gt; 90   text5-1           3         Magyar_Nemzeti_Bank         ORG</span></span>
+<span id="cb234-100"><a href="nlp_ch.html#cb234-100" tabindex="-1"></a><span class="co">#&gt; 91   text5-1           3             Matolcsy_György         PER</span></span>
+<span id="cb234-101"><a href="nlp_ch.html#cb234-101" tabindex="-1"></a><span class="co">#&gt; 92   text5-1           4                    Matolcsy         PER</span></span>
+<span id="cb234-102"><a href="nlp_ch.html#cb234-102" tabindex="-1"></a><span class="co">#&gt; 93   text5-1           9                Magyarország         LOC</span></span>
+<span id="cb234-103"><a href="nlp_ch.html#cb234-103" tabindex="-1"></a><span class="co">#&gt; 94   text5-1          12                      Fidesz         ORG</span></span>
+<span id="cb234-104"><a href="nlp_ch.html#cb234-104" tabindex="-1"></a><span class="co">#&gt; 95   text5-1          12             Matolcsy_György         PER</span></span>
+<span id="cb234-105"><a href="nlp_ch.html#cb234-105" tabindex="-1"></a><span class="co">#&gt; 96   text5-1          14                      Fidesz         ORG</span></span>
+<span id="cb234-106"><a href="nlp_ch.html#cb234-106" tabindex="-1"></a><span class="co">#&gt; 97   text5-1          15                      Fidesz         ORG</span></span>
+<span id="cb234-107"><a href="nlp_ch.html#cb234-107" tabindex="-1"></a><span class="co">#&gt; 98   text5-1          20                Magyarország         LOC</span></span>
+<span id="cb234-108"><a href="nlp_ch.html#cb234-108" tabindex="-1"></a><span class="co">#&gt; 99   text5-1          21                Országgyűlés         PER</span></span>
+<span id="cb234-109"><a href="nlp_ch.html#cb234-109" tabindex="-1"></a><span class="co">#&gt; 100  text5-1          21             Matolcsy_György         PER</span></span>
+<span id="cb234-110"><a href="nlp_ch.html#cb234-110" tabindex="-1"></a><span class="co">#&gt; 101  text5-1          21                Nemzeti_Bank         ORG</span></span>
+<span id="cb234-111"><a href="nlp_ch.html#cb234-111" tabindex="-1"></a><span class="co">#&gt; 102  text5-1          21                Magyarország         LOC</span></span>
+<span id="cb234-112"><a href="nlp_ch.html#cb234-112" tabindex="-1"></a><span class="co">#&gt; 103  text5-1          22             Matolcsy_György         PER</span></span>
+<span id="cb234-113"><a href="nlp_ch.html#cb234-113" tabindex="-1"></a><span class="co">#&gt; 104  text5-1          23             Matolcsy_György         PER</span></span>
+<span id="cb234-114"><a href="nlp_ch.html#cb234-114" tabindex="-1"></a><span class="co">#&gt; 105  text5-1          24             Matolcsy_György         PER</span></span>
+<span id="cb234-115"><a href="nlp_ch.html#cb234-115" tabindex="-1"></a><span class="co">#&gt; 106  text5-1          25                Magyarország         LOC</span></span>
+<span id="cb234-116"><a href="nlp_ch.html#cb234-116" tabindex="-1"></a><span class="co">#&gt; 107  text5-1          26                Magyarország         LOC</span></span>
+<span id="cb234-117"><a href="nlp_ch.html#cb234-117" tabindex="-1"></a><span class="co">#&gt; 108  text5-1          31                Magyarország         LOC</span></span>
+<span id="cb234-118"><a href="nlp_ch.html#cb234-118" tabindex="-1"></a><span class="co">#&gt; 109  text6-1           1           dr._TÓTH_BERTALAN         PER</span></span>
+<span id="cb234-119"><a href="nlp_ch.html#cb234-119" tabindex="-1"></a><span class="co">#&gt; 110  text6-1           1                        MSZP         PER</span></span>
+<span id="cb234-120"><a href="nlp_ch.html#cb234-120" tabindex="-1"></a><span class="co">#&gt; 111  text6-1           2               Képviselőtárs         PER</span></span>
+<span id="cb234-121"><a href="nlp_ch.html#cb234-121" tabindex="-1"></a><span class="co">#&gt; 112  text6-1           2                      Fidesz         ORG</span></span>
+<span id="cb234-122"><a href="nlp_ch.html#cb234-122" tabindex="-1"></a><span class="co">#&gt; 113  text6-1           3                      Fidesz         ORG</span></span>
+<span id="cb234-123"><a href="nlp_ch.html#cb234-123" tabindex="-1"></a><span class="co">#&gt; 114  text6-1           3                      Fidesz         ORG</span></span>
+<span id="cb234-124"><a href="nlp_ch.html#cb234-124" tabindex="-1"></a><span class="co">#&gt; 115  text6-1           3                      Jobbik         ORG</span></span>
+<span id="cb234-125"><a href="nlp_ch.html#cb234-125" tabindex="-1"></a><span class="co">#&gt; 116  text6-1          12            Navracsics_Tibor         PER</span></span>
+<span id="cb234-126"><a href="nlp_ch.html#cb234-126" tabindex="-1"></a><span class="co">#&gt; 117  text6-1          13                        MSZP         ORG</span></span>
+<span id="cb234-127"><a href="nlp_ch.html#cb234-127" tabindex="-1"></a><span class="co">#&gt; 118  text6-1          14                 Alaptörvény        MISC</span></span>
+<span id="cb234-128"><a href="nlp_ch.html#cb234-128" tabindex="-1"></a><span class="co">#&gt; 119  text6-1          15                        MSZP         ORG</span></span>
+<span id="cb234-129"><a href="nlp_ch.html#cb234-129" tabindex="-1"></a><span class="co">#&gt; 120  text6-1          15                Népszabadság         ORG</span></span>
+<span id="cb234-130"><a href="nlp_ch.html#cb234-130" tabindex="-1"></a><span class="co">#&gt; 121  text6-1          15                 Alaptörvény        MISC</span></span>
+<span id="cb234-131"><a href="nlp_ch.html#cb234-131" tabindex="-1"></a><span class="co">#&gt; 122  text6-1          18              Kunhalmi_Ágnes         PER</span></span>
+<span id="cb234-132"><a href="nlp_ch.html#cb234-132" tabindex="-1"></a><span class="co">#&gt; 123  text6-1          18                      Fidesz         ORG</span></span>
+<span id="cb234-133"><a href="nlp_ch.html#cb234-133" tabindex="-1"></a><span class="co">#&gt; 124  text6-1          18                   Parlament         ORG</span></span>
+<span id="cb234-134"><a href="nlp_ch.html#cb234-134" tabindex="-1"></a><span class="co">#&gt; 125  text6-1          19                        MSZP         ORG</span></span>
+<span id="cb234-135"><a href="nlp_ch.html#cb234-135" tabindex="-1"></a><span class="co">#&gt; 126  text6-1          19                       Origo        MISC</span></span>
+<span id="cb234-136"><a href="nlp_ch.html#cb234-136" tabindex="-1"></a><span class="co">#&gt; 127  text6-1          19                       vs.hu         ORG</span></span>
+<span id="cb234-137"><a href="nlp_ch.html#cb234-137" tabindex="-1"></a><span class="co">#&gt; 128  text6-1          19                         TV2         ORG</span></span>
+<span id="cb234-138"><a href="nlp_ch.html#cb234-138" tabindex="-1"></a><span class="co">#&gt; 129  text6-1          19                Népszabadság         ORG</span></span>
+<span id="cb234-139"><a href="nlp_ch.html#cb234-139" tabindex="-1"></a><span class="co">#&gt; 130  text6-1          20              Soltész_Miklós         PER</span></span>
+<span id="cb234-140"><a href="nlp_ch.html#cb234-140" tabindex="-1"></a><span class="co">#&gt; 131  text6-1          20                    Népszava        MISC</span></span>
+<span id="cb234-141"><a href="nlp_ch.html#cb234-141" tabindex="-1"></a><span class="co">#&gt; 132  text6-1          20                      Fidesz         ORG</span></span>
+<span id="cb234-142"><a href="nlp_ch.html#cb234-142" tabindex="-1"></a><span class="co">#&gt; 133  text6-1          23                      Fidesz         ORG</span></span>
+<span id="cb234-143"><a href="nlp_ch.html#cb234-143" tabindex="-1"></a><span class="co">#&gt; 134  text6-1          24                 Rogán_Antal         PER</span></span>
+<span id="cb234-144"><a href="nlp_ch.html#cb234-144" tabindex="-1"></a><span class="co">#&gt; 135  text6-1          24                Orbán_Viktor         PER</span></span>
+<span id="cb234-145"><a href="nlp_ch.html#cb234-145" tabindex="-1"></a><span class="co">#&gt; 136  text6-1          24                Habony_Árpád         PER</span></span>
+<span id="cb234-146"><a href="nlp_ch.html#cb234-146" tabindex="-1"></a><span class="co">#&gt; 137  text6-1          24                Orbán_Viktor         PER</span></span>
+<span id="cb234-147"><a href="nlp_ch.html#cb234-147" tabindex="-1"></a><span class="co">#&gt; 138  text6-1          24                Orbán_Viktor         PER</span></span>
+<span id="cb234-148"><a href="nlp_ch.html#cb234-148" tabindex="-1"></a><span class="co">#&gt; 139  text6-1          26                Orbán_Viktor         PER</span></span>
+<span id="cb234-149"><a href="nlp_ch.html#cb234-149" tabindex="-1"></a><span class="co">#&gt; 140  text6-1          26       Németh_Szilárd_István         PER</span></span>
+<span id="cb234-150"><a href="nlp_ch.html#cb234-150" tabindex="-1"></a><span class="co">#&gt; 141  text6-1          27                Országgyűlés         ORG</span></span>
+<span id="cb234-151"><a href="nlp_ch.html#cb234-151" tabindex="-1"></a><span class="co">#&gt; 142  text6-1          28                Országgyűlés         PER</span></span>
+<span id="cb234-152"><a href="nlp_ch.html#cb234-152" tabindex="-1"></a><span class="co">#&gt; 143  text6-1          28                Magyarország         ORG</span></span>
+<span id="cb234-153"><a href="nlp_ch.html#cb234-153" tabindex="-1"></a><span class="co">#&gt; 144  text6-1          28                Magyarország         LOC</span></span>
+<span id="cb234-154"><a href="nlp_ch.html#cb234-154" tabindex="-1"></a><span class="co">#&gt; 145  text6-1          30                Orbán_Viktor         PER</span></span>
+<span id="cb234-155"><a href="nlp_ch.html#cb234-155" tabindex="-1"></a><span class="co">#&gt; 146  text6-1          30                      Fidesz         ORG</span></span>
+<span id="cb234-156"><a href="nlp_ch.html#cb234-156" tabindex="-1"></a><span class="co">#&gt; 147  text6-1          32                        MSZP         ORG</span></span>
+<span id="cb234-157"><a href="nlp_ch.html#cb234-157" tabindex="-1"></a><span class="co">#&gt; 148  text6-1          33                 Fodor_Gábor         PER</span></span>
+<span id="cb234-158"><a href="nlp_ch.html#cb234-158" tabindex="-1"></a><span class="co">#&gt; 149  text7-1           1                VOLNER_János         PER</span></span>
+<span id="cb234-159"><a href="nlp_ch.html#cb234-159" tabindex="-1"></a><span class="co">#&gt; 150  text7-1           1                      Jobbik         PER</span></span>
+<span id="cb234-160"><a href="nlp_ch.html#cb234-160" tabindex="-1"></a><span class="co">#&gt; 151  text7-1           2               Képviselőtárs         PER</span></span>
+<span id="cb234-161"><a href="nlp_ch.html#cb234-161" tabindex="-1"></a><span class="co">#&gt; 152  text7-1           2                      Jobbik         ORG</span></span>
+<span id="cb234-162"><a href="nlp_ch.html#cb234-162" tabindex="-1"></a><span class="co">#&gt; 153  text7-1           3                      Viktor         PER</span></span>
+<span id="cb234-163"><a href="nlp_ch.html#cb234-163" tabindex="-1"></a><span class="co">#&gt; 154  text7-1           5                Magyarország         LOC</span></span>
+<span id="cb234-164"><a href="nlp_ch.html#cb234-164" tabindex="-1"></a><span class="co">#&gt; 155  text7-1           6           Legfőbb_Ügyészség         ORG</span></span>
+<span id="cb234-165"><a href="nlp_ch.html#cb234-165" tabindex="-1"></a><span class="co">#&gt; 156  text7-1           6         Állami_Számvevőszék         ORG</span></span>
+<span id="cb234-166"><a href="nlp_ch.html#cb234-166" tabindex="-1"></a><span class="co">#&gt; 157  text7-1           6                      Fidesz         ORG</span></span>
+<span id="cb234-167"><a href="nlp_ch.html#cb234-167" tabindex="-1"></a><span class="co">#&gt; 158  text7-1           7                      Fidesz         ORG</span></span>
+<span id="cb234-168"><a href="nlp_ch.html#cb234-168" tabindex="-1"></a><span class="co">#&gt; 159  text7-1           7         Állami_Számvevőszék         ORG</span></span>
+<span id="cb234-169"><a href="nlp_ch.html#cb234-169" tabindex="-1"></a><span class="co">#&gt; 160  text7-1           7                Magyarország         LOC</span></span>
+<span id="cb234-170"><a href="nlp_ch.html#cb234-170" tabindex="-1"></a><span class="co">#&gt; 161  text7-1           8                      Fidesz         ORG</span></span>
+<span id="cb234-171"><a href="nlp_ch.html#cb234-171" tabindex="-1"></a><span class="co">#&gt; 162  text7-1           8                        MSZP         ORG</span></span>
+<span id="cb234-172"><a href="nlp_ch.html#cb234-172" tabindex="-1"></a><span class="co">#&gt; 163  text7-1          10                Magyarország         LOC</span></span>
+<span id="cb234-173"><a href="nlp_ch.html#cb234-173" tabindex="-1"></a><span class="co">#&gt; 164  text7-1          18                   off­shore        MISC</span></span>
+<span id="cb234-174"><a href="nlp_ch.html#cb234-174" tabindex="-1"></a><span class="co">#&gt; 165  text7-1          19                      Jobbik         ORG</span></span>
+<span id="cb234-175"><a href="nlp_ch.html#cb234-175" tabindex="-1"></a><span class="co">#&gt; 166  text7-1          20                      Jobbik         ORG</span></span>
+<span id="cb234-176"><a href="nlp_ch.html#cb234-176" tabindex="-1"></a><span class="co">#&gt; 167  text8-1           1                  KÓSA_LAJOS         ORG</span></span>
+<span id="cb234-177"><a href="nlp_ch.html#cb234-177" tabindex="-1"></a><span class="co">#&gt; 168  text8-1           1                      Fidesz         ORG</span></span>
+<span id="cb234-178"><a href="nlp_ch.html#cb234-178" tabindex="-1"></a><span class="co">#&gt; 169  text8-1           1                         Ház         PER</span></span>
+<span id="cb234-179"><a href="nlp_ch.html#cb234-179" tabindex="-1"></a><span class="co">#&gt; 170  text8-1           1                      Európa         LOC</span></span>
+<span id="cb234-180"><a href="nlp_ch.html#cb234-180" tabindex="-1"></a><span class="co">#&gt; 171  text8-1           1                   Stockholm         LOC</span></span>
+<span id="cb234-181"><a href="nlp_ch.html#cb234-181" tabindex="-1"></a><span class="co">#&gt; 172  text8-1           1                    Egyiptom         LOC</span></span>
+<span id="cb234-182"><a href="nlp_ch.html#cb234-182" tabindex="-1"></a><span class="co">#&gt; 173  text8-1           1                      Európa         LOC</span></span>
+<span id="cb234-183"><a href="nlp_ch.html#cb234-183" tabindex="-1"></a><span class="co">#&gt; 174  text8-1           2                Soros_György         PER</span></span>
+<span id="cb234-184"><a href="nlp_ch.html#cb234-184" tabindex="-1"></a><span class="co">#&gt; 175  text8-1           2                      Európa         LOC</span></span>
+<span id="cb234-185"><a href="nlp_ch.html#cb234-185" tabindex="-1"></a><span class="co">#&gt; 176  text8-1           3                      Európa         LOC</span></span>
+<span id="cb234-186"><a href="nlp_ch.html#cb234-186" tabindex="-1"></a><span class="co">#&gt; 177  text8-1           3                 Németország         LOC</span></span>
+<span id="cb234-187"><a href="nlp_ch.html#cb234-187" tabindex="-1"></a><span class="co">#&gt; 178  text8-1           4                 Németország         LOC</span></span>
+<span id="cb234-188"><a href="nlp_ch.html#cb234-188" tabindex="-1"></a><span class="co">#&gt; 179  text8-1           6                Magyarország         LOC</span></span>
+<span id="cb234-189"><a href="nlp_ch.html#cb234-189" tabindex="-1"></a><span class="co">#&gt; 180  text8-1           6            Délnyugat-Balkán         LOC</span></span>
+<span id="cb234-190"><a href="nlp_ch.html#cb234-190" tabindex="-1"></a><span class="co">#&gt; 181  text8-1           6                Magyarország         LOC</span></span>
+<span id="cb234-191"><a href="nlp_ch.html#cb234-191" tabindex="-1"></a><span class="co">#&gt; 182  text8-1           6                Magyarország         LOC</span></span>
+<span id="cb234-192"><a href="nlp_ch.html#cb234-192" tabindex="-1"></a><span class="co">#&gt; 183  text8-1           7                       Soros         PER</span></span>
+<span id="cb234-193"><a href="nlp_ch.html#cb234-193" tabindex="-1"></a><span class="co">#&gt; 184  text8-1           7                Korózs_Lajos         PER</span></span>
+<span id="cb234-194"><a href="nlp_ch.html#cb234-194" tabindex="-1"></a><span class="co">#&gt; 185  text8-1           9                        MSZP         ORG</span></span>
+<span id="cb234-195"><a href="nlp_ch.html#cb234-195" tabindex="-1"></a><span class="co">#&gt; 186  text8-1          11              Kunhalmi_Ágnes         PER</span></span>
+<span id="cb234-196"><a href="nlp_ch.html#cb234-196" tabindex="-1"></a><span class="co">#&gt; 187  text8-1          12                Korózs_Lajos         PER</span></span>
+<span id="cb234-197"><a href="nlp_ch.html#cb234-197" tabindex="-1"></a><span class="co">#&gt; 188  text8-1          12                      Fidesz         ORG</span></span>
+<span id="cb234-198"><a href="nlp_ch.html#cb234-198" tabindex="-1"></a><span class="co">#&gt; 189  text8-1          14                Korózs_Lajos         PER</span></span>
+<span id="cb234-199"><a href="nlp_ch.html#cb234-199" tabindex="-1"></a><span class="co">#&gt; 190  text8-1          14      Bangóné_Borbély_Ildikó         PER</span></span>
+<span id="cb234-200"><a href="nlp_ch.html#cb234-200" tabindex="-1"></a><span class="co">#&gt; 191  text8-1          15       Közép-európai_Egyetem         ORG</span></span>
+<span id="cb234-201"><a href="nlp_ch.html#cb234-201" tabindex="-1"></a><span class="co">#&gt; 192  text8-1          15              Kunhalmi_Ágnes         PER</span></span>
+<span id="cb234-202"><a href="nlp_ch.html#cb234-202" tabindex="-1"></a><span class="co">#&gt; 193  text8-1          16                         Ház         PER</span></span>
+<span id="cb234-203"><a href="nlp_ch.html#cb234-203" tabindex="-1"></a><span class="co">#&gt; 194  text8-1          16                Soros_György         PER</span></span>
+<span id="cb234-204"><a href="nlp_ch.html#cb234-204" tabindex="-1"></a><span class="co">#&gt; 195  text8-1          17                Soros_György         PER</span></span>
+<span id="cb234-205"><a href="nlp_ch.html#cb234-205" tabindex="-1"></a><span class="co">#&gt; 196  text8-1          17                Soros_György         PER</span></span>
+<span id="cb234-206"><a href="nlp_ch.html#cb234-206" tabindex="-1"></a><span class="co">#&gt; 197  text8-1          17                Soros_György         PER</span></span>
+<span id="cb234-207"><a href="nlp_ch.html#cb234-207" tabindex="-1"></a><span class="co">#&gt; 198  text8-1          17                       Soros         PER</span></span>
+<span id="cb234-208"><a href="nlp_ch.html#cb234-208" tabindex="-1"></a><span class="co">#&gt; 199  text8-1          17                       Soros         PER</span></span>
+<span id="cb234-209"><a href="nlp_ch.html#cb234-209" tabindex="-1"></a><span class="co">#&gt; 200  text8-1          17                Magyarország         LOC</span></span>
+<span id="cb234-210"><a href="nlp_ch.html#cb234-210" tabindex="-1"></a><span class="co">#&gt; 201  text8-1          17                Magyarország         ORG</span></span>
+<span id="cb234-211"><a href="nlp_ch.html#cb234-211" tabindex="-1"></a><span class="co">#&gt; 202  text8-1          19                Magyarország         ORG</span></span>
+<span id="cb234-212"><a href="nlp_ch.html#cb234-212" tabindex="-1"></a><span class="co">#&gt; 203  text9-1           1                        KDNP         PER</span></span>
+<span id="cb234-213"><a href="nlp_ch.html#cb234-213" tabindex="-1"></a><span class="co">#&gt; 204  text9-1           1                          Úr         PER</span></span>
+<span id="cb234-214"><a href="nlp_ch.html#cb234-214" tabindex="-1"></a><span class="co">#&gt; 205  text9-1           1                         Ház         PER</span></span>
+<span id="cb234-215"><a href="nlp_ch.html#cb234-215" tabindex="-1"></a><span class="co">#&gt; 206  text9-1           2        dr._Rubovszky_György         PER</span></span>
+<span id="cb234-216"><a href="nlp_ch.html#cb234-216" tabindex="-1"></a><span class="co">#&gt; 207  text9-1           5                       Gyuri         PER</span></span>
+<span id="cb234-217"><a href="nlp_ch.html#cb234-217" tabindex="-1"></a><span class="co">#&gt; 208  text9-1           8               Képviselőtárs         PER</span></span>
+<span id="cb234-218"><a href="nlp_ch.html#cb234-218" tabindex="-1"></a><span class="co">#&gt; 209  text9-1           9              Szabó_Szabolcs         PER</span></span>
+<span id="cb234-219"><a href="nlp_ch.html#cb234-219" tabindex="-1"></a><span class="co">#&gt; 210  text9-1           9                Fabiny_Tamás         PER</span></span>
+<span id="cb234-220"><a href="nlp_ch.html#cb234-220" tabindex="-1"></a><span class="co">#&gt; 211  text9-1          11              Szabó_Szabolcs         PER</span></span>
+<span id="cb234-221"><a href="nlp_ch.html#cb234-221" tabindex="-1"></a><span class="co">#&gt; 212  text9-1          11                Fabiny_Tamás         PER</span></span>
+<span id="cb234-222"><a href="nlp_ch.html#cb234-222" tabindex="-1"></a><span class="co">#&gt; 213  text9-1          13                   Fidesszel         ORG</span></span>
+<span id="cb234-223"><a href="nlp_ch.html#cb234-223" tabindex="-1"></a><span class="co">#&gt; 214  text9-1          16             Hölvényi_György         PER</span></span>
+<span id="cb234-224"><a href="nlp_ch.html#cb234-224" tabindex="-1"></a><span class="co">#&gt; 215  text9-1          18                 Közel-Kelet         LOC</span></span>
+<span id="cb234-225"><a href="nlp_ch.html#cb234-225" tabindex="-1"></a><span class="co">#&gt; 216  text9-1          19 Kereszténydemokrata_Néppárt         ORG</span></span>
+<span id="cb234-226"><a href="nlp_ch.html#cb234-226" tabindex="-1"></a><span class="co">#&gt; 217  text9-1          24                      Ferenc         PER</span></span>
+<span id="cb234-227"><a href="nlp_ch.html#cb234-227" tabindex="-1"></a><span class="co">#&gt; 218  text9-1          27              Szabó_Szabolcs         PER</span></span>
+<span id="cb234-228"><a href="nlp_ch.html#cb234-228" tabindex="-1"></a><span class="co">#&gt; 219  text9-1          27                Észak-Afrika         LOC</span></span>
+<span id="cb234-229"><a href="nlp_ch.html#cb234-229" tabindex="-1"></a><span class="co">#&gt; 220  text9-1          27                 Közel-Kelet         LOC</span></span>
+<span id="cb234-230"><a href="nlp_ch.html#cb234-230" tabindex="-1"></a><span class="co">#&gt; 221  text9-1          30                Gőgös_Zoltán         PER</span></span>
+<span id="cb234-231"><a href="nlp_ch.html#cb234-231" tabindex="-1"></a><span class="co">#&gt; 222 text10-1           1                  dr._GULYÁS         PER</span></span>
+<span id="cb234-232"><a href="nlp_ch.html#cb234-232" tabindex="-1"></a><span class="co">#&gt; 223 text10-1           1                      Fidesz         ORG</span></span>
+<span id="cb234-233"><a href="nlp_ch.html#cb234-233" tabindex="-1"></a><span class="co">#&gt; 224 text10-1           2                          Úr         PER</span></span>
+<span id="cb234-234"><a href="nlp_ch.html#cb234-234" tabindex="-1"></a><span class="co">#&gt; 225 text10-1           2                Országgyűlés         PER</span></span>
+<span id="cb234-235"><a href="nlp_ch.html#cb234-235" tabindex="-1"></a><span class="co">#&gt; 226 text10-1           2              Államtitkár_Úr         PER</span></span>
+<span id="cb234-236"><a href="nlp_ch.html#cb234-236" tabindex="-1"></a><span class="co">#&gt; 227 text10-1           3              Czeglédy_Csaba         PER</span></span>
+<span id="cb234-237"><a href="nlp_ch.html#cb234-237" tabindex="-1"></a><span class="co">#&gt; 228 text10-1           3         Human_Operator_Zrt.         ORG</span></span>
+<span id="cb234-238"><a href="nlp_ch.html#cb234-238" tabindex="-1"></a><span class="co">#&gt; 229 text10-1           3              Czeglédy_Csaba         PER</span></span>
+<span id="cb234-239"><a href="nlp_ch.html#cb234-239" tabindex="-1"></a><span class="co">#&gt; 230 text10-1           4              Czeglédy_Csaba         PER</span></span>
+<span id="cb234-240"><a href="nlp_ch.html#cb234-240" tabindex="-1"></a><span class="co">#&gt; 231 text10-1           4         Human_Operator_Zrt.         ORG</span></span>
+<span id="cb234-241"><a href="nlp_ch.html#cb234-241" tabindex="-1"></a><span class="co">#&gt; 232 text10-1           5         Human_Operator_Zrt.         ORG</span></span>
+<span id="cb234-242"><a href="nlp_ch.html#cb234-242" tabindex="-1"></a><span class="co">#&gt; 233 text10-1           7                Országgyűlés         ORG</span></span>
+<span id="cb234-243"><a href="nlp_ch.html#cb234-243" tabindex="-1"></a><span class="co">#&gt; 234 text10-1           8         Human_Operator_Zrt.         ORG</span></span>
+<span id="cb234-244"><a href="nlp_ch.html#cb234-244" tabindex="-1"></a><span class="co">#&gt; 235 text10-1           9      Bangóné_Borbély_Ildikó         PER</span></span>
+<span id="cb234-245"><a href="nlp_ch.html#cb234-245" tabindex="-1"></a><span class="co">#&gt; 236 text10-1           9                  Eszosz-ügy        MISC</span></span>
+<span id="cb234-246"><a href="nlp_ch.html#cb234-246" tabindex="-1"></a><span class="co">#&gt; 237 text10-1           9      Bangóné_Borbély_Ildikó         PER</span></span>
+<span id="cb234-247"><a href="nlp_ch.html#cb234-247" tabindex="-1"></a><span class="co">#&gt; 238 text10-1           9         Human_Operator_Zrt.         ORG</span></span>
+<span id="cb234-248"><a href="nlp_ch.html#cb234-248" tabindex="-1"></a><span class="co">#&gt; 239 text10-1          12            Szocialista_Párt         ORG</span></span>
+<span id="cb234-249"><a href="nlp_ch.html#cb234-249" tabindex="-1"></a><span class="co">#&gt; 240 text10-1          12              Czeglédy_Csaba         PER</span></span>
+<span id="cb234-250"><a href="nlp_ch.html#cb234-250" tabindex="-1"></a><span class="co">#&gt; 241 text10-1          12       Demokratikus_Koalíció         ORG</span></span>
+<span id="cb234-251"><a href="nlp_ch.html#cb234-251" tabindex="-1"></a><span class="co">#&gt; 242 text10-1          12            Szocialista_Párt         ORG</span></span>
+<span id="cb234-252"><a href="nlp_ch.html#cb234-252" tabindex="-1"></a><span class="co">#&gt; 243 text10-1          12     Magyar_Szocialista_Párt         ORG</span></span>
+<span id="cb234-253"><a href="nlp_ch.html#cb234-253" tabindex="-1"></a><span class="co">#&gt; 244 text10-1          13              Czeglédy_Csaba         PER</span></span>
+<span id="cb234-254"><a href="nlp_ch.html#cb234-254" tabindex="-1"></a><span class="co">#&gt; 245 text10-1          13              Czeglédy_Csaba         PER</span></span>
+<span id="cb234-255"><a href="nlp_ch.html#cb234-255" tabindex="-1"></a><span class="co">#&gt; 246 text10-1          15      Bangóné_Borbély_Ildikó         PER</span></span>
+<span id="cb234-256"><a href="nlp_ch.html#cb234-256" tabindex="-1"></a><span class="co">#&gt; 247 text10-1          15                  Eszosz-ügy        MISC</span></span>
+<span id="cb234-257"><a href="nlp_ch.html#cb234-257" tabindex="-1"></a><span class="co">#&gt; 248 text10-1          16              Czeglédy_Csabá         PER</span></span>
+<span id="cb234-258"><a href="nlp_ch.html#cb234-258" tabindex="-1"></a><span class="co">#&gt; 249 text10-1          16              Czeglédy_Csaba         PER</span></span>
+<span id="cb234-259"><a href="nlp_ch.html#cb234-259" tabindex="-1"></a><span class="co">#&gt; 250 text10-1          18              Heringes_Anita         PER</span></span>
+<span id="cb234-260"><a href="nlp_ch.html#cb234-260" tabindex="-1"></a><span class="co">#&gt;  [ reached &#39;max&#39; / getOption(&quot;max.print&quot;) -- omitted 2 rows ]</span></span></code></pre></div>
+<p>A következőkben a névelemfelismerés eredményeinek vizualizálásra mutatunk be egy példát, amihez az előzőekben elkészített lemmákat tartalmazó adattáblát használjuk fel, úgy hogy első lépésként korpuszt készítünk belőle.</p>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="nlp_ch.html#cb235-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> parsed_df_3</span>
+<span id="cb235-2"><a href="nlp_ch.html#cb235-2" tabindex="-1"></a></span>
+<span id="cb235-3"><a href="nlp_ch.html#cb235-3" tabindex="-1"></a>lemma_corpus <span class="ot">&lt;-</span><span class="fu">corpus</span>(df)</span></code></pre></div>
+<p>Ezután a <code>spacy_extract_entity()</code> függvénye segítségévek elvégezzük a névelemfelismerést. Az elemzés eredményét itt nem adattáblában, hanem listában kérjük vissza.</p>
+<p>A névelemek tokenjeit ezután a jobb áttekinthetőség érdekében megritkítottuk, és csak azokat hagytuk meg, amelyek legalább három alkalommal szerepeltek a korpuszban.</p>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="nlp_ch.html#cb236-1" tabindex="-1"></a>lemma_ner <span class="ot">&lt;-</span> <span class="fu">spacy_extract_entity</span>(</span>
+<span id="cb236-2"><a href="nlp_ch.html#cb236-2" tabindex="-1"></a>  lemma_corpus,</span>
+<span id="cb236-3"><a href="nlp_ch.html#cb236-3" tabindex="-1"></a>  <span class="at">output =</span> <span class="fu">c</span>(<span class="st">&quot;list&quot;</span>),</span>
+<span id="cb236-4"><a href="nlp_ch.html#cb236-4" tabindex="-1"></a>    <span class="at">multithread =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb236-5"><a href="nlp_ch.html#cb236-5" tabindex="-1"></a></span>
+<span id="cb236-6"><a href="nlp_ch.html#cb236-6" tabindex="-1"></a>ner_tokens <span class="ot">&lt;-</span> <span class="fu">tokens</span>(lemma_ner)</span>
+<span id="cb236-7"><a href="nlp_ch.html#cb236-7" tabindex="-1"></a></span>
+<span id="cb236-8"><a href="nlp_ch.html#cb236-8" tabindex="-1"></a>features <span class="ot">&lt;-</span> <span class="fu">dfm</span>(ner_tokens) <span class="sc">%&gt;%</span></span>
+<span id="cb236-9"><a href="nlp_ch.html#cb236-9" tabindex="-1"></a>  <span class="fu">dfm_trim</span>(<span class="at">min_termfreq =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb236-10"><a href="nlp_ch.html#cb236-10" tabindex="-1"></a>  <span class="fu">featnames</span>()</span>
+<span id="cb236-11"><a href="nlp_ch.html#cb236-11" tabindex="-1"></a></span>
+<span id="cb236-12"><a href="nlp_ch.html#cb236-12" tabindex="-1"></a>ner_tokens <span class="ot">&lt;-</span> <span class="fu">tokens_select</span>(ner_tokens, features, <span class="at">padding =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p>Ezután a különböző alakban előforduló, de ugyanarra az entitásra vonatkozó névelemeket összevontuk.</p>
-<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="nlp_ch.html#cb231-1" aria-hidden="true" tabindex="-1"></a>mnb <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Magyar Nemzeti Bank&quot;</span>, <span class="st">&quot;MAGYAR NEMZETI BANK&quot;</span>, <span class="st">&quot;The Magyar Nemzeti Bank &quot;</span>, <span class="st">&quot;the Magyar Nemzeti Bank&quot;</span>, <span class="st">&quot;MNB&quot;</span>, <span class="st">&quot;the Magyar Nemzeti Banks&quot;</span>, <span class="st">&quot;Nemzeti Bank&quot;</span>, <span class="st">&quot;The Magyar Nemzeti Banks MNB&quot;</span> )</span>
-<span id="cb231-2"><a href="nlp_ch.html#cb231-2" aria-hidden="true" tabindex="-1"></a>lemma <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="st">&quot;Magyar Nemzeti Bank&quot;</span>, <span class="fu">length</span>(mnb))</span>
-<span id="cb231-3"><a href="nlp_ch.html#cb231-3" aria-hidden="true" tabindex="-1"></a>mnb_tokens <span class="ot">&lt;-</span> <span class="fu">tokens_replace</span>(mnb_tokens, mnb, lemma, <span class="at">valuetype =</span> <span class="st">&quot;fixed&quot;</span>)</span>
-<span id="cb231-4"><a href="nlp_ch.html#cb231-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb231-5"><a href="nlp_ch.html#cb231-5" aria-hidden="true" tabindex="-1"></a>mc <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Monetary Council&quot;</span>, <span class="st">&quot;MONETARY COUNCIL&quot;</span>, <span class="st">&quot;Magyar Nemzeti Bank Monetary Council&quot;</span>, <span class="st">&quot;MAGYAR NEMZETI BANK Monetary Council&quot;</span>, <span class="st">&quot;NEMZETI BANK Monetary Council&quot;</span> ,<span class="st">&quot;The Monetary Council&quot;</span>, <span class="st">&quot;Council&quot;</span>, <span class="st">&quot;The Council&quot;</span>, <span class="st">&quot;Councils&quot;</span>, <span class="st">&quot;the Monetary Council&quot;</span>, <span class="st">&quot;Monetary Councils&quot;</span>, <span class="st">&quot;the Monetary Councils&quot;</span>, <span class="st">&quot;The Monetary Councils&quot;</span>, <span class="st">&quot;Monetray Council&quot;</span>, <span class="st">&quot;May the Monetary Council&quot;</span>)</span>
-<span id="cb231-6"><a href="nlp_ch.html#cb231-6" aria-hidden="true" tabindex="-1"></a>lemma <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="st">&quot;Monetary Council&quot;</span>, <span class="fu">length</span>(mc))</span>
-<span id="cb231-7"><a href="nlp_ch.html#cb231-7" aria-hidden="true" tabindex="-1"></a>mnb_tokens <span class="ot">&lt;-</span> <span class="fu">tokens_replace</span>(mnb_tokens, mc, lemma, <span class="at">valuetype =</span> <span class="st">&quot;fixed&quot;</span>)</span></code></pre></div>
-<p>Majd elkészítettük a szóbeágyazás fejezetben már megismert fcm-et, végezetül pedig egy együttes előfordulási mátrixot készítettünk a kinyert entitásokból és a <code>ggplot()</code> segítségével ábrázoltuk (ld <a href="nlp_ch.html#fig:MNBnevelem">11.4</a>. ábra).<a href="#fn60" class="footnote-ref" id="fnref60"><sup>60</sup></a> Az így kapott ábránk láthatóvá teszi, hogy mely szavak fordulnak elő jellemzően együtt, valamint a vonalvastagsággal azt is egmutatja, hogy ez relatív értelemben milyen gyakran történik.</p>
-<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="nlp_ch.html#cb232-1" aria-hidden="true" tabindex="-1"></a>mnb_fcm <span class="ot">&lt;-</span> <span class="fu">fcm</span>(mnb_tokens, <span class="at">context =</span> <span class="st">&quot;window&quot;</span>, <span class="at">count =</span> <span class="st">&quot;weighted&quot;</span>, <span class="at">weights =</span> <span class="dv">1</span> <span class="sc">/</span> (<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>), <span class="at">tri =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb232-2"><a href="nlp_ch.html#cb232-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb232-3"><a href="nlp_ch.html#cb232-3" aria-hidden="true" tabindex="-1"></a>feat <span class="ot">&lt;-</span> <span class="fu">names</span>(<span class="fu">topfeatures</span>(mnb_fcm, <span class="dv">80</span>))</span>
-<span id="cb232-4"><a href="nlp_ch.html#cb232-4" aria-hidden="true" tabindex="-1"></a>mnb_fcm_select <span class="ot">&lt;-</span> <span class="fu">fcm_select</span>(mnb_fcm, <span class="at">pattern =</span> feat, <span class="at">selection =</span> <span class="st">&quot;keep&quot;</span>)</span>
-<span id="cb232-5"><a href="nlp_ch.html#cb232-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(mnb_fcm_select)</span>
-<span id="cb232-6"><a href="nlp_ch.html#cb232-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 41 41</span></span>
-<span id="cb232-7"><a href="nlp_ch.html#cb232-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb232-8"><a href="nlp_ch.html#cb232-8" aria-hidden="true" tabindex="-1"></a>size <span class="ot">&lt;-</span> <span class="fu">log</span>(<span class="fu">colSums</span>(<span class="fu">dfm_select</span>(mnb_fcm, feat, <span class="at">selection =</span> <span class="st">&quot;keep&quot;</span>)))</span>
-<span id="cb232-9"><a href="nlp_ch.html#cb232-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb232-10"><a href="nlp_ch.html#cb232-10" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">144</span>)</span>
-<span id="cb232-11"><a href="nlp_ch.html#cb232-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb232-12"><a href="nlp_ch.html#cb232-12" aria-hidden="true" tabindex="-1"></a><span class="fu">textplot_network</span>(mnb_fcm_select, <span class="at">min_freq =</span> <span class="fl">0.7</span>, <span class="at">vertex_size =</span> size <span class="sc">/</span> <span class="fu">max</span>(size) <span class="sc">*</span> <span class="dv">3</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:MNBnevelem"></span>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="nlp_ch.html#cb237-1" tabindex="-1"></a>soros <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Soros&quot;</span>, <span class="st">&quot;Soros György&quot;</span>)</span>
+<span id="cb237-2"><a href="nlp_ch.html#cb237-2" tabindex="-1"></a>lemma <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="st">&quot;Soros György&quot;</span>, <span class="fu">length</span>(soros))</span>
+<span id="cb237-3"><a href="nlp_ch.html#cb237-3" tabindex="-1"></a>ner_tokens <span class="ot">&lt;-</span> <span class="fu">tokens_replace</span>(ner_tokens, soros, lemma, <span class="at">valuetype =</span> <span class="st">&quot;fixed&quot;</span>)</span>
+<span id="cb237-4"><a href="nlp_ch.html#cb237-4" tabindex="-1"></a></span>
+<span id="cb237-5"><a href="nlp_ch.html#cb237-5" tabindex="-1"></a>ogy <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Országgyűlés&quot;</span>, <span class="st">&quot;Ház&quot;</span>)</span>
+<span id="cb237-6"><a href="nlp_ch.html#cb237-6" tabindex="-1"></a>lemma <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="st">&quot;Országgyűlés&quot;</span>, <span class="fu">length</span>(ogy))</span>
+<span id="cb237-7"><a href="nlp_ch.html#cb237-7" tabindex="-1"></a>ner_tokens <span class="ot">&lt;-</span> <span class="fu">tokens_replace</span>(ner_tokens, ogy, lemma, <span class="at">valuetype =</span> <span class="st">&quot;fixed&quot;</span>)</span></code></pre></div>
+<p>Majd elkészítettük a szóbeágyazás fejezetben már megismert fcm-et, végezetül pedig egy együttes előfordulási mátrixot készítettünk a kinyert entitásokból és a <code>ggplot()</code> segítségével ábrázoltuk (ld <a href="nlp_ch.html#fig:OGYnevelem">11.1</a>. ábra).<a href="#fn54" class="footnote-ref" id="fnref54"><sup>54</sup></a> Az így kapott ábránk láthatóvá teszi, hogy mely szavak fordulnak elő jellemzően együtt, valamint a vonalvastagsággal azt is egmutatja, hogy ez relatív értelemben milyen gyakran történik.</p>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="nlp_ch.html#cb238-1" tabindex="-1"></a>ner_fcm <span class="ot">&lt;-</span> <span class="fu">fcm</span>(ner_tokens, <span class="at">context =</span> <span class="st">&quot;window&quot;</span>, <span class="at">count =</span> <span class="st">&quot;weighted&quot;</span>, <span class="at">weights =</span> <span class="dv">1</span> <span class="sc">/</span> (<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>), <span class="at">tri =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb238-2"><a href="nlp_ch.html#cb238-2" tabindex="-1"></a></span>
+<span id="cb238-3"><a href="nlp_ch.html#cb238-3" tabindex="-1"></a>feat <span class="ot">&lt;-</span> <span class="fu">names</span>(<span class="fu">topfeatures</span>(ner_fcm, <span class="dv">80</span>))</span>
+<span id="cb238-4"><a href="nlp_ch.html#cb238-4" tabindex="-1"></a>ner_fcm_select <span class="ot">&lt;-</span> <span class="fu">fcm_select</span>(ner_fcm, <span class="at">pattern =</span> feat, <span class="at">selection =</span> <span class="st">&quot;keep&quot;</span>)</span>
+<span id="cb238-5"><a href="nlp_ch.html#cb238-5" tabindex="-1"></a><span class="fu">dim</span>(ner_fcm_select)</span>
+<span id="cb238-6"><a href="nlp_ch.html#cb238-6" tabindex="-1"></a><span class="co">#&gt; [1] 20 20</span></span>
+<span id="cb238-7"><a href="nlp_ch.html#cb238-7" tabindex="-1"></a></span>
+<span id="cb238-8"><a href="nlp_ch.html#cb238-8" tabindex="-1"></a>size <span class="ot">&lt;-</span> <span class="fu">log</span>(<span class="fu">colSums</span>(<span class="fu">dfm_select</span>(ner_fcm, feat, <span class="at">selection =</span> <span class="st">&quot;keep&quot;</span>)))</span>
+<span id="cb238-9"><a href="nlp_ch.html#cb238-9" tabindex="-1"></a></span>
+<span id="cb238-10"><a href="nlp_ch.html#cb238-10" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">144</span>)</span>
+<span id="cb238-11"><a href="nlp_ch.html#cb238-11" tabindex="-1"></a>    </span>
+<span id="cb238-12"><a href="nlp_ch.html#cb238-12" tabindex="-1"></a><span class="fu">textplot_network</span>(ner_fcm_select, <span class="at">min_freq =</span> <span class="fl">0.7</span>, <span class="at">vertex_size =</span> size <span class="sc">/</span> <span class="fu">max</span>(size) <span class="sc">*</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:OGYnevelem"></span>
 <p class="caption">
-Ábra 11.4: A Magyar Nemzeti Bank korpusz névelemeinek együttelofordulási mátrixa
+Ábra 11.1: Az országgyúlési beszédek névelemeinek együttelőfordulási mátrixa
 </p>
-<img src="_main_files/figure-html/MNBnevelem-1.png" alt="A Magyar Nemzeti Bank korpusz névelemeinek együttelofordulási mátrixa" width="90%" />
+<img src="_main_files/figure-html/OGYnevelem-1.png" alt="Az országgyúlési beszédek névelemeinek együttelőfordulási mátrixa" width="90%" />
 </div>
-<p>A spacyr alapvetően az angol nyelvi modellel működik, de arra is van lehetőség, hogy a spaCy egyéb beépített nyelvi modelljeit (német, spanyol, portugál, stb.) használjuk. Létezik magyar nyelvi modell is, ez azonban jelenleg még nincs integrálva a spaCy-be, hanem egy GitHub repozitoriumból tölthető le. Ennek R-ben történő megvalósításához azonban haladó R ismeretek szükségesek, azért ennek leírásától itt eltekintünk.<a href="#fn61" class="footnote-ref" id="fnref61"><sup>61</sup></a></p>
 
+</div>
 </div>
 </div>
 <div class="footnotes">
 <hr />
-<ol start="52">
-<li id="fn52"><p>Magyar nyelvű szövegek NLP elemzésére használható eszközök részletes listája: <a href="https://github.com/oroszgy/awesome-hungarian-nlp" class="uri">https://github.com/oroszgy/awesome-hungarian-nlp</a><a href="nlp_ch.html#fnref52" class="footnote-back">↩︎</a></p></li>
-<li id="fn53"><p>A magyarlanc elérhető a <a href="https://rgai.inf.u-szeged.hu/magyarlanc" class="uri">https://rgai.inf.u-szeged.hu/magyarlanc</a> oldalon, az innen letölthető <code>jar</code> fájl segítségével a <code>txt</code> formátumú szövegfájlok elemzése parancssorból lehetséges.<a href="nlp_ch.html#fnref53" class="footnote-back">↩︎</a></p></li>
-<li id="fn54"><p>Az UDPipe elérhetősége: <a href="http://lindat.mff.cuni.cz/services/udpipe" class="uri">http://lindat.mff.cuni.cz/services/udpipe</a><a href="nlp_ch.html#fnref54" class="footnote-back">↩︎</a></p></li>
-<li id="fn55"><p>A napirend előtti felszólalásokat tartalmazó korpusz a Hungarian Comparative Agendas Project keretében készült: <a href="https://cap.tk.hu/hu" class="uri">https://cap.tk.hu/hu</a><a href="nlp_ch.html#fnref55" class="footnote-back">↩︎</a></p></li>
-<li id="fn56"><p>További lehetőségekhez lásd például: <a href="https://analyticsindiamag.com/top-10-r-packages-for-natural-language-processing-nlp/" class="uri">https://analyticsindiamag.com/top-10-r-packages-for-natural-language-processing-nlp/</a><a href="nlp_ch.html#fnref56" class="footnote-back">↩︎</a></p></li>
-<li id="fn57"><p>Részletes leírása: <a href="https://spacyr.quanteda.io/articles/using_spacyr.html" class="uri">https://spacyr.quanteda.io/articles/using_spacyr.html</a><a href="nlp_ch.html#fnref57" class="footnote-back">↩︎</a></p></li>
-<li id="fn58"><p>Részletes leírása: <a href="https://spacy.io/usage/linguistic-features#named-entities" class="uri">https://spacy.io/usage/linguistic-features#named-entities</a><a href="nlp_ch.html#fnref58" class="footnote-back">↩︎</a></p></li>
-<li id="fn59"><p>Részletes leírását lásd: <a href="https://towardsdatascience.com/extend-named-entity-recogniser-ner-to-label-new-entities-with-spacy-339ee5979044" class="uri">https://towardsdatascience.com/extend-named-entity-recogniser-ner-to-label-new-entities-with-spacy-339ee5979044</a><a href="nlp_ch.html#fnref59" class="footnote-back">↩︎</a></p></li>
-<li id="fn60"><p>Részletes leírását lásd: <a href="https://tutorials.quanteda.io/basic-operations/fcm/fcm/" class="uri">https://tutorials.quanteda.io/basic-operations/fcm/fcm/</a><a href="nlp_ch.html#fnref60" class="footnote-back">↩︎</a></p></li>
-<li id="fn61"><p>A magyar nyelvi modell és leírása elérhető az alábbi linken: <a href="https://github.com/oroszgy/spacy-hungarian-models" class="uri">https://github.com/oroszgy/spacy-hungarian-models</a><a href="nlp_ch.html#fnref61" class="footnote-back">↩︎</a></p></li>
+<ol start="51">
+<li id="fn51"><p>Részletes leírása: <a href="https://spacy.io/" class="uri">https://spacy.io/</a><a href="nlp_ch.html#fnref51" class="footnote-back">↩︎</a></p></li>
+<li id="fn52"><p>Részletes leírása: <a href="https://cran.r-project.org/web/packages/reticulate/index.html" class="uri">https://cran.r-project.org/web/packages/reticulate/index.html</a><a href="nlp_ch.html#fnref52" class="footnote-back">↩︎</a></p></li>
+<li id="fn53"><p>Részletes leírása: <a href="https://spacyr.quanteda.io/articles/using_spacyr.html" class="uri">https://spacyr.quanteda.io/articles/using_spacyr.html</a><a href="nlp_ch.html#fnref53" class="footnote-back">↩︎</a></p></li>
+<li id="fn54"><p>Részletes leírását lásd: <a href="https://tutorials.quanteda.io/basic-operations/fcm/fcm/" class="uri">https://tutorials.quanteda.io/basic-operations/fcm/fcm/</a><a href="nlp_ch.html#fnref54" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>
@@ -645,7 +876,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

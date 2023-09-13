@@ -1,4 +1,4 @@
-# Felügyelet nélküli tanulás - Topikmodellezés {#lda_ch}
+# Felügyelet nélküli tanulás {#lda_ch}
 
 ```{r include=FALSE}
 set.seed(1234)

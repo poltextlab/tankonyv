@@ -8,10 +8,9 @@ source("_common.R")
 
 ## Fogalmi alapok
 
-A politikatudomány egyik izgalmas kérdése a szereplők ideológiai skálákon való elhelyezése. Ezt jellemzően pártprogramok vagy különböző ügyekkel kapcsolatos álláspontpontok alapján szokták meghatározni, de a politikusok beszédei is alkalmasak arra, hogy meghatározzuk a beszélő ideológiai hovatartozását. A szövegbányászat területén jellemzően a wordfish és a wordscores módszert alkalmazzák erre a feladatra. Míg előbbi a felügyelet nélküli módszerek sorába tartozik, utóbbi felügyelt módszerek közé. A wordscores a szótári módszerekhez hasonlóan a szövegeket a bennük található szavak alapján helyezi el a politikai térben oly módon, hogy az ún. referenciadokumentumok szövegét használja tanító halmazként. A wordscores kiindulópontja, hogy pozíció pontszámokat kell rendelni referencia szövegekhez. A modell számításba veszi a szövegek szavainak súlyozott gyakoriságát és a pozíciópontszám, valamint a szógyakoriság alapján becsüli meg a korpuszban lévő többi dokumentum pozícióját [@laver2003extracting]. 
+A politikatudomány egyik izgalmas kérdése a szereplők ideológiai, vagy közpolitikai skálákon való elhelyezése. Ezt jellemzően pártprogramok vagy különböző ügyekkel kapcsolatos álláspontpontok alapján szokták meghatározni, de a politikusok beszédei is alkalmasak arra, hogy meghatározzuk a beszélő ideológiai hovatartozását. A szövegbányászat területén jellemzően a wordfish és a wordscores módszert alkalmazzák erre a feladatra. Míg előbbi a felügyelet nélküli módszerek sorába tartozik, utóbbi felügyelt módszerek közé. A wordscores a szótári módszerekhez hasonlóan a szövegeket a bennük található szavak alapján helyezi el a politikai térben oly módon, hogy az ún. referenciadokumentumok szövegét használja tanító halmazként. A wordscores kiindulópontja, hogy pozíció pontszámokat kell rendelni referencia szövegekhez. A modell számításba veszi a szövegek szavainak súlyozott gyakoriságát és a pozíciópontszám, valamint a szógyakoriság alapján becsüli meg a korpuszban lévő többi dokumentum pozícióját [@laver2003extracting]
 
-
-A felügyelet nélküli `wordfish` módszer a skálázás során nem a referencia dokumentumokra támaszkodik, hanem olyan kifejezéseket keres a szövegben, amelyek megkülönböztetik egymástól a politikai spektrum különböző pontjain elhelyezkedő beszélőket. Az IRT-n (*item response theory*) alapuló módszer azt feltételezi, hogy a politikusok egy kevés dimenziós politikai térben mozognak, amely tér leírható az *i* politikus $\theta_1$ paraméterével. Egy politikus (vagy párt) ebben a térben elfoglalt helyzete pedig befolyásolja a szavak szövegekben történő használatát. A módszer erőssége, hogy kevés erőforrás-befektetéssel megbízható becsléseket ad, ha a szövegek valóban az ideológiák mentén különböznek, tehát ha a szereplők erősen ideológiai tartalamú diskurzust folytatnak. Alkalmazásakor azonban tudnunk kell: a módszer nem képes kezelni, hogy a szövegek között nem csak ideológiai különbség lehet. Mivel a modell nem felügyelt, ezért nehéz garantálni, hogy valóban megbízhatóan azonosítja a szereplők elhelyezkedését a politikai térben, így az eredményeket mindenképpen körültekintően kell validálni [@slapinScalingModelEstimating2008;@hjorthComputersCodersVoters2015;@grimmer2013text].
+A felügyelet nélküli `wordfish` módszer a skálázás során nem a referencia dokumentumokra támaszkodik, hanem olyan kifejezéseket keres a szövegben, amelyek megkülönböztetik egymástól a politikai spektrum különböző pontjain elhelyezkedő beszélőket. Az IRT-n (*item response theory*) alapuló módszer azt feltételezi, hogy a politikusok egy kevés dimenziós politikai térben mozognak, amely tér leírható az *i* politikus $\theta_1$ paraméterével. Egy politikus (vagy párt) ebben a térben elfoglalt helyzete pedig befolyásolja a szavak szövegekben történő használatát. A módszer erőssége, hogy kevés erőforrás-befektetéssel megbízható becsléseket ad, ha a szövegek valóban az ideológiák mentén különböznek, tehát ha a szereplők erősen ideológiai tartalamú diskurzust folytatnak. Alkalmazásakor azonban tudnunk kell: a módszer nem képes kezelni, hogy a szövegek között nem csak ideológiai különbség lehet, hanem például stílusból és témából eredő eltérések is. Mivel a modell nem felügyelt, ezért nehéz garantálni, hogy valóban megbízhatóan azonosítja a szereplők elhelyezkedését a politikai térben, így az eredményeket mindenképpen körültekintően és alaposan kell validálni [@slapinScalingModelEstimating2008;@hjorthComputersCodersVoters2015;@grimmer2013text].
 
 ```{r}
 library(readr)
@@ -60,14 +59,87 @@ summary(beszedek_corpus)
 
 A leíró statisztikai táblázatban látszik, hogy a beszédek hosszúsága nem egységes, a leghosszabb `r max(summary(beszedek_corpus)$Tokens)`, a legrövidebb pedig `r min(summary(beszedek_corpus)$Tokens)` szavas. Az átlagos dokumentum hossz az `r round(mean(summary(beszedek_corpus)$Tokens))` szó. A korpusz szemléltető célú, alaposabb elemzéshez hosszabb és/vagy több dokumentummal érdemes dolgoznunk.
 
-A korpusz létrehozása után elkészítjük a dfm mátrixot, amelyből eltávolítjuk a magyar stopszvakat a `quanteda` beépített szótára segítségével.
+A korpusz létrehozása után elkészítjük a dfm mátrixot, amelyből eltávolítjuk a magyar stopszvakat a `HunMineR` beépített szótára segítségével.
 
 ```{r}
+stopszavak <- HunMineR::data_stopwords_extra
+
 beszedek_dfm <- beszedek_corpus %>% 
   tokens() %>% 
-  tokens_remove(stopwords("hungarian")) %>% 
+  tokens_remove(stopszavak) %>% 
   dfm()
 ```
+
+## Wordscores
+
+A modell illesztést a wordfish-hez hasonlóan a `quanteda.textmodels` csomagban található `textmodel_wordscores()` függvény végzi. A kiinduló dfm ugyanaz, mint amit a fejezet elején elkészítettünk, a `beszedek_dfm`.
+
+A referencia pontokat dokumentumváltozóként hozzáadjuk a dfm-hez (a `refrencia_pont` oszlopot, ami `NA` értéket kap alapértelmezetten). A kiválasztott referencia dokumentumoknál pedig egyenként hozzáadjuk az értékeket. Erre több megoldás is van, az egyszerűbb út, hogy az egyik és a másik végletet a `-1; 1` intervallummal jelöljük. Ennek a lehetséges alternatívája, hogy egy külső, már validált forrást használunk. Pártok esetén ilyen lehet a Chapel Hill szakértői kérdőívének a pontszámai, a Manifesto projekt által kódolt jobb-bal (*rile*) dimenzió. A lenti példánál mi maradunk az egyszerűbb bináris kódolásnál (ld. \@ref(fig:partbanpoz). ábra). A wordfish eredményt alapul véve a két referencia pont Gulyás Gergely és Szél Bernadett beszédei lesznek.[^skala-3] Ezek a 3. és a 10. dokumentumok. Miután a referencia pontokat hozzárendeltünk az adattáblához szintén a `docvars` funkcióval meg is tekinthetjük azt és láthatjuk, hogy a referenci_pont már a metaadatok között szerepel.
+
+[^skala-3]: Azért nem Vona Gábor beszédét választottuk, mert az gyaníthatóan egy kiugró érték, ami nem reprezentálja megfelelően a sokaságot.
+
+```{r}
+docvars(beszedek_dfm, "referencia_pont") <- NA
+docvars(beszedek_dfm, "referencia_pont")[3] <- -1
+docvars(beszedek_dfm, "referencia_pont")[10] <- 1
+
+docvars(beszedek_dfm)
+```
+
+A lenti wordscores-modell specifikáció követi a @laver2003extracting tanulmányban leírtakat.
+
+```{r}
+beszedek_ws <- textmodel_wordscores(
+  x = beszedek_dfm,
+  y = docvars(beszedek_dfm, "referencia_pont"),
+  scale = "linear",
+  smooth = 0
+  )
+
+summary(beszedek_ws, 10)
+```
+
+Az illesztett wordscores modellünkkel ezek után már meg tudjuk becsülni a korpuszban lévő többi dokumentum pozícióját. Ehhez a `predict()` függvény megoldását használjuk. A kiegészítő opciókkal a konfidencia intervallum alsó és felső határát is meg tudjuk becsülni, ami jól jön akkor, ha szeretnénk ábrázolni az eredményt.
+
+```{r}
+beszedek_ws_pred <- predict(
+  beszedek_ws, 
+  newdata = beszedek_dfm,
+  interval = "confidence")
+
+beszedek_ws_pred <- as.data.frame(beszedek_ws_pred$fit)
+
+beszedek_ws_pred
+```
+
+A kapott modellünket a wordfish-hez hasonlóan tudjuk ábrázolni, miután a `beszedek_ws_pred` objektumból adattáblát csinálunk és a `ggplot2`-vel elkészítjük a vizualizációt. A `dokumentumok_ws` két részből áll össze. Először a wordscores modell objektumunkból a frakcióvezetők neveit és pártjaikat emeljük ki (kicsit körülményes a dolog, mert egy komplexebb objektumban tárolja őket a `quanteda`, de az `str()` függvény tud segíteni ilyen esetekben). A dokumentumok becsült pontszámait pedig a `beszedek_ws_pred` objektumból készített data frame hozzácsatolásával adjuk hozzá a már elkészült data frame-hez. Ehhez a `dplyr` csomag `bind_cols` függvényét használjuk. Fontos, hogy itt teljesen biztosnak kell lennünk abban, hogy a sorok a két data frame esetében ugyanarra a dokumentumra vonatkoznak.
+
+```{r}
+dokumentumok_ws <- data.frame(
+  speaker = beszedek_ws$x@docvars$felszolalo,
+  part = beszedek_ws$x@docvars$part
+)
+
+dokumentumok_ws <- bind_cols(dokumentumok_ws, beszedek_ws_pred)
+
+dokumentumok_ws
+```
+
+A 9.4-es ábrán a párton belüli bontást illusztráljuk a `facet_wrap()` segítségével.
+
+```{r eval = TRUE, fig.height = 2, fig.cap="A párton belüli wordscores-alapú skála"}
+party_df <- ggplot(dokumentumok_ws, aes(fit, reorder(speaker, fit))) +
+  geom_point() +
+  geom_errorbarh(aes(xmin = lwr, xmax = upr), height = 0) +
+  labs(
+    y = NULL,
+    x = "wordscores"
+  ) +
+  facet_wrap(~part, ncol = 1, scales = "free_y")
+
+ggplotly(party_df, height = 1000, tooltip = "fit")
+```
+
 
 ## Wordfish
 
@@ -159,74 +231,4 @@ speech_df <- ggplot(dokumentumok_wf, aes(theta, reorder(speaker, theta))) +
   facet_wrap(~part, ncol = 1, scales = "free_y") 
 
 ggplotly(speech_df, height = 1000, tooltip = "theta")
-```
-
-## Wordscores
-
-A modell illesztést a wordfish-hez hasonlóan a `quanteda.textmodels` csomagban található `textmodel_wordscores()` függvény végzi. A kiinduló dfm ugyanaz, mint amit a fejezet elején elkészítettünk, a `beszedek_dfm`.
-
-A referencia pontokat dokumentumváltozóként hozzáadjuk a dfm-hez (a `refrencia_pont` oszlopot, ami `NA` értéket kap alapértelmezetten). A kiválasztott referencia dokumentumoknál pedig egyenként hozzáadjuk az értékeket. Erre több megoldás is van, az egyszerűbb út, hogy az egyik és a másik végletet a `-1; 1` intervallummal jelöljük. Ennek a lehetséges alternatívája, hogy egy külső, már validált forrást használunk. Pártok esetén ilyen lehet a Chapel Hill szakértői kérdőívének a pontszámai, a Manifesto projekt által kódolt jobb-bal (*rile*) dimenzió. A lenti példánál mi maradunk az egyszerűbb bináris kódolásnál (ld. \@ref(fig:partbanpoz). ábra). A wordfish eredményt alapul véve a két referencia pont Gulyás Gergely és Szél Bernadett beszédei lesznek.[^skala-3] Ezek a 3. és a 10. dokumentumok. Miután a referencia pontokat hozzárendeltünk az adattáblához szintén a `docvars` funkcióval meg is tekinthetjük azt és láthatjuk, hogy a referenci_pont már a metaadatok között szerepel.
-
-[^skala-3]: Azért nem Vona Gábor beszédét választottuk, mert az gyaníthatóan egy kiugró érték, ami nem reprezentálja megfelelően a sokaságot.
-
-```{r}
-docvars(beszedek_dfm, "referencia_pont") <- NA
-docvars(beszedek_dfm, "referencia_pont")[3] <- -1
-docvars(beszedek_dfm, "referencia_pont")[10] <- 1
-
-docvars(beszedek_dfm)
-```
-
-A lenti wordscores-modell specifikáció követi a @laver2003extracting tanulmányban leírtakat.
-
-```{r}
-beszedek_ws <- textmodel_wordscores(
-  x = beszedek_dfm,
-  y = docvars(beszedek_dfm, "referencia_pont"),
-  scale = "linear",
-  smooth = 0
-  )
-
-summary(beszedek_ws, 10)
-```
-
-Az illesztett wordscores modellünkkel ezek után már meg tudjuk becsülni a korpuszban lévő többi dokumentum pozícióját. Ehhez a `predict()` függvény megoldását használjuk. A kiegészítő opciókkal a konfidencia intervallum alsó és felső határát is meg tudjuk becsülni, ami jól jön akkor, ha szeretnénk ábrázolni az eredményt.
-
-```{r}
-beszedek_ws_pred <- predict(
-  beszedek_ws, 
-  newdata = beszedek_dfm,
-  interval = "confidence")
-
-beszedek_ws_pred <- as.data.frame(beszedek_ws_pred$fit)
-
-beszedek_ws_pred
-```
-
-A kapott modellünket a wordfish-hez hasonlóan tudjuk ábrázolni, miután a `beszedek_ws_pred` objektumból adattáblát csinálunk és a `ggplot2`-vel elkészítjük a vizualizációt. A `dokumentumok_ws` két részből áll össze. Először a wordscores modell objektumunkból a frakcióvezetők neveit és pártjaikat emeljük ki (kicsit körülményes a dolog, mert egy komplexebb objektumban tárolja őket a `quanteda`, de az `str()` függvény tud segíteni ilyen esetekben). A dokumentumok becsült pontszámait pedig a `beszedek_ws_pred` objektumból készített data frame hozzácsatolásával adjuk hozzá a már elkészült data frame-hez. Ehhez a `dplyr` csomag `bind_cols` függvényét használjuk. Fontos, hogy itt teljesen biztosnak kell lennünk abban, hogy a sorok a két data frame esetében ugyanarra a dokumentumra vonatkoznak.
-
-```{r}
-dokumentumok_ws <- data.frame(
-  speaker = beszedek_ws$x@docvars$felszolalo,
-  part = beszedek_ws$x@docvars$part
-)
-
-dokumentumok_ws <- bind_cols(dokumentumok_ws, beszedek_ws_pred)
-
-dokumentumok_ws
-```
-
-A 9.4-es ábrán a párton belüli bontást illusztráljuk a `facet_wrap()` segítségével.
-
-```{r eval = TRUE, fig.height = 2, fig.cap="A párton belüli wordscores-alapú skála"}
-party_df <- ggplot(dokumentumok_ws, aes(fit, reorder(speaker, fit))) +
-  geom_point() +
-  geom_errorbarh(aes(xmin = lwr, xmax = upr), height = 0) +
-  labs(
-    y = NULL,
-    x = "wordscores"
-  ) +
-  facet_wrap(~part, ncol = 1, scales = "free_y")
-
-ggplotly(party_df, height = 1000, tooltip = "fit")
 ```

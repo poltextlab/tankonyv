@@ -83,7 +83,7 @@ data(package = "HunMineR")
 ```
 
 
-## Egy gyakorlati példa az R programmal való szövegbányászatra {#handson}
+## Egy bevezető példa {#handson}
 
 A következőkben egy példát mutatunk be a szövegbányászat gyakorlati alkalmazására vonatkozóan, amely során Ady Endre és Petőfi Sándor összes verseinek szóhasználatát hasonlítjuk össze, az eredményekhez pedig szemléletes ábrázolást is készítünk. A jelen példában alkalmazott eljárásokat a későbbi fejezetekben részletesen is kifejtjük itt csupán szemléltetni kívánjuk velük, hogy milyen jellegű elemzéseket sajátíthat majd el az olvasó a könyv segítségével.
 
@@ -91,23 +91,25 @@ A következőkben egy példát mutatunk be a szövegbányászat gyakorlati alkal
  
 ```{r, eval=FALSE}
 install.packages("readtext")
+install.packages("readr")
 install.packages("quanteda")
 install.packages("quanteda.textstats")
 install.packages("quanteda.textplots")
 install.packages("ggplot2")
+install.packages("dplyr")
 ```
 
 A `library()` paranccsal pedig betölteni tudjuk a már telepített csomagjainkat, ezt minden alkalommal el kell, hogy végezzük, hogyha ezek egy funkcióját kívánjuk használni. Itt láthatjuk, hogy a két csomag után a HunMineR betöltése is szükséges, viszont annak ellenére, hogy ugyanazzal a funkcióval hívjuk elő a HunMiner nem egy csomag, hanem egy `repository` (adattár) így a telepítése egy eltérő eljárással zajlik az előző alfejezetben leírtaknak megfelelően.
 
-```{r include = TRUE}
+```{r}
 library(readtext)
 library(readr)
 library(quanteda)
 library(quanteda.textstats)
 library(quanteda.textplots)
 library(ggplot2)
-library(HunMineR)
 library(dplyr)
+library(HunMineR)
 ```
 
 Ezt követően betöltjük a szükséges adatokat, jelen esetben a HunMiner adattárából.
@@ -118,7 +120,7 @@ ady <- HunMineR::data_ady
 petofi <- HunMineR::data_petofi
 ```
 
-Ahhoz, hogy adatokat használni tudjunk azokon először mindig úgynevezett tisztítási folyamatokat kell elvégeznünk, valamint át kell alakítanunk az adataink formátumát is. Az úgynevezett szövegtisztítási folyamatok a szövegeink előkészítését jelentik, ha kihagyjuk őket vagy nem végezzük el őket kellő alapossággal, akkor az eredményeink félrevezetőek lesznek. Az R-rel való kódolás során többféle formátumban is  tárolhatjuk az adatainkat, illetve az adataink egyik formátumból másikba való átalakítására is van lehetőségünk. Az egyes formátumok az adatokat különböző elrendezésben tárolják, azért van szükségünk gyakran az adataink átalakítására, mivel az R-n belüli funkciókat, amelyekre szükségünk lesz csak specifikus formátumokon hajthatjuk végre.
+A betöltött adattáblák megjelennek az Rstudio environemnt fülében, ahol azt is láthatjuk, hogy 619 megfigyelésünk vagyis versünk van a Petőfi táblában, Ady esetében pedig 1309. Ahhoz, hogy adatokat használni tudjunk azokon először mindig úgynevezett tisztítási folyamatokat kell elvégeznünk, valamint át kell alakítanunk az adataink formátumát is. Az úgynevezett szövegtisztítási folyamatok a szövegeink előkészítését jelentik, ha kihagyjuk őket vagy nem végezzük el őket kellő alapossággal, akkor az eredményeink félrevezetőek lesznek. Az R-rel való kódolás során többféle formátumban is  tárolhatjuk az adatainkat, illetve az adataink egyik formátumból másikba való átalakítására is van lehetőségünk. Az egyes formátumok az adatokat különböző elrendezésben tárolják, azért van szükségünk gyakran az adataink átalakítására, mivel az R-n belüli funkciókat, amelyekre szükségünk lesz csak specifikus formátumokon hajthatjuk végre.
 
 Első lépésként korpusz formátumba helyezzük az adatainkat, erre csupán azért van szükség mert a későbbiekben ebből a formátumból tudjuk majd őket, token formátumba helyezni. 
 
@@ -128,18 +130,22 @@ ady_corpus <- corpus(ady)
 petofi_corpus <- corpus(petofi)
 ```
 
-Ezt követően nem csak token formátumba helyezzük az adatokat a lenti kódsorokkal, hanem több szövegtisztító lépést is elvégzünk velük.  A `remove_punct` opció segítségével eltávolítjuk a mondatvégi írásjeleket, veszőket. A `tokens_tolower()` parancs segítségével minden szavunk betűjét kisbetűvé alakítjuk így a kódunk nem tesz különbséget ugyanazon szó két megjelenése között csupán azért, mert az egyik a mondat elején helyezkedik el. A `tokens_remove()` parancs segítségével egyes szavakat eltávolíthatunk két kódsorban is megjelenik ez a parancs, először a `quanteda` csomag magyar stopszó listájának elemeit távolítjuk el, majd másodjára általunk felsorolt kifejezések eltávolítására használjuk fel. Végül pedig a `tokens_wordstem()` parancs segítségével úgynevezett szótövezést hajtunk végre. Ez azt jelenti, hogy a szótövekről levágjuk a ragokat így például a házban és a házhoz kifejezések egységesen ház kifejezésként fognak megjelenni a vizsgálatunkban. 
+Ezt követően betölthetjük a HunMiner csomagból a stop szavainkat, ez egy szó lista, amelyet a szövegelőkészítés során elfogunk távolítani a korpuszból.
+
+```{r}
+stopszavak <- HunMineR::data_stopwords_extra
+```
+
+A corpus formátumban lévő szövegeket nem csak token formátumba helyezzük a lenti kódsorokkal, hanem több szövegtisztító lépést is elvégzünk velük.  A `remove_punct` funkció segítségével eltávolítjuk a mondatvégi írásjeleket, veszőket. A `tokens_tolower()` parancs segítségével minden szavunk betűjét kisbetűvé alakítjuk így a kódunk nem tesz különbséget ugyanazon szó két alternatív megjelenése között csupán azért, mert az egyik a mondat elején helyezkedik el. Végül pedig a `tokens_remove()` parancs segítségével eltávolíthatjuk a korábban betöltött stopszavakat a szövegeinkből.
 
 ```{r}
 ady_tok <- tokens(ady_corpus, remove_punct = TRUE) %>% 
   tokens_tolower() %>% 
-  tokens_remove(stopwords("hungarian")) %>% 
-  tokens_remove (c("is", "ha", "te", "föl", "kis", "előtt", "oli", "ő", "a", "txt", "se"))
+  tokens_remove(stopszavak)
 
 petofi_tok <- tokens(petofi_corpus, remove_punct = TRUE) %>%
   tokens_tolower() %>% 
-  tokens_remove(stopwords("hungarian")) %>% 
-  tokens_remove (c("is", "ha", "te", "a", "txt", "se"))
+  tokens_remove(stopszavak)
 ```
 
 Ezt követően a token formátumban lévő adatainkat dfm formátumba helyezzük. 
@@ -163,18 +169,54 @@ Végül pedig az R programon belül ábrázolhatjuk is az eredményeinket. Jelen
 A Petőfi versekből készült szófelhő:
 
 ```{r, fig.cap="Petőfi szófelhő"}
-textplot_wordcloud(petofi_dfm, min_count = 50, color = "red")
+textplot_wordcloud(petofi_dfm, min_count = 25, color = "red")
 ```
-
 
 Az Ady versekből készült szófelhő:
 
 ```{r, fig.cap="Ady szófelhő"}
-textplot_wordcloud(ady_dfm, min_count = 50, color = "orange")
+textplot_wordcloud(ady_dfm, min_count = 25, color = "orange")
 ```
 
+Az így kapott ábrákon az Ady és Petőfi versek szavait láthatjuk egy úgynevezett szófelhőben összegyűjtve. Annál nagyobb méretben jelenít meg az ábránk egy kifejezést, minél gyakrabban fordul az elő a szövegünkben, amely jelen esetben a két költő összes verse. A két szófelhőn látszódik, hogy jelentős az átfedés a felhasznált szavakkal, úgyhogy a folyamatot megismételhetjük, azzal a kiegészítéssel, hogy a szófelhő létrehozása előtt eltávolíjuk mindazokat a szavakat, amelyek jelen vannak a másik korpuszban, így jobban láthatjuk, hogy mely kifejezések különböztetik meg a költőket. Ehhez először kigyűjtjük a `featnames()` funkció segítségével a két dfm egyegedi szavait.
 
-Az így kapott ábrákon az Ady és Petőfi versek szavait láthatjuk egy úgynevezett szófelhőben összegyűjtve. Annál nagyobb méretben jelenít meg az ábránk egy kifejezést, minél gyakrabban fordul az elő a szövegünkben, amely jelen esetben a két költő összes verse. Ugyan a szófelhő nem egy statisztikai számítás, amely alapján következtetéseket vonhatnánk le a vizsgált szövegekről, de egy hasznos és látványos ábrázolási módszer, illetve jelen esetben jól példázza az R egy jelentős előnyét, hogy a segítségével az eredményeinket gyorsan és egyszerűen tudjuk ábrázolni.
+```{r}
+ady_szavak <- featnames(ady_dfm)
+
+petofi_szavak <- featnames(petofi_dfm)
+```
+
+Ezt követően pedig megismételjük a korábbi előkészítő műveleteket azzal a kiegészítéssel, hogy eltávolítjuk az előbb létrehozott két szólistát is.
+
+```{r}
+ady_tok <- tokens(ady_corpus, remove_punct = TRUE) %>% 
+  tokens_tolower() %>% 
+  tokens_remove(stopszavak) %>% 
+  tokens_remove(petofi_szavak)
+
+petofi_tok <- tokens(petofi_corpus, remove_punct = TRUE) %>%
+  tokens_tolower() %>% 
+  tokens_remove(stopszavak) %>% 
+  tokens_remove(ady_szavak)
+
+ady_dfm <- dfm(ady_tok) %>% 
+  dfm_trim(min_termfreq = 25)
+
+petofi_dfm <- dfm(petofi_tok) %>% 
+  dfm_trim(min_termfreq = 25)
+```
+
+Ha ezzel végeztünk, akkor ismét létrehozhatjuk a két szófelhőnket.
+
+```{r, fig.cap="Petőfi szófelhő"}
+textplot_wordcloud(petofi_dfm, min_count = 25, color = "red")
+```
+
+```{r, fig.cap="Ady szófelhő"}
+textplot_wordcloud(ady_dfm, min_count = 25, color = "orange")
+```
+
+Ugyan a szófelhő nem egy statisztikai számítás, amely alapján következtetéseket vonhatnánk le a vizsgált szövegekről, de egy hasznos és látványos ábrázolási módszer, illetve jelen esetben jól példázza az R egy jelentős előnyét, hogy a segítségével az eredményeinket gyorsan és egyszerűen tudjuk ábrázolni.
 
 ## Köszönetnyilvánítás
 
