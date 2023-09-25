@@ -4,7 +4,7 @@ language:
     fig: 'Ábra '
     tab: 'Táblázat '
 rmd_files: [
-   "index.Rmd", 
+  "index.Rmd",
   "01_bevezetes.Rmd",
   "02_kulcsfogalmak.Rmd",
   "03_adatkezeles.Rmd",
