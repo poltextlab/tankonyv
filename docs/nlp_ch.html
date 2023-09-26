@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>11 NLP és névelemfelismerés | Szövegbányászat és mesterséges intelligencia R-ben</title>
   <meta name="description" content="11 NLP és névelemfelismerés | Szövegbányászat és mesterséges intelligencia R-ben" />
-  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
   <meta property="og:title" content="11 NLP és névelemfelismerés | Szövegbányászat és mesterséges intelligencia R-ben" />
   <meta property="og:type" content="book" />
@@ -55,7 +55,7 @@
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.10.1/plotly.js"></script>
+<script src="libs/plotly-binding-4.10.2/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
@@ -337,8 +337,7 @@ Névelemnek azokat a tokensorozatokat nevezzük, amelyek valamely entitást egye
 <p>A <code>spaCy</code> használatához <code>Python</code> környezet szükséges, az első használat előtt telepíteni kell a számítógépünkre egy <code>Anaconda</code> alkalmazást: <a href="https://www.anaconda.com/" class="uri">https://www.anaconda.com/</a>. Majd az <code>RStudio/Tools/Global Options</code> menüjében be kell állítanunk a <code>Pyton</code> interpretert, azaz meg kell adnunk, hogy a gépünkön hol található a feltelepített <code>Anaconda</code>. Ezt csak az első használat előtt kell megtennünk, a későbbiekben innen folytathatjuk a modell betöltését.</p>
 <p>Ezt követően a már megszokott módon installálnunk kell a <code>reticulate</code> és a <code>spacyr</code> <a href="#fn55" class="footnote-ref" id="fnref55"><sup>55</sup></a> csomagot és telepítenünk a magyar nyelvi modellt. A Pythonban készült <code>spacy</code>-t a <code>spacyr::spacy_install()</code> paranccsal kell telepíteni. A következő lépésben létre kell hoznunk egy <code>conda</code> környezetet, és a <code>huggingface</code>-ről be kell töltenünk a magyar modellt.</p>
 <div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="nlp_ch.html#cb223-1" tabindex="-1"></a><span class="fu">conda_install</span>(<span class="at">envname =</span> <span class="st">&quot;spacyr&quot;</span>, <span class="st">&quot;https://huggingface.co/huspacy/hu_core_news_lg/resolve/v3.5.2/hu_core_news_lg-any-py3-none-any.whl&quot;</span> , <span class="at">pip =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="nlp_ch.html#cb224-1" tabindex="-1"></a><span class="fu">spacy_initialize</span>(<span class="at">model =</span> <span class="st">&quot;hu_core_news_lg&quot;</span>, <span class="at">condaenv=</span><span class="st">&quot;spacyr&quot;</span>)</span>
-<span id="cb224-2"><a href="nlp_ch.html#cb224-2" tabindex="-1"></a><span class="co">#&gt; NULL</span></span></code></pre></div>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="nlp_ch.html#cb224-1" tabindex="-1"></a><span class="fu">spacy_initialize</span>(<span class="at">model =</span> <span class="st">&quot;hu_core_news_lg&quot;</span>, <span class="at">condaenv=</span><span class="st">&quot;spacyr&quot;</span>)</span></code></pre></div>
 <div id="lemmatizálás-tokenizálás-szófaji-egyértelműsítés" class="section level3 hasAnchor" number="11.2.1">
 <h3><span class="header-section-number">11.2.1</span> Lemmatizálás, tokenizálás, szófaji egyértelműsítés<a href="nlp_ch.html#lemmatizálás-tokenizálás-szófaji-egyértelműsítés" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Ezután a <code>spacy_parse()</code> függvény segítségével lehetőségünk van a szövegek tokenizálására, szótári alakra hozására (lemmatizálására) és szófaji egyértelműsítésére.</p>
@@ -408,28 +407,28 @@ Névelemnek azokat a tokensorozatokat nevezzük, amelyek valamely entitást egye
 <span id="cb227-5"><a href="nlp_ch.html#cb227-5" tabindex="-1"></a>parsedtxt_2</span>
 <span id="cb227-6"><a href="nlp_ch.html#cb227-6" tabindex="-1"></a><span class="co">#&gt; # A tibble: 21 × 3</span></span>
 <span id="cb227-7"><a href="nlp_ch.html#cb227-7" tabindex="-1"></a><span class="co">#&gt; # Groups:   doc_id [2]</span></span>
-<span id="cb227-8"><a href="nlp_ch.html#cb227-8" tabindex="-1"></a><span class="co">#&gt;   doc_id lemma      text                                                  </span></span>
-<span id="cb227-9"><a href="nlp_ch.html#cb227-9" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;      &lt;chr&gt;                                                 </span></span>
-<span id="cb227-10"><a href="nlp_ch.html#cb227-10" tabindex="-1"></a><span class="co">#&gt; 1 d1     Budapest   Budapest;süt;a;nap;.                                  </span></span>
-<span id="cb227-11"><a href="nlp_ch.html#cb227-11" tabindex="-1"></a><span class="co">#&gt; 2 d1     süt        Budapest;süt;a;nap;.                                  </span></span>
-<span id="cb227-12"><a href="nlp_ch.html#cb227-12" tabindex="-1"></a><span class="co">#&gt; 3 d1     a          Budapest;süt;a;nap;.                                  </span></span>
-<span id="cb227-13"><a href="nlp_ch.html#cb227-13" tabindex="-1"></a><span class="co">#&gt; 4 d1     nap        Budapest;süt;a;nap;.                                  </span></span>
-<span id="cb227-14"><a href="nlp_ch.html#cb227-14" tabindex="-1"></a><span class="co">#&gt; 5 d1     .          Budapest;süt;a;nap;.                                  </span></span>
-<span id="cb227-15"><a href="nlp_ch.html#cb227-15" tabindex="-1"></a><span class="co">#&gt; 6 d2     tájékoztat tájékoztat;ön;,;hogy;az;ülés;vezetés;Hegedűs;Lorántné…</span></span>
+<span id="cb227-8"><a href="nlp_ch.html#cb227-8" tabindex="-1"></a><span class="co">#&gt;   doc_id lemma      text                                                                                       </span></span>
+<span id="cb227-9"><a href="nlp_ch.html#cb227-9" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;      &lt;chr&gt;                                                                                      </span></span>
+<span id="cb227-10"><a href="nlp_ch.html#cb227-10" tabindex="-1"></a><span class="co">#&gt; 1 d1     Budapest   Budapest;süt;a;nap;.                                                                       </span></span>
+<span id="cb227-11"><a href="nlp_ch.html#cb227-11" tabindex="-1"></a><span class="co">#&gt; 2 d1     süt        Budapest;süt;a;nap;.                                                                       </span></span>
+<span id="cb227-12"><a href="nlp_ch.html#cb227-12" tabindex="-1"></a><span class="co">#&gt; 3 d1     a          Budapest;süt;a;nap;.                                                                       </span></span>
+<span id="cb227-13"><a href="nlp_ch.html#cb227-13" tabindex="-1"></a><span class="co">#&gt; 4 d1     nap        Budapest;süt;a;nap;.                                                                       </span></span>
+<span id="cb227-14"><a href="nlp_ch.html#cb227-14" tabindex="-1"></a><span class="co">#&gt; 5 d1     .          Budapest;süt;a;nap;.                                                                       </span></span>
+<span id="cb227-15"><a href="nlp_ch.html#cb227-15" tabindex="-1"></a><span class="co">#&gt; 6 d2     tájékoztat tájékoztat;ön;,;hogy;az;ülés;vezetés;Hegedűs;Lorántné;és;Szűcs;Lajos;jegyző;lesz;segítség;.</span></span>
 <span id="cb227-16"><a href="nlp_ch.html#cb227-16" tabindex="-1"></a><span class="co">#&gt; # ℹ 15 more rows</span></span></code></pre></div>
 <p>Mivel az eredeti táblában minden lemma az eredeti az azt tartalmazó dokumentum id-jét kapta meg, az így létrehozott táblánkban a szövegek annyiszor ismétlődnek, ahány lemmából álltak. Ezért egy következő lépésben ki kell törtölnünk a feleslegesen ismétlődő sorokat. Ehhez először töröljük a <code>lemma</code> oszlopot, hogy a sorok tökéletesen egyezzenek.</p>
 <div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="nlp_ch.html#cb228-1" tabindex="-1"></a>parsedtxt_2<span class="sc">$</span>lemma <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
 <span id="cb228-2"><a href="nlp_ch.html#cb228-2" tabindex="-1"></a>parsedtxt_2</span>
 <span id="cb228-3"><a href="nlp_ch.html#cb228-3" tabindex="-1"></a><span class="co">#&gt; # A tibble: 21 × 2</span></span>
 <span id="cb228-4"><a href="nlp_ch.html#cb228-4" tabindex="-1"></a><span class="co">#&gt; # Groups:   doc_id [2]</span></span>
-<span id="cb228-5"><a href="nlp_ch.html#cb228-5" tabindex="-1"></a><span class="co">#&gt;   doc_id text                                                             </span></span>
-<span id="cb228-6"><a href="nlp_ch.html#cb228-6" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;                                                            </span></span>
-<span id="cb228-7"><a href="nlp_ch.html#cb228-7" tabindex="-1"></a><span class="co">#&gt; 1 d1     Budapest;süt;a;nap;.                                             </span></span>
-<span id="cb228-8"><a href="nlp_ch.html#cb228-8" tabindex="-1"></a><span class="co">#&gt; 2 d1     Budapest;süt;a;nap;.                                             </span></span>
-<span id="cb228-9"><a href="nlp_ch.html#cb228-9" tabindex="-1"></a><span class="co">#&gt; 3 d1     Budapest;süt;a;nap;.                                             </span></span>
-<span id="cb228-10"><a href="nlp_ch.html#cb228-10" tabindex="-1"></a><span class="co">#&gt; 4 d1     Budapest;süt;a;nap;.                                             </span></span>
-<span id="cb228-11"><a href="nlp_ch.html#cb228-11" tabindex="-1"></a><span class="co">#&gt; 5 d1     Budapest;süt;a;nap;.                                             </span></span>
-<span id="cb228-12"><a href="nlp_ch.html#cb228-12" tabindex="-1"></a><span class="co">#&gt; 6 d2     tájékoztat;ön;,;hogy;az;ülés;vezetés;Hegedűs;Lorántné;és;Szűcs;L…</span></span>
+<span id="cb228-5"><a href="nlp_ch.html#cb228-5" tabindex="-1"></a><span class="co">#&gt;   doc_id text                                                                                       </span></span>
+<span id="cb228-6"><a href="nlp_ch.html#cb228-6" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;                                                                                      </span></span>
+<span id="cb228-7"><a href="nlp_ch.html#cb228-7" tabindex="-1"></a><span class="co">#&gt; 1 d1     Budapest;süt;a;nap;.                                                                       </span></span>
+<span id="cb228-8"><a href="nlp_ch.html#cb228-8" tabindex="-1"></a><span class="co">#&gt; 2 d1     Budapest;süt;a;nap;.                                                                       </span></span>
+<span id="cb228-9"><a href="nlp_ch.html#cb228-9" tabindex="-1"></a><span class="co">#&gt; 3 d1     Budapest;süt;a;nap;.                                                                       </span></span>
+<span id="cb228-10"><a href="nlp_ch.html#cb228-10" tabindex="-1"></a><span class="co">#&gt; 4 d1     Budapest;süt;a;nap;.                                                                       </span></span>
+<span id="cb228-11"><a href="nlp_ch.html#cb228-11" tabindex="-1"></a><span class="co">#&gt; 5 d1     Budapest;süt;a;nap;.                                                                       </span></span>
+<span id="cb228-12"><a href="nlp_ch.html#cb228-12" tabindex="-1"></a><span class="co">#&gt; 6 d2     tájékoztat;ön;,;hogy;az;ülés;vezetés;Hegedűs;Lorántné;és;Szűcs;Lajos;jegyző;lesz;segítség;.</span></span>
 <span id="cb228-13"><a href="nlp_ch.html#cb228-13" tabindex="-1"></a><span class="co">#&gt; # ℹ 15 more rows</span></span></code></pre></div>
 <p>Majd a következő lépésben a <code>dplyr</code> csomag <code>distinct</code> függvénye segítségével - amely mindig csak egy-egy egyedi sort tart meg az adattáblában - kitöröljük a felesleges sorokat.</p>
 <div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="nlp_ch.html#cb229-1" tabindex="-1"></a></span>
@@ -438,10 +437,10 @@ Névelemnek azokat a tokensorozatokat nevezzük, amelyek valamely entitást egye
 <span id="cb229-4"><a href="nlp_ch.html#cb229-4" tabindex="-1"></a>parsedtxt_3</span>
 <span id="cb229-5"><a href="nlp_ch.html#cb229-5" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2 × 2</span></span>
 <span id="cb229-6"><a href="nlp_ch.html#cb229-6" tabindex="-1"></a><span class="co">#&gt; # Groups:   doc_id [2]</span></span>
-<span id="cb229-7"><a href="nlp_ch.html#cb229-7" tabindex="-1"></a><span class="co">#&gt;   doc_id text                                                             </span></span>
-<span id="cb229-8"><a href="nlp_ch.html#cb229-8" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;                                                            </span></span>
-<span id="cb229-9"><a href="nlp_ch.html#cb229-9" tabindex="-1"></a><span class="co">#&gt; 1 d1     Budapest;süt;a;nap;.                                             </span></span>
-<span id="cb229-10"><a href="nlp_ch.html#cb229-10" tabindex="-1"></a><span class="co">#&gt; 2 d2     tájékoztat;ön;,;hogy;az;ülés;vezetés;Hegedűs;Lorántné;és;Szűcs;L…</span></span></code></pre></div>
+<span id="cb229-7"><a href="nlp_ch.html#cb229-7" tabindex="-1"></a><span class="co">#&gt;   doc_id text                                                                                       </span></span>
+<span id="cb229-8"><a href="nlp_ch.html#cb229-8" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;                                                                                      </span></span>
+<span id="cb229-9"><a href="nlp_ch.html#cb229-9" tabindex="-1"></a><span class="co">#&gt; 1 d1     Budapest;süt;a;nap;.                                                                       </span></span>
+<span id="cb229-10"><a href="nlp_ch.html#cb229-10" tabindex="-1"></a><span class="co">#&gt; 2 d2     tájékoztat;ön;,;hogy;az;ülés;vezetés;Hegedűs;Lorántné;és;Szűcs;Lajos;jegyző;lesz;segítség;.</span></span></code></pre></div>
 <p>Az így létrejött adattáblában a <code>text</code> mezőben már nem az eredeti szöveg, hanem annak lemmái szerepelnek. Ha az adattáblát elmentjük, a lemmákon végezhetjük tovább az elemzéseket.</p>
 </div>
 <div id="saját-.txt-vagy-.csv-fájlokban-elmentett-szövegek-lemmatizálása" class="section level3 hasAnchor" number="11.2.2">
@@ -477,13 +476,13 @@ Névelemnek azokat a tokensorozatokat nevezzük, amelyek valamely entitást egye
 <span id="cb233-10"><a href="nlp_ch.html#cb233-10" tabindex="-1"></a><span class="fu">head</span>(parsed_df_3, <span class="dv">5</span>)</span>
 <span id="cb233-11"><a href="nlp_ch.html#cb233-11" tabindex="-1"></a><span class="co">#&gt; # A tibble: 5 × 2</span></span>
 <span id="cb233-12"><a href="nlp_ch.html#cb233-12" tabindex="-1"></a><span class="co">#&gt; # Groups:   doc_id [5]</span></span>
-<span id="cb233-13"><a href="nlp_ch.html#cb233-13" tabindex="-1"></a><span class="co">#&gt;   doc_id text                                                             </span></span>
-<span id="cb233-14"><a href="nlp_ch.html#cb233-14" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;                                                            </span></span>
-<span id="cb233-15"><a href="nlp_ch.html#cb233-15" tabindex="-1"></a><span class="co">#&gt; 1 text1  &quot;VONA GÁBOR ( Jobbik ): Tisztelt Elnök Úr ! tisztelt Országgyűlé…</span></span>
-<span id="cb233-16"><a href="nlp_ch.html#cb233-16" tabindex="-1"></a><span class="co">#&gt; 2 text2  &quot;dr. SCHIFFER ANDRÁS ( LMP ): Köszön a szó , elnök úr . tisztelt…</span></span>
-<span id="cb233-17"><a href="nlp_ch.html#cb233-17" tabindex="-1"></a><span class="co">#&gt; 3 text3  &quot;dr. SZÉL BERNADETT ( LMP ): Köszön a szó , elnök úr . tisztelt …</span></span>
-<span id="cb233-18"><a href="nlp_ch.html#cb233-18" tabindex="-1"></a><span class="co">#&gt; 4 text4  &quot;TÓBIÁS JÓZSEF ( MSZP ): Köszön a szó , elnök úr . tisztelt Ház …</span></span>
-<span id="cb233-19"><a href="nlp_ch.html#cb233-19" tabindex="-1"></a><span class="co">#&gt; 5 text5  &quot;SCHMUCK ERZSÉBET ( LMP ): Köszön a szó , elnök úr . tisztelt Or…</span></span></code></pre></div>
+<span id="cb233-13"><a href="nlp_ch.html#cb233-13" tabindex="-1"></a><span class="co">#&gt;   doc_id text                                                                                                                       </span></span>
+<span id="cb233-14"><a href="nlp_ch.html#cb233-14" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;                                                                                                                      </span></span>
+<span id="cb233-15"><a href="nlp_ch.html#cb233-15" tabindex="-1"></a><span class="co">#&gt; 1 text1  &quot;VONA GÁBOR ( Jobbik ): Tisztelt Elnök Úr ! tisztelt Országgyűlés ! a tegnapi nap 11 hely tart időközi önkormányzati válas…</span></span>
+<span id="cb233-16"><a href="nlp_ch.html#cb233-16" tabindex="-1"></a><span class="co">#&gt; 2 text2  &quot;dr. SCHIFFER ANDRÁS ( LMP ): Köszön a szó , elnök úr . tisztelt Országgyűlés ! múlt hét napvilág lát a hír , hogy az ille…</span></span>
+<span id="cb233-17"><a href="nlp_ch.html#cb233-17" tabindex="-1"></a><span class="co">#&gt; 3 text3  &quot;dr. SZÉL BERNADETT ( LMP ): Köszön a szó , elnök úr . tisztelt Államtitkár Úr ! van egy ország Európa , amely pusztító te…</span></span>
+<span id="cb233-18"><a href="nlp_ch.html#cb233-18" tabindex="-1"></a><span class="co">#&gt; 4 text4  &quot;TÓBIÁS JÓZSEF ( MSZP ): Köszön a szó , elnök úr . tisztelt Ház ! tisztelt Képviselőtárs ! az hisz , az mindannyi egyetért…</span></span>
+<span id="cb233-19"><a href="nlp_ch.html#cb233-19" tabindex="-1"></a><span class="co">#&gt; 5 text5  &quot;SCHMUCK ERZSÉBET ( LMP ): Köszön a szó , elnök úr . tisztelt Országgyűlés ! hét , hónap óta rágódik az ország a Magyar Ne…</span></span></code></pre></div>
 <p>A nagyobb fájlok lemmatizálásának eredményét célszerű elmenteni a kötetben ismert módok egyikén például <code>RDS</code> vagy <code>.csv</code> fájlba.</p>
 </div>
 <div id="névelemfelismerés-és-eredményeinek-vizualizálása" class="section level3 hasAnchor" number="11.2.3">

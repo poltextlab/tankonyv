@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>12 Osztályozás és felügyelt tanulás | Szövegbányászat és mesterséges intelligencia R-ben</title>
   <meta name="description" content="12 Osztályozás és felügyelt tanulás | Szövegbányászat és mesterséges intelligencia R-ben" />
-  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
   <meta property="og:title" content="12 Osztályozás és felügyelt tanulás | Szövegbányászat és mesterséges intelligencia R-ben" />
   <meta property="og:type" content="book" />
@@ -55,7 +55,7 @@
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.10.1/plotly.js"></script>
+<script src="libs/plotly-binding-4.10.2/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
@@ -352,7 +352,7 @@ div.csl-indent {
 <div id="osztályozás-felügyelt-tanulással" class="section level2 hasAnchor" number="12.2">
 <h2><span class="header-section-number">12.2</span> Osztályozás felügyelt tanulással<a href="felugyelt.html#osztályozás-felügyelt-tanulással" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Az alábbi fejezetben a CAP magyar média gyűjteményéből a napilap címlapokat tartalmazó modult használjuk.<a href="#fn57" class="footnote-ref" id="fnref57"><sup>57</sup></a> Az induló adatbázis 71875 cikk szövegét és metaadatait (összesen öt változót: sorszám, fájlnév, a közpolitikai osztály kódja, szöveg, illetve a korpusz forrása – <em>Magyar Nemzet</em> vagy <em>Népszabadság</em>) tartalmazza. Az a célunk, hogy az egyes cikkekhez kézzel, jó minőségben (két, egymástól függetlenül dolgozó kódoló által) kiosztott és egyeztetett közpolitikai kódokat – ez a tanítóhalmaz – arra használjuk, hogy meghatározzuk egy kiválasztott cikkcsoport hasonló kódjait. Az osztályozási feladathoz a CAP közpolitikai kódrendszerét használjuk, mely 21 közpolitikai kategóriát határoz meg az oktatástól az egészségügyön át a honvédelemig. <a href="#fn58" class="footnote-ref" id="fnref58"><sup>58</sup></a></p>
-<p>Annak érdekében, hogy egyértelműen értékelhessük a gépi tanulás hatékonyságát, a kiválasztott cikkcsoport (azaz a teszthalmaz) esetében is ismerjük a kézi kódolás eredményét („éles“ kutatási helyzetben, ismeretlen kódok esetében ugyanakkor ezt gyakran szintén csak egy kisebb mintán tudjuk kézzel validálni). További fontos lépés, hogy az észszerű futási idő érdekében a gyakorlat során a teljes adatbázisból – és ezen belül is csak a Népszabadság részhalmazból – fogunk venni egy 4500 darabos mintát. Ezen a mintán pedigg a már korábban említett kétféle modellt fogjuk futtatni a NB-t és az SVM-t. Az ezekkel a módszerekkel létrehozott két modellünk hatékonyságát fogjuk összehasonlítani, valamint azt is megfogjuk nézni, hogy az eredmények megbízhatósága mennyiben közelíti meg a kézikódolási módszerre jellemző 80-90%-os pontosságot.</p>
+<p>Annak érdekében, hogy egyértelműen értékelhessük a gépi tanulás hatékonyságát, a kiválasztott cikkcsoport (azaz a teszthalmaz) esetében is ismerjük a kézi kódolás eredményét („éles“ kutatási helyzetben, ismeretlen kódok esetében ugyanakkor ezt gyakran szintén csak egy kisebb mintán tudjuk kézzel validálni). További fontos lépés, hogy az észszerű futási idő érdekében a gyakorlat során a teljes adatbázisból – és ezen belül is csak a Népszabadság részhalmazból – fogunk venni egy 4500 darabos mintát. Ezen a mintán pedig a már korábban említett kétféle modellt fogjuk futtatni a NB-t és az SVM-t. Az ezekkel a módszerekkel létrehozott két modellünk hatékonyságát fogjuk összehasonlítani, valamint azt is megfogjuk nézni, hogy az eredmények megbízhatósága mennyiben közelíti meg a kézikódolási módszerre jellemző 80-90%-os pontosságot.</p>
 <p>Először behívjuk a szükséges csomagokat. Majd a felügyelet nélküli tanulással foglalkozó fejezethez hasonlóan itt is alkalmazzuk a <code>set.seed()</code> funkciót, mivel anélkül nem egyeznének az eredményeink teljes mértékben egy a kódunk egy késöbbi újrafuttatása esetén.</p>
 <div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="felugyelt.html#cb239-1" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
 <span id="cb239-2"><a href="felugyelt.html#cb239-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
@@ -367,12 +367,12 @@ div.csl-indent {
 <span id="cb240-2"><a href="felugyelt.html#cb240-2" tabindex="-1"></a><span class="fu">glimpse</span>(Data_NOL_MNO)</span>
 <span id="cb240-3"><a href="felugyelt.html#cb240-3" tabindex="-1"></a><span class="co">#&gt; Rows: 71,875</span></span>
 <span id="cb240-4"><a href="felugyelt.html#cb240-4" tabindex="-1"></a><span class="co">#&gt; Columns: 5</span></span>
-<span id="cb240-5"><a href="felugyelt.html#cb240-5" tabindex="-1"></a><span class="co">#&gt; $ row_number      &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 1…</span></span>
-<span id="cb240-6"><a href="felugyelt.html#cb240-6" tabindex="-1"></a><span class="co">#&gt; $ filename        &lt;chr&gt; &quot;nol_1990_01_02_01.txt&quot;, &quot;nol_1990_01_02_02.txt&quot;…</span></span>
-<span id="cb240-7"><a href="felugyelt.html#cb240-7" tabindex="-1"></a><span class="co">#&gt; $ majortopic_code &lt;dbl&gt; 19, 19, 19, 1, 1, 19, 19, 1, 1, 19, 19, 1, 19, 1…</span></span>
-<span id="cb240-8"><a href="felugyelt.html#cb240-8" tabindex="-1"></a><span class="co">#&gt; $ text            &lt;chr&gt; &quot;változás év választás év világ ünneplés köz kel…</span></span>
-<span id="cb240-9"><a href="felugyelt.html#cb240-9" tabindex="-1"></a><span class="co">#&gt; $ corpus          &lt;chr&gt; &quot;NOL&quot;, &quot;NOL&quot;, &quot;NOL&quot;, &quot;NOL&quot;, &quot;NOL&quot;, &quot;NOL&quot;, &quot;NOL&quot;,…</span></span></code></pre></div>
-<p>Majd pár kissebb átalakítást hajtunk végre az adatainkon. Először is ehhez a modellhez most csak a Népszabadság cikkeket fogjuk alkalmazni a Magyar Nemzet cikkeit kiszedjük az adataink közül. Ezután leegyszerűsítjük a kódolást. Összesen 21 témakört lefed a cikkek kézi kódolása most viszont ezekből egy bináris változót készítünk, amelynek 1 lesz az értéke, ha a cikk makrogazdaságról szól, ha pedig bármilyne más témakörről, akkor 0 lesz az értéke. A két fajta cikkből összesen 10000 db-os mintat veszunk, amelyben a két típus egyenlő arányban van jelen. A modellek pedig az ide történő besorolálst próbálják majd megállapítani a cikkek szövege alapján vagyis, hogy makrogazdasági témáról szól-e az adott cikk, vagy valamilyen más témáról. Majd kiválasztjuk a táblából a két változó, amelyekre szükségünk lesz a cikkek szövegét <code>text</code> és a cikkekhez kézzel hozzárendelt téműt <code>label</code> a többit pedig elvetjük.</p>
+<span id="cb240-5"><a href="felugyelt.html#cb240-5" tabindex="-1"></a><span class="co">#&gt; $ row_number      &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29,…</span></span>
+<span id="cb240-6"><a href="felugyelt.html#cb240-6" tabindex="-1"></a><span class="co">#&gt; $ filename        &lt;chr&gt; &quot;nol_1990_01_02_01.txt&quot;, &quot;nol_1990_01_02_02.txt&quot;, &quot;nol_1990_01_02_03.txt&quot;, &quot;nol_1990_01_02_04.txt&quot;, &quot;nol_1…</span></span>
+<span id="cb240-7"><a href="felugyelt.html#cb240-7" tabindex="-1"></a><span class="co">#&gt; $ majortopic_code &lt;dbl&gt; 19, 19, 19, 1, 1, 19, 19, 1, 1, 19, 19, 1, 19, 1, 19, 19, 17, 19, 33, 4, 19, 19, 19, 19, 19, 1, 19, 19, 5,…</span></span>
+<span id="cb240-8"><a href="felugyelt.html#cb240-8" tabindex="-1"></a><span class="co">#&gt; $ text            &lt;chr&gt; &quot;változás év választás év világ ünneplés köz keleteuróp figyel — kilencvenes évtiz szovjet—ameri közeledés…</span></span>
+<span id="cb240-9"><a href="felugyelt.html#cb240-9" tabindex="-1"></a><span class="co">#&gt; $ corpus          &lt;chr&gt; &quot;NOL&quot;, &quot;NOL&quot;, &quot;NOL&quot;, &quot;NOL&quot;, &quot;NOL&quot;, &quot;NOL&quot;, &quot;NOL&quot;, &quot;NOL&quot;, &quot;NOL&quot;, &quot;NOL&quot;, &quot;NOL&quot;, &quot;NOL&quot;, &quot;NOL&quot;, &quot;NOL&quot;, &quot;NOL&quot;, &quot;…</span></span></code></pre></div>
+<p>Majd pár kisebb átalakítást hajtunk végre az adatainkon. Először is ehhez a modellhez most csak a Népszabadság cikkeket fogjuk alkalmazni a Magyar Nemzet cikkeit kiszedjük az adataink közül. Ezután leegyszerűsítjük a kódolást. Összesen 21 témakört lefed a cikkek kézi kódolása most viszont ezekből egy bináris változót készítünk, amelynek 1 lesz az értéke, ha a cikk makrogazdaságról szól, ha pedig bármilyne más témakörről, akkor 0 lesz az értéke. A két fajta cikkből összesen 10000 db-os mintat veszunk, amelyben a két típus egyenlő arányban van jelen. A modellek pedig az ide történő besorolálst próbálják majd megállapítani a cikkek szövege alapján vagyis, hogy makrogazdasági témáról szól-e az adott cikk, vagy valamilyen más témáról. Majd kiválasztjuk a táblából a két változó, amelyekre szükségünk lesz a cikkek szövegét <code>text</code> és a cikkekhez kézzel hozzárendelt témát <code>label</code> a többit pedig elvetjük.</p>
 <div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="felugyelt.html#cb241-1" tabindex="-1"></a>Data_NOL <span class="ot">&lt;-</span> Data_NOL_MNO <span class="sc">%&gt;%</span> </span>
 <span id="cb241-2"><a href="felugyelt.html#cb241-2" tabindex="-1"></a>  <span class="fu">subset</span>(corpus <span class="sc">==</span> <span class="st">&quot;NOL&quot;</span> <span class="sc">&amp;</span> <span class="fu">is.na</span>(text) <span class="sc">==</span> F) <span class="sc">%&gt;%</span> </span>
 <span id="cb241-3"><a href="felugyelt.html#cb241-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">label =</span> <span class="fu">if_else</span>(majortopic_code <span class="sc">==</span> <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>)) <span class="sc">%&gt;%</span> </span>
@@ -412,7 +412,7 @@ div.csl-indent {
 <span id="cb250-3"><a href="felugyelt.html#cb250-3" tabindex="-1"></a><span class="co">#&gt;                  becsult_osztaly</span></span>
 <span id="cb250-4"><a href="felugyelt.html#cb250-4" tabindex="-1"></a><span class="co">#&gt; tenyleges_osztaly    0    1</span></span>
 <span id="cb250-5"><a href="felugyelt.html#cb250-5" tabindex="-1"></a><span class="co">#&gt;                 0 3310  463</span></span>
-<span id="cb250-6"><a href="felugyelt.html#cb250-6" tabindex="-1"></a><span class="co">#&gt;                 1  794 2933</span></span></code></pre></div>
+<span id="cb250-6"><a href="felugyelt.html#cb250-6" tabindex="-1"></a><span class="co">#&gt;                 1  793 2934</span></span></code></pre></div>
 <p>Ezt létrehozhatjuk a <code>caret</code> csomag funkciójával is, amely a tévesztési tábla mellett sok más hasznos adatot is megad a számunkra.</p>
 <div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="felugyelt.html#cb251-1" tabindex="-1"></a><span class="fu">confusionMatrix</span>(eredmeny_tabla, <span class="at">mode =</span> <span class="st">&quot;everything&quot;</span>)</span>
 <span id="cb251-2"><a href="felugyelt.html#cb251-2" tabindex="-1"></a><span class="co">#&gt; Confusion Matrix and Statistics</span></span>
@@ -420,9 +420,9 @@ div.csl-indent {
 <span id="cb251-4"><a href="felugyelt.html#cb251-4" tabindex="-1"></a><span class="co">#&gt;                  becsult_osztaly</span></span>
 <span id="cb251-5"><a href="felugyelt.html#cb251-5" tabindex="-1"></a><span class="co">#&gt; tenyleges_osztaly    0    1</span></span>
 <span id="cb251-6"><a href="felugyelt.html#cb251-6" tabindex="-1"></a><span class="co">#&gt;                 0 3310  463</span></span>
-<span id="cb251-7"><a href="felugyelt.html#cb251-7" tabindex="-1"></a><span class="co">#&gt;                 1  794 2933</span></span>
+<span id="cb251-7"><a href="felugyelt.html#cb251-7" tabindex="-1"></a><span class="co">#&gt;                 1  793 2934</span></span>
 <span id="cb251-8"><a href="felugyelt.html#cb251-8" tabindex="-1"></a><span class="co">#&gt;                                         </span></span>
-<span id="cb251-9"><a href="felugyelt.html#cb251-9" tabindex="-1"></a><span class="co">#&gt;                Accuracy : 0.832         </span></span>
+<span id="cb251-9"><a href="felugyelt.html#cb251-9" tabindex="-1"></a><span class="co">#&gt;                Accuracy : 0.833         </span></span>
 <span id="cb251-10"><a href="felugyelt.html#cb251-10" tabindex="-1"></a><span class="co">#&gt;                  95% CI : (0.824, 0.841)</span></span>
 <span id="cb251-11"><a href="felugyelt.html#cb251-11" tabindex="-1"></a><span class="co">#&gt;     No Information Rate : 0.547         </span></span>
 <span id="cb251-12"><a href="felugyelt.html#cb251-12" tabindex="-1"></a><span class="co">#&gt;     P-Value [Acc &gt; NIR] : &lt;2e-16        </span></span>
@@ -437,7 +437,7 @@ div.csl-indent {
 <span id="cb251-21"><a href="felugyelt.html#cb251-21" tabindex="-1"></a><span class="co">#&gt;          Neg Pred Value : 0.787         </span></span>
 <span id="cb251-22"><a href="felugyelt.html#cb251-22" tabindex="-1"></a><span class="co">#&gt;               Precision : 0.877         </span></span>
 <span id="cb251-23"><a href="felugyelt.html#cb251-23" tabindex="-1"></a><span class="co">#&gt;                  Recall : 0.807         </span></span>
-<span id="cb251-24"><a href="felugyelt.html#cb251-24" tabindex="-1"></a><span class="co">#&gt;                      F1 : 0.840         </span></span>
+<span id="cb251-24"><a href="felugyelt.html#cb251-24" tabindex="-1"></a><span class="co">#&gt;                      F1 : 0.841         </span></span>
 <span id="cb251-25"><a href="felugyelt.html#cb251-25" tabindex="-1"></a><span class="co">#&gt;              Prevalence : 0.547         </span></span>
 <span id="cb251-26"><a href="felugyelt.html#cb251-26" tabindex="-1"></a><span class="co">#&gt;          Detection Rate : 0.441         </span></span>
 <span id="cb251-27"><a href="felugyelt.html#cb251-27" tabindex="-1"></a><span class="co">#&gt;    Detection Prevalence : 0.503         </span></span>
@@ -445,7 +445,7 @@ div.csl-indent {
 <span id="cb251-29"><a href="felugyelt.html#cb251-29" tabindex="-1"></a><span class="co">#&gt;                                         </span></span>
 <span id="cb251-30"><a href="felugyelt.html#cb251-30" tabindex="-1"></a><span class="co">#&gt;        &#39;Positive&#39; Class : 0             </span></span>
 <span id="cb251-31"><a href="felugyelt.html#cb251-31" tabindex="-1"></a><span class="co">#&gt; </span></span></code></pre></div>
-<p>Az eredményeken pedig láthatjuk, hogy még az egyszerűség kedvéért lecsökkentett méretű tanítási halmaz ellenére is egy kifejezett magas 83.25%-os pontossági értéket kapunk, amely többé-kevésbé megfeletethető egy kizárólag kézikódolással végzett vizsgálat pontosságának. Ezt követően a kapott eredményeket a mérésünk minőségéről egy táblázatba rendezzük, későbbi összehasonlítás céljából.</p>
+<p>Az eredményeken pedig láthatjuk, hogy még az egyszerűség kedvéért lecsökkentett méretű tanítási halmaz ellenére is egy kifejezett magas 83.25%-os pontossági értéket kapunk, amely többé-kevésbé megfeleltethető egy kizárólag kézikódolással végzett vizsgálat pontosságának. Ezt követően a kapott eredményeket a mérésünk minőségéről egy táblázatba rendezzük, későbbi összehasonlítás céljából.</p>
 <div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="felugyelt.html#cb252-1" tabindex="-1"></a>nb_eredmenyek <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">confusionMatrix</span>(eredmeny_tabla, <span class="at">mode =</span> <span class="st">&quot;prec_recall&quot;</span>)[<span class="dv">4</span>])</span>
 <span id="cb252-2"><a href="felugyelt.html#cb252-2" tabindex="-1"></a>nb_eredmenyek<span class="sc">$</span>meres <span class="ot">&lt;-</span> <span class="fu">row.names</span>(nb_eredmenyek)</span>
 <span id="cb252-3"><a href="felugyelt.html#cb252-3" tabindex="-1"></a>nb_eredmenyek<span class="sc">$</span>modszer <span class="ot">&lt;-</span> <span class="st">&quot;Naïve Bayes&quot;</span></span>
@@ -463,39 +463,39 @@ div.csl-indent {
 <span id="cb255-2"><a href="felugyelt.html#cb255-2" tabindex="-1"></a>eredmeny_tabla_svm</span>
 <span id="cb255-3"><a href="felugyelt.html#cb255-3" tabindex="-1"></a><span class="co">#&gt;                      becsult_osztaly_svm</span></span>
 <span id="cb255-4"><a href="felugyelt.html#cb255-4" tabindex="-1"></a><span class="co">#&gt; tenyleges_osztaly_svm    0    1</span></span>
-<span id="cb255-5"><a href="felugyelt.html#cb255-5" tabindex="-1"></a><span class="co">#&gt;                     0 3061  712</span></span>
-<span id="cb255-6"><a href="felugyelt.html#cb255-6" tabindex="-1"></a><span class="co">#&gt;                     1  578 3149</span></span></code></pre></div>
+<span id="cb255-5"><a href="felugyelt.html#cb255-5" tabindex="-1"></a><span class="co">#&gt;                     0 3066  707</span></span>
+<span id="cb255-6"><a href="felugyelt.html#cb255-6" tabindex="-1"></a><span class="co">#&gt;                     1  581 3146</span></span></code></pre></div>
 <p>Valamint jelen esetben is használhatjuk a <code>caret</code> csomagban található funkciót, hogy még több információt nyerjünk ki a modellünk működéséről.</p>
 <div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="felugyelt.html#cb256-1" tabindex="-1"></a><span class="fu">confusionMatrix</span>(eredmeny_tabla_svm, <span class="at">mode =</span> <span class="st">&quot;everything&quot;</span>)</span>
 <span id="cb256-2"><a href="felugyelt.html#cb256-2" tabindex="-1"></a><span class="co">#&gt; Confusion Matrix and Statistics</span></span>
 <span id="cb256-3"><a href="felugyelt.html#cb256-3" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb256-4"><a href="felugyelt.html#cb256-4" tabindex="-1"></a><span class="co">#&gt;                      becsult_osztaly_svm</span></span>
 <span id="cb256-5"><a href="felugyelt.html#cb256-5" tabindex="-1"></a><span class="co">#&gt; tenyleges_osztaly_svm    0    1</span></span>
-<span id="cb256-6"><a href="felugyelt.html#cb256-6" tabindex="-1"></a><span class="co">#&gt;                     0 3061  712</span></span>
-<span id="cb256-7"><a href="felugyelt.html#cb256-7" tabindex="-1"></a><span class="co">#&gt;                     1  578 3149</span></span>
-<span id="cb256-8"><a href="felugyelt.html#cb256-8" tabindex="-1"></a><span class="co">#&gt;                                         </span></span>
-<span id="cb256-9"><a href="felugyelt.html#cb256-9" tabindex="-1"></a><span class="co">#&gt;                Accuracy : 0.828         </span></span>
-<span id="cb256-10"><a href="felugyelt.html#cb256-10" tabindex="-1"></a><span class="co">#&gt;                  95% CI : (0.819, 0.836)</span></span>
-<span id="cb256-11"><a href="felugyelt.html#cb256-11" tabindex="-1"></a><span class="co">#&gt;     No Information Rate : 0.515         </span></span>
-<span id="cb256-12"><a href="felugyelt.html#cb256-12" tabindex="-1"></a><span class="co">#&gt;     P-Value [Acc &gt; NIR] : &lt; 2e-16       </span></span>
-<span id="cb256-13"><a href="felugyelt.html#cb256-13" tabindex="-1"></a><span class="co">#&gt;                                         </span></span>
-<span id="cb256-14"><a href="felugyelt.html#cb256-14" tabindex="-1"></a><span class="co">#&gt;                   Kappa : 0.656         </span></span>
-<span id="cb256-15"><a href="felugyelt.html#cb256-15" tabindex="-1"></a><span class="co">#&gt;                                         </span></span>
-<span id="cb256-16"><a href="felugyelt.html#cb256-16" tabindex="-1"></a><span class="co">#&gt;  Mcnemar&#39;s Test P-Value : 0.000213      </span></span>
-<span id="cb256-17"><a href="felugyelt.html#cb256-17" tabindex="-1"></a><span class="co">#&gt;                                         </span></span>
-<span id="cb256-18"><a href="felugyelt.html#cb256-18" tabindex="-1"></a><span class="co">#&gt;             Sensitivity : 0.841         </span></span>
-<span id="cb256-19"><a href="felugyelt.html#cb256-19" tabindex="-1"></a><span class="co">#&gt;             Specificity : 0.816         </span></span>
-<span id="cb256-20"><a href="felugyelt.html#cb256-20" tabindex="-1"></a><span class="co">#&gt;          Pos Pred Value : 0.811         </span></span>
-<span id="cb256-21"><a href="felugyelt.html#cb256-21" tabindex="-1"></a><span class="co">#&gt;          Neg Pred Value : 0.845         </span></span>
-<span id="cb256-22"><a href="felugyelt.html#cb256-22" tabindex="-1"></a><span class="co">#&gt;               Precision : 0.811         </span></span>
-<span id="cb256-23"><a href="felugyelt.html#cb256-23" tabindex="-1"></a><span class="co">#&gt;                  Recall : 0.841         </span></span>
-<span id="cb256-24"><a href="felugyelt.html#cb256-24" tabindex="-1"></a><span class="co">#&gt;                      F1 : 0.826         </span></span>
-<span id="cb256-25"><a href="felugyelt.html#cb256-25" tabindex="-1"></a><span class="co">#&gt;              Prevalence : 0.485         </span></span>
-<span id="cb256-26"><a href="felugyelt.html#cb256-26" tabindex="-1"></a><span class="co">#&gt;          Detection Rate : 0.408         </span></span>
-<span id="cb256-27"><a href="felugyelt.html#cb256-27" tabindex="-1"></a><span class="co">#&gt;    Detection Prevalence : 0.503         </span></span>
-<span id="cb256-28"><a href="felugyelt.html#cb256-28" tabindex="-1"></a><span class="co">#&gt;       Balanced Accuracy : 0.828         </span></span>
-<span id="cb256-29"><a href="felugyelt.html#cb256-29" tabindex="-1"></a><span class="co">#&gt;                                         </span></span>
-<span id="cb256-30"><a href="felugyelt.html#cb256-30" tabindex="-1"></a><span class="co">#&gt;        &#39;Positive&#39; Class : 0             </span></span>
+<span id="cb256-6"><a href="felugyelt.html#cb256-6" tabindex="-1"></a><span class="co">#&gt;                     0 3066  707</span></span>
+<span id="cb256-7"><a href="felugyelt.html#cb256-7" tabindex="-1"></a><span class="co">#&gt;                     1  581 3146</span></span>
+<span id="cb256-8"><a href="felugyelt.html#cb256-8" tabindex="-1"></a><span class="co">#&gt;                                        </span></span>
+<span id="cb256-9"><a href="felugyelt.html#cb256-9" tabindex="-1"></a><span class="co">#&gt;                Accuracy : 0.828        </span></span>
+<span id="cb256-10"><a href="felugyelt.html#cb256-10" tabindex="-1"></a><span class="co">#&gt;                  95% CI : (0.82, 0.837)</span></span>
+<span id="cb256-11"><a href="felugyelt.html#cb256-11" tabindex="-1"></a><span class="co">#&gt;     No Information Rate : 0.514        </span></span>
+<span id="cb256-12"><a href="felugyelt.html#cb256-12" tabindex="-1"></a><span class="co">#&gt;     P-Value [Acc &gt; NIR] : &lt; 2e-16      </span></span>
+<span id="cb256-13"><a href="felugyelt.html#cb256-13" tabindex="-1"></a><span class="co">#&gt;                                        </span></span>
+<span id="cb256-14"><a href="felugyelt.html#cb256-14" tabindex="-1"></a><span class="co">#&gt;                   Kappa : 0.657        </span></span>
+<span id="cb256-15"><a href="felugyelt.html#cb256-15" tabindex="-1"></a><span class="co">#&gt;                                        </span></span>
+<span id="cb256-16"><a href="felugyelt.html#cb256-16" tabindex="-1"></a><span class="co">#&gt;  Mcnemar&#39;s Test P-Value : 0.000496     </span></span>
+<span id="cb256-17"><a href="felugyelt.html#cb256-17" tabindex="-1"></a><span class="co">#&gt;                                        </span></span>
+<span id="cb256-18"><a href="felugyelt.html#cb256-18" tabindex="-1"></a><span class="co">#&gt;             Sensitivity : 0.841        </span></span>
+<span id="cb256-19"><a href="felugyelt.html#cb256-19" tabindex="-1"></a><span class="co">#&gt;             Specificity : 0.817        </span></span>
+<span id="cb256-20"><a href="felugyelt.html#cb256-20" tabindex="-1"></a><span class="co">#&gt;          Pos Pred Value : 0.813        </span></span>
+<span id="cb256-21"><a href="felugyelt.html#cb256-21" tabindex="-1"></a><span class="co">#&gt;          Neg Pred Value : 0.844        </span></span>
+<span id="cb256-22"><a href="felugyelt.html#cb256-22" tabindex="-1"></a><span class="co">#&gt;               Precision : 0.813        </span></span>
+<span id="cb256-23"><a href="felugyelt.html#cb256-23" tabindex="-1"></a><span class="co">#&gt;                  Recall : 0.841        </span></span>
+<span id="cb256-24"><a href="felugyelt.html#cb256-24" tabindex="-1"></a><span class="co">#&gt;                      F1 : 0.826        </span></span>
+<span id="cb256-25"><a href="felugyelt.html#cb256-25" tabindex="-1"></a><span class="co">#&gt;              Prevalence : 0.486        </span></span>
+<span id="cb256-26"><a href="felugyelt.html#cb256-26" tabindex="-1"></a><span class="co">#&gt;          Detection Rate : 0.409        </span></span>
+<span id="cb256-27"><a href="felugyelt.html#cb256-27" tabindex="-1"></a><span class="co">#&gt;    Detection Prevalence : 0.503        </span></span>
+<span id="cb256-28"><a href="felugyelt.html#cb256-28" tabindex="-1"></a><span class="co">#&gt;       Balanced Accuracy : 0.829        </span></span>
+<span id="cb256-29"><a href="felugyelt.html#cb256-29" tabindex="-1"></a><span class="co">#&gt;                                        </span></span>
+<span id="cb256-30"><a href="felugyelt.html#cb256-30" tabindex="-1"></a><span class="co">#&gt;        &#39;Positive&#39; Class : 0            </span></span>
 <span id="cb256-31"><a href="felugyelt.html#cb256-31" tabindex="-1"></a><span class="co">#&gt; </span></span></code></pre></div>
 <p>Itt ismét azt találjuk, hogy a csökkentett méretű korpusz ellenére is egy kifejezetten magas pontossági értéket 82.83%-ot kapunk. Az eredményeinket ismét egy adattáblába rendezzük, amelyet végül összekötünk az első táblánnkkal, hogy a két módszert a korábban tárgyalt három mérőszám alapján is összehasonlítsuk.</p>
 <div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="felugyelt.html#cb257-1" tabindex="-1"></a>svm_eredmenyek <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">confusionMatrix</span>(eredmeny_tabla_svm, <span class="at">mode =</span> <span class="st">&quot;prec_recall&quot;</span>)[<span class="dv">4</span>])</span>

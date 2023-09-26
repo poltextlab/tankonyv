@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4 Korpuszépítés és szövegelőkészítés | Szövegbányászat és mesterséges intelligencia R-ben</title>
   <meta name="description" content="4 Korpuszépítés és szövegelőkészítés | Szövegbányászat és mesterséges intelligencia R-ben" />
-  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4 Korpuszépítés és szövegelőkészítés | Szövegbányászat és mesterséges intelligencia R-ben" />
   <meta property="og:type" content="book" />
@@ -55,7 +55,7 @@
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.10.1/plotly.js"></script>
+<script src="libs/plotly-binding-4.10.2/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
@@ -338,13 +338,13 @@ div.csl-indent {
 <span id="cb44-3"><a href="corpus_ch.html#cb44-3" tabindex="-1"></a>r</span>
 <span id="cb44-4"><a href="corpus_ch.html#cb44-4" tabindex="-1"></a><span class="co">#&gt; {html_document}</span></span>
 <span id="cb44-5"><a href="corpus_ch.html#cb44-5" tabindex="-1"></a><span class="co">#&gt; &lt;html lang=&quot;hu&quot; class=&quot;no-js&quot;&gt;</span></span>
-<span id="cb44-6"><a href="corpus_ch.html#cb44-6" tabindex="-1"></a><span class="co">#&gt; [1] &lt;head&gt;\n&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset ...</span></span>
-<span id="cb44-7"><a href="corpus_ch.html#cb44-7" tabindex="-1"></a><span class="co">#&gt; [2] &lt;body class=&quot;index&quot;&gt;\n\n\t&lt;script&gt;\n\t  (function(i,s,o,g,r,a,m){i[ ...</span></span></code></pre></div>
+<span id="cb44-6"><a href="corpus_ch.html#cb44-6" tabindex="-1"></a><span class="co">#&gt; [1] &lt;head&gt;\n&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot;&gt;\n&lt;meta charset=&quot;utf-8&quot;&gt;\n&lt;meta http-equiv=&quot;X-UA-C ...</span></span>
+<span id="cb44-7"><a href="corpus_ch.html#cb44-7" tabindex="-1"></a><span class="co">#&gt; [2] &lt;body class=&quot;index&quot;&gt;\n\n\t&lt;script&gt;\n\t  (function(i,s,o,g,r,a,m){i[&#39;GoogleAnalyticsObject&#39;]=r;i[r]=i[r]||function(){\n\t  (i[ ...</span></span></code></pre></div>
 <p>Ezután a <code>html_nodes()</code> függvény argumentumaként meg kell adnunk azt a HTML címkét vagy CSS azonosítót, ami a legyűjteni kívánt elemeket azonosítja a weboldalon. [^websraping] Ezeket az azonosítókat az adott weboldal forráskódjának megtekintésével tudhatjuk meg, amire a különböző böngészők különböző lehetőségeket kínálnak. Majd a <code>html_text()</code> függvény segítségével megkapjuk azokat a szövegeket, amelyek az adott weblapon az adott azonosítóval rendelkeznek.</p>
 <p>Példánkban a <a href="https://poltextlab.tk.hu/hu" class="uri">https://poltextlab.tk.hu/hu</a> weboldalról azokat az információkat szeretnénk kigyűjteni, amelyek az <code>&lt;title&gt;</code> címke alatt szerepelnek.</p>
 <div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="corpus_ch.html#cb45-1" tabindex="-1"></a>title <span class="ot">&lt;-</span> <span class="fu">read_html</span>(<span class="st">&quot;https://poltextlab.tk.hu/hu&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb45-2"><a href="corpus_ch.html#cb45-2" tabindex="-1"></a>  rvest<span class="sc">::</span><span class="fu">html_nodes</span>(<span class="st">&quot;title&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb45-3"><a href="corpus_ch.html#cb45-3" tabindex="-1"></a>  rvest<span class="sc">::</span><span class="fu">html_text</span>()</span>
+<span id="cb45-2"><a href="corpus_ch.html#cb45-2" tabindex="-1"></a>    rvest<span class="sc">::</span><span class="fu">html_nodes</span>(<span class="st">&quot;title&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb45-3"><a href="corpus_ch.html#cb45-3" tabindex="-1"></a>    rvest<span class="sc">::</span><span class="fu">html_text</span>()</span>
 <span id="cb45-4"><a href="corpus_ch.html#cb45-4" tabindex="-1"></a></span>
 <span id="cb45-5"><a href="corpus_ch.html#cb45-5" tabindex="-1"></a>title</span>
 <span id="cb45-6"><a href="corpus_ch.html#cb45-6" tabindex="-1"></a><span class="co">#&gt; [1] &quot;MTA TK Political and Legal Text Mining and Artificial Intelligence Laboratory (poltextLAB)&quot;</span></span></code></pre></div>
@@ -411,11 +411,9 @@ div.csl-indent {
 <span id="cb50-11"><a href="corpus_ch.html#cb50-11" tabindex="-1"></a>toks1</span>
 <span id="cb50-12"><a href="corpus_ch.html#cb50-12" tabindex="-1"></a><span class="co">#&gt; Tokens consisting of 1 document.</span></span>
 <span id="cb50-13"><a href="corpus_ch.html#cb50-13" tabindex="-1"></a><span class="co">#&gt; text1 :</span></span>
-<span id="cb50-14"><a href="corpus_ch.html#cb50-14" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;Példa&quot;             &quot;az&quot;                &quot;előkészítés&quot;      </span></span>
-<span id="cb50-15"><a href="corpus_ch.html#cb50-15" tabindex="-1"></a><span class="co">#&gt;  [4] &quot;Az&quot;                &quot;előkészítés&quot;       &quot;a&quot;                </span></span>
-<span id="cb50-16"><a href="corpus_ch.html#cb50-16" tabindex="-1"></a><span class="co">#&gt;  [7] &quot;szövetisztítással&quot; &quot;kell&quot;              &quot;megkezdenünk&quot;     </span></span>
-<span id="cb50-17"><a href="corpus_ch.html#cb50-17" tabindex="-1"></a><span class="co">#&gt; [10] &quot;Az&quot;                &quot;előkészítés&quot;       &quot;korpuszon&quot;        </span></span>
-<span id="cb50-18"><a href="corpus_ch.html#cb50-18" tabindex="-1"></a><span class="co">#&gt; [ ... and 2 more ]</span></span></code></pre></div>
+<span id="cb50-14"><a href="corpus_ch.html#cb50-14" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;Példa&quot;             &quot;az&quot;                &quot;előkészítés&quot;       &quot;Az&quot;                &quot;előkészítés&quot;       &quot;a&quot;                </span></span>
+<span id="cb50-15"><a href="corpus_ch.html#cb50-15" tabindex="-1"></a><span class="co">#&gt;  [7] &quot;szövetisztítással&quot; &quot;kell&quot;              &quot;megkezdenünk&quot;      &quot;Az&quot;                &quot;előkészítés&quot;       &quot;korpuszon&quot;        </span></span>
+<span id="cb50-16"><a href="corpus_ch.html#cb50-16" tabindex="-1"></a><span class="co">#&gt; [ ... and 2 more ]</span></span></code></pre></div>
 <p>A fenti <code>text1</code> objektumban tárolt szöveg szótövezését az alábbiak szerint tudjuk elvégezni. Megvizsgálva az előkészítés különböző alakjainak lemmatizált és stemmelt változatát jól láthatjuk a két módszer közötti különbséget.</p>
 <div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="corpus_ch.html#cb51-1" tabindex="-1"></a>text1 <span class="ot">&lt;-</span> <span class="st">&quot;Példa az előkészítésre. Az előkészítést a szövetisztítással kell megkezdenünk. Az előkészített korpuszon elemzést végzünk&quot;</span></span>
 <span id="cb51-2"><a href="corpus_ch.html#cb51-2" tabindex="-1"></a></span>
@@ -426,11 +424,9 @@ div.csl-indent {
 <span id="cb51-7"><a href="corpus_ch.html#cb51-7" tabindex="-1"></a>toks2</span>
 <span id="cb51-8"><a href="corpus_ch.html#cb51-8" tabindex="-1"></a><span class="co">#&gt; Tokens consisting of 1 document.</span></span>
 <span id="cb51-9"><a href="corpus_ch.html#cb51-9" tabindex="-1"></a><span class="co">#&gt; text1 :</span></span>
-<span id="cb51-10"><a href="corpus_ch.html#cb51-10" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;Példa&quot;           &quot;az&quot;              &quot;előkészítésr&quot;   </span></span>
-<span id="cb51-11"><a href="corpus_ch.html#cb51-11" tabindex="-1"></a><span class="co">#&gt;  [4] &quot;Az&quot;              &quot;előkészítést&quot;    &quot;a&quot;              </span></span>
-<span id="cb51-12"><a href="corpus_ch.html#cb51-12" tabindex="-1"></a><span class="co">#&gt;  [7] &quot;szövetisztításs&quot; &quot;kell&quot;            &quot;megkezdenünk&quot;   </span></span>
-<span id="cb51-13"><a href="corpus_ch.html#cb51-13" tabindex="-1"></a><span class="co">#&gt; [10] &quot;Az&quot;              &quot;előkészített&quot;    &quot;korpuszon&quot;      </span></span>
-<span id="cb51-14"><a href="corpus_ch.html#cb51-14" tabindex="-1"></a><span class="co">#&gt; [ ... and 2 more ]</span></span></code></pre></div>
+<span id="cb51-10"><a href="corpus_ch.html#cb51-10" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;Példa&quot;           &quot;az&quot;              &quot;előkészítésr&quot;    &quot;Az&quot;              &quot;előkészítést&quot;    &quot;a&quot;               &quot;szövetisztításs&quot;</span></span>
+<span id="cb51-11"><a href="corpus_ch.html#cb51-11" tabindex="-1"></a><span class="co">#&gt;  [8] &quot;kell&quot;            &quot;megkezdenünk&quot;    &quot;Az&quot;              &quot;előkészített&quot;    &quot;korpuszon&quot;      </span></span>
+<span id="cb51-12"><a href="corpus_ch.html#cb51-12" tabindex="-1"></a><span class="co">#&gt; [ ... and 2 more ]</span></span></code></pre></div>
 </div>
 <div id="dokumentum-kifejezés-mátrix-dtm-dfm" class="section level3 hasAnchor" number="4.2.2">
 <h3><span class="header-section-number">4.2.2</span> Dokumentum kifejezés mátrix (dtm, dfm)<a href="corpus_ch.html#dokumentum-kifejezés-mátrix-dtm-dfm" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -479,22 +475,18 @@ div.csl-indent {
 <span id="cb54-12"><a href="corpus_ch.html#cb54-12" tabindex="-1"></a>  <span class="fu">dfm</span>()</span></code></pre></div>
 <p>A <code>topfeatures()</code> függvény segítségével megnézhetjük a mátrix leggyakoribb szavait, a függvény argumentumában megadva a dokumentum kifejezés mátrix nevét és a kívánt kifejezésszámot.</p>
 <div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="corpus_ch.html#cb55-1" tabindex="-1"></a>quanteda<span class="sc">::</span><span class="fu">topfeatures</span>(lawtext_dfm, <span class="dv">15</span>)</span>
-<span id="cb55-2"><a href="corpus_ch.html#cb55-2" tabindex="-1"></a><span class="co">#&gt;         the    bekezdés          of         áll    szerződő rendelkezés </span></span>
-<span id="cb55-3"><a href="corpus_ch.html#cb55-3" tabindex="-1"></a><span class="co">#&gt;        7942        5877        5666        4267        3620        3403 </span></span>
-<span id="cb55-4"><a href="corpus_ch.html#cb55-4" tabindex="-1"></a><span class="co">#&gt;     törvény          to        hely          an     személy          év </span></span>
-<span id="cb55-5"><a href="corpus_ch.html#cb55-5" tabindex="-1"></a><span class="co">#&gt;        3312        3290        3114        3068        3048        2975 </span></span>
-<span id="cb55-6"><a href="corpus_ch.html#cb55-6" tabindex="-1"></a><span class="co">#&gt;      kiadás           b          ha </span></span>
-<span id="cb55-7"><a href="corpus_ch.html#cb55-7" tabindex="-1"></a><span class="co">#&gt;        2884        2831        2794</span></span></code></pre></div>
+<span id="cb55-2"><a href="corpus_ch.html#cb55-2" tabindex="-1"></a><span class="co">#&gt;         the    bekezdés          of         áll    szerződő rendelkezés     törvény          to        hely          an     személy </span></span>
+<span id="cb55-3"><a href="corpus_ch.html#cb55-3" tabindex="-1"></a><span class="co">#&gt;        7942        5877        5666        4267        3620        3403        3312        3290        3114        3068        3048 </span></span>
+<span id="cb55-4"><a href="corpus_ch.html#cb55-4" tabindex="-1"></a><span class="co">#&gt;          év      kiadás           b          ha </span></span>
+<span id="cb55-5"><a href="corpus_ch.html#cb55-5" tabindex="-1"></a><span class="co">#&gt;        2975        2884        2831        2794</span></span></code></pre></div>
 <p>Mivel látható, hogy a szövegekben sok angol kifejezés is volt egy következő lépcsőben az angol stopszavakat is eltávolítjuk.</p>
 <div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="corpus_ch.html#cb56-1" tabindex="-1"></a>lawtext_dfm_2 <span class="ot">&lt;-</span> quanteda<span class="sc">::</span><span class="fu">dfm_remove</span>(lawtext_dfm, <span class="at">pattern =</span> <span class="fu">stopwords</span>(<span class="st">&quot;english&quot;</span>))</span></code></pre></div>
 <p>Ezután megnézzük a leggyakoribb 15 kifejezést.</p>
 <div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="corpus_ch.html#cb57-1" tabindex="-1"></a><span class="fu">topfeatures</span>(lawtext_dfm_2, <span class="dv">15</span>)</span>
-<span id="cb57-2"><a href="corpus_ch.html#cb57-2" tabindex="-1"></a><span class="co">#&gt;     bekezdés          áll     szerződő  rendelkezés      törvény </span></span>
-<span id="cb57-3"><a href="corpus_ch.html#cb57-3" tabindex="-1"></a><span class="co">#&gt;         5877         4267         3620         3403         3312 </span></span>
-<span id="cb57-4"><a href="corpus_ch.html#cb57-4" tabindex="-1"></a><span class="co">#&gt;         hely      személy           év       kiadás            b </span></span>
-<span id="cb57-5"><a href="corpus_ch.html#cb57-5" tabindex="-1"></a><span class="co">#&gt;         3114         3048         2975         2884         2831 </span></span>
-<span id="cb57-6"><a href="corpus_ch.html#cb57-6" tabindex="-1"></a><span class="co">#&gt;           ha    következő költségvetés      működés         eset </span></span>
-<span id="cb57-7"><a href="corpus_ch.html#cb57-7" tabindex="-1"></a><span class="co">#&gt;         2794         2398         2376         2325         2070</span></span></code></pre></div>
+<span id="cb57-2"><a href="corpus_ch.html#cb57-2" tabindex="-1"></a><span class="co">#&gt;     bekezdés          áll     szerződő  rendelkezés      törvény         hely      személy           év       kiadás            b </span></span>
+<span id="cb57-3"><a href="corpus_ch.html#cb57-3" tabindex="-1"></a><span class="co">#&gt;         5877         4267         3620         3403         3312         3114         3048         2975         2884         2831 </span></span>
+<span id="cb57-4"><a href="corpus_ch.html#cb57-4" tabindex="-1"></a><span class="co">#&gt;           ha    következő költségvetés      működés         eset </span></span>
+<span id="cb57-5"><a href="corpus_ch.html#cb57-5" tabindex="-1"></a><span class="co">#&gt;         2794         2398         2376         2325         2070</span></span></code></pre></div>
 <p>A következő lépés, hogy TF-IDF súlyozású statisztikát készítünk, a dokumentum kifejezés mátrix alapján. Ehhez először létrehozzuk a <code>lawtext_tfidf</code> nevű objektumot, majd a <code>textstat_frequency()</code> függvény segítségével kilistázzuk annak első 10 elemét.</p>
 <div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="corpus_ch.html#cb58-1" tabindex="-1"></a>lawtext_tfidf <span class="ot">&lt;-</span> quanteda<span class="sc">::</span><span class="fu">dfm_tfidf</span>(lawtext_dfm_2)</span>
 <span id="cb58-2"><a href="corpus_ch.html#cb58-2" tabindex="-1"></a></span>
