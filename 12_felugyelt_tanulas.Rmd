@@ -41,7 +41,7 @@ Az alábbi fejezetben a CAP magyar média gyűjteményéből a napilap címlapok
 
 [^sml-2]: A kódkönyv regisztrációt követően elérhető az alábbi linken: [https://cap.tk.hu/kozpolitikai-cap](https://cap.tk.hu/kozpolitikai-cap)
 
-Annak érdekében, hogy egyértelműen értékelhessük a gépi tanulás hatékonyságát, a kiválasztott cikkcsoport (azaz a teszthalmaz) esetében is ismerjük a kézi kódolás eredményét („éles“ kutatási helyzetben, ismeretlen kódok esetében ugyanakkor ezt gyakran szintén csak egy kisebb mintán tudjuk kézzel validálni). További fontos lépés, hogy az észszerű futási idő érdekében a gyakorlat során a teljes adatbázisból -- és ezen belül is csak a Népszabadság részhalmazból -- fogunk venni egy 4500 darabos mintát. Ezen a mintán pedigg a már korábban említett kétféle modellt fogjuk futtatni a NB-t és az SVM-t. Az ezekkel a módszerekkel létrehozott két modellünk hatékonyságát fogjuk összehasonlítani, valamint azt is megfogjuk nézni, hogy az eredmények megbízhatósága mennyiben közelíti meg a kézikódolási módszerre jellemző 80-90%-os pontosságot.
+Annak érdekében, hogy egyértelműen értékelhessük a gépi tanulás hatékonyságát, a kiválasztott cikkcsoport (azaz a teszthalmaz) esetében is ismerjük a kézi kódolás eredményét („éles“ kutatási helyzetben, ismeretlen kódok esetében ugyanakkor ezt gyakran szintén csak egy kisebb mintán tudjuk kézzel validálni). További fontos lépés, hogy az észszerű futási idő érdekében a gyakorlat során a teljes adatbázisból -- és ezen belül is csak a Népszabadság részhalmazból -- fogunk venni egy 4500 darabos mintát. Ezen a mintán pedig a már korábban említett kétféle modellt fogjuk futtatni a NB-t és az SVM-t. Az ezekkel a módszerekkel létrehozott két modellünk hatékonyságát fogjuk összehasonlítani, valamint azt is megfogjuk nézni, hogy az eredmények megbízhatósága mennyiben közelíti meg a kézikódolási módszerre jellemző 80-90%-os pontosságot.
 
 Először behívjuk a szükséges csomagokat.  Majd a felügyelet nélküli tanulással foglalkozó fejezethez hasonlóan itt is alkalmazzuk a `set.seed()` funkciót, mivel anélkül nem egyeznének az eredményeink teljes mértékben egy a kódunk egy késöbbi újrafuttatása esetén.
 
@@ -63,7 +63,7 @@ Data_NOL_MNO <- HunMineR::data_nol_mno_clean
 glimpse(Data_NOL_MNO)
 ```
 
-Majd pár kissebb átalakítást hajtunk végre az adatainkon. Először is ehhez a modellhez most csak a Népszabadság cikkeket fogjuk alkalmazni a Magyar Nemzet cikkeit kiszedjük az adataink közül. Ezután leegyszerűsítjük a kódolást. Összesen 21 témakört lefed a cikkek kézi kódolása most viszont ezekből egy bináris változót készítünk, amelynek 1 lesz az értéke, ha a cikk makrogazdaságról szól, ha pedig bármilyne más témakörről, akkor 0 lesz az értéke. A két fajta cikkből összesen 10000 db-os mintat veszunk, amelyben a két típus egyenlő arányban van jelen. A modellek pedig az ide történő besorolálst próbálják majd megállapítani a cikkek szövege alapján vagyis, hogy makrogazdasági témáról szól-e az adott cikk, vagy valamilyen más témáról. Majd kiválasztjuk a táblából a két változó, amelyekre szükségünk lesz a cikkek szövegét `text` és a cikkekhez kézzel hozzárendelt téműt `label` a többit pedig elvetjük.
+Majd pár kisebb átalakítást hajtunk végre az adatainkon. Először is ehhez a modellhez most csak a Népszabadság cikkeket fogjuk alkalmazni a Magyar Nemzet cikkeit kiszedjük az adataink közül. Ezután leegyszerűsítjük a kódolást. Összesen 21 témakört lefed a cikkek kézi kódolása most viszont ezekből egy bináris változót készítünk, amelynek 1 lesz az értéke, ha a cikk makrogazdaságról szól, ha pedig bármilyne más témakörről, akkor 0 lesz az értéke. A két fajta cikkből összesen 10000 db-os mintat veszunk, amelyben a két típus egyenlő arányban van jelen. A modellek pedig az ide történő besorolálst próbálják majd megállapítani a cikkek szövege alapján vagyis, hogy makrogazdasági témáról szól-e az adott cikk, vagy valamilyen más témáról. Majd kiválasztjuk a táblából a két változó, amelyekre szükségünk lesz a cikkek szövegét `text` és a cikkekhez kézzel hozzárendelt témát `label` a többit pedig elvetjük.
 
 ```{r include = TRUE}
 Data_NOL <- Data_NOL_MNO %>% 
@@ -149,7 +149,7 @@ Ezt létrehozhatjuk a  `caret ` csomag funkciójával is, amely a tévesztési t
 confusionMatrix(eredmeny_tabla, mode = "everything")
 ``` 
 
-Az eredményeken pedig láthatjuk, hogy még az egyszerűség kedvéért lecsökkentett méretű tanítási halmaz ellenére is egy kifejezett magas 83.25%-os pontossági értéket kapunk, amely többé-kevésbé megfeletethető egy kizárólag kézikódolással végzett vizsgálat pontosságának. Ezt követően a kapott eredményeket a mérésünk minőségéről egy táblázatba rendezzük, későbbi összehasonlítás céljából.
+Az eredményeken pedig láthatjuk, hogy még az egyszerűség kedvéért lecsökkentett méretű tanítási halmaz ellenére is egy kifejezett magas 83.25%-os pontossági értéket kapunk, amely többé-kevésbé megfeleltethető egy kizárólag kézikódolással végzett vizsgálat pontosságának. Ezt követően a kapott eredményeket a mérésünk minőségéről egy táblázatba rendezzük, későbbi összehasonlítás céljából.
 
 ```{r include = TRUE}
 nb_eredmenyek <- data.frame(confusionMatrix(eredmeny_tabla, mode = "prec_recall")[4])
