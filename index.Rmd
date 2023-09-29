@@ -27,28 +27,34 @@ A könyv megrendelhető a [Typotex kiadó honlapján!](https://www.typotex.hu/bo
 Az újítások teljes listája:
 
 Első fejezet
-- Frissítettük a felhasznált R csomagok listáját.
-- Az Ady és Petőfi versekhez beraktunk egy példát a közös szavak kivonására.
+
+* Frissítettük a felhasznált R csomagok listáját.
+* Az Ady és Petőfi versekhez beraktunk egy példát a közös szavak kivonására.
 
 Harmadik fejezet
-- Pontosítottuk a példa linkjét.
-- Pipe operátor definícióját bővítettük.
+
+* Pontosítottuk a példa linkjét.
+* Pipe operátor definícióját bővítettük.
 
 Ötödik fejezet
-- A kódrészleteket több helyen fejlesztettük.
-- dfm_ifidf() függvény definícióját bővítettük.
-- textstat_lexdiv() függvény definícióját bővítettük.
+
+* A kódrészleteket több helyen fejlesztettük.
+* dfm_ifidf() függvény definícióját bővítettük.
+* textstat_lexdiv() függvény definícióját bővítettük.
 
 Kilencedik fejezet
-- A stopszavakat a HunMineR beépített szótárával használjuk fel a Quanteda helyett.
+
+* A stopszavakat a HunMineR beépített szótárával használjuk fel a Quanteda helyett.
 
 Tizenegyedik fejezet
-- A fejezetet átdolgoztuk, több ponton bővítettünk leírásokat, kódrészleteket.
+
+* A fejezetet átdolgoztuk, több ponton bővítettünk leírásokat, kódrészleteket.
 
 Tizenkettedik fejezet
-- Javítottuk a használt mutatók terminológiáját, illetve feltüntettük a mutatók képleteit.
-- A 12. fejezet végén összehasonlítjuk a Naïve Bayes és a Support-vector machine eredményeit.
-- Több helyen javítottuk a leírásokat és a kódrészleteket.
+
+* Javítottuk a használt mutatók terminológiáját, illetve feltüntettük a mutatók képleteit.
+* A 12. fejezet végén összehasonlítjuk a Naïve Bayes és a Support-vector machine eredményeit.
+* Több helyen javítottuk a leírásokat és a kódrészleteket.
 
 
 Javasolt hivatkozás: 
