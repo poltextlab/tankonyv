@@ -8,7 +8,7 @@ source("_common.R")
 
 ## Szövegbeszerzés
 
-A szövegbányászati elemzések egyik első lépése az elemzés alapjául szolgáló korpusz megépítése. A korpuszt alkotó szövegek beszerzésének egyik módja a *webscarping*, melynek során weboldalakról történik az információ kinyerése.
+A szövegbányászati elemzések egyik első lépése az elemzés alapjául szolgáló korpusz megépítése. A korpuszt alkotó szövegek beszerzésének egyik módja a *webscraping*, melynek során weboldalakról történik az információ kinyerése.
 
 A scrapelést végezhetjük R-ben az `rvest` csomag segítségével. Fejezetünkben a scrapelésnek csupán néhány alaplépését mutatjuk meg.[^bovebb_info]
 
