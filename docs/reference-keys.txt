@@ -44,7 +44,6 @@ a-kötet-témái
 használati-utasítás
 a-hunminer-használata
 handson
-köszönetnyilvánítás
 alapfogalmak
 big-data-és-társadalomtudomány
 fogalmi-alapok
