@@ -22,7 +22,7 @@ A magyar tankönyvpiacon elsőként ismertetünk lépésről-lépésre a nemzetk
 
 A könyv megrendelhető a [Typotex kiadó honlapján!](https://www.typotex.hu/book/11810/sebok_szovegbanyaszat_es_mesterseges_intelligencia_r_ben)
 
-A Szövegbányászat és mesterséges intelligencia R-ben szerkesztette Sebők Miklós, Ring Orsolya, és Máté Ákos frissített verziója már online elérhető, a könyv a MILAB projekt támogatásával került publikációra. Az eredeti kéziratot megjelenése óta több helyen kiegészítettük gyakorlati példákkal és ábrákkal, melyek listáját alább közöljük.
+Az eredeti kéziratot megjelenése óta több helyen kiegészítettük gyakorlati példákkal és ábrákkal, melyek listáját alább közöljük.
 
 ## 2.0 - Online frissítések {-}
 
