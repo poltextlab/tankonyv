@@ -23,10 +23,10 @@ fig:unnamed-chunk-146
 fig:unnamed-chunk-148
 fig:unnamed-chunk-149
 fig:embedding
-fig:unnamed-chunk-175
 fig:eiffel
 fig:pozicio
 fig:partbanpoz
+fig:unnamed-chunk-178
 tab:unnamed-chunk-180
 fig:cosheat
 fig:jaccardheat
@@ -35,6 +35,11 @@ fig:lineplot
 fig:boxplot
 fig:govopp
 fig:OGYnevelem
+fig:precisionertek
+fig:recallertek
+fig:f1ertek
+fig:svm1
+fig:svm2
 fig:unnamed-chunk-253
 fig:unnamed-chunk-254
 fig:unnamed-chunk-255
@@ -84,8 +89,8 @@ word2vec-és-glove
 glove-használata-magyar-média-korpuszon
 scaling
 fogalmi-alapok-3
-wordscores
 wordfish
+wordscores
 similarity
 a-szövegösszehasonlítás-különböző-megközelítései
 lexikális-hasonlóság

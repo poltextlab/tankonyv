@@ -245,8 +245,8 @@ div.csl-indent {
 <li class="chapter" data-level="9" data-path="scaling.html"><a href="scaling.html"><i class="fa fa-check"></i><b>9</b> Szövegskálázás</a>
 <ul>
 <li class="chapter" data-level="9.1" data-path="scaling.html"><a href="scaling.html#fogalmi-alapok-3"><i class="fa fa-check"></i><b>9.1</b> Fogalmi alapok</a></li>
-<li class="chapter" data-level="9.2" data-path="scaling.html"><a href="scaling.html#wordscores"><i class="fa fa-check"></i><b>9.2</b> Wordscores</a></li>
-<li class="chapter" data-level="9.3" data-path="scaling.html"><a href="scaling.html#wordfish"><i class="fa fa-check"></i><b>9.3</b> Wordfish</a></li>
+<li class="chapter" data-level="9.2" data-path="scaling.html"><a href="scaling.html#wordfish"><i class="fa fa-check"></i><b>9.2</b> Wordfish</a></li>
+<li class="chapter" data-level="9.3" data-path="scaling.html"><a href="scaling.html#wordscores"><i class="fa fa-check"></i><b>9.3</b> Wordscores</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="similarity.html"><a href="similarity.html"><i class="fa fa-check"></i><b>10</b> Szövegösszehasonlítás</a>
 <ul>
@@ -387,7 +387,7 @@ div.csl-indent {
 <div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="leiro_stat.html#cb63-1" tabindex="-1"></a>mineln_jobb <span class="ot">&lt;-</span> quanteda<span class="sc">::</span><span class="fu">corpus_subset</span>(corpus_mineln, pm <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;antall_jozsef&quot;</span>, <span class="st">&quot;boross_peter&quot;</span>, </span>
 <span id="cb63-2"><a href="leiro_stat.html#cb63-2" tabindex="-1"></a>    <span class="st">&quot;orban_viktor&quot;</span>))</span>
 <span id="cb63-3"><a href="leiro_stat.html#cb63-3" tabindex="-1"></a></span>
-<span id="cb63-4"><a href="leiro_stat.html#cb63-4" tabindex="-1"></a>mineln_bal <span class="ot">&lt;-</span> quanteda<span class="sc">::</span><span class="fu">corpus_subset</span>(corpus_mineln, pm <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;horn_gyula&quot;</span>, <span class="st">&quot;gyurcsany_ferenc&quot;</span>, </span>
+<span id="cb63-4"><a href="leiro_stat.html#cb63-4" tabindex="-1"></a>mineln_bal <span class="ot">&lt;-</span> quanteda<span class="sc">::</span><span class="fu">corpus_subset</span>(corpus_mineln, pm <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;horn_gyula&quot;</span>, <span class="st">&quot;gyurcsány_ferenc&quot;</span>, </span>
 <span id="cb63-5"><a href="leiro_stat.html#cb63-5" tabindex="-1"></a>    <span class="st">&quot;medgyessy_peter&quot;</span>, <span class="st">&quot;bajnai_gordon&quot;</span>))</span>
 <span id="cb63-6"><a href="leiro_stat.html#cb63-6" tabindex="-1"></a></span>
 <span id="cb63-7"><a href="leiro_stat.html#cb63-7" tabindex="-1"></a><span class="fu">summary</span>(mineln_jobb)</span>
@@ -399,12 +399,13 @@ div.csl-indent {
 <span id="cb63-13"><a href="leiro_stat.html#cb63-13" tabindex="-1"></a><span class="co">#&gt;   orban_viktor_2018   933   1976       126 2018  orban_viktor      jobb</span></span>
 <span id="cb63-14"><a href="leiro_stat.html#cb63-14" tabindex="-1"></a></span>
 <span id="cb63-15"><a href="leiro_stat.html#cb63-15" tabindex="-1"></a><span class="fu">summary</span>(mineln_bal)</span>
-<span id="cb63-16"><a href="leiro_stat.html#cb63-16" tabindex="-1"></a><span class="co">#&gt; Corpus consisting of 3 documents, showing 3 documents:</span></span>
+<span id="cb63-16"><a href="leiro_stat.html#cb63-16" tabindex="-1"></a><span class="co">#&gt; Corpus consisting of 4 documents, showing 4 documents:</span></span>
 <span id="cb63-17"><a href="leiro_stat.html#cb63-17" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb63-18"><a href="leiro_stat.html#cb63-18" tabindex="-1"></a><span class="co">#&gt;                  Text Types Tokens Sentences year              pm partoldal</span></span>
-<span id="cb63-19"><a href="leiro_stat.html#cb63-19" tabindex="-1"></a><span class="co">#&gt;    bajnai_gordon_2009  1391   3277       201 2009   bajnai_gordon       bal</span></span>
-<span id="cb63-20"><a href="leiro_stat.html#cb63-20" tabindex="-1"></a><span class="co">#&gt;       horn_gyula_1994  1704   4372       226 1994      horn_gyula       bal</span></span>
-<span id="cb63-21"><a href="leiro_stat.html#cb63-21" tabindex="-1"></a><span class="co">#&gt;  medgyessy_peter_2002  1021   2362        82 2002 medgyessy_peter       bal</span></span></code></pre></div>
+<span id="cb63-18"><a href="leiro_stat.html#cb63-18" tabindex="-1"></a><span class="co">#&gt;                   Text Types Tokens Sentences year               pm partoldal</span></span>
+<span id="cb63-19"><a href="leiro_stat.html#cb63-19" tabindex="-1"></a><span class="co">#&gt;     bajnai_gordon_2009  1391   3277       201 2009    bajnai_gordon       bal</span></span>
+<span id="cb63-20"><a href="leiro_stat.html#cb63-20" tabindex="-1"></a><span class="co">#&gt;  gyurcsány_ferenc_2005  2963  10267       454 2005 gyurcsány_ferenc       bal</span></span>
+<span id="cb63-21"><a href="leiro_stat.html#cb63-21" tabindex="-1"></a><span class="co">#&gt;        horn_gyula_1994  1704   4372       226 1994       horn_gyula       bal</span></span>
+<span id="cb63-22"><a href="leiro_stat.html#cb63-22" tabindex="-1"></a><span class="co">#&gt;   medgyessy_peter_2002  1021   2362        82 2002  medgyessy_peter       bal</span></span></code></pre></div>
 <p>A korábban létrehozott „jobb” és „bal” változó segítségével nem csak az egyes dokumentumokat, hanem a két csoportba sorolt beszédeket is összehasonlíthatjuk egymással.</p>
 <div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="leiro_stat.html#cb64-1" tabindex="-1"></a><span class="fu">summary</span>(corpus_mineln) <span class="sc">%&gt;%</span></span>
 <span id="cb64-2"><a href="leiro_stat.html#cb64-2" tabindex="-1"></a>  <span class="fu">group_by</span>(partoldal) <span class="sc">%&gt;%</span></span>
