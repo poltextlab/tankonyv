@@ -74,7 +74,7 @@ Mivel az elemzés során a korpuszon belül két csoportra osztva szeretnénk ö
 mineln_jobb <- quanteda::corpus_subset(corpus_mineln, pm %in% c("antall_jozsef", "boross_peter", 
     "orban_viktor"))
 
-mineln_bal <- quanteda::corpus_subset(corpus_mineln, pm %in% c("horn_gyula", "gyurcsany_ferenc", 
+mineln_bal <- quanteda::corpus_subset(corpus_mineln, pm %in% c("horn_gyula", "gyurcsány_ferenc", 
     "medgyessy_peter", "bajnai_gordon"))
 
 summary(mineln_jobb)

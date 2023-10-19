@@ -110,7 +110,7 @@ source("_common.R")
 ## Hasonlóságszámítás
 ### Adatbázis-importálás és előkészítés
 
-A fejezet második felében a lexikai hasonlóság vizsgálatára, ezen belül a Jaccard-hasonlóság és a koszinusz-hasonlóság számítására mutatunk be egy-egy példát a törvényjavaslatok és az elfogadott törvények szövegeinek összehasonlításával. Az alábbiakban bemutatott elemzés a [@sebokViscosityRevisitedPower2021] megjelenés előtt álló tanulmányból meríti elemzési fókuszát. Az eredeti cikk által megvalósított elemzést a svájci korpusz elemzése nélkül, a magyar korpusz egy részhalmazán replikáljuk az alábbiakban. A kutatási kérdés arra irányul, hogy mennyiben változik meg a törvényjavaslatok szövege a parlamenti vita folyamán, amíg a javaslat elfogadásra kerül. Az elemzés során a különböző kormányzati ciklusok közötti eltérésekre világítunk rá. Az elemzés megkezdése előtt a már ismert módon betöltjük a szükséges csomagokat.
+A fejezet második felében a lexikai hasonlóság vizsgálatára, ezen belül a Jaccard-hasonlóság és a koszinusz-hasonlóság számítására mutatunk be egy-egy példát a törvényjavaslatok és az elfogadott törvények szövegeinek összehasonlításával. Az alábbiakban bemutatott elemzés a [@sebokViscosityRevisitedPower2021] megjelenés előtt álló kéziratból meríti elemzési fókuszát. Az eredeti kézirat által megvalósított elemzést a magyar korpusz egy részhalmazán replikáljuk az alábbiakban. A kutatási kérdés arra irányul, hogy mennyiben változik meg a törvényjavaslatok szövege a parlamenti vita folyamán, amíg a javaslat elfogadásra kerül. Az elemzés során a különböző kormányzati ciklusok közötti eltérésekre világítunk rá. Az elemzés megkezdése előtt a már ismert módon betöltjük a szükséges csomagokat.
 
 ```{r include = TRUE}
 library(stringr)

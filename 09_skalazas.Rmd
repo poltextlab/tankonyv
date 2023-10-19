@@ -8,9 +8,11 @@ source("_common.R")
 
 ## Fogalmi alapok
 
-A politikatudomány egyik izgalmas kérdése a szereplők ideológiai, vagy közpolitikai skálákon való elhelyezése. Ezt jellemzően pártprogramok vagy különböző ügyekkel kapcsolatos álláspontpontok alapján szokták meghatározni, de a politikusok beszédei is alkalmasak arra, hogy meghatározzuk a beszélő ideológiai hovatartozását. A szövegbányászat területén jellemzően a wordfish és a wordscores módszert alkalmazzák erre a feladatra. Míg előbbi a felügyelet nélküli módszerek sorába tartozik, utóbbi felügyelt módszerek közé. A wordscores a szótári módszerekhez hasonlóan a szövegeket a bennük található szavak alapján helyezi el a politikai térben oly módon, hogy az ún. referenciadokumentumok szövegét használja tanító halmazként. A wordscores kiindulópontja, hogy pozíció pontszámokat kell rendelni referencia szövegekhez. A modell számításba veszi a szövegek szavainak súlyozott gyakoriságát és a pozíciópontszám, valamint a szógyakoriság alapján becsüli meg a korpuszban lévő többi dokumentum pozícióját [@laver2003extracting]
+A politikatudomány egyik izgalmas kérdése a szereplők ideológiai, vagy közpolitikai skálákon való elhelyezése. Ezt jellemzően pártprogramok vagy különböző ügyekkel kapcsolatos álláspontpontok alapján szokták meghatározni, de a politikusok beszédei is alkalmasak arra, hogy meghatározzuk a beszélő ideológiai hovatartozását. A szövegbányászat területén jellemzően a wordfish és a wordscores módszert alkalmazzák erre a feladatra. Míg előbbi a felügyelet nélküli módszerek sorába tartozik, utóbbi felügyelt módszerek közé.
 
 A felügyelet nélküli `wordfish` módszer a skálázás során nem a referencia dokumentumokra támaszkodik, hanem olyan kifejezéseket keres a szövegben, amelyek megkülönböztetik egymástól a politikai spektrum különböző pontjain elhelyezkedő beszélőket. Az IRT-n (*item response theory*) alapuló módszer azt feltételezi, hogy a politikusok egy kevés dimenziós politikai térben mozognak, amely tér leírható az *i* politikus $\theta_1$ paraméterével. Egy politikus (vagy párt) ebben a térben elfoglalt helyzete pedig befolyásolja a szavak szövegekben történő használatát. A módszer erőssége, hogy kevés erőforrás-befektetéssel megbízható becsléseket ad, ha a szövegek valóban az ideológiák mentén különböznek, tehát ha a szereplők erősen ideológiai tartalamú diskurzust folytatnak. Alkalmazásakor azonban tudnunk kell: a módszer nem képes kezelni, hogy a szövegek között nem csak ideológiai különbség lehet, hanem például stílusból és témából eredő eltérések is. Mivel a modell nem felügyelt, ezért nehéz garantálni, hogy valóban megbízhatóan azonosítja a szereplők elhelyezkedését a politikai térben, így az eredményeket mindenképpen körültekintően és alaposan kell validálni [@slapinScalingModelEstimating2008;@hjorthComputersCodersVoters2015;@grimmer2013text].
+
+A felügyelt `wordscores` a szótári módszerekhez hasonlóan a szövegeket a bennük található szavak alapján helyezi el a politikai térben oly módon, hogy a referenciadokumentumok szövegét használja tanító halmazként. A wordscores kiindulópontja, hogy pozíció pontszámokat kell rendelni referencia szövegekhez. A modell számításba veszi a szövegek szavainak súlyozott gyakoriságát és a pozíciópontszám, valamint a szógyakoriság alapján becsüli meg a korpuszban lévő többi dokumentum pozícióját [@laver2003extracting].
 
 ```{r}
 library(readr)
@@ -68,6 +70,98 @@ beszedek_dfm <- beszedek_corpus %>%
   tokens() %>% 
   tokens_remove(stopszavak) %>% 
   dfm()
+```
+
+## Wordfish
+
+A wordfish felügyelet nélküli skálázást a `quanteda.textmodels` csomagban implementált `textmodel_wordfish()` függvény fogja végezni. A megadott `dir = c(2, 1)` paraméterrel a két dokumentum relatív $\theta$ értékét tudjuk rögzíteni, mégpedig úgy hogy $\theta_{dir1} < \theta_{dir2}$. Alapbeállításként az algoritmus az első és az utolsó dokumentumot teszi be ide. A lenti példánál mi a pártpozíciók alapján a Jobbikos Vona Gábor és az LMP-s Schiffer András egy-egy beszédét használtuk. A `summary()` használható az illesztett modellel, és a dokumentumonkénti $\theta$ koefficienst tudjuk így megnézni.
+
+```{r}
+beszedek_wf <- quanteda.textmodels::textmodel_wordfish(beszedek_dfm, dir = c(2, 1))
+
+summary(beszedek_wf)
+```
+
+Amennyiben szeretnénk a szavak szintjén is megnézni a $\beta$ (a szavakhoz társított súly, ami a relatív fontosságát mutatja) és $\psi$ (a szó rögzített hatást (*word fixed effects*), ami az eltérő szófrekvencia kezeléséért felelős) koefficienseket, akkor a `beszedek_wf` objektumban tárolt értékeket egy data frame-be tudjuk bemásolni. A dokumentumok hosszát és a szófrekvenciát figyelembe véve, a negatív $\beta$ értékű szavakat gyakrabban használják a negatív $\theta$ koefficienssel rendelkező politikusok.
+
+```{r}
+szavak_wf <- data.frame(
+  word = beszedek_wf$features, 
+  beta = beszedek_wf$beta, 
+  psi = beszedek_wf$psi
+  )
+
+szavak_wf %>% 
+  arrange(beta) %>% 
+  head(n = 15)
+```
+
+Ez a pozitív értékekre is igaz.
+
+```{r}
+szavak_wf %>% 
+  arrange(desc(beta)) %>% 
+  head(n = 15)
+```
+
+Az eredményeinket mind a szavak, mind a dokumentumok szintjén tudjuk vizualizálni. Elsőként a klasszikus „Eiffel-torony” ábrát reprodukáljuk, ami a szavak gyakoriságának és a skálára gyakorolt befolyásának az illusztrálására szolgál. Ehhez a már elkészült `szavak_wf` data framet-et és a `ggplot2` csomagot fogjuk használni. Mivel a korpuszunk nagyon kicsi, ezért csak `r nrow(szavak_wf)` kifejezést fogunk ábrázolni. Ennek ellenére a lényeg kirajzolódik a lenti ábrán is.[^skala-2]
+
+[^skala-2]: A `quanteda.textplots` csomag több megoldást is kínál az ábrák elkészítésére. Mivel ezek a megoldások kifejezetten a quanteda elemzések ábrázolására készültek, ezért rövid egysoros függvényekkel tudunk gyorsan ábrákat készíteni. A hátrányuk, hogy kevésbé tudjuk „személyre szabni” az ábráinkat, mint a `ggplot2` példák esetében. A `quanteda.textplots` megoldásokat ezen a linken demonstrálják a csomag készítői: [https://quanteda.io/articles/pkgdown/examples/plotting.html](https://quanteda.io/articles/pkgdown/examples/plotting.html).
+
+A dokumentumok szintjén is érdemes megvizsgálni az eredményeket. Ehhez a dokumentum szintű paramétereket fogjuk egy data frame-be gyűjteni: a $\theta$ ideológiai pozíciót, illetve a beszélő nevét. A vizualizáció kedvéért a párttagságot is hozzáadjuk. A data frame összerakása után az alsó és a felső határát is kiszámoljuk a konfidencia intervallumnak és azt is ábrázoljuk (ld. \@ref(fig:eiffel). ábra).
+
+Kihasználhatjuk, hogy a `ggplot` ábra definiálása közben a felhasznált bemeneti data frame-et különböző szempontok alapján lehet szűrni. Így ábrázolni tudjuk a gyakran használt, ám semleges szavakat (magas $\psi$, alacsony $\beta$), illetve a ritkább, de meghatározóbb szavakat (magas $\beta$, alacsony $\psi$).
+
+```{r eiffel, fig.cap="A wordfish 'Eiffel-torony'"}
+ggplot(szavak_wf, aes(x = beta, y = psi)) +
+  geom_point(color = "grey") +
+  geom_text_repel(
+    data = filter(szavak_wf, beta > 4.5 | beta < -5 | psi > 0),
+    aes(beta, psi, label = word),
+    alpha = 0.7
+    ) +
+  labs(
+    x = expression(beta),
+    y = expression(psi)
+    )  
+```
+
+Az így kapott ábrán az egyes pontok mind egy szót reprezentálnak, láthatjuk, hogy tipikusan minél magasabb a $\psi$ értékük annál inkább középen helyezkednek el hiszen a leggyakoribb szavak azok, amelyeket mindenki használ politikai spektrumon való elhelyezkedésüktől függetlenül. Az ábra két szélén lévő szavak azok, amelyek specifikusan a skála egy-egy végpontjához kötődnek. Jelen esetben ezek kevésbé beszédések, mivel a korpusz kifejezetten kis méretű és láthatóan további stopszavazás is szükséges.
+
+```{r pozicio, fig.cap="A beszédek egymáshoz viszonyított pozíciója"}
+dokumentumok_wf <- data.frame(
+  speaker = beszedek_wf$x@docvars$felszolalo,
+  part = beszedek_wf$x@docvars$part,
+  theta = beszedek_wf$theta,
+  theta_se = beszedek_wf$se.theta
+) %>% 
+  mutate(
+    lower = theta - 1.96 * theta_se,
+    upper = theta + 1.96 * theta_se
+  )
+
+ggplot(dokumentumok_wf, aes(theta, reorder(speaker, theta))) +
+  geom_point() +
+  geom_errorbarh(aes(xmin = lower, xmax = upper), height = 0) +
+  labs(
+    y = NULL,
+    x = expression(theta)
+  ) 
+```
+
+A párt metaadattal összehasonlíthatjuk az egy párthoz tartozó frakcióvezetők értékeit a `facet_wrap()` használatával. Figyeljünk arra, hogy az `y` tengelyen szabadon változhasson az egyes rész ábrák között, a `scales = "free"` opcióval  (ld. \@ref(fig:pozicio). ábra).
+
+```{r partbanpoz, eval = TRUE,  fig.height = 2, fig.cap="Párton belüli pozíciók"}
+speech_df <- ggplot(dokumentumok_wf, aes(theta, reorder(speaker, theta))) +
+  geom_point() +
+  geom_errorbarh(aes(xmin = lower, xmax = upper), height = 0) +
+  labs(
+    y = NULL,
+    x = "theta"
+  ) +
+  facet_wrap(~part, ncol = 1, scales = "free_y") 
+
+ggplotly(speech_df, height = 1000, tooltip = "theta")
 ```
 
 ## Wordscores
@@ -141,94 +235,3 @@ ggplotly(party_df, height = 1000, tooltip = "fit")
 ```
 
 
-## Wordfish
-
-A wordfish felügyelet nélküli skálázást a `quanteda.textmodels` csomagban implementált `textmodel_wordfish()` függvény fogja végezni. A megadott `dir = c(1, 2)` paraméterrel a két dokumentum relatív $\theta$ értékét tudjuk rögzíteni, mégpedig úgy hogy $\theta_{dir1} < \theta_{dir2}$. Alapbeállításként az algoritmus az első és az utolsó dokumentumot teszi be ide. A lenti példánál mi a pártpozíciók alapján a Jobbikos Vona Gábor és az LMP-s Schiffer András egy-egy beszédét használtuk. A `summary()` használható az illesztett modellel, és a dokumentumonkénti $\theta$ koefficienst tudjuk így megnézni.
-
-```{r}
-beszedek_wf <- quanteda.textmodels::textmodel_wordfish(beszedek_dfm, dir = c(2, 1))
-
-summary(beszedek_wf)
-```
-
-Amennyiben szeretnénk a szavak szintjén is megnézni a $\beta$ (a szavakhoz társított súly, ami a relatív fontosságát mutatja) és $\psi$ (a szó rögzített hatást (*word fixed effects*), ami az eltérő szófrekvencia kezeléséért felelős) koefficienseket, akkor a `beszedek_wf` objektumban tárolt értékeket egy data frame-be tudjuk bemásolni. A dokumentumok hosszát és a szófrekvenciát figyelembe véve, a negatív $\beta$ értékű szavakat gyakrabban használják a negatív $\theta$ koefficienssel rendelkező politikusok.
-
-```{r}
-szavak_wf <- data.frame(
-  word = beszedek_wf$features, 
-  beta = beszedek_wf$beta, 
-  psi = beszedek_wf$psi
-  )
-
-szavak_wf %>% 
-  arrange(beta) %>% 
-  head(n = 15)
-```
-
-Ez a pozitív értékekre is igaz.
-
-```{r}
-szavak_wf %>% 
-  arrange(desc(beta)) %>% 
-  head(n = 15)
-```
-
-Az eredményeinket mind a szavak, mind a dokumentumok szintjén tudjuk vizualizálni. Elsőként a klasszikus „Eiffel-torony” ábrát reprodukáljuk, ami a szavak gyakoriságának és a skálára gyakorolt befolyásának az illusztrálására szolgál. Ehhez a már elkészült `szavak_wf` data framet-et és a `ggplot2` csomagot fogjuk használni. Mivel a korpuszunk nagyon kicsi, ezért csak `r nrow(szavak_wf)` kifejezést fogunk ábrázolni. Ennek ellenére a lényeg kirajzolódik a lenti ábrán is.[^skala-2]
-
-[^skala-2]: A `quanteda.textplots` csomag több megoldást is kínál az ábrák elkészítésére. Mivel ezek a megoldások kifejezetten a quanteda elemzések ábrázolására készültek, ezért rövid egysoros függvényekkel tudunk gyorsan ábrákat készíteni. A hátrányuk, hogy kevésbé tudjuk „személyre szabni” az ábráinkat, mint a `ggplot2` példák esetében. A `quanteda.textplots` megoldásokat ezen a linken demonstrálják a csomag készítői: [https://quanteda.io/articles/pkgdown/examples/plotting.html](https://quanteda.io/articles/pkgdown/examples/plotting.html).
-
-Kihasználhatjuk, hogy a `ggplot` ábra definiálása közben a felhasznált bemeneti data frame-et különböző szempontok alapján lehet szűrni. Így ábrázolni tudjuk a gyakran használt, ám semleges szavakat (magas $\psi$, alacsony $\beta$), illetve a ritkább, de meghatározóbb szavakat (magas $\beta$, alacsony $\psi$).
-
-```{r eiffel, fig.cap="A wordfish 'Eiffel-torony'"}
-ggplot(szavak_wf, aes(x = beta, y = psi)) +
-  geom_point(color = "grey") +
-  geom_text_repel(
-    data = filter(szavak_wf, beta > 4.5 | beta < -5 | psi > 0),
-    aes(beta, psi, label = word),
-    alpha = 0.7
-    ) +
-  labs(
-    x = expression(beta),
-    y = expression(psi)
-    )  
-```
-
-Az így kapott ábrán az egyes pontok mind egy szót reprezentálnak, láthatjuk, hogy tipikusan minél magasabb a $\psi$ értékük annál inkább középen helyezkednek el hiszen a leggyakoribb szavak azok, amelyeket mindenki használ politikai spektrumon való elhelyezkedésüktől függetlenül. Az ábra két szélén lévő szavak azok, amelyek specifikusan a skála egy-egy végpontjához kötődnek. Jelen esetben ezek kevésbé beszédések, mivel a korpusz kifejezetten kis méretű és láthatóan további stopszavazás is szükséges.
-
-A dokumentumok szintjén is érdemes megvizsgálni az eredményeket. Ehhez a dokumentum szintű paramétereket fogjuk egy data frame-be gyűjteni: a $\theta$ ideológiai pozíciót, illetve a beszélő nevét. A vizualizáció kedvéért a párttagságot is hozzáadjuk. A data frame összerakása után az alsó és a felső határát is kiszámoljuk a konfidencia intervallumnak és azt is ábrázoljuk (ld. \@ref(fig:eiffel). ábra).
-
-```{r pozicio, fig.cap="A beszédek egymáshoz viszonyított pozíciója"}
-dokumentumok_wf <- data.frame(
-  speaker = beszedek_wf$x@docvars$felszolalo,
-  part = beszedek_wf$x@docvars$part,
-  theta = beszedek_wf$theta,
-  theta_se = beszedek_wf$se.theta
-) %>% 
-  mutate(
-    lower = theta - 1.96 * theta_se,
-    upper = theta + 1.96 * theta_se
-  )
-
-ggplot(dokumentumok_wf, aes(theta, reorder(speaker, theta))) +
-  geom_point() +
-  geom_errorbarh(aes(xmin = lower, xmax = upper), height = 0) +
-  labs(
-    y = NULL,
-    x = expression(theta)
-  ) 
-```
-
-A párt metaadattal összehasonlíthatjuk az egy párthoz tartozó frakcióvezetők értékeit a `facet_wrap()` használatával. Figyeljünk arra, hogy az `y` tengelyen szabadon változhasson az egyes rész ábrák között, a `scales = "free"` opcióval  (ld. \@ref(fig:pozicio). ábra).
-
-```{r partbanpoz, eval = TRUE,  fig.height = 2, fig.cap="Párton belüli pozíciók"}
-speech_df <- ggplot(dokumentumok_wf, aes(theta, reorder(speaker, theta))) +
-  geom_point() +
-  geom_errorbarh(aes(xmin = lower, xmax = upper), height = 0) +
-  labs(
-    y = NULL,
-    x = "wordscores"
-  ) +
-  facet_wrap(~part, ncol = 1, scales = "free_y") 
-
-ggplotly(speech_df, height = 1000, tooltip = "theta")
-```

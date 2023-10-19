@@ -9,33 +9,48 @@ source("_common.R")
 
 A mesterséges intelligencia két fontos társadalomtudományi alkalmazási területe a felügyelet nélküli és a felügyelt tanulás. Míg az első esetben -- ahogy azt a *[Felügyelet nélküli tanulás](#lda_ch)* fejezetben bemutattuk -- az emberi beavatkozás néhány kulcsparaméter megadására (így pl. a kívánt topikok számának meghatározására) szorítkozik, addig a felügyelt tanulás esetében a kutatónak nagyobb mozgástere van "tanítani" a gépet. Ennyiben a felügyelt tanulás alkalmasabb hipotézisek tesztelésére, mint az adatok rejtett mintázatait felfedező felügyelet nélküli tanulás. 
 
-A felügyelt tanulási feladat megoldása egy úgynevezett tanító halmaz (*training set*) meghatározásával kezdődik, melynek során a kutatók saját maguk végzik el kézzel azt a feladatot melyet a továbbiakban gépi közreműködéssel szeretnének nagyobb nagyságrendben, de egyben érvényesen (*validity*) és megbízhatóan (*reliability*) kivitelezni. Eredményeinket az ugyanúgy eredetileg kézzel lekódolt, de a modell-építés során félretett teszthalmazunkon (*test set*) értékelhetjük. Ennek során négy kategóriába rendezzük modellünk előrejelzéseit. Egy, a politikusi beszédeket a pozitív hangulatuk alapján osztályozó példát véve ezek a következők: azok a beszédek amelyeket a modell helyesen sorolt be pozitívba (valódi pozitív), vagy negatívba (valódi negatív), illetve azok, amelyek hibásan szerepelnek a pozitív (hamis-pozitív), vagy a negatív kategóriában (hamis-negatív). Mindezek együttesen egy ún. tévesztési táblát (*confusion matrix*) adnak, melynek további elemzésével ítéletet alkothatunk modellépítésünk eredményességéről.
+A felügyelt tanulási feladat megoldása egy úgynevezett tanító halmaz (*training set*) meghatározásával kezdődik, melynek során a kutatók saját maguk végzik el kézzel azt a feladatot, melyet a továbbiakban gépi közreműködéssel szeretnének nagyobb nagyságrendben, de egyben érvényesen (*validity*) és megbízhatóan (*reliability*) kivitelezni. Eredményeinket az ugyanúgy eredetileg kézzel lekódolt, de a modell-építés során félretett teszthalmazunkon (*test set*) értékelhetjük. Ennek során négy kategóriába rendezzük modellünk előrejelzéseit. Egy, a politikusi beszédeket a pozitív hangulatuk alapján osztályozó példát véve ezek a következők: azok a beszédek amelyeket a modell helyesen sorolt be pozitívba (valódi pozitív), vagy negatívba (valódi negatív), illetve azok, amelyek hibásan szerepelnek a pozitív (hamis-pozitív), vagy a negatív kategóriában (hamis-negatív). Mindezek együttesen egy ún. eredménymátrixot (*confusion matrix*) adnak, melynek további elemzésével ítéletet alkothatunk modellépítésünk eredményességéről.
 
 A felügyelt tanulás számos kutatási feladat megoldására alkalmazhatjuk, melyek közül a leggyakoribbak a különböző osztályozási (*classification*) feladatok. Miközben ezek – így pl. a véleményelemzés – szótáralapú módszertannal is megoldhatóak (lásd a *[Szótárak és érzelemelemzés](#sentiment)* fejezetet), a felügyelt tanulás a nagyobb előkészítési igényt rendszerint jobb eredményekkel és rugalmasabb felhasználhatósággal hálálja meg (gondoljunk csak a szótárak domain-függőségére). A felügyelt tanulás egyben a mesterséges intelligencia kutatásának gyorsan fejlődő területe, mely az e fejezetben tárgyalt algoritmus-központú gépi tanuláson túl az ún. mélytanulás (*deep learning*) és a neurális hálók területén is zajlik egyre látványosabb sikerekkel.
 
 Az egyes modellek pontosságának kiértékelésére általában az F értéket használjuk. Az F érték két másik mérőszám keresztezésével jön létre a *precision* és a *recall*, előbbi a helyes találatok száma az összes találat között. Az utóbbi pedig a megtalált helyes értékek aránya.
 
-![A precision érték képlete](figures/precision.jpg)
+```{r precisionertek, echo=FALSE, out.width="auto", fig.cap="A precision érték képlete"}
+knitr::include_graphics("figures/precision.jpg")
+```
 
-![A recall érték képlete](figures/recall.jpg)
+
+```{r recallertek, echo=FALSE, out.width="auto", fig.cap="A recall érték képlete"}
+knitr::include_graphics("figures/recall.jpg")
+```
+
 
 Ebből a két mérőszámból áll az *F* érték vagy *F1*, amely a két mérőszám harmonikus átlaga.
 
-![Az F1 érték képlete](figures/F1.jpg)
+```{r f1ertek, echo=FALSE, out.width="auto", fig.cap="Az F1 érték képlete"}
+knitr::include_graphics("figures/F1.jpg")
+```
+
 
 Jelen fejezetben két modell fajtát mutatunk be egyazon korpuszon az Support Vector Machine (SVM) és a Naïve Bayes (NB). Mindkettő a fentiekben leírt klasszifikációs feladatot végzi el, viszont eltérő módon működnek. Az SVM a tanító halmazunk dokumentumait vektorként reprezentálja, ami annyit jelent, hogy hozzájuk rendel egy számsort, amely egy közös térben betöltött pozíciójukat reprezentálja.
 
-![A teszthalmaz dokumentumai egy közös térben reprezentálva](figures/svm1.jpg)
+```{r svm1, echo=FALSE, out.width="50%", fig.cap="A tanító halmaz dokumentumai egy közös térben reprezentálva"}
+knitr::include_graphics("figures/svm1.jpg")
+```
+
 
 Ezt követően pedig a különféle képpen képpen felcímkézett dokumentumok között egy vonalat (hyperplane) húz meg, amely a lehető legnagyobb távolságra van minden egyes dokumentumtól.
 
-![A minta osztályozása](figures/svm2.jpg)
+```{r svm2, echo=FALSE, out.width="50%", fig.cap="A minta osztályozása"}
+knitr::include_graphics("figures/svm2.jpg")
+```
 
-Innentől kezdve pedig a modellnek nincs más dolga, mint a tanító halmazon kívül eső dokumentumok vektor értékeit is megállapítani, elhelyezni őket ebben a közös térben, és attól függően, hogy a hyperplane mely oldalára kerülnek besorolni őket. Ezzel szemben az NB a felcímkézett tanító halmazunk szavaihoz egy valószínűségi értéket rendel annak függvényében, hogy az adott szó adott kategóriába tartozó dokumentumokban hányszor jelenik meg, az adott kategória dokumentumainak teljes szószámához képest. Miután a teszt halmazunk dokumentumaiban minden szóhoz hozzárendeltük ezeket a valószínűségi értékeket nincs más dolgunk, mint a teszt halmazunkon kívül eső dokumentumokban felkeresni ugyanezen szavakat, a hozzájuk rendelt valószínűségi értékeket aggregálni és ez alapján minden dokumentumhoz tudunk rendelni több valószínűségi értéket is, amelyek megadják, hogy mekkora eséllyel tartozik a dokumentum a teszt halmazunk egyes kategóriáiba.
+
+Innentől kezdve pedig a modellnek nincs más dolga, mint a tanító halmazon kívül eső dokumentumok vektor értékeit is megállapítani, elhelyezni őket ebben a közös térben, és attól függően, hogy a hyperplane mely oldalára kerülnek besorolni őket. Ezzel szemben az NB a felcímkézett tanító halmazunk szavaihoz egy valószínűségi értéket rendel annak függvényében, hogy az adott szó adott kategóriába tartozó dokumentumokban hányszor jelenik meg, az adott kategória dokumentumainak teljes szószámához képest. Miután a teszthalmazunk dokumentumaiban minden szóhoz hozzárendeltük ezeket a valószínűségi értékeket nincs más dolgunk, mint a tanító halmazunkon kívül eső dokumentumokban felkeresni ugyanezen szavakat, a hozzájuk rendelt valószínűségi értékeket aggregálni és ez alapján minden dokumentumhoz tudunk rendelni több valószínűségi értéket is, amelyek megadják hogy mekkora eséllyel tartozik a dokumentum a teszthalmazunk egyes kategóriáiba.
 
 ## Osztályozás felügyelt tanulással
 
-Az alábbi fejezetben a CAP magyar média gyűjteményéből a napilap címlapokat tartalmazó modult használjuk.[^sml-1] Az induló adatbázis 71875 cikk szövegét és metaadatait (összesen öt változót: sorszám, fájlnév, a közpolitikai osztály kódja, szöveg, illetve a korpusz forrása -- *Magyar Nemzet* vagy *Népszabadság*) tartalmazza. Az a célunk, hogy az egyes cikkekhez kézzel, jó minőségben (két, egymástól függetlenül dolgozó kódoló által) kiosztott és egyeztetett közpolitikai kódokat -- ez a tanítóhalmaz -- arra használjuk, hogy meghatározzuk egy kiválasztott cikkcsoport hasonló kódjait. Az osztályozási feladathoz a CAP közpolitikai kódrendszerét használjuk, mely 21 közpolitikai kategóriát határoz meg az oktatástól az egészségügyön át a honvédelemig. [^sml-2]
+Az alábbi fejezetben a CAP magyar média gyűjteményéből a napilap címlapokat tartalmazó modult használjuk.[^sml-1] Az induló adatbázis 71875 cikk szövegét és metaadatait (összesen öt változót: sorszám, fájlnév, a közpolitikai osztály kódja, szöveg, illetve a korpusz forrása -- *Magyar Nemzet* vagy *Népszabadság*) tartalmazza. Az a célunk, hogy az egyes cikkekhez kézzel, jó minőségben (két, egymástól függetlenül dolgozó kódoló által) kiosztott és egyeztetett közpolitikai kódokat -- ez a tanító halmaz -- arra használjuk, hogy meghatározzuk egy kiválasztott cikkcsoport hasonló kódjait. Az osztályozási feladathoz a CAP közpolitikai kódrendszerét használjuk, mely 21 közpolitikai kategóriát határoz meg az oktatástól az egészségügyön át a honvédelemig. [^sml-2]
 
 [^sml-1]: A korpusz regisztációt követően elérhető az alábbi linken: <https://cap.tk.hu/a-media-es-a-kozvelemeny-napirendje>
 
@@ -43,7 +58,7 @@ Az alábbi fejezetben a CAP magyar média gyűjteményéből a napilap címlapok
 
 Annak érdekében, hogy egyértelműen értékelhessük a gépi tanulás hatékonyságát, a kiválasztott cikkcsoport (azaz a teszthalmaz) esetében is ismerjük a kézi kódolás eredményét („éles“ kutatási helyzetben, ismeretlen kódok esetében ugyanakkor ezt gyakran szintén csak egy kisebb mintán tudjuk kézzel validálni). További fontos lépés, hogy az észszerű futási idő érdekében a gyakorlat során a teljes adatbázisból -- és ezen belül is csak a Népszabadság részhalmazból -- fogunk venni egy 4500 darabos mintát. Ezen a mintán pedig a már korábban említett kétféle modellt fogjuk futtatni a NB-t és az SVM-t. Az ezekkel a módszerekkel létrehozott két modellünk hatékonyságát fogjuk összehasonlítani, valamint azt is megfogjuk nézni, hogy az eredmények megbízhatósága mennyiben közelíti meg a kézikódolási módszerre jellemző 80-90%-os pontosságot.
 
-Először behívjuk a szükséges csomagokat.  Majd a felügyelet nélküli tanulással foglalkozó fejezethez hasonlóan itt is alkalmazzuk a `set.seed()` funkciót, mivel anélkül nem egyeznének az eredményeink teljes mértékben egy a kódunk egy késöbbi újrafuttatása esetén.
+Először behívjuk a szükséges csomagokat.  Majd a felügyelet nélküli tanulással foglalkozó fejezethez hasonlóan itt is alkalmazzuk a `set.seed()` funkciót, mivel anélkül nem egyeznének az eredményeink teljes mértékben egy a kódunk egy későbbi újrafuttatása esetén.
 
 ```{r include = TRUE}
 library(stringr)
@@ -63,7 +78,7 @@ Data_NOL_MNO <- HunMineR::data_nol_mno_clean
 glimpse(Data_NOL_MNO)
 ```
 
-Majd pár kisebb átalakítást hajtunk végre az adatainkon. Először is ehhez a modellhez most csak a Népszabadság cikkeket fogjuk alkalmazni a Magyar Nemzet cikkeit kiszedjük az adataink közül. Ezután leegyszerűsítjük a kódolást. Összesen 21 témakört lefed a cikkek kézi kódolása most viszont ezekből egy bináris változót készítünk, amelynek 1 lesz az értéke, ha a cikk makrogazdaságról szól, ha pedig bármilyne más témakörről, akkor 0 lesz az értéke. A két fajta cikkből összesen 10000 db-os mintat veszunk, amelyben a két típus egyenlő arányban van jelen. A modellek pedig az ide történő besorolálst próbálják majd megállapítani a cikkek szövege alapján vagyis, hogy makrogazdasági témáról szól-e az adott cikk, vagy valamilyen más témáról. Majd kiválasztjuk a táblából a két változó, amelyekre szükségünk lesz a cikkek szövegét `text` és a cikkekhez kézzel hozzárendelt témát `label` a többit pedig elvetjük.
+Majd pár kisebb átalakítást hajtunk végre az adatainkon. Először is ehhez a modellhez most csak a Népszabadság cikkeket fogjuk alkalmazni a Magyar Nemzet cikkeit kiszedjük az adataink közül. Ezután leegyszerűsítjük a kódolást. Összesen 21 témakört lefed a cikkek kézi kódolása most viszont ezekből egy bináris változót készítünk, amelynek 1 lesz az értéke, ha a cikk makrogazdaságról szól, ha pedig bármilyen más témakörről, akkor 0 lesz az értéke. A két fajta cikkből összesen 10000 db-os mintat veszünk, amelyben a két típus egyenlő arányban van jelen. A modellek pedig az ide történő besorolását próbálják majd megállapítani a cikkek szövege alapján: vagyis, hogy makrogazdasági témáról szól-e az adott cikk, vagy valamilyen más témáról. Majd kiválasztjuk a táblából a két változót, amelyekre szükségünk lesz a cikkek szövegét (`text`) és a cikkekhez kézzel hozzárendelt témát (`label`), a többit pedig elvetjük.
 
 ```{r include = TRUE}
 Data_NOL <- Data_NOL_MNO %>% 
@@ -81,14 +96,14 @@ Ezt követően egy korpusszá alakítjuk az objektumunkat.
 nol_corpus <- corpus(Data_NOL)
 ``` 
 
-Majd létrehozunk egy új objektumot id_train néven amely 1 és 4500 között 3600 különböző a `sample()` funkció segítségével véletlenszerűen kiválogatott számot tartalmaz. Utána pedig a korpuszunkhoz hozzá adunk egy új id_numeric elnevezésű változót, amely csupán a megszámozza az egyes cikkeket. Ezeket a késöbbiekben arra fogjuk felhasználni, hogy kialakítsuk a tanító és teszt halmazokat
+Majd létrehozunk egy új objektumot id_train néven, amely 1 és 4500 között 3600 különböző, a `sample()` funkció segítségével véletlenszerűen kiválogatott számot tartalmaz. Utána pedig a korpuszunkhoz hozzáadunk egy új id_numeric elnevezésű változót, amely csupán megszámozza az egyes cikkeket. Ezeket a későbbiekben arra fogjuk felhasználni, hogy kialakítsuk a tanító és teszt halmazokat.
 
 ```{r include = TRUE}
 id_train <- sample(1:10000, 2500, replace = FALSE)
 nol_corpus$id_numeric <- 1:ndoc(nol_corpus)
 ``` 
 
-Ezt követően a korpuszunkat egy tokenekké alakítjuk és ezzel egyidejűleg eltávolítjuk a HunMiner beépített magyar stopszó szótárát, valamint szótövesítést is végrehajtunk. 
+Ezt követően a korpuszunkat tokenekké alakítjuk és ezzel egyidejűleg eltávolítjuk a HunMineR beépített magyar stopszó szótárát, valamint a szótövesítést is végrehajtunk. 
 
 ```{r include = TRUE}
 stopszavak <- HunMineR::data_stopwords_extra
@@ -104,7 +119,7 @@ A tokeneket pedig egy dfm-é alakítjuk.
 nol_dfm <- dfm(nol_toks)
 ``` 
 
-Ezt követően kialakítjunk a tanító és teszt halmazokat a korábban létrehozott változók segítségével. A lenti kód elsősora egy subsetet alakít ki az adattáblánk mindazon soraiból, amelyek id_numeric változója szerepel az id_train számsorban ez lesz a tanító alhalmaz. Majd ennek megfelelően egy másik alhalmazt alakítunk ki a teszteléshez, amely minden olyan sorát fogja tartalmazni adattáblánknak, amely id_numeric változója nem szerepel az id_train számsorban.
+Ezt követően kialakítjunk a tanító és teszt halmazokat a korábban létrehozott változók segítségével. A lenti kód első sora egy subsetet alakít ki az adattáblánk mindazon soraiból, amelyek id_numeric változója szerepel az id_train számsorban, ez lesz a tanító alhalmaz. Majd ennek megfelelően egy másik alhalmazt alakítunk ki a teszteléshez, amely minden olyan sorát fogja tartalmazni adattáblánknak, amely id_numeric változója nem szerepel az id_train számsorban.
 
 ```{r include = TRUE}
 train_dfm <- dfm_subset(nol_dfm, id_numeric %in% id_train)
@@ -115,7 +130,7 @@ Azáltal pedig, hogy kialakítottuk a két alhalmazt el is végeztük az utolsó
 
 ### Naïve Bayes
 
-A fejezet Naïve Bayesre vonatkozó kódjai quanteda tutoriál menetét és kódjait követik.[^quanteda_tutorial] Először létrehozzuk a modellünket, amely számára meghatározzuk, hogy a label változóhoz kell egy predikciót adnia, majd ezt alakalmazzuk az adatainkra. A `dfm_match` parancs segítségével eltávolítjuk a vizsgált dokumentumaink szavai közül mindazokat, amelyek nem szerepeltek a teszt halmazunkba. Erre azért van szükség, mivel az NB csak azokat a szavakat képes kezelni, amelyekhez már hozzárendelt egy valószínűségi értéket, tehát csak azokat, amelyek a teszt halmazban is megtalálhatóak.
+A fejezet Naïve Bayesre vonatkozó kódjai quanteda tutoriál menetét és kódjait követik.[^quanteda_tutorial] Először létrehozzuk a modellünket, amely számára meghatározzuk, hogy a label változóhoz kell egy predikciót adnia, majd ezt alakalmazzuk az adatainkra. A `dfm_match` parancs segítségével eltávolítjuk a vizsgált dokumentumaink szavai közül mindazokat, amelyek nem szerepeltek a tanító halmazunkban. Erre azért van szükség, mivel az NB csak azokat a szavakat képes kezelni, amelyekhez már hozzárendelt egy valószínűségi értéket, tehát csak azokat, amelyek a tanító halmazban is megtalálhatóak.
 
 [^quanteda_tutorial]: [https://tutorials.quanteda.io/machine-learning/nb/](https://tutorials.quanteda.io/machine-learning/nb/)
 
@@ -136,14 +151,14 @@ Majd eltároljuk egy másik objektumban azokat az eredményeket, amelyeket a mod
 becsult_osztaly <- predict(nol_nb, newdata = dfm_kozos)
 ``` 
 
-A két fenti adat segítségével pedig létrehozhatjuk a korábban is említett tévesztési táblát.
+A két fenti adat segítségével pedig létrehozhatjuk a korábban is említett eredménymátrixot.
 
 ```{r include = TRUE}
 eredmeny_tabla <- table(tenyleges_osztaly, becsult_osztaly)
 eredmeny_tabla
 ``` 
 
-Ezt létrehozhatjuk a  `caret ` csomag funkciójával is, amely a tévesztési tábla mellett sok más hasznos adatot is megad a számunkra.
+Ezt létrehozhatjuk a  `caret ` csomag funkciójával is, amely az eredménymátrix mellett sok más hasznos adatot is megad a számunkra.
 
 ```{r include = TRUE}
 confusionMatrix(eredmeny_tabla, mode = "everything")
@@ -173,7 +188,7 @@ tenyleges_osztaly_svm <- dfm_kozos$label
 becsult_osztaly_svm <- predict(nol_svm, newdata = dfm_kozos)
 ``` 
 
-Ismét létrehozhatunk egy egyszerű tévesztési táblát. 
+Ismét létrehozhatunk egy egyszerű eredménymátrixot. 
 
 ```{r include = TRUE}
 eredmeny_tabla_svm <- table(tenyleges_osztaly_svm, becsult_osztaly_svm)
